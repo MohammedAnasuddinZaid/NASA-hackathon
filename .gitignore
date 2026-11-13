@@ -1,0 +1,11 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+*.tsbuildinfo
+.env
+.DS_Store
+Thumbs.db
+tmp/
+scripts/__pycache__/
+# Keep source data and screenshots in the repository.

@@ -1,0 +1,68 @@
+[
+  {
+    "investigation": "PSI-25",
+    "file": "PSI-25_Experimental table_BASS-II.csv",
+    "out": "PSI-25_experimental.csv",
+    "version": 1,
+    "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Experimental+table_BASS-II.csv&version=1&redirect=false",
+    "bytes": 1820,
+    "sha256": "491ba8019afb45c541999282633c2e40947931909cd6c605a70be14dc0ee8d5a",
+    "status": 200,
+    "downloaded_utc": "2026-11-13T16:07:03.911203+00:00"
+  },
+  {
+    "investigation": "PSI-25",
+    "file": "PSI-25_Science Documents_BASS-II_ReadMe.docx",
+    "out": "PSI-25_ReadMe.docx",
+    "version": 2,
+    "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_ReadMe.docx&version=2&redirect=false",
+    "bytes": 1749,
+    "sha256": "b229cd7d1f506be9f82aeffb63ddf69fb12569fc9b13386b7d2112c3f6e3a417",
+    "status": 200,
+    "downloaded_utc": "2026-11-13T16:07:05.848878+00:00"
+  },
+  {
+    "investigation": "PSI-25",
+    "file": "PSI-25_Science Documents_BASS-II_Test.Matrices.xlsx",
+    "out": "PSI-25_Test_Matrices.xlsx",
+    "version": 2,
+    "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_Test.Matrices.xlsx&version=2&redirect=false",
+    "bytes": 1795,
+    "sha256": "0e720d6ace1879aa77c1ff7e3c1978882642d533b4b6a761b87ee9626731cff3",
+    "status": 200,
+    "downloaded_utc": "2026-11-13T16:07:07.925064+00:00"
+  },
+  {
+    "investigation": "PSI-25",
+    "file": "PSI-25_Reference Data_Fan calibration data.xlsx",
+    "out": "PSI-25_Fan_Calibration.xlsx",
+    "version": 2,
+    "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Reference+Data_Fan+calibration+data.xlsx&version=2&redirect=false",
+    "bytes": 1749,
+    "sha256": "126e2c63306f00b8d6bfdee465882f5880600f49e910a5c898bea847713fd33f",
+    "status": 200,
+    "downloaded_utc": "2026-11-13T16:07:09.985085+00:00"
+  },
+  {
+    "investigation": "PSI-98",
+    "file": "PSI-98_Experimental table_SAFFIRE-1.csv",
+    "out": "PSI-98_experimental.csv",
+    "version": 1,
+    "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Experimental+table_SAFFIRE-1.csv&version=1&redirect=false",
+    "bytes": 1826,
+    "sha256": "5b804e0af40ec51820a729883d34328439294f818b1a30febacbb976f0c51ac8",
+    "status": 200,
+    "downloaded_utc": "2026-11-13T16:07:11.534128+00:00"
+  },
+  {
+    "investigation": "PSI-98",
+    "file": "PSI-98_Science Documents_SAFFIRE-I and SAFFIRE-III Readme.docx",
+    "out": "PSI-98_ReadMe.docx",
+    "version": 1,
+    "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Science+Documents_SAFFIRE-I+and+SAFFIRE-III+Readme.docx&version=1&redirect=false",
+    "bytes": 1772,
+    "sha256": "e4a5a09afdfd19310166190473c93676c5cc951855f56c2282c436ece1f46ff4",
+    "status": 200,
+    "downloaded_utc": "2026-11-13T16:07:13.328430+00:00"
+  }
+]

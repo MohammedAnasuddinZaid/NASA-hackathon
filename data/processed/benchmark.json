@@ -1,0 +1,388 @@
+{
+  "generated_at": "2026-11-13T16:44:55.756Z",
+  "total": 30,
+  "passed": 30,
+  "failed": 0,
+  "pass_rate": "100%",
+  "results": [
+    {
+      "id": "B01",
+      "question": "What pressure was BASS-II run at?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "0 of 131",
+        "lack a total-pressure column"
+      ],
+      "actualGrade": "absent",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B02",
+      "question": "What oxygen did BASS2-B1 report?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "BASS2-B1",
+        "22.2"
+      ],
+      "actualGrade": "direct",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B03",
+      "question": "Does the corpus include partial-gravity data?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "0 of 131",
+        "partial-gravity records: 0"
+      ],
+      "actualGrade": "absent",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B04",
+      "question": "Compare BASS-II and Saffire-I.",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "cannot be treated as directly comparable",
+        "similarity score"
+      ],
+      "actualGrade": "absent",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B05",
+      "question": "What did LUCI find?",
+      "expectedGrade": "context",
+      "mustContain": [
+        "not a PSI experiment record",
+        "0.92 mm/s"
+      ],
+      "actualGrade": "context",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B06",
+      "question": "What is missing from the corpus?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "absent across the corpus",
+        "Total pressure: 0 of 131"
+      ],
+      "actualGrade": "direct",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B07",
+      "question": "Is PMMA safe in a lunar cabin?",
+      "expectedGrade": "out-of-scope",
+      "mustContain": [
+        "does not predict fire risk",
+        "No material is labelled safe"
+      ],
+      "actualGrade": "out-of-scope",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B08",
+      "question": "Which records are flagged suspect?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "4 records",
+        "BASS2-P22b"
+      ],
+      "actualGrade": "direct",
+      "citations": 1,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B09",
+      "question": "What is the airspeed of an unladen swallow?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "I can’t answer that from the bundled corpus"
+      ],
+      "actualGrade": "absent",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B10",
+      "question": "What flow did B1 report?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "BASS2-B1",
+        "5 cm/s"
+      ],
+      "actualGrade": "direct",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B11",
+      "question": "What materials are in the corpus?",
+      "expectedGrade": "partial",
+      "mustContain": [
+        "9 parsed material families"
+      ],
+      "actualGrade": "partial",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B12",
+      "question": "What ignition power did Saffire-I use?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "Saffire-I",
+        "182"
+      ],
+      "actualGrade": "direct",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B13",
+      "question": "How many records report total pressure?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "0 of 131"
+      ],
+      "actualGrade": "absent",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B14",
+      "question": "Which records report per-test gravity?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "0 of 131",
+        "investigation-level"
+      ],
+      "actualGrade": "absent",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B15",
+      "question": "What is the oxygen range across the corpus?",
+      "expectedGrade": "partial",
+      "mustContain": [
+        "13.6",
+        "22.2"
+      ],
+      "actualGrade": "partial",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B16",
+      "question": "What did Saffire-I report?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "420 s",
+        "70 s"
+      ],
+      "actualGrade": "direct",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B17",
+      "question": "Why is flow not directly comparable?",
+      "expectedGrade": "partial",
+      "mustContain": [
+        "not share one measurement basis"
+      ],
+      "actualGrade": "partial",
+      "citations": 6,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B18",
+      "question": "What pressure did SAFFIRE1-S1 report?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "No total pressure is reported for SAFFIRE1-S1"
+      ],
+      "actualGrade": "absent",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B19",
+      "question": "What outcome did BASS2-B1 report?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "No standardized outcome"
+      ],
+      "actualGrade": "absent",
+      "citations": 1,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B20",
+      "question": "What gravity did BASS2-T9 report?",
+      "expectedGrade": "partial",
+      "mustContain": [
+        "has no measured per-test gravity",
+        "investigation-level"
+      ],
+      "actualGrade": "partial",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B21",
+      "question": "What is the derived flow for BASS2-B1?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "Derived flow",
+        "5.033"
+      ],
+      "actualGrade": "direct",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B22",
+      "question": "What materials did BASS-II test?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "BASS-II contributes 129"
+      ],
+      "actualGrade": "direct",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B23",
+      "question": "What sources support the corpus?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "passed its identity",
+        "cross-check"
+      ],
+      "actualGrade": "direct",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B24",
+      "question": "What is the oxygen partial pressure for BASS2-B1?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "No total pressure is reported for BASS2-B1"
+      ],
+      "actualGrade": "absent",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B25",
+      "question": "How many records have thickness reported?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "Thickness: 44 of 131"
+      ],
+      "actualGrade": "direct",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B26",
+      "question": "What is the Saffire-I burn time?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "420 s",
+        "70 s"
+      ],
+      "actualGrade": "direct",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B27",
+      "question": "What did LUCI report about spread?",
+      "expectedGrade": "context",
+      "mustContain": [
+        "0.92 mm/s",
+        "1.1 mm/s"
+      ],
+      "actualGrade": "context",
+      "citations": 3,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B28",
+      "question": "What pressure condition is stated for spacesuits?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "0 of 131"
+      ],
+      "actualGrade": "absent",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B29",
+      "question": "What partial-gravity evidence exists for a lunar cabin?",
+      "expectedGrade": "absent",
+      "mustContain": [
+        "0 of 131",
+        "no partial-gravity combustion data"
+      ],
+      "actualGrade": "absent",
+      "citations": 4,
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "B30",
+      "question": "What can FIRETRACE answer?",
+      "expectedGrade": "direct",
+      "mustContain": [
+        "Ask about records"
+      ],
+      "actualGrade": "direct",
+      "citations": 2,
+      "pass": true,
+      "failures": []
+    }
+  ]
+}

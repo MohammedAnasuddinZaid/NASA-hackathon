@@ -1,0 +1,210 @@
+{
+  "generated_at": "2026-11-13T16:44:28.398269+00:00",
+  "sources": [
+    {
+      "source_id": "PSI-25",
+      "investigation_id": "PSI-25",
+      "source_title": "BASS-II experimental table (PSI-25)",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "doi": "10.60555/4qc4-de67",
+      "version": "table v1 (investigation metadata v4)",
+      "original_filename": "PSI-25_experimental.csv",
+      "file_size_bytes": 16590,
+      "sha256": "71e792bf6b5fb5ea620c5dd70fbbac05515992e12aefcf5dff47312caa48c042",
+      "download_timestamp": "2026-11-13T16:08:00.286316+00:00",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "text/csv",
+      "processing_status": "parsed_with_warnings",
+      "role": "experiment_table",
+      "source_locator": "Experimental table tab; CSV rows 2-130",
+      "limitations": [
+        "No total-pressure column.",
+        "No per-test gravity column.",
+        "No standardized outcome column.",
+        "Flow is an instrument display with a slow (~1 min) response, not a calibrated per-test velocity.",
+        "Oxygen sensor was out of calibration and corrected by a constant offset."
+      ]
+    },
+    {
+      "source_id": "PSI-25",
+      "investigation_id": "PSI-25",
+      "source_title": "BASS-II ReadMe and test-matrix explanation",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "doi": "10.60555/4qc4-de67",
+      "version": "document v2",
+      "original_filename": "PSI-25_ReadMe.docx",
+      "file_size_bytes": 21538,
+      "sha256": "69f32647792f54ab2a561e3cdafc6c87d854564fe487aed2b09265286bd84e1d",
+      "download_timestamp": "2026-11-13T16:08:03.035237+00:00",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "processing_status": "parsed",
+      "role": "readme",
+      "source_locator": "Read Me tab; 'Test Matrix explanation'",
+      "limitations": [
+        "Describes columns and known sensor limitations; does not supply per-test pressure or gravity."
+      ]
+    },
+    {
+      "source_id": "PSI-25",
+      "investigation_id": "PSI-25",
+      "source_title": "BASS-II test matrices by principal investigator",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "doi": "10.60555/4qc4-de67",
+      "version": "document v2",
+      "original_filename": "PSI-25_Test_Matrices.xlsx",
+      "file_size_bytes": 28956,
+      "sha256": "1a3b283dd0adec861793bbc4a454aab64d398cd32d6f37d7a1ad0f642879e686",
+      "download_timestamp": "2026-11-13T16:08:06.207022+00:00",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "processing_status": "parsed",
+      "role": "test_matrix_workbook",
+      "source_locator": "Spreadsheets folder; six PI sheets",
+      "limitations": [
+        "Values are formatted differently from the CSV in places; cross-check found no substantive numeric conflict."
+      ]
+    },
+    {
+      "source_id": "PSI-25",
+      "investigation_id": "PSI-25",
+      "source_title": "BASS-II fan calibration data",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "doi": "10.60555/4qc4-de67",
+      "version": "document v2",
+      "original_filename": "PSI-25_Fan_Calibration.xlsx",
+      "file_size_bytes": 23973,
+      "sha256": "bc0dca3efdef44a7774d8dd37aebc0cedae8d67d7bae8c9cbde9590014a3c983",
+      "download_timestamp": "2026-11-13T16:08:08.678793+00:00",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "processing_status": "parsed",
+      "role": "calibration_workbook",
+      "source_locator": "Fan Calibration data sheet; note 'U = 1.0066(AIR)'",
+      "limitations": [
+        "Calibration is day- and restrictor-specific; a single factor is only an approximation.",
+        "Workbook note: fan turns off at a finite voltage above 3.8 V; do not use the 3.8 V zero-flow value."
+      ]
+    },
+    {
+      "source_id": "PSI-98",
+      "investigation_id": "PSI-98",
+      "source_title": "Saffire-I experimental table (PSI-98)",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+      "doi": "10.60555/0t15-1z43",
+      "version": "table v1 (investigation metadata v4)",
+      "original_filename": "PSI-98_experimental.csv",
+      "file_size_bytes": 469,
+      "sha256": "c01f29c62455f0a3b512290ab85e5687ecded326733189f002f580368402308d",
+      "download_timestamp": "2026-11-13T16:08:10.847113+00:00",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "text/csv",
+      "processing_status": "parsed_with_warnings",
+      "role": "experiment_table",
+      "source_locator": "Experimental table tab; CSV rows 2-5",
+      "limitations": [
+        "Only two instrumented samples; remaining rows are pre/post-flow image-set descriptors, not experiments.",
+        "No total-pressure column.",
+        "No per-test gravity column.",
+        "No standardized extinction outcome column."
+      ]
+    },
+    {
+      "source_id": "PSI-98",
+      "investigation_id": "PSI-98",
+      "source_title": "Saffire-I ReadMe",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+      "doi": "10.60555/0t15-1z43",
+      "version": "document v1",
+      "original_filename": "PSI-98_ReadMe.docx",
+      "file_size_bytes": 65426,
+      "sha256": "49c939337fa00a0473f7efa10367288f510afcbf69dd7f5405054a2617d3a66d",
+      "download_timestamp": "2026-11-13T16:08:14.166285+00:00",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "processing_status": "parsed",
+      "role": "readme",
+      "source_locator": "Read Me tab",
+      "limitations": [
+        "Describes objectives, material and image-set organization; does not supply per-test pressure or gravity."
+      ]
+    },
+    {
+      "source_id": "NTRS-20250010653",
+      "investigation_id": "NTRS-20250010653",
+      "source_title": "LUCI NTRS citation metadata",
+      "source_url": "https://ntrs.nasa.gov/citations/20250010653",
+      "doi": null,
+      "version": "citation record",
+      "original_filename": "NTRS_20250010653.json",
+      "file_size_bytes": 5645,
+      "sha256": "a7f842cf384ed21dcd83d1b461a58ff5259273fc5438986b700f9702f7ace87b",
+      "download_timestamp": "2026-11-13T16:10:31.936672+00:00",
+      "license": "NASA public distribution (NTRS)",
+      "license_url": null,
+      "content_type": "application/json",
+      "processing_status": "parsed",
+      "role": "context_metadata",
+      "source_locator": "NTRS citation 20250010653",
+      "limitations": [
+        "Metadata only; LUCI is not part of the PSI experiment corpus.",
+        "No structured per-test data table is provided in this record."
+      ]
+    },
+    {
+      "source_id": "NTRS-20250010653",
+      "investigation_id": "NTRS-20250010653",
+      "source_title": "Lunar Combustion Investigation: Flammability Results from a Rotating Sounding Rocket",
+      "source_url": "https://ntrs.nasa.gov/citations/20250010653",
+      "doi": null,
+      "version": "presentation, 2025-12-06",
+      "original_filename": "NTRS_20250010653_LUCI.pdf",
+      "file_size_bytes": 2906408,
+      "sha256": "bb0aadd2f9543483467b86796e6aa19f4e13c3f8169eec96134015f95ed61d79",
+      "download_timestamp": "2026-11-13T16:12:48.824053+00:00",
+      "license": "NASA public distribution (NTRS)",
+      "license_url": null,
+      "content_type": "application/pdf",
+      "processing_status": "parsed",
+      "role": "context_presentation",
+      "source_locator": "NTRS PDF, 44 slides; pages 12, 16, 19-22",
+      "limitations": [
+        "Presentation of LUCI results, not a PSI experiment table.",
+        "No structured per-test data file is included; results are reported as presentation findings.",
+        "Not directly comparable record-by-record with BASS-II or Saffire."
+      ]
+    }
+  ],
+  "context_sources": [
+    {
+      "source_id": "CHALLENGE-2026",
+      "source_title": "NASA Space Apps Challenge 2026 — Flame in Freefall challenge page",
+      "source_url": "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/",
+      "role": "challenge_context",
+      "license": "NASA Space Apps challenge content; quoted for alignment only",
+      "retrieved": "2026-11-13",
+      "limitations": [
+        "Challenge framing is not an experimental dataset.",
+        "No per-test data are supplied by the challenge page."
+      ]
+    },
+    {
+      "source_id": "NTRS-20250010653",
+      "source_title": "Lunar Combustion Investigation: Flammability Results from a Rotating Sounding Rocket",
+      "source_url": "https://ntrs.nasa.gov/citations/20250010653",
+      "role": "partial_gravity_context",
+      "license": "NASA public distribution (NTRS)",
+      "retrieved": "2026-11-13",
+      "limitations": [
+        "Presentation, 44 slides; no structured per-test data file.",
+        "Not part of the PSI experiment corpus."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+﻿t Us
+Space Apps by the Numbers
+Meet the Team
+Brand Guidelines
+Blog
+Past Events
+2025
+2024
+2023
+Contact Us
+Awards
+About Awards
+2025 Global Winners
+2025 Global Finalists
+2025 Honorable Mentions
+2025 Global Nominees
+Explore the Hackathon
+2026 Hackathon
+2026 Local Events
+2026 Challenges
+Find a Team
+Resources
+Participant FAQs
+Participant Guides
+2026 Space Agency Partners
+Login
+or
+Sign Up
+Menu
+Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data
+NASA Space Apps is funded by NASA's 
+Science Mission Directorate
+ through a contract with 
+Booz Allen Hamilton
+, 
+Mindgrub
+, and 
+SecondMuse
+.
+Copyright Â©2026 NASA | 
+Privacy Policy
+ | 
+Legal
+ | 
+Contact
+ | 
+Resources
+Connect with #SpaceApps
+$RB=[];$RV=function(a){$RT=performance.now();for(var b=0;b
+a&&2E3
+(self.__next_f=self.__next_f||[]).push([0])
+self.__next_f.push([1,"1:"$Sreact.fragment"
+4:I[39756,["/_next/static/chunks/1966ee87877bbc91.js","/_next/static/chunks/edf74424b8b6e461.js"],"default"]
+5:I[37457,["/_next/static/chunks/1966ee87877bbc91.js","/_next/static/chunks/edf74424b8b6e461.js"],"default"]
+7:I[97367,["/_next/static/chunks/1966ee87877bbc91.js","/_next/static/chunks/edf74424b8b6e461.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+a:I[97367,["/_next/static/chunks/1966ee87877bbc91.js","/_next/static/chunks/edf74424b8b6e461.js"],"ViewportBoundary"]
+c:I[97367,["/_next/static/chunks/1966ee87877bbc91.js","/_next/static/chunks/edf74424b8b6e461.js"],"MetadataBoundary"]
+e:I[67409,["/_next/static/chunks/1966ee87877bbc91.js","/_next/static/chunks/edf74424b8b6e461.js"],"default"]
+f:I[24981,["/_next/static/chunks/2bd45f40cc5d6573.js","/_next/static/chunks/d04c481ca7424b28.js","/_next/static/chunks/b43d582805300480.js","/_next/static/chunks/20089cdc3431a20d.js","/_next/static/chunks/c0ccca05d368e444.js"],"default"]
+10:I[96222,["/_next/static/chunks/2bd45f40cc5d6573.js","/_next/static/chunks/d04c481ca7424b28.js","/_next/static/chunks/b43d582805300480.js","/_next/static/chunks/20089cdc3431a20d.js"],"PageHero"]
+11:I[96222,["/_next/static/chunks/2bd45f40cc5d6573.js","/_next/static/chunks/d04c481ca7424b28.js","/_next/static/chunks/b43d582805300480.js","/_next/static/chunks/20089cdc3431a20d.js"],"NotFoundContent"]
+:HL["/_next/static/chunks/84cc554577b25c37.css","style"]
+:HL["/_next/static/chunks/4ea52d28df79d0b4.css","style"]
+:HL["/_next/static/chunks/9dbc7db39af07986.css","style"]
+:HL["/_next/static/chunks/afdaf9f515e96376.css","style"]
+:HL["/_next/static/chunks/97d06f03a26fc9a4.css","style"]
+:HL["/_next/static/chunks/16a33c90f4d5229d.css","style"]
+:HL["/_next/static/chunks/3eed70fef4efa9e8.css","style"]
+:HL["/_next/static/chunks/9959a25a0dbb9dba.css","style"]
+:HL["/_next/static/media/173b4e1ecbfe6c3b-s.p.bb4389f3.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/6d205b44cc8ff5cb-s.p.4b6ba8b5.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/89c2c771ed51f5b8-s.p.62c6b13f.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/b8b552e8609c5636-s.p.25aba60b.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/c76157874a2922f6-s.p.ffb25873.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/cc75fa3e14c3cd04-s.p.0164516d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/d03dd34c0ad8ced2-s.p.dc34d193.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/ffa7ca14c228762d-s.p.3f59869a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/chunks/0aa39911683f64e1.css","style"]
+"])
+self.__next_f.push([1,"0:{"P":null,"b":"Mav9fKpFpUKn9PL5eASvv","c":["","2026","challenges","flame-in-freefall",""],"q":"","i":false,"f":[[["",{"children":["(main)",{"children":[["slug","2026/challenges/flame-in-freefall","c"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/84cc554577b25c37.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/4ea52d28df79d0b4.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/9dbc7db39af07986.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","3",{"rel":"stylesheet","href":"/_next/static/chunks/afdaf9f515e96376.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","4",{"rel":"stylesheet","href":"/_next/static/chunks/97d06f03a26fc9a4.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","5",{"rel":"stylesheet","href":"/_next/static/chunks/16a33c90f4d5229d.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","6",{"rel":"stylesheet","href":"/_next/static/chunks/3eed70fef4efa9e8.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","7",{"rel":"stylesheet","href":"/_next/static/chunks/9959a25a0dbb9dba.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/2bd45f40cc5d6573.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/d04c481ca7424b28.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/b43d582805300480.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/20089cdc3431a20d.js","async":true,"nonce":"$undefined"}]],"$L2"]}],{"children":[["$","$1","c",{"children":[null,"$L3"]}],{"children":[["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L6",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0aa39911683f64e1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]]}],{},null,false,false]},null,false,false]},null,false,false]},[["$","div","l",{"className":"index-module-scss-module___wt83G__loading-wrapper","children":["$","div",null,{"className":"loader-module-scss-module__XbbJCW__loader","children":[false,false,["$","div",null,{"className":"loader-module-scss-module__XbbJCW__ripple","children":[["$","div",null,{}],["$","div",null,{}]]}]]}]}],[],[]],false,false],["$","$1","h",{"children":[null,["$","$La",null,{"children":"$Lb"}],["$","div",null,{"hidden":true,"children":["$","$Lc",null,{"children":["$","$8",null,{"name":"Next.Metadata","children":"$Ld"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],false]],"m":"$undefined","G":["$e",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/9959a25a0dbb9dba.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]]],"S":false}
+"])
+self.__next_f.push([1,"3:["$","section",null,{"className":"index-module-scss-module___wt83G__page","children":["$","$L4",null,{"parallelRouterKey":"children","error":"$f","errorStyles":[],"errorScripts":[["$","script","script-0",{"src":"/_next/static/chunks/c0ccca05d368e444.js","async":true}]],"template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","$L10",null,{"children":["$","div",null,{"className":"page-header-module-scss-module__DrzMzq__container undefined page-header-module-scss-module__DrzMzq__dark","children":["$undefined",["$","div",null,{"className":"page-header-module-scss-module__DrzMzq__content","children":[null,"$undefined",["$","h1",null,{"className":"page-header-module-scss-module__DrzMzq__title","children":"Oops! Page Not Found"}],"$undefined","$undefined"]}]]}]}],["$","div",null,{"className":"container-module-scss-module__GNU7ba__row ","children":[["$","$L11",null,{}],"$undefined"]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]
+b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+"])
+self.__next_f.push([1,"12:I[27201,["/_next/static/chunks/1966ee87877bbc91.js","/_next/static/chunks/edf74424b8b6e461.js"],"IconMark"]
+9:null
+d:[["$","title","0",{"children":"NASA Space Apps Challenge"}],["$","meta","1",{"property":"og:title","content":"Space Apps Challenge"}],["$","meta","2",{"property":"og:description","content":"The NASA Space Apps Challenge offers opportunities for anyone with an interest in space and science to address real-world challenges through our annual hackathon and global community."}],["$","meta","3",{"property":"og:image","content":"https://assets.spaceappschallenge.org/media/images/Space_Apps_2026_

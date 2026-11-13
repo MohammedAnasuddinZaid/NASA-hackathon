@@ -1,0 +1,135 @@
+{
+  "pipeline_version": "0.1.0",
+  "generated_at": "2026-11-13T16:44:28.398269+00:00",
+  "input_rows": {
+    "PSI-25": 129,
+    "PSI-98": 4
+  },
+  "accepted_records": {
+    "PSI-25": 129,
+    "PSI-98": 2,
+    "total": 131
+  },
+  "rejected_rows": [],
+  "excluded_non_experiment_rows": [
+    {
+      "row": 4,
+      "sample": "F1C1/F1C2",
+      "material": "Pre-test flow visulation data for sample 1",
+      "reason": "Pre/post-flow image-set descriptor, not an instrumented experiment."
+    },
+    {
+      "row": 5,
+      "sample": "F2C1/F2C2",
+      "material": "Pre-test flow visulation data for sample 2",
+      "reason": "Pre/post-flow image-set descriptor, not an instrumented experiment."
+    }
+  ],
+  "duplicate_record_ids": [],
+  "duplicate_sample_numbers": [
+    "133m",
+    "144m",
+    "145m",
+    "146m",
+    "174m",
+    "176m",
+    "182m",
+    "196M",
+    "197m",
+    "200m",
+    "202m",
+    "203m",
+    "205M",
+    "208m",
+    "215M",
+    "217m",
+    "218m",
+    "219m",
+    "220m",
+    "221m"
+  ],
+  "quality_counts": {
+    "validated": 71,
+    "partial": 56,
+    "suspect": 4
+  },
+  "coverage": {
+    "oxygen_initial_reported": 131,
+    "oxygen_final_reported": 127,
+    "pressure_reported": 0,
+    "flow_reported": 123,
+    "gravity_per_record_reported": 0,
+    "standardized_outcome_reported": 0,
+    "geometry_parsed": 80,
+    "thickness_parsed": 44,
+    "partial_gravity_records": 0
+  },
+  "quality_flag_counts": {
+    "free_text_note_without_standardized_outcome": 105,
+    "flow_reported_as_sequence_not_single_value": 79,
+    "flow_not_parseable_from_display_field": 8,
+    "material_polymer_not_named_in_row": 4,
+    "final_o2_exceeds_initial_by_more_than_2pp": 2,
+    "date_year_unexpected_2018_in_2014_campaign": 2
+  },
+  "matrix_cross_check": {
+    "test_ids_in_csv": 129,
+    "test_ids_in_matrix": 129,
+    "test_ids_matched": 129,
+    "o2_initial_exact_matches": 129,
+    "o2_initial_mismatches": [],
+    "material_text_formatting_differences": 34,
+    "air_display_formatting_differences": 86,
+    "substantive_numeric_conflicts": [],
+    "interpretation": "Test IDs and initial O2 values agree between the PSI CSV and the six-sheet test-matrix workbook. Text differences are punctuation/capitalisation only; no substantive numeric conflict was found."
+  },
+  "fan_calibration": {
+    "factor": 1.0066,
+    "formula": "U = 1.0066 x Air display",
+    "source_locator": "PSI-25 Fan Calibration data sheet, note '*U =1.0066(AIR)'",
+    "caveat": "Single workbook factor derived from SPICE calibration at one downstream location. Day- and restrictor-specific calibration exists; per-test calibration was not applied.",
+    "workbook_note_present": true
+  },
+  "checks": [
+    {
+      "check": "unique experiment IDs",
+      "result": "PASS",
+      "detail": "131 records, 0 duplicates"
+    },
+    {
+      "check": "all BASS-II test IDs present in matrix workbook",
+      "result": "PASS",
+      "detail": "129/129"
+    },
+    {
+      "check": "initial O2 matches matrix workbook",
+      "result": "PASS",
+      "detail": "129/129 exact numeric matches"
+    },
+    {
+      "check": "no cabin pressure substituted for missing total pressure",
+      "result": "PASS",
+      "detail": "0/131 records report total pressure"
+    },
+    {
+      "check": "no per-test gravity inferred as measured",
+      "result": "PASS",
+      "detail": "Gravity is investigation-level only; status='investigation_level'"
+    },
+    {
+      "check": "missing values preserved as null",
+      "result": "PASS",
+      "detail": "Nulls carry status not_reported; no zero-fill applied"
+    },
+    {
+      "check": "raw values preserved",
+      "result": "PASS",
+      "detail": "record.raw retains every original CSV field"
+    },
+    {
+      "check": "Saffire non-experiment rows excluded",
+      "result": "PASS",
+      "detail": "2 image-set descriptor rows excluded"
+    }
+  ]
+}
