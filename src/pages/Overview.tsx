@@ -3,6 +3,7 @@ import { corpusOxygenProfile } from '../lib/atmosphere';
 import { Badge, PageHeader, Panel, SectionRule, SourceLink, Stat } from '../components/ui';
 import { FlameMark } from '../components/AppShell';
 import { OxygenDistribution } from '../components/charts';
+import { DemoReel } from '../components/DemoReel';
 
 const features = [
   {
@@ -105,6 +106,9 @@ export function Overview() {
           </div>
         </aside>
       </section>
+
+      <SectionRule label="Demo reel" meta="Problem, evidence, solution" />
+      <DemoReel />
 
       <div className="ticker" role="note">
         <span className="ticker__tag">SCOPE</span>

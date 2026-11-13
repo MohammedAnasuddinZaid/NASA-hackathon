@@ -35,17 +35,16 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
 
-      <aside className="sidebar">
-        <a className="brand" href="#/overview" aria-label="FIRETRACE home">
-          <FlameMark size={34} />
+      <header className="topbar topbar--primary" aria-label="Primary">
+        <a className="brand brand--wordmark" href="#/overview" aria-label="FIRETRACE home">
+          <FlameMark size={22} />
           <span className="brand__text">
             <span className="brand__name">FIRETRACE</span>
             <span className="brand__sub">Evidence intelligence</span>
           </span>
         </a>
 
-        <nav className="nav" aria-label="Primary">
-          <div className="nav__label">Workspace</div>
+        <nav className="nav nav--horizontal" aria-label="Primary">
           {routes.map((item) => (
             <a
               key={item.path}
@@ -55,42 +54,15 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <span className="nav__index">{item.index}</span>
               <span>{item.label}</span>
-              {active === item.path && <span className="nav__marker" aria-hidden="true" />}
             </a>
           ))}
         </nav>
 
-        <div className="sidebar__spacer" />
-
-        <div className="sidebar__status">
-          <div className="status-line">
-            <span className="status-dot" aria-hidden="true" />
-            <span>Local corpus loaded</span>
-          </div>
-          <div className="status-meta">
-            {corpus.meta.record_count} records · v{corpus.meta.pipeline_version}
-          </div>
-          <div className="status-meta">No external model · no network calls</div>
-        </div>
-
-        <div className="sidebar__foot">
-          <p>
-            Independent project. Not affiliated with, endorsed by, or certified by NASA.
-          </p>
-          <p className="mono">FLAME IN FREEFALL / 2026</p>
-        </div>
-      </aside>
-
-      <div className="topbar">
-        <a className="brand brand--compact" href="#/overview">
-          <FlameMark size={26} />
-          <span className="brand__name">FIRETRACE</span>
-        </a>
         <div className="topbar__status">
           <span className="status-dot" aria-hidden="true" />
-          {corpus.meta.record_count} records
+          <span>{corpus.meta.record_count} records · offline</span>
         </div>
-      </div>
+      </header>
 
       <div className="mobile-nav" aria-label="Primary mobile">
         {routes.map((item) => (
