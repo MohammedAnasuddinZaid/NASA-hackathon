@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test';
 
+// Existing static-route/offline suite stays deterministic regardless of local services.
+test.beforeEach(async ({ page }) => {
+  await page.route('**/api/v1/**', route => route.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
+});
+
 const routes = [
   ['Overview', '/#/overview', 'Evidence has an address'],
   ['Atmosphere', '/#/atmosphere', 'An atmosphere is two numbers'],

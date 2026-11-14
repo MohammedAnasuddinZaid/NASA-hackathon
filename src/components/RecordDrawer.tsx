@@ -4,6 +4,8 @@ import { artifactsFor } from '../lib/corpus';
 import { formatCompact, humanizeToken, shortDate, statusLabel, statusTone } from '../lib/format';
 import { Badge, SourceLink, StatusBadge } from './ui';
 import { downloadJson } from '../lib/export';
+import { useEvidence } from '../lib/EvidenceProvider';
+import { evidenceSources, EVIDENCE_BASE, type ApiArtifact } from '../lib/evidenceApi';
 
 function Field({
   label,
@@ -37,6 +39,16 @@ export function RecordDrawer({
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const [copied, setCopied] = useState(false);
+  const evidence = useEvidence();
+  const [originals, setOriginals] = useState<ApiArtifact[]>([]);
+  useEffect(() => {
+    setOriginals([]);
+    if (!record || evidence.mode !== 'api') return;
+    let active = true;
+    evidenceSources(record.source_id).then(result => { if (active) setOriginals(result.items); })
+      .catch(error => { if (active) evidence.fallback(error.message); });
+    return () => { active = false; };
+  }, [record?.source_id, evidence.mode]);
 
   useEffect(() => {
     if (!record) return;
@@ -177,6 +189,7 @@ export function RecordDrawer({
               DOI {artifact?.doi ?? 'not assigned'} · {artifact?.license ?? 'license not stated'}
             </p>
             {artifact?.source_url && <SourceLink href={artifact.source_url}>Open source landing page</SourceLink>}
+            {evidence.mode === 'api' && originals.filter(item => item.download_available && item.download_url).map(item => <p key={item.artifact_id}><a href={`${EVIDENCE_BASE}${item.download_url}`} download>Download original: {item.original_filename}</a></p>)}
             <ul className="provenance-notes">
               {record.provenance_notes.map((note) => (
                 <li key={note}>{note}</li>

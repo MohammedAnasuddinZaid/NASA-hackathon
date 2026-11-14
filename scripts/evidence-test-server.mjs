@@ -1,0 +1,13 @@
+import { spawnSync, spawn } from 'node:child_process';
+import { mkdirSync, mkdtempSync } from 'node:fs';
+import path from 'node:path';
+const python = process.env.FIRETRACE_PYTHON ?? (process.platform === 'win32' ? 'backend/.venv/Scripts/python.exe' : 'backend/.venv/bin/python');
+mkdirSync('tmp', { recursive: true });
+const database = path.resolve(mkdtempSync('tmp/e2e-evidence-'), 'evidence.sqlite3');
+const env = { ...process.env, FIRETRACE_EVIDENCE_DB: database };
+const imported = spawnSync(python, ['-m', 'backend.evidence.ingest'], { env, stdio: 'inherit', windowsHide: true });
+if (imported.status !== 0) process.exit(imported.status ?? 1);
+const server = spawn(python, ['-m', 'uvicorn', 'backend.evidence.main:app', '--host', '127.0.0.1', '--port', '8000'], { env, stdio: 'inherit', windowsHide: true });
+process.on('SIGINT', () => server.kill());
+process.on('SIGTERM', () => server.kill());
+server.on('exit', code => { process.exitCode = code ?? 0; });

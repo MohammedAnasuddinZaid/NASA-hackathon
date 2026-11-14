@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useEvidence } from '../lib/EvidenceProvider';
+import { searchEvidence, evidenceDetail, type EvidencePage } from '../lib/evidenceApi';
 import { records } from '../lib/corpus';
 import type { ExperimentRecord } from '../lib/types';
 import { emptyFilters, filterRecords, uniqueFamilies, uniqueMaterials } from '../lib/records';
@@ -19,11 +21,28 @@ export function Atlas() {
   const [filters, setFilters] = useState<AtlasFilters>({ ...emptyFilters, family: initialFamily() });
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState<ExperimentRecord | null>(null);
+  const evidence = useEvidence();
+  const [remote, setRemote] = useState<{ key: string; data: EvidencePage } | null>(null);
+  const queryKey = JSON.stringify([filters, page]);
+  useEffect(() => {
+    if (evidence.mode !== 'api') return;
+    let active = true;
+    searchEvidence(filters, page).then(data => { if (active) setRemote({ key: queryKey, data }); })
+      .catch(error => { if (active) evidence.fallback(error.message); });
+    return () => { active = false; };
+  }, [queryKey, evidence.mode]);
+  const apiData = evidence.mode === 'api' && remote?.key === queryKey ? remote.data : null;
+  async function openRecord(record: ExperimentRecord) {
+    if (evidence.mode !== 'api') { setSelected(record); return; }
+    try { setSelected(await evidenceDetail(record.experiment_id)); }
+    catch (error) { evidence.fallback((error as Error).message); setSelected(record); }
+  }
 
   const filtered = useMemo(() => filterRecords(records, filters), [filters]);
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const resultCount = apiData?.total ?? filtered.length;
+  const pageCount = Math.max(1, Math.ceil(resultCount / PAGE_SIZE));
   const safePage = Math.min(page, pageCount - 1);
-  const visible = filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
+  const visible = apiData?.items ?? filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
   const families = useMemo(() => uniqueFamilies(), []);
   const materials = useMemo(() => uniqueMaterials(), []);
   const flagged = filtered.filter((record) => record.validation_status !== 'validated').length;
@@ -57,7 +76,7 @@ export function Atlas() {
 
       <div className="atlas-summary">
         <div className="atlas-summary__count">
-          <strong>{filtered.length}</strong>
+          <strong>{resultCount}</strong>
           <span>records in view</span>
         </div>
         <div className="atlas-summary__meta">
@@ -189,12 +208,12 @@ export function Atlas() {
                   <tr
                     key={record.experiment_id}
                     className="data-table__row"
-                    onClick={() => setSelected(record)}
+                    onClick={() => void openRecord(record)}
                     tabIndex={0}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
-                        setSelected(record);
+                        void openRecord(record);
                       }
                     }}
                     aria-label={`Open ${record.experiment_id}`}

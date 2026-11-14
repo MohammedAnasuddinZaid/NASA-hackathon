@@ -1,6 +1,7 @@
 import { corpus, validation, sourceManifest, records } from '../lib/corpus';
 import { formatNumber, shortIso, humanizeToken } from '../lib/format';
 import { Badge, PageHeader, Panel, SectionRule, SourceLink, Stat } from '../components/ui';
+import { useEvidence } from '../lib/EvidenceProvider';
 
 function bytes(value: number): string {
   if (value > 1_000_000) return `${(value / 1_000_000).toFixed(1)} MB`;
@@ -9,6 +10,7 @@ function bytes(value: number): string {
 }
 
 export function Methodology() {
+  const evidence = useEvidence();
   const suspect = records.filter((record) => record.validation_status === 'suspect');
   const excluded = validation.excluded_non_experiment_rows;
   const downloads = [
@@ -33,6 +35,13 @@ export function Methodology() {
         <Stat value="129/129" label="matrix ID cross-check" detail="Zero substantive conflicts" tone="mint" />
         <Stat value="4" label="records flagged suspect" detail="Retained and disclosed" tone="amber" />
       </div>
+      {evidence.coverage && <Panel kicker="Evidence API" title="Imported dataset coverage">
+        <p>{evidence.coverage.total} records in the local SQLite database. Non-null values include contextual labels and qualitative notes; they do not establish measured test conditions or standardized outcomes. Source status labels are preserved.</p>
+        <div className="table-wrap"><table className="data-table"><thead><tr><th>Field</th><th>Non-null</th><th>Per-test measured / corrected</th><th>Context only</th><th>Null</th><th>Statuses</th></tr></thead><tbody>
+          {Object.entries(evidence.coverage.fields).map(([key, field]) => <tr key={key}><td>{humanizeToken(key)}</td><td>{field.available}</td><td>{field.per_test_measured}</td><td>{field.context_only}</td><td>{field.missing}</td><td>{Object.entries(field.statuses).map(([status, count]) => `${status}: ${count}`).join(' · ')}</td></tr>)}
+        </tbody></table></div>
+        <p>Coverage is limited to imported records. It does not establish that measurements are absent from all NASA research.</p>
+      </Panel>}
 
       <SectionRule label="Pipeline" meta="Raw files are never modified" />
       <div className="pipeline">

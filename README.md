@@ -6,9 +6,10 @@ combustion experiment tables into a traceable evidence workspace: every record, 
 quality flag, source locator and limitation is visible, and the application refuses to answer
 questions the sources cannot support.
 
-This repository is a static Vite + React + TypeScript application. It has no external AI/API
-dependency, no database and no server-side runtime. All evidence is bundled as JSON and can be
-used offline after a build.
+The Vite + React + TypeScript frontend retains its bundled offline dataset. An independent,
+model-free FastAPI evidence service now imports that normalized dataset into SQLite and serves
+versioned research APIs. It is optional: the UI explicitly falls back to the complete bundle
+when the API is unavailable or its dataset differs. The pre-existing voice/model service is separate.
 
 ## What it does
 
@@ -71,9 +72,23 @@ npm run preview
 
 The static output is written to `dist/`. It can be served from any static host or opened locally.
 
-## Backend and voice agent
+## Scientific evidence backend
 
-A production-grade local backend lives in `backend/`. It serves the corpus, runs the
+See [backend/EVIDENCE.md](backend/EVIDENCE.md) for Python setup, SQLite initialization,
+all nine implemented evidence endpoints, frontend integration, security and test commands.
+After installing `backend/requirements-evidence.txt` into `backend/.venv`, run:
+
+```bash
+npm run dev:full
+```
+
+Open `http://127.0.0.1:5173/#/atlas` and `http://127.0.0.1:8000/docs`.
+This service does not call any model. [Independent PR integration notes](docs/pr2-integration.md)
+describe reconciliation with unmerged PR #1. Neither PR is merged by this work.
+
+## Optional existing voice agent
+
+A separate optional local backend lives in `backend/main.py`. It serves the corpus, runs the
 deterministic retrieval engine, and provides a grounded voice agent (whisper.cpp ASR,
 Silero VAD, Ollama LLM, sherpa-onnx TTS). See `backend/README.md`.
 

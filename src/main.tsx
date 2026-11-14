@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import { EvidenceProvider } from './lib/EvidenceProvider';
 import './css/base.css';
 import './css/home.css';
 import './css/film.css';
@@ -11,6 +12,6 @@ import './css/startup.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <EvidenceProvider><App /></EvidenceProvider>
   </StrictMode>,
 );

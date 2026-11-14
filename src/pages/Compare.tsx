@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useEvidence } from '../lib/EvidenceProvider';
+import { evidenceCompare, type EvidenceCheck } from '../lib/evidenceApi';
 import { records, recordById } from '../lib/corpus';
 import type { ExperimentRecord } from '../lib/types';
 import { comparabilityAudit, compareFields, comparisonBlockerCount, fieldDisplay, fieldStatus } from '../lib/compare';
@@ -28,7 +30,18 @@ const stateLabel = {
 export function Compare() {
   const [selected, setSelected] = useState<ExperimentRecord[]>(initialSelection);
   const [toAdd, setToAdd] = useState('');
-  const checks = useMemo(() => comparabilityAudit(selected), [selected]);
+  const localChecks = useMemo(() => comparabilityAudit(selected), [selected]);
+  const evidence = useEvidence();
+  const [remote, setRemote] = useState<{ key: string; checks: EvidenceCheck[] } | null>(null);
+  const selectionKey = selected.map(r => r.experiment_id).join(',');
+  useEffect(() => {
+    if (evidence.mode !== 'api' || !selected.length) return;
+    let active = true;
+    evidenceCompare(selected.map(r => r.experiment_id)).then(result => { if (active) setRemote({ key: selectionKey, checks: result.checks }); })
+      .catch(error => { if (active) evidence.fallback(error.message); });
+    return () => { active = false; };
+  }, [selectionKey, evidence.mode]);
+  const checks = evidence.mode === 'api' && remote?.key === selectionKey ? remote.checks : localChecks;
   const blockers = comparisonBlockerCount(checks);
   const groups = [...new Set(compareFields.map((field) => field.group))];
 
