@@ -1,0 +1,14 @@
+test_approximation_and_unresolved_flags (test_ingest.IngestionTests.test_approximation_and_unresolved_flags) ... ok
+test_conversion_units_and_original_tokens (test_ingest.IngestionTests.test_conversion_units_and_original_tokens) ... ok
+test_downloads_are_untouched_originals (test_ingest.IngestionTests.test_downloads_are_untouched_originals) ... ok
+test_finite_numeric_parsing_and_missing_zero (test_ingest.IngestionTests.test_finite_numeric_parsing_and_missing_zero) ... ok
+test_generated_files_match_committed_data (test_ingest.IngestionTests.test_generated_files_match_committed_data) ... ok
+test_invalid_ids_and_csv_shape (test_ingest.IngestionTests.test_invalid_ids_and_csv_shape) ... ok
+test_modified_source_refuses_publication (test_ingest.IngestionTests.test_modified_source_refuses_publication) ... ok
+test_records_and_source_row_mapping (test_ingest.IngestionTests.test_records_and_source_row_mapping) ... ok
+test_repeat_is_byte_identical (test_ingest.IngestionTests.test_repeat_is_byte_identical) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.258s
+
+OK

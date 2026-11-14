@@ -52,6 +52,16 @@ and the official challenge page.
 
 ## Current table coverage
 
+### Verified report research
+
+Atlas also offers **Research findings & coverage**:16 source-linked findings from the BASS-II
+Summary Report and FLEX Detailed Results, with3 investigations,2 research reports and explicit
+solid-fuel versus liquid-droplet classification. The131 original records remain unchanged;
+no FLEX rows are normalized. Report findings do not enter numeric comparison or scenario ranking.
+See [research expansion, source verification and ingestion](docs/research-expansion.md) and
+[cross-PR compatibility](docs/cross-pr-compatibility.md). The original source PDFs are linked,
+not bundled. Run `npm run ingest:research` and `npm run validate:research` for the offline pipeline.
+
 The experimental tables report **oxygen fraction** and **flow** but contain **no total-pressure
 column** and **no per-test gravity value**. FIRETRACE therefore reports:
 
