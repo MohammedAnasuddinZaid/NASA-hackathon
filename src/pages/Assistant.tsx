@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { ask, answerToText } from '../lib/assistant';
 import type { AnswerGrade, AssistantAnswer } from '../lib/assistant';
 import { Badge, PageHeader, Panel, SourceLink } from '../components/ui';
+import { VoiceAgent } from '../components/VoiceAgent';
 
 type Message =
   | { role: 'user'; text: string; id: number }
@@ -225,6 +226,10 @@ export function Assistant() {
             </p>
           </div>
         </aside>
+      </div>
+
+      <div style={{ marginTop: 24 }}>
+        <VoiceAgent />
       </div>
     </div>
   );

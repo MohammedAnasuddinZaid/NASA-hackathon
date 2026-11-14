@@ -71,6 +71,12 @@ npm run preview
 
 The static output is written to `dist/`. It can be served from any static host or opened locally.
 
+## Backend and voice agent
+
+A production-grade local backend lives in `backend/`. It serves the corpus, runs the
+deterministic retrieval engine, and provides a grounded voice agent (whisper.cpp ASR,
+Silero VAD, Ollama LLM, sherpa-onnx TTS). See `backend/README.md`.
+
 ## Design
 
 The interface uses a three-color system — black `#0B0B0C`, white `#FFFFFF` and lime `#C6F432` —
