@@ -9,6 +9,7 @@ import { GapPlanner } from './pages/GapPlanner';
 import { Assistant } from './pages/Assistant';
 import { Methodology } from './pages/Methodology';
 import { Exports } from './pages/Exports';
+import { EvidenceConnection } from './lib/evidenceSession';
 
 function NotFound() {
   return (
@@ -49,5 +50,5 @@ export default function App() {
     }
   })();
 
-  return <AppShell><EvidenceScope />{page}</AppShell>;
+  return <AppShell><EvidenceScope /><EvidenceConnection />{page}</AppShell>;
 }

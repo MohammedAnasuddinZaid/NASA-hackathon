@@ -16,6 +16,12 @@ The repository ships two runnable surfaces over one curated corpus:
 Neither surface calls an external model. The evidence API boots with no Ollama, whisper.cpp or
 sherpa-onnx installed; those are optional extras used only by the legacy local voice routes.
 
+For combined local startup, install the existing backend requirements in `backend/.venv`, then
+run `npm run dev:full`. Atlas/detail/source browsing and coverage use the local evidence API
+when its corpus matches the bundle, with explicit complete bundled fallback otherwise.
+See [the evidence foundation guide](docs/pr2-foundation.md) for setup, SQLite schema, source
+downloads, tests and the user-approved adaptation to current main after PR #1 was merged externally.
+
 ## What it does
 
 - **Overview** — a 45-second voiced explainer, corpus ledger, coverage counts and the central

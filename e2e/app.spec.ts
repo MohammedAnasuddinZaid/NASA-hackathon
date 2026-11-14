@@ -1,4 +1,8 @@
 import { expect, test } from '@playwright/test';
+// Keep this original suite deterministic in bundled mode; real API tests are separate.
+test.beforeEach(async ({ page }) => {
+  await page.route('**/api/v1/**', route => route.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
+});
 
 const routes = [
   ['Overview', '/#/overview', 'Evidence has an address'],

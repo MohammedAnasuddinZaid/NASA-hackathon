@@ -11,7 +11,8 @@
  * 3. Every successful call exposes `corpusVersion`, so the UI can print the
  *    exact dataset hash an answer was produced from.
  */
-import { API_BASE } from './api';
+const API_BASE = (import.meta as { env?: Record<string, string> }).env?.VITE_EVIDENCE_API_BASE ?? '';
+declare const __BUNDLED_CORPUS_VERSION__: string;
 
 export type AnswerGrade = 'direct' | 'partial' | 'context' | 'absent' | 'out-of-scope';
 
@@ -136,7 +137,7 @@ export interface Coverage {
   recomputed: Record<string, number>;
   field_coverage: Record<
     string,
-    { label: string; reported: number; missing: number; statuses: Record<string, number>; units: string[] }
+    { label: string; reported: number; missing: number; per_test_measured: number; context_only: number; statuses: Record<string, number>; units: string[] }
   >;
   gaps: string[];
 }
@@ -279,7 +280,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
   try {
     response = await fetch(`${API_BASE}${path}`, {
       method: options.method ?? 'GET',
-      headers: options.body === undefined ? undefined : { 'Content-Type': 'application/json' },
+      headers: { 'X-Corpus-Version': __BUNDLED_CORPUS_VERSION__, ...(options.body === undefined ? {} : { 'Content-Type': 'application/json' }) },
       body: options.body === undefined ? undefined : JSON.stringify(options.body),
       signal: controller.signal,
     });
@@ -302,6 +303,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
   }
 
   if (!response.ok) {
+    if (response.status === 409) throw new ServiceUnavailable('The API corpus differs from the bundled dataset.', 'corpus_mismatch', 409);
     if (response.status === 502 || response.status === 503 || response.status === 504) {
       throw new ServiceUnavailable(
         extractMessage(payload) ?? 'The evidence API is temporarily unavailable.',
@@ -318,6 +320,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
     );
   }
 
+  if (corpusVersion !== __BUNDLED_CORPUS_VERSION__) throw new ServiceUnavailable('Unverified API corpus; using the complete bundled dataset.', 'corpus_mismatch');
   return { data: payload as T, corpusVersion };
 }
 
@@ -363,6 +366,9 @@ function toQuery(params: Record<string, string | number | boolean | undefined>):
 }
 
 export interface ExperimentQuery {
+  sort?: string;
+  material_exact?: boolean;
+  atlas_search?: boolean;
   q?: string;
   family?: string;
   material?: string;
@@ -376,6 +382,9 @@ export interface ExperimentQuery {
 }
 
 export const evidenceApi = {
+  originalUrl(sourceId: string, artifact: string): string {
+    return `${API_BASE}/api/v1/sources/${encodeURIComponent(sourceId)}/download?${new URLSearchParams({ artifact, corpus_version: __BUNDLED_CORPUS_VERSION__ })}`;
+  },
   async ask(body: AskBody, signal?: AbortSignal): Promise<ApiAnswer> {
     const { data } = await request<ApiAnswer>('/api/v1/ask', {
       method: 'POST',
