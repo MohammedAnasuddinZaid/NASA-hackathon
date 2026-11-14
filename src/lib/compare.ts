@@ -82,6 +82,7 @@ export function comparabilityAudit(source: ExperimentRecord[]): ComparabilityChe
   const families = new Set(source.map((record) => record.family));
   const materials = new Set(source.map((record) => record.material_family));
   const geometries = new Set(source.map((record) => record.geometry));
+  const materialKnown = !materials.has('Unknown') && !geometries.has('Unknown');
   const pressureKnown = source.filter((record) => record.total_pressure_psia.value !== null).length;
   const gravityMeasured = source.filter((record) => record.gravity_regime.status === 'measured').length;
   const outcomeMeasured = source.filter((record) => record.outcome.status === 'measured').length;
@@ -91,7 +92,37 @@ export function comparabilityAudit(source: ExperimentRecord[]): ComparabilityChe
     source.map((record) => (record.family === 'BASS-II' ? 'instrument display' : 'reported flow')),
   );
 
+  const directions = source.map((record) => record.flow_direction.status === 'investigation_level' ? null : record.flow_direction.value);
+  const knownDirections = directions.filter((value): value is string => value !== null);
+  const directionDiffers = new Set(knownDirections.map((value) => value.toLowerCase())).size > 1;
+  const dimensionChecks: ComparabilityCheck[] = (['thickness_mm', 'width_cm', 'length_cm', 'diameter_mm'] as const).map((key) => {
+    const values = source.map((record) => record[key].value);
+    const known = values.filter((value): value is number => value !== null);
+    const differs = new Set(known).size > 1;
+    return {
+      id: key,
+      label: { thickness_mm: 'Thickness (mm)', width_cm: 'Width (cm)', length_cm: 'Length (cm)', diameter_mm: 'Diameter (mm)' }[key],
+      state: differs ? 'blocked' : known.length === source.length ? 'shared' : 'partial',
+      detail: differs
+        ? 'Reported sample dimensions differ. Inspect the values and units below before interpreting any outcome difference.'
+        : known.length === source.length
+          ? 'All selected records report the same dimension; parsed values retain their source status in the table.'
+          : `${known.length} of ${source.length} selected records report this dimension. Missing values do not establish a match; relevance depends on sample geometry.`,
+    };
+  });
+
   return [
+    ...dimensionChecks,
+    {
+      id: 'flow_direction',
+      label: 'Flow direction',
+      state: directionDiffers ? 'blocked' : knownDirections.length === source.length ? 'shared' : 'partial',
+      detail: directionDiffers
+        ? `Flow directions differ: ${[...new Set(knownDirections)].join(' versus ')}. This changes the flame-spread configuration.`
+        : knownDirections.length === source.length
+          ? `Selected records report ${knownDirections[0]} flow.`
+          : `${knownDirections.length} of ${source.length} records report flow direction. Missing directions cannot be assumed equal.`,
+    },
     {
       id: 'investigation',
       label: 'Investigation context',
@@ -104,9 +135,9 @@ export function comparabilityAudit(source: ExperimentRecord[]): ComparabilityChe
     {
       id: 'material',
       label: 'Material and geometry',
-      state: materials.size === 1 && geometries.size === 1 ? 'shared' : 'partial',
+      state: materialKnown && materials.size === 1 && geometries.size === 1 ? 'shared' : 'partial',
       detail:
-        materials.size === 1 && geometries.size === 1
+        materialKnown && materials.size === 1 && geometries.size === 1
           ? 'All selected records share the same parsed material family and geometry.'
           : `${materials.size} material families and ${geometries.size} geometries selected. Parsed from free text; not a controlled material specification.`,
     },
@@ -132,7 +163,7 @@ export function comparabilityAudit(source: ExperimentRecord[]): ComparabilityChe
       id: 'oxygen',
       label: 'Oxygen measurement basis',
       state: o2Known === source.length ? 'shared' : 'partial',
-      detail: `${o2Known} of ${source.length} selected records report an initial O2 value. BASS-II O2 was corrected with a constant offset; two Saffire values are approximate midpoints of ranges.`,
+      detail: `${o2Known} of ${source.length} selected records report an initial O2 value. ${families.has('BASS-II') ? 'BASS-II uses a constant-offset sensor correction. ' : ''}${families.has('Saffire-I') ? 'Saffire-I retains a reported range midpoint or approximate single value.' : ''}`,
     },
     {
       id: 'flow',
@@ -140,7 +171,9 @@ export function comparabilityAudit(source: ExperimentRecord[]): ComparabilityChe
       state: flowMethods.size === 1 ? 'partial' : 'blocked',
       detail:
         flowMethods.size === 1
-          ? 'Flow shares one reporting basis, but BASS-II display values have a slow response and are not calibrated per test.'
+          ? families.has('BASS-II')
+            ? 'BASS-II display values have a slow response and are not calibrated per test.'
+            : 'Saffire-I reports a flow setting. Check direction and sample dimensions separately; a shared setting does not establish equivalent flow at the sample.'
           : 'Flow bases differ: BASS-II uses a slow-response duct display; Saffire-I reports a flow setting. The two are not the same instrument quantity.',
     },
     {

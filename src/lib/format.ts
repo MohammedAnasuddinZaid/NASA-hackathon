@@ -36,6 +36,8 @@ export function formatCompact(
 export function statusLabel(status: ValueStatus): string {
   const labels: Record<string, string> = {
     measured: 'Reported',
+    corrected: 'Reported · corrected',
+    unverified: 'Unverified / ambiguous',
     derived: 'Derived',
     reported_qualitative: 'Reported · approximate',
     reported_flag: 'Reported · flag',
@@ -53,6 +55,8 @@ export function statusTone(status: ValueStatus): StatusTone {
   if (status === 'measured' || status === 'reported_qualitative' || status === 'reported_flag') return 'reported';
   if (status === 'derived') return 'derived';
   if (status === 'investigation_level') return 'context';
+  if (status === 'corrected') return 'reported';
+  if (status === 'unverified') return 'warning';
   if (status === 'over_range') return 'warning';
   return 'missing';
 }

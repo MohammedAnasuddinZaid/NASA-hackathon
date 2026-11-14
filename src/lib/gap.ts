@@ -78,7 +78,7 @@ export function buildGapPlan(target: GapTarget): GapPlan {
       dimension: 'Atmosphere · oxygen',
       question: 'What oxygen fraction was present, and how was it measured?',
       state: o2Known === records.length ? 'partial' : 'partial',
-      finding: `${o2Known} of ${records.length} records report an initial O2 fraction; ${finalKnown} report a final value. BASS-II used a constant-offset calibration correction, and two Saffire values are midpoints of reported ranges.`,
+      finding: `${o2Known} of ${records.length} records report an initial O2 fraction; ${finalKnown} report a final value. BASS-II used a constant-offset calibration correction, and Saffire S1 uses a range midpoint; S2 retains an approximate single value.`,
       citation: 'PSI-25 ReadMe, calibrated initial and final O2; PSI-98 experimental table',
     },
     {

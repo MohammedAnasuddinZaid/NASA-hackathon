@@ -2,7 +2,7 @@
   {
     "question": "",
     "answer": {
-      "id": "ans-1794632933176",
+      "id": "ans-1794644949120",
       "question": "",
       "grade": "direct",
       "headline": "Ask about records, measured conditions, missing fields, or sources.",
@@ -48,7 +48,7 @@
   {
     "question": "What pressure was BASS-II run at?",
     "answer": {
-      "id": "ans-1794632933177",
+      "id": "ans-1794644949121",
       "question": "What pressure was BASS-II run at?",
       "grade": "absent",
       "headline": "Total pressure is reported for 0 of 131 experiment records.",
@@ -60,7 +60,8 @@
         "BASS-II: 0 of 129 records report total pressure.",
         "Saffire-I: 0 of 2 records report total pressure.",
         "No cabin pressure was substituted anywhere in the corpus.",
-        "Absence of a column is a metadata gap, not proof that pressure was uncontrolled."
+        "Absence of a column is a metadata gap, not proof that pressure was uncontrolled.",
+        "The BASS-II Summary Report discusses monitored pressure of 99.2–99.5 kPa (printed p.38 / PDF p.46) for a subset. It is not verified as a pressure for each CSV row; those record values remain null."
       ],
       "citations": [
         {
@@ -76,6 +77,12 @@
           "locator": "PSI-98 experimental table, columns A–M",
           "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
           "doi": "10.60555/0t15-1z43"
+        },
+        {
+          "sourceId": "NTRS-20210011385",
+          "title": "BASS-II Summary Report",
+          "locator": "Printed p.38 / PDF p.46; printed p.94 / PDF p.102",
+          "url": "https://ntrs.nasa.gov/citations/20210011385"
         },
         {
           "sourceId": "PSI-25",
@@ -107,12 +114,12 @@
         "label": "Open Atmosphere Explorer"
       }
     },
-    "text": "Total pressure is reported for 0 of 131 experiment records.\n\nBoth PSI experimental tables lack a total-pressure column. BASS-II covers 129 tests and Saffire-I covers 2 samples; neither supplies pressure for any record.\nThis is why FIRETRACE will not place these tests on an atmosphere plane or compute oxygen partial pressure. Substituting a cabin pressure would create a measurement that the sources do not contain.\n\n• BASS-II: 0 of 129 records report total pressure.\n• Saffire-I: 0 of 2 records report total pressure.\n• No cabin pressure was substituted anywhere in the corpus.\n• Absence of a column is a metadata gap, not proof that pressure was uncontrolled.\n\nSources:\n- PSI-25 · PSI-25 experimental table, columns A–Q · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table, columns A–M · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- PSI-25 · PSI-25 experimental table, columns A-Q · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table, columns A-M · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
+    "text": "Total pressure is reported for 0 of 131 experiment records.\n\nBoth PSI experimental tables lack a total-pressure column. BASS-II covers 129 tests and Saffire-I covers 2 samples; neither supplies pressure for any record.\nThis is why FIRETRACE will not place these tests on an atmosphere plane or compute oxygen partial pressure. Substituting a cabin pressure would create a measurement that the sources do not contain.\n\n• BASS-II: 0 of 129 records report total pressure.\n• Saffire-I: 0 of 2 records report total pressure.\n• No cabin pressure was substituted anywhere in the corpus.\n• Absence of a column is a metadata gap, not proof that pressure was uncontrolled.\n• The BASS-II Summary Report discusses monitored pressure of 99.2–99.5 kPa (printed p.38 / PDF p.46) for a subset. It is not verified as a pressure for each CSV row; those record values remain null.\n\nSources:\n- PSI-25 · PSI-25 experimental table, columns A–Q · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table, columns A–M · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- NTRS-20210011385 · Printed p.38 / PDF p.46; printed p.94 / PDF p.102 · https://ntrs.nasa.gov/citations/20210011385\n- PSI-25 · PSI-25 experimental table, columns A-Q · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table, columns A-M · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
   },
   {
     "question": "What oxygen did BASS2-B1 report?",
     "answer": {
-      "id": "ans-1794632933212",
+      "id": "ans-1794644949134",
       "question": "What oxygen did BASS2-B1 report?",
       "grade": "direct",
       "headline": "BASS2-B1 reports an initial oxygen fraction of 22.2 % by vol.",
@@ -177,7 +184,7 @@
   {
     "question": "Does the corpus include partial-gravity data?",
     "answer": {
-      "id": "ans-1794632933212",
+      "id": "ans-1794644949134",
       "question": "Does the corpus include partial-gravity data?",
       "grade": "absent",
       "headline": "Per-test gravity is reported for 0 of 131 records; partial-gravity records: 0.",
@@ -187,7 +194,7 @@
       ],
       "bullets": [
         "Microgravity is assigned at investigation level for all 131 records.",
-        "No record contains a measured gravity value or direction.",
+        "No record contains a measured gravity g-level or gravity-vector direction.",
         "No lunar, Martian, or other partial-gravity experiment records are included.",
         "LUCI flew at 11 RPM with a 1.22 m effective radius in simulated lunar gravity; its findings are presentation-level context only."
       ],
@@ -235,17 +242,17 @@
         "label": "Open Atmosphere Explorer"
       }
     },
-    "text": "Per-test gravity is reported for 0 of 131 records; partial-gravity records: 0.\n\nBASS-II is described as an ISS microgravity investigation and Saffire-I as a Cygnus microgravity experiment. Those are investigation-level labels, not measured g-levels for individual tests.\nThe official 2026 challenge states that PSI currently has no partial-gravity combustion data. LUCI is included here only as context and has no structured per-test records in this corpus.\n\n• Microgravity is assigned at investigation level for all 131 records.\n• No record contains a measured gravity value or direction.\n• No lunar, Martian, or other partial-gravity experiment records are included.\n• LUCI flew at 11 RPM with a 1.22 m effective radius in simulated lunar gravity; its findings are presentation-level context only.\n\nSources:\n- PSI-25 · PSI-25 metadata, investigation description · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 metadata, investigation description · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- CHALLENGE-2026 · Challenge page, “Spacesuits and oxygen concentration” and “Partial-gravity data” · https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/\n- NTRS-20250010653 · NTRS PDF pages 12, 16, 19–22 · https://ntrs.nasa.gov/citations/20250010653\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
+    "text": "Per-test gravity is reported for 0 of 131 records; partial-gravity records: 0.\n\nBASS-II is described as an ISS microgravity investigation and Saffire-I as a Cygnus microgravity experiment. Those are investigation-level labels, not measured g-levels for individual tests.\nThe official 2026 challenge states that PSI currently has no partial-gravity combustion data. LUCI is included here only as context and has no structured per-test records in this corpus.\n\n• Microgravity is assigned at investigation level for all 131 records.\n• No record contains a measured gravity g-level or gravity-vector direction.\n• No lunar, Martian, or other partial-gravity experiment records are included.\n• LUCI flew at 11 RPM with a 1.22 m effective radius in simulated lunar gravity; its findings are presentation-level context only.\n\nSources:\n- PSI-25 · PSI-25 metadata, investigation description · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 metadata, investigation description · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- CHALLENGE-2026 · Challenge page, “Spacesuits and oxygen concentration” and “Partial-gravity data” · https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/\n- NTRS-20250010653 · NTRS PDF pages 12, 16, 19–22 · https://ntrs.nasa.gov/citations/20250010653\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
   },
   {
     "question": "Compare BASS-II and Saffire-I.",
     "answer": {
-      "id": "ans-1794632933212",
+      "id": "ans-1794644949134",
       "question": "Compare BASS-II and Saffire-I.",
       "grade": "absent",
       "headline": "BASS-II and Saffire-I cannot be treated as directly comparable tests.",
       "paragraphs": [
-        "They differ in investigation, hardware, sample form and flow measurement basis. Neither reports total pressure or per-test gravity, and neither reports a standardized outcome.",
+        "They differ in investigation, hardware, sample form and flow measurement basis. Their ingested tables omit per-test total pressure, measured gravity and a standardized outcome; reports contain additional context.",
         "A side-by-side table is still useful, but it is a provenance comparison, not a controlled experimental comparison. FIRETRACE shows the blockers explicitly rather than collapsing them into a score."
       ],
       "bullets": [
@@ -287,12 +294,12 @@
         "label": "Open Compare"
       }
     },
-    "text": "BASS-II and Saffire-I cannot be treated as directly comparable tests.\n\nThey differ in investigation, hardware, sample form and flow measurement basis. Neither reports total pressure or per-test gravity, and neither reports a standardized outcome.\nA side-by-side table is still useful, but it is a provenance comparison, not a controlled experimental comparison. FIRETRACE shows the blockers explicitly rather than collapsing them into a score.\n\n• Mixed investigations and hardware.\n• Pressure unknown for both sides.\n• Per-test gravity unknown for both sides.\n• Different flow measurement bases.\n• No standardized outcome on either side.\n• No similarity score is computed; the blockers are shown instead.\n\nSources:\n- PSI-25 · PSI-25 experimental table · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
+    "text": "BASS-II and Saffire-I cannot be treated as directly comparable tests.\n\nThey differ in investigation, hardware, sample form and flow measurement basis. Their ingested tables omit per-test total pressure, measured gravity and a standardized outcome; reports contain additional context.\nA side-by-side table is still useful, but it is a provenance comparison, not a controlled experimental comparison. FIRETRACE shows the blockers explicitly rather than collapsing them into a score.\n\n• Mixed investigations and hardware.\n• Pressure unknown for both sides.\n• Per-test gravity unknown for both sides.\n• Different flow measurement bases.\n• No standardized outcome on either side.\n• No similarity score is computed; the blockers are shown instead.\n\nSources:\n- PSI-25 · PSI-25 experimental table · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
   },
   {
     "question": "What did LUCI find?",
     "answer": {
-      "id": "ans-1794632933213",
+      "id": "ans-1794644949134",
       "question": "What did LUCI find?",
       "grade": "context",
       "headline": "LUCI is partial-gravity context, not a PSI experiment record.",
@@ -349,7 +356,7 @@
   {
     "question": "What materials are in the corpus?",
     "answer": {
-      "id": "ans-1794632933213",
+      "id": "ans-1794644949135",
       "question": "What materials are in the corpus?",
       "grade": "partial",
       "headline": "9 parsed material families across 131 records.",
@@ -404,7 +411,7 @@
   {
     "question": "Which records are flagged suspect?",
     "answer": {
-      "id": "ans-1794632933213",
+      "id": "ans-1794644949135",
       "question": "Which records are flagged suspect?",
       "grade": "direct",
       "headline": "4 records carry retained suspect flags. None were corrected or discarded.",
@@ -447,7 +454,7 @@
   {
     "question": "What is missing from the corpus?",
     "answer": {
-      "id": "ans-1794632933213",
+      "id": "ans-1794644949135",
       "question": "What is missing from the corpus?",
       "grade": "direct",
       "headline": "Pressure, per-test gravity, ignition method and a standardized outcome are absent across the corpus.",
@@ -460,7 +467,7 @@
         "Measured per-test gravity: 0 of 131 records.",
         "Standardized outcome: 0 of 131 records.",
         "Ignition method: 0 of 131 records.",
-        "Final O2: 127 of 131 records; four BASS-II finals are absent.",
+        "Final O2: 127 of 131 records; two BASS-II and both Saffire final O2 fields are absent.",
         "Thickness: 44 of 131 records parsed from free text."
       ],
       "citations": [
@@ -500,17 +507,17 @@
         "label": "Open Gap Planner"
       }
     },
-    "text": "Pressure, per-test gravity, ignition method and a standardized outcome are absent across the corpus.\n\nThese are metadata gaps, not zeros. No cabin pressure or g-level was substituted, and no outcome was inferred from a free-text note or a burn duration.\nOxygen and flow are broadly reported, but not on one comparable basis: BASS-II oxygen carries a constant-offset correction and its flow is a slow instrument display; the two Saffire oxygen values are approximate and its flow is a reported setting.\n\n• Total pressure: 0 of 131 records.\n• Measured per-test gravity: 0 of 131 records.\n• Standardized outcome: 0 of 131 records.\n• Ignition method: 0 of 131 records.\n• Final O2: 127 of 131 records; four BASS-II finals are absent.\n• Thickness: 44 of 131 records parsed from free text.\n\nSources:\n- PSI-25 · PSI-25 experimental table and ReadMe · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table and ReadMe · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- CHALLENGE-2026 · Challenge page, “Spacesuits and oxygen concentration” and “Partial-gravity data” · https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
+    "text": "Pressure, per-test gravity, ignition method and a standardized outcome are absent across the corpus.\n\nThese are metadata gaps, not zeros. No cabin pressure or g-level was substituted, and no outcome was inferred from a free-text note or a burn duration.\nOxygen and flow are broadly reported, but not on one comparable basis: BASS-II oxygen carries a constant-offset correction and its flow is a slow instrument display; the two Saffire oxygen values are approximate and its flow is a reported setting.\n\n• Total pressure: 0 of 131 records.\n• Measured per-test gravity: 0 of 131 records.\n• Standardized outcome: 0 of 131 records.\n• Ignition method: 0 of 131 records.\n• Final O2: 127 of 131 records; two BASS-II and both Saffire final O2 fields are absent.\n• Thickness: 44 of 131 records parsed from free text.\n\nSources:\n- PSI-25 · PSI-25 experimental table and ReadMe · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table and ReadMe · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- CHALLENGE-2026 · Challenge page, “Spacesuits and oxygen concentration” and “Partial-gravity data” · https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
   },
   {
     "question": "Show the validation cross-check.",
     "answer": {
-      "id": "ans-1794632933213",
+      "id": "ans-1794644949135",
       "question": "Show the validation cross-check.",
       "grade": "direct",
       "headline": "The corpus passed its identity, cross-check, missing-data and provenance gates.",
       "paragraphs": [
-        "All 131 experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No substantive numeric conflict was found.",
+        "All 131 experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No initial-O2 conflict was found; other numeric fields were not exhaustively cross-checked.",
         "Quality distribution: 71 validated, 56 partial, 4 suspect. Suspect flags are retained, not corrected: two final-O2 values exceed their initials by more than 2 percentage points, and two dates carry an unexpected 2018 year."
       ],
       "bullets": [
@@ -552,12 +559,12 @@
         "label": "Open Methodology & Sources"
       }
     },
-    "text": "The corpus passed its identity, cross-check, missing-data and provenance gates.\n\nAll 131 experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No substantive numeric conflict was found.\nQuality distribution: 71 validated, 56 partial, 4 suspect. Suspect flags are retained, not corrected: two final-O2 values exceed their initials by more than 2 percentage points, and two dates carry an unexpected 2018 year.\n\n• Unique experiment IDs: 131, 0 duplicates.\n• Test IDs matched to matrix: 129/129.\n• Initial O2 exact matches: 129/129.\n• Records with total pressure: 0.\n• Records with measured per-test gravity: 0.\n• Saffire non-experiment rows excluded: 2.\n\nSources:\n- PSI-25 · PSI-25 experimental table and six-sheet test matrix · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
+    "text": "The corpus passed its identity, cross-check, missing-data and provenance gates.\n\nAll 131 experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No initial-O2 conflict was found; other numeric fields were not exhaustively cross-checked.\nQuality distribution: 71 validated, 56 partial, 4 suspect. Suspect flags are retained, not corrected: two final-O2 values exceed their initials by more than 2 percentage points, and two dates carry an unexpected 2018 year.\n\n• Unique experiment IDs: 131, 0 duplicates.\n• Test IDs matched to matrix: 129/129.\n• Initial O2 exact matches: 129/129.\n• Records with total pressure: 0.\n• Records with measured per-test gravity: 0.\n• Saffire non-experiment rows excluded: 2.\n\nSources:\n- PSI-25 · PSI-25 experimental table and six-sheet test matrix · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-98 · PSI-98 experimental table · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
   },
   {
     "question": "Is this material safe in a lunar cabin?",
     "answer": {
-      "id": "ans-1794632933213",
+      "id": "ans-1794644949135",
       "question": "Is this material safe in a lunar cabin?",
       "grade": "out-of-scope",
       "headline": "FIRETRACE does not predict fire risk or certify materials.",
@@ -613,7 +620,7 @@
   {
     "question": "hello",
     "answer": {
-      "id": "ans-1794632933214",
+      "id": "ans-1794644949135",
       "question": "hello",
       "grade": "direct",
       "headline": "Ask about records, measured conditions, missing fields, or sources.",
@@ -659,7 +666,7 @@
   {
     "question": "What flow did SAFFIRE1-S1 report?",
     "answer": {
-      "id": "ans-1794632933214",
+      "id": "ans-1794644949136",
       "question": "What flow did SAFFIRE1-S1 report?",
       "grade": "direct",
       "headline": "SAFFIRE1-S1 reports an air-flow display of 20 cm/s.",
@@ -690,8 +697,8 @@
         },
         {
           "sourceId": "PSI-25",
-          "title": "The BASS-II 'Fan display' is an instantaneous fan voltage times ten, not a flow velocity.",
-          "locator": "PSI-25 ReadMe, 'Fan display'",
+          "title": "The PSI-25 fan-calibration workbook gives U = 1.0066 x Air display, based on SPICE fan calibration at 56 mm downstream and 36 mm from the bottom (centerline).",
+          "locator": "PSI-25 Fan Calibration data sheet, note '*U =1.0066(AIR)'",
           "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
           "doi": "10.60555/4qc4-de67"
         }
@@ -711,12 +718,12 @@
         "label": "Open record in Evidence Atlas"
       }
     },
-    "text": "SAFFIRE1-S1 reports an air-flow display of 20 cm/s.\n\nAs reported.\nSaffire-I reports a flow setting in cm/s for each sample; it is a different measurement basis from the BASS-II display.\n\n• Reported flow: 20 cm/s.\n• Derived flow: not applicable.\n• Flow direction: Concurrent.\n• The source records a single value for this test.\n\nSources:\n- PSI-98 · PSI-98 experimental table, CSV row 2, sample S1 · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- PSI-25 · PSI-25 ReadMe, 'Air display' · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-25 · PSI-25 ReadMe, 'Fan display' · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
+    "text": "SAFFIRE1-S1 reports an air-flow display of 20 cm/s.\n\nAs reported.\nSaffire-I reports a flow setting in cm/s for each sample; it is a different measurement basis from the BASS-II display.\n\n• Reported flow: 20 cm/s.\n• Derived flow: not applicable.\n• Flow direction: Concurrent.\n• The source records a single value for this test.\n\nSources:\n- PSI-98 · PSI-98 experimental table, CSV row 2, sample S1 · https://psi.nasa.gov/physci/repo/data/investigations/PSI-98\n- PSI-25 · PSI-25 ReadMe, 'Air display' · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n- PSI-25 · PSI-25 Fan Calibration data sheet, note '*U =1.0066(AIR)' · https://psi.nasa.gov/physci/repo/data/investigations/PSI-25\n\nNo external model was called. This answer is deterministic retrieval from the bundled corpus."
   },
   {
     "question": "BASS2-B1",
     "answer": {
-      "id": "ans-1794632933214",
+      "id": "ans-1794644949136",
       "question": "BASS2-B1",
       "grade": "partial",
       "headline": "BASS2-B1 — 100 micron PMMA film   2 cm wide",

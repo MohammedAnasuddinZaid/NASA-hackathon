@@ -16,6 +16,8 @@ export interface DataValue<T = number> {
   note: string | null;
   basis: string | null;
   tokens?: string[];
+  source_locator?: string;
+  source_file?: string;
 }
 
 export interface Measurement {
@@ -27,6 +29,8 @@ export interface Measurement {
   normalized_unit: string | null;
   status: ValueStatus;
   uncertainty: string | null;
+  note?: string | null;
+  source_file?: string;
   measurement_phase: string;
   measurement_method: string | null;
   source_locator: string;
@@ -110,7 +114,10 @@ export interface SourceArtifact {
   original_filename: string;
   file_size_bytes: number;
   sha256: string;
-  download_timestamp: string;
+  download_timestamp: string | null;
+  timestamp_note?: string;
+  local_original_url?: string | null;
+  original_download_url?: string | null;
   license: string;
   license_url: string | null;
   content_type: string;
@@ -121,6 +128,7 @@ export interface SourceArtifact {
 }
 
 export interface ContextSource {
+  original_download_url?: string;
   source_id: string;
   source_title: string;
   source_url: string;

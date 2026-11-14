@@ -6,7 +6,7 @@ import { corpus } from '../lib/corpus';
 const subtitles: Record<string, string> = {
   overview: 'The thesis, on one screen',
   atmosphere: 'Two numbers, one missing',
-  atlas: '131 records, raw and flagged',
+  atlas: `${corpus.records.length} records, raw and flagged`,
   compare: 'Blockers before numbers',
   gap: 'Design the missing test',
   assistant: 'Retrieval with abstention',
@@ -67,7 +67,7 @@ function MenuOverlay({
           <Glyph size={12} />
           <span>Index / FIRETRACE</span>
         </div>
-        <span className="menu__bar-count">08 sections &middot; 131 records</span>
+        <span className="menu__bar-count">08 sections &middot; {corpus.records.length} records</span>
         <button
           type="button"
           className="menu__close"
@@ -111,7 +111,7 @@ function MenuOverlay({
           <dl className="menu__facts">
             <div>
               <dt>Records</dt>
-              <dd>131</dd>
+              <dd>{corpus.records.length}</dd>
             </div>
             <div>
               <dt>Pressure values</dt>
@@ -257,7 +257,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             FIRETRACE is an independent project for NASA Space Apps 2026. Not affiliated with,
             endorsed by, or certified by NASA. Not a fire-risk model.
           </span>
-          <span className="footer__stamp">131 records / 0 pressure values / 0 external model calls</span>
+          <span className="footer__stamp">{corpus.records.length} records / {corpus.meta.coverage.pressure_reported} record pressure values / static explorer</span>
         </div>
       </footer>
 

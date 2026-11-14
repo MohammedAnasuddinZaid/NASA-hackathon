@@ -15,6 +15,7 @@ Design rules:
 from __future__ import annotations
 
 import csv
+import os
 import hashlib
 import json
 import math
@@ -22,23 +23,26 @@ import re
 import shutil
 import xml.etree.ElementTree as ET
 import zipfile
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 import openpyxl
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW = ROOT / "data" / "raw"
-OUT = ROOT / "src" / "data"
-PUBLIC_DATA = ROOT / "public" / "data"
-PROCESSED = ROOT / "data" / "processed"
+RAW = Path(os.environ.get("FIRETRACE_RAW_DIR", str(ROOT / "data" / "raw"))).resolve()
+OUTPUT_ROOT = Path(os.environ.get("FIRETRACE_OUTPUT_ROOT", str(ROOT))).resolve()
+OUT = OUTPUT_ROOT / "src" / "data"
+PUBLIC_DATA = OUTPUT_ROOT / "public" / "data"
+PROCESSED = OUTPUT_ROOT / "data" / "processed"
 OUT.mkdir(parents=True, exist_ok=True)
 PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
 PROCESSED.mkdir(parents=True, exist_ok=True)
 
-PIPELINE_VERSION = "0.1.0"
-GENERATED_AT = datetime.now(timezone.utc).isoformat()
+PIPELINE_VERSION = "0.2.0"
+# Use immutable acquisition metadata, never checkout mtime or the wall clock.
+DOWNLOADS = json.loads((RAW / "download_manifest.json").read_text(encoding="utf-8"))
+ACQUISITIONS = {item["out"]: item for item in DOWNLOADS if item.get("out")}
+GENERATED_AT = max(item["downloaded_utc"] for item in DOWNLOADS if item.get("downloaded_utc"))
 FAN_FACTOR = 1.0066
 SOURCE_PAGE = "https://psi.nasa.gov/physci/repo/data/investigations/{sid}"
 
@@ -104,7 +108,8 @@ def to_float(v: Any) -> float | None:
     if s.lower() in {"", "none", "n/a", "na", "-", "or", "over", "video"}:
         return None
     try:
-        return float(s)
+        number = float(s)
+        return number if math.isfinite(number) else None
     except ValueError:
         return None
 
@@ -137,7 +142,10 @@ def parse_number_sequence(raw: str | None) -> list[float]:
     # A 'pot' value is a fan potentiometer setting, not a flow reading.
     pot = re.search(r"\bpot\b", s, flags=re.I)
     head = s[: pot.start()] if pot else s
-    nums = [float(x) for x in re.findall(r"\d+(?:\.\d+)?", head)]
+    # Parenthetical numbers have an unverified basis (possibly control settings).
+    # Preserve them in raw text, not as measured flow values.
+    head = head.split("(", 1)[0]
+    nums = [float(x) for x in re.findall(r"(?<![\w.])[+-]?(?:\d+(?:\.\d+)?|\.\d+)", head)]
     return [n for n in nums if 0 <= n <= 60]
 
 
@@ -146,9 +154,9 @@ def parse_oxygen(raw: str | None) -> dict:
         return not_reported("% by vol", raw, "Source records no value ('none' or blank).")
     s = str(raw).strip()
     m = re.search(r"(\d+(?:\.\d+)?)", s)
-    if not m:
-        return not_reported("% by vol", raw, "No numeric oxygen value could be parsed; source retained.")
-    return val(float(m.group(1)), "measured", "% by vol", raw,
+    if not m or not re.fullmatch(r"\d+(?:\.\d+)?", s) or not 0 <= float(s) <= 100:
+        return val(None, "unverified", "% by vol", raw, "Ambiguous or invalid oxygen token; raw value retained for review.")
+    return val(float(m.group(1)), "corrected", "% by vol", raw,
                "Calibrated oxygen reading; sensor was out of calibration and corrected with the MCA ISS reading via a constant offset (PSI-25 ReadMe).")
 
 
@@ -161,7 +169,7 @@ def parse_concentration(raw: str | None, unit: str, kind: str) -> dict:
         return val(None, "over_range", unit, raw, f"Reported as over-range ({s}); numeric value not established.")
     if s == "-1":
         return val(None, "reported_flag", unit, raw,
-                   "Source value -1 retained verbatim. Treated as a below-detection/flag code, not a negative concentration.")
+                   "Source value -1 retained verbatim as an unresolved flag. Its meaning was not established in the reviewed ReadMe; not interpreted as below detection.")
     f = to_float(s)
     if f is None:
         return not_reported(unit, raw, "No numeric value could be parsed; source retained.")
@@ -236,11 +244,11 @@ def flow_direction_context(pi: str) -> dict:
     These are investigation-level descriptions, not per-test measurements.
     """
     if pi == "Olson":
-        return val("Concurrent / stagnation geometry (investigation-level description)", "reported_qualitative", None,
+        return val("Concurrent / stagnation geometry (investigation-level description)", "investigation_level", None,
                    "PSI-25 ReadMe: Olson ignited the upstream end for a stagnation flame / concurrent flow geometry.",
                    "Not verified per test from the experimental table.", "investigation_level")
     if pi == "Fernandez-Pello":
-        return val("Opposed-flow geometry (investigation-level description)", "reported_qualitative", None,
+        return val("Opposed-flow geometry (investigation-level description)", "investigation_level", None,
                    "PSI-25 ReadMe: Fernandez-Pello ignited the downstream end for an opposed-flow flame-spread geometry.",
                    "Not verified per test from the experimental table.", "investigation_level")
     return not_reported(None, None, "No per-test flow direction is recorded in the experimental table.")
@@ -287,7 +295,10 @@ def artifact(source_id: str, filename: str, title: str, url: str, role: str,
         "original_filename": filename,
         "file_size_bytes": len(data),
         "sha256": sha256(p),
-        "download_timestamp": datetime.fromtimestamp(p.stat().st_mtime, tz=timezone.utc).isoformat(),
+        "download_timestamp": ACQUISITIONS.get(filename, {}).get("downloaded_utc"),
+        "local_original_url": f"./data/original/{filename}" if source_id.startswith("PSI-") else None,
+        "timestamp_note": "Original acquisition manifest timestamp." if filename in ACQUISITIONS else "Acquisition timestamp not preserved; local file mtime is not used.",
+        "original_download_url": ACQUISITIONS.get(filename, {}).get("api_url") or ("https://ntrs.nasa.gov/api/citations/20250010653/downloads/ASGSR%202025-LUCI-Ferkul-Presentation-v2-20250010653.pdf" if filename == "NTRS_20250010653_LUCI.pdf" else None),
         "license": license_name,
         "license_url": license_url,
         "content_type": content_type,
@@ -303,6 +314,14 @@ def source_metadata(sid: str) -> dict:
         return json.load(f)
 
 
+for filename, expected_hash in json.loads((ROOT / "data/source-lock.json").read_text(encoding="utf-8")).items():
+    if sha256(RAW / filename) != expected_hash:
+        raise ValueError(f"Source lock mismatch: {filename}")
+for filename, acquisition in ACQUISITIONS.items():
+    path = RAW / filename
+    if not path.is_file() or sha256(path) != acquisition["sha256"]:
+        raise ValueError(f"Source integrity failure: {filename}")
+
 psi25 = source_metadata("PSI-25")
 psi98 = source_metadata("PSI-98")
 readme25 = docx_text(RAW / "PSI-25_ReadMe.docx")
@@ -316,7 +335,7 @@ sources = [
              "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
              "experiment_table", psi25.get("doi"), psi25.get("licenseName", ""), psi25.get("licenseLink"),
              "table v1 (investigation metadata v4)", "text/csv", "parsed_with_warnings",
-             ["No total-pressure column.", "No per-test gravity column.", "No standardized outcome column.",
+             ["No total-pressure column in this table; pressure is discussed for subsets in NTRS 20210011385 (not mapped to these rows).", "No per-test gravity column.", "No standardized outcome column.",
               "Flow is an instrument display with a slow (~1 min) response, not a calibrated per-test velocity.",
               "Oxygen sensor was out of calibration and corrected by a constant offset."],
              "Experimental table tab; CSV rows 2-130"),
@@ -332,7 +351,7 @@ sources = [
              "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
              "test_matrix_workbook", psi25.get("doi"), psi25.get("licenseName", ""), psi25.get("licenseLink"),
              "document v2", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "parsed",
-             ["Values are formatted differently from the CSV in places; cross-check found no substantive numeric conflict."],
+             ["Test IDs and initial O2 were checked. Text differences were counted; other numeric fields were not exhaustively cross-checked."],
              "Spreadsheets folder; six PI sheets"),
     artifact("PSI-25", "PSI-25_Fan_Calibration.xlsx",
              "BASS-II fan calibration data",
@@ -379,8 +398,24 @@ sources = [
 # ---------------------------------------------------------------------------
 # BASS-II records
 # ---------------------------------------------------------------------------
+for sid in ("PSI-25", "PSI-98"):
+    meta = source_metadata(sid)
+    sources.append(artifact(sid, f"{sid}_metadata.json", f"{sid} investigation metadata", SOURCE_PAGE.format(sid=sid),
+        "investigation_metadata", meta.get("doi"), meta.get("licenseName", ""), meta.get("licenseLink"),
+        "preserved metadata snapshot", "application/json", "parsed", ["Investigation-level context; not a per-test measurement."], "Investigation description and hardware"))
 
-bass_rows = list(csv.DictReader(read_text(RAW / "PSI-25_experimental.csv").splitlines()))
+
+def read_rows(filename: str, required: set[str]) -> list[dict]:
+    import io
+    reader = csv.DictReader(io.StringIO(read_text(RAW / filename)))
+    if not required.issubset(set(reader.fieldnames or [])):
+        raise ValueError(f"Missing required CSV headers: {filename}")
+    result = list(reader)
+    if any(None in row or any(value is None for value in row.values()) for row in result):
+        raise ValueError(f"Malformed CSV row: {filename}")
+    return result
+
+bass_rows = read_rows("PSI-25_experimental.csv", {"Test #", "Sample #", "Fuel Sample Material", "Air display", "Calibrated  initial O2 % by vol "})
 bass_records: list[dict] = []
 test_ids: set[str] = set()
 duplicate_test_ids: list[str] = []
@@ -388,6 +423,8 @@ flags_count: dict[str, int] = {}
 
 for idx, row in enumerate(bass_rows, start=2):
     test = row["Test #"].strip()
+    if not re.fullmatch(r"[A-Z]\d+[a-z]?", test):
+        raise ValueError(f"Invalid BASS-II test identifier at CSV row {idx}: {test}")
     experiment_id = f"BASS2-{test}"
     if experiment_id in test_ids:
         duplicate_test_ids.append(experiment_id)
@@ -396,6 +433,8 @@ for idx, row in enumerate(bass_rows, start=2):
     material_raw = row["Fuel Sample Material"].strip()
     family, species, geometry = classify_material(material_raw)
     thickness, thickness_token = extract_thickness_mm(material_raw)
+    if geometry in {"Rod/cylinder", "Spherical section"}:
+        thickness, thickness_token = None, None
     width, width_token = extract_width_cm(material_raw)
     diameter, diameter_token = extract_diameter_mm(material_raw)
 
@@ -417,10 +456,12 @@ for idx, row in enumerate(bass_rows, start=2):
         flow_numbers = []
         flow_range = None
 
-    flow = val(flow_initial, "measured" if flow_initial is not None else "not_reported", "cm/s",
+    flow = val(flow_initial, "measured" if flow_initial is not None else "unverified" if flow_numbers == [] and air_raw and re.search(r"\d", air_raw) else "not_reported", "cm/s",
                air_raw or None,
-               "Duct air-speed display as recorded in the source. Response time is slow (~1 min), so a value is steady only at a fixed setting (PSI-25 ReadMe).",
+               "First parsed duct air-speed display token; not a verified time-resolved series. Parenthetical numeric annotations are retained in raw text but not used as flow readings. Response time is slow (~1 min); steady only at a fixed setting (PSI-25 ReadMe).",
                "instrument_display")
+    if flow["status"] == "unverified":
+        flow["note"] = "Numeric annotation has an ambiguous measurement basis (leading token above 45); preserved without selecting a flow velocity. This is an extraction ambiguity, not a physical upper limit."
     flow_derived = val(round(flow_initial * FAN_FACTOR, 3) if flow_initial is not None else None,
                        "derived" if flow_initial is not None else "not_reported", "cm/s",
                        air_raw or None,
@@ -465,11 +506,12 @@ for idx, row in enumerate(bass_rows, start=2):
             "measurement_id": f"{experiment_id}-{mid}",
             "quantity": quantity,
             "original_value": v.get("raw"),
-            "original_unit": v.get("unit"),
+            "original_unit": ("cm" if mid == "THK" and experiment_id.startswith("SAFFIRE1-") else "micron" if mid == "THK" and v.get("raw") and "micron" in str(v["raw"]).lower() else "inch" if mid == "DIA" and v.get("raw") and "/" in str(v["raw"]) else v.get("unit")),
             "normalized_value": v.get("value"),
             "normalized_unit": v.get("unit"),
             "status": v.get("status"),
-            "uncertainty": v.get("note") if v.get("status") in ("measured", "derived") else None,
+            "uncertainty": None,
+            "note": v.get("note"),
             "measurement_phase": phase,
             "measurement_method": method,
             "source_locator": locator,
@@ -571,7 +613,7 @@ for idx, row in enumerate(bass_rows, start=2):
 # Saffire-I records
 # ---------------------------------------------------------------------------
 
-saffire_rows = list(csv.DictReader(read_text(RAW / "PSI-98_experimental.csv").splitlines()))
+saffire_rows = read_rows("PSI-98_experimental.csv", {"Sample Number ", "Material", "Percent O2", "Sample Thickness (cm)"})
 saffire_records: list[dict] = []
 saffire_non_experiment: list[dict] = []
 for idx, row in enumerate(saffire_rows, start=2):
@@ -583,7 +625,11 @@ for idx, row in enumerate(saffire_rows, start=2):
         continue
 
     def fnum(key: str) -> float | None:
-        return to_float(row.get(key))
+        raw = row.get(key)
+        number = to_float(raw)
+        if not is_blank(raw) and (number is None or number < 0):
+            raise ValueError(f"Invalid Saffire numeric field {key} at CSV row {idx}: {raw}")
+        return number
 
     o2_raw = (row.get("Percent O2") or "").strip()
     o2_numbers = [float(x) for x in re.findall(r"\d+(?:\.\d+)?", o2_raw)]
@@ -632,11 +678,12 @@ for idx, row in enumerate(saffire_rows, start=2):
             "measurement_id": f"{experiment_id}-{mid}",
             "quantity": qty,
             "original_value": v.get("raw"),
-            "original_unit": v.get("unit"),
+            "original_unit": ("cm" if mid == "THK" and experiment_id.startswith("SAFFIRE1-") else "micron" if mid == "THK" and v.get("raw") and "micron" in str(v["raw"]).lower() else "inch" if mid == "DIA" and v.get("raw") and "/" in str(v["raw"]) else v.get("unit")),
             "normalized_value": v.get("value"),
             "normalized_unit": v.get("unit"),
             "status": v.get("status"),
-            "uncertainty": v.get("note") if v.get("status") in ("measured", "derived") else None,
+            "uncertainty": None,
+            "note": v.get("note"),
             "measurement_phase": phase,
             "measurement_method": method,
             "source_locator": loc,
@@ -709,6 +756,26 @@ for idx, row in enumerate(saffire_rows, start=2):
     saffire_records.append(record)
 
 records = bass_records + saffire_records
+def validate_record_ids(items: list[dict]) -> None:
+    ids = [record["experiment_id"] for record in items]
+    if any(not value for value in ids) or len(set(ids)) != len(ids):
+        raise ValueError("Missing or duplicate experiment identifiers; publication refused")
+
+validate_record_ids(records)
+
+for record in records:
+    for key, value in record.items():
+        if isinstance(value, dict) and "status" in value:
+            value["source_locator"] = record["source_locator"]
+            value["source_file"] = f"{record['source_id']}_experimental.csv"
+            if value.get("basis") == "investigation_level" or value["status"] == "investigation_level":
+                value["source_locator"] = f"{record['source_id']} investigation metadata / ReadMe; context only"
+                value["source_file"] = f"{record['source_id']}_ReadMe.docx" if key == "flow_direction" else f"{record['source_id']}_metadata.json"
+    for measurement in record["measurements"]:
+        measurement["source_file"] = f"{record['source_id']}_experimental.csv"
+        if record["family"] == "Saffire-I" and measurement["quantity"] == "sample_thickness":
+            measurement["original_value"] = record["raw"]["Sample Thickness (cm)"]
+
 
 # ---------------------------------------------------------------------------
 # cross-checks and validation
@@ -725,7 +792,10 @@ for ws in wb.worksheets:
         if not row or row[2] is None:
             continue
         d = dict(zip(header, row))
-        matrix_by_test[str(d.get("Test no.")).strip()] = d
+        matrix_test = str(d.get("Test no.")).strip()
+        if matrix_test in matrix_by_test:
+            raise ValueError(f"Duplicate matrix test ID: {matrix_test}")
+        matrix_by_test[matrix_test] = d
 
 csv_by_test = {r["test_number"]: r for r in bass_records}
 o2_mismatch = []
@@ -754,8 +824,8 @@ matrix_check = {
     "o2_initial_mismatches": o2_mismatch,
     "material_text_formatting_differences": material_formatting_diff,
     "air_display_formatting_differences": air_formatting_diff,
-    "substantive_numeric_conflicts": substantive_conflicts,
-    "interpretation": "Test IDs and initial O2 values agree between the PSI CSV and the six-sheet test-matrix workbook. Text differences are punctuation/capitalisation only; no substantive numeric conflict was found.",
+    "substantive_numeric_conflicts": substantive_conflicts + o2_mismatch,
+    "interpretation": "Test IDs and initial O2 values agree between the PSI CSV and the six-sheet test-matrix workbook. Only test IDs and initial O2 were numerically cross-checked. Material and air-display differences were counted, not established as formatting-only; other numeric columns were not cross-checked.",
 }
 
 # fan calibration note
@@ -811,11 +881,11 @@ validation = {
     "checks": [
         {"check": "unique experiment IDs", "result": "PASS" if not duplicate_test_ids else "FAIL", "detail": f"{len(records)} records, {len(duplicate_test_ids)} duplicates"},
         {"check": "all BASS-II test IDs present in matrix workbook", "result": "PASS" if len(set(csv_by_test) & set(matrix_by_test)) == len(csv_by_test) else "FAIL", "detail": f"{len(set(csv_by_test) & set(matrix_by_test))}/{len(csv_by_test)}"},
-        {"check": "initial O2 matches matrix workbook", "result": "PASS" if not o2_mismatch else "WARN", "detail": f"{len(csv_by_test) - len(o2_mismatch)}/{len(csv_by_test)} exact numeric matches"},
+        {"check": "initial O2 matches matrix workbook", "result": "PASS" if not o2_mismatch else "FAIL", "detail": f"{len(csv_by_test) - len(o2_mismatch)}/{len(csv_by_test)} exact numeric matches"},
         {"check": "no cabin pressure substituted for missing total pressure", "result": "PASS" if coverage["pressure_reported"] == 0 else "CHECK", "detail": f"{coverage['pressure_reported']}/{len(records)} records report total pressure"},
         {"check": "no per-test gravity inferred as measured", "result": "PASS" if coverage["gravity_per_record_reported"] == 0 else "CHECK", "detail": "Gravity is investigation-level only; status='investigation_level'"},
-        {"check": "missing values preserved as null", "result": "PASS", "detail": "Nulls carry status not_reported; no zero-fill applied"},
-        {"check": "raw values preserved", "result": "PASS", "detail": "record.raw retains every original CSV field"},
+        {"check": "missing values preserved as null", "result": "PASS" if all(v.get("value") is None for r in records for v in r.values() if isinstance(v, dict) and v.get("status") == "not_reported") else "FAIL", "detail": "Nulls carry status not_reported; no zero-fill applied"},
+        {"check": "raw values preserved", "result": "PASS" if all(r["raw"] == {k: "" if v is None else str(v) for k,v in row.items()} for r,row in zip(records, bass_rows + [row for row in saffire_rows if str(row["Sample Number "]).startswith("S")])) else "FAIL", "detail": "record.raw retains every original CSV field"},
         {"check": "Saffire non-experiment rows excluded", "result": "PASS", "detail": f"{len(saffire_non_experiment)} image-set descriptor rows excluded"},
     ],
 }
@@ -912,6 +982,18 @@ context_sources = [
     },
 ]
 
+context_sources.append({
+    "source_id": "NTRS-20210011385",
+    "source_title": "BASS-II Summary Report (NASA/TM-20210011385)",
+    "source_url": "https://ntrs.nasa.gov/citations/20210011385",
+    "original_download_url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf",
+    "role": "reviewed_report_context", "license": "Public NTRS distribution; see citation copyright terms",
+    "retrieved": "2026-11-14",
+    "limitations": ["Printed p.38 (PDF p.46) reports monitored pressure 99.2–99.5 kPa for its test subset; printed p.94 (PDF p.102) gives ambient pressure 1 atm and Kanthal hot-wire ignition for another subset.",
+        "Printed p.11 (PDF p.19) uses 1 atm and 300 K in a gas-law calculation; these are calculation inputs, not per-test measurements.",
+        "No row-level pressure or ignition-method mapping was verified; normalized record fields remain null. Report contains findings beyond the two ingested CSVs."],
+})
+
 presets = [
     {
         "id": "earth-sea-level",
@@ -982,7 +1064,7 @@ corpus = {
         "Total pressure is absent from both PSI experimental tables; no cabin pressure was substituted.",
         "Gravity is investigation-level only (ISS/Cygnus microgravity), not a per-test measured g-level.",
         "Neither table contains a standardized extinction/sustained-burning outcome.",
-        "Flow values are instrument displays with a slow response; derived velocity uses a single workbook factor and is not a per-test calibration.",
+        "BASS-II flow values are slow-response displays; Saffire-I reports a setting. The BASS-II derived velocity uses one factor, not a per-test calibration.",
         "O2 readings were corrected by a constant offset because the sensor was out of calibration; per-sample uncertainty is not supplied.",
         "Material family, geometry and dimensions are parsed from free-text fields and marked derived.",
         "Two BASS-II final-O2 values exceed their initial values by more than 2 percentage points and are flagged suspect, not corrected.",
@@ -990,6 +1072,9 @@ corpus = {
         "No AI-generated scientific claims are presented. The evidence assistant is a deterministic retrieval and citation engine.",
     ],
 }
+
+if any(check["result"] == "FAIL" for check in validation["checks"]):
+    raise ValueError("Validation failed; corpus publication refused")
 
 with open(OUT / "corpus.json", "w", encoding="utf-8") as f:
     json.dump(corpus, f, indent=2, ensure_ascii=False)
@@ -1023,3 +1108,9 @@ print(json.dumps({
     "matrix_check": {k: v for k, v in matrix_check.items() if k != "o2_initial_mismatches"},
     "flags": validation["quality_flag_counts"],
 }, indent=2))
+
+originals = PUBLIC_DATA / "original"
+originals.mkdir(parents=True, exist_ok=True)
+for source in sources:
+    if source.get("local_original_url"):
+        shutil.copyfile(RAW / source["original_filename"], originals / source["original_filename"])

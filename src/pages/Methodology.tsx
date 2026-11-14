@@ -28,10 +28,10 @@ export function Methodology() {
       />
 
       <div className="method-stats">
-        <Stat value="131" label="accepted experiment records" detail="129 BASS-II + 2 Saffire-I" tone="paper" />
-        <Stat value="8" label="preserved source artifacts" detail="CSV, ReadMe, matrix, calibration, NTRS" tone="mint" />
-        <Stat value="129/129" label="matrix ID cross-check" detail="Zero substantive conflicts" tone="mint" />
-        <Stat value="4" label="records flagged suspect" detail="Retained and disclosed" tone="amber" />
+        <Stat value={String(records.length)} label="accepted experiment records" detail={corpus.meta.investigations.map((item) => `${item.records} ${item.family}`).join(" + ")} tone="paper" />
+        <Stat value={String(sourceManifest.sources.length)} label="preserved source artifacts" detail="CSV, ReadMe, matrix, calibration, NTRS" tone="mint" />
+        <Stat value={`${validation.matrix_cross_check.test_ids_matched}/${validation.matrix_cross_check.test_ids_in_csv}`} label="matrix ID cross-check" detail="IDs and initial O2 checked" tone="mint" />
+        <Stat value={String(suspect.length)} label="records flagged suspect" detail="Retained and disclosed" tone="amber" />
       </div>
 
       <SectionRule label="Pipeline" meta="Raw files are never modified" />
@@ -78,13 +78,13 @@ export function Methodology() {
         </Panel>
       </div>
 
-      <Panel kicker="Cross-check" title="CSV versus the six-sheet test-matrix workbook" actions={<Badge tone="mint">0 conflicts</Badge>}>
+      <Panel kicker="Cross-check" title="CSV versus the six-sheet test-matrix workbook" actions={<Badge tone="mint">{validation.matrix_cross_check.o2_initial_mismatches.length} initial-O2 conflicts</Badge>}>
         <div className="crosscheck">
           <div className="crosscheck__numbers">
-            <div><strong>129</strong><span>test IDs in CSV</span></div>
-            <div><strong>129</strong><span>test IDs in matrix</span></div>
-            <div><strong>129</strong><span>matched IDs</span></div>
-            <div><strong>129</strong><span>exact initial O2 matches</span></div>
+            <div><strong>{validation.matrix_cross_check.test_ids_in_csv}</strong><span>test IDs in CSV</span></div>
+            <div><strong>{validation.matrix_cross_check.test_ids_in_matrix}</strong><span>test IDs in matrix</span></div>
+            <div><strong>{validation.matrix_cross_check.test_ids_matched}</strong><span>matched IDs</span></div>
+            <div><strong>{validation.matrix_cross_check.o2_initial_exact_matches}</strong><span>exact initial O2 matches</span></div>
           </div>
           <div className="crosscheck__detail">
             <p>{validation.matrix_cross_check.interpretation}</p>
@@ -94,8 +94,8 @@ export function Methodology() {
               <span className="mono">{validation.matrix_cross_check.substantive_numeric_conflicts.length} substantive numeric conflicts</span>
             </div>
             <p className="muted">
-              Formatting differences are punctuation, capitalisation and token order. They are
-              documented rather than normalized away in the raw layer.
+              Text differences were counted, not proven to be formatting-only. Other numeric columns
+              were not exhaustively cross-checked. Raw values remain available for review.
             </p>
           </div>
         </div>
@@ -143,7 +143,7 @@ export function Methodology() {
           </div>
           <p className="panel-caption">
             Saffire-I also contains pre/post-flow image-set descriptors. Counting them as experiments
-            would inflate a two-sample investigation to four.
+            would inflate the two sample rows to four records; this is not a claim about the number of independent flight burns.
           </p>
         </Panel>
       </div>
@@ -164,15 +164,18 @@ export function Methodology() {
               <div><dt>Version</dt><dd>{source.version}</dd></div>
               <div><dt>DOI</dt><dd className="mono">{source.doi ?? 'not assigned'}</dd></div>
               <div><dt>License</dt><dd>{source.license}</dd></div>
-              <div><dt>Retrieved</dt><dd className="mono">{shortIso(source.download_timestamp)}</dd></div>
+              <div><dt>Acquired (manifest)</dt><dd className="mono">{source.download_timestamp ? shortIso(source.download_timestamp) : 'Not preserved'}</dd></div>
               <div><dt>SHA-256</dt><dd className="mono hash">{source.sha256}</dd></div>
             </dl>
             <div className="source-card__locator">{source.source_locator}</div>
+            <p className="panel-caption">{source.timestamp_note}</p>
             <ul className="source-limits">
               {source.limitations.map((limitation) => (<li key={limitation}>{limitation}</li>))}
             </ul>
             <div className="source-card__foot">
               <SourceLink href={source.source_url}>Landing page</SourceLink>
+              {source.local_original_url && <a href={source.local_original_url} download>Preserved NASA original ({source.content_type.split('/').pop()}) ↓</a>}
+              {source.original_download_url && <SourceLink href={source.original_download_url}>NASA original download</SourceLink>}
               {source.license_url && <SourceLink href={source.license_url} quiet>License</SourceLink>}
             </div>
           </article>
@@ -188,6 +191,7 @@ export function Methodology() {
               <p>{source.limitations.join(' ')}</p>
             </div>
             <SourceLink href={source.source_url}>Open</SourceLink>
+            {source.original_download_url && <SourceLink href={source.original_download_url}>Original report PDF (NASA)</SourceLink>}
           </div>
         ))}
       </div>

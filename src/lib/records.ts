@@ -111,14 +111,14 @@ export function fieldCoverage(source: ExperimentRecord[] = records): FieldCovera
       label: 'Initial O2',
       count: count((record) => record.oxygen_initial_pct.value !== null),
       total,
-      note: 'Two Saffire values are approximate midpoints of reported ranges.',
+      note: 'Saffire S1 uses a range midpoint; S2 retains an approximate single value.',
     },
     {
       key: 'oxygen_final',
       label: 'Final O2',
       count: count((record) => record.oxygen_final_pct.value !== null),
       total,
-      note: 'Four BASS-II finals are absent; two more are flagged inconsistent.',
+      note: 'Two BASS-II and both Saffire final O2 fields are absent; two reported BASS-II finals are flagged inconsistent.',
     },
     {
       key: 'pressure',

@@ -141,7 +141,7 @@ export function Compare() {
           <Callout title="What this table can support" tone="neutral">
             It can show the reported values and their provenance side by side. It cannot establish
             atmospheric equivalence, isolate a gravity effect, compare spread rates, or rank
-            materials: total pressure and per-test gravity are absent, flow bases differ, and no
+            materials: total pressure and per-test gravity are absent, flow and sample conditions require separate checks, and no
             standardized outcome exists.
           </Callout>
 

@@ -232,7 +232,7 @@ export function LiveModel() {
       </div>
 
       <div className="live__foot">
-        <span className="hand">[ 131 records. 0 pressure values. 0 invented answers. ]</span>
+        <span className="hand">[ 131 records. 0 pressure values. 0 imputed pressures. ]</span>
         <a className="text-link" href="#/assistant">
           Ask the evidence assistant why &rarr;
         </a>
