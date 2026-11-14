@@ -4,7 +4,7 @@ import viteConfig from './vite.config';
 
 export default mergeConfig(viteConfig, defineConfig({
   test: {
-    include: ['tests/**/*.test.ts'],
+    include: ['tests/**/*.test.ts', 'tests/**/*.test.tsx'],
     environment: 'node',
     reporters: ['default'],
   },

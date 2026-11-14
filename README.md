@@ -34,6 +34,8 @@ downloads, tests and the user-approved adaptation to current main after PR #1 wa
 - **Compare** — side-by-side comparison with a comparability audit that reports blockers instead
   of a similarity score.
 - **Gap Planner** — target-condition evidence audit and a downloadable Markdown test plan.
+- **Scenario retrieval** — condition-by-condition candidate explanations, documented heuristic
+  ordering, persistent selections and linked Atlas/Compare inspection. See [scenario policy](docs/scenario-planner.md).
 - **Evidence Assistant** — deterministic retrieval and citation engine with abstention.
 - **Methodology & Sources** — pipeline rules, validation gates, anomalies, sources and licenses.
 - **Exports** — CSV/JSON exports of records, claims and the source manifest.
@@ -196,7 +198,9 @@ scripts/           capture and benchmark scripts
 - No measurement, source, citation, benchmark result, deployment or NASA endorsement is fabricated.
 - Missing data remains unknown; no zero-filling and no imputation.
 - BASS-II, Saffire-I, LUCI and the challenge page are kept distinct.
-- No arbitrary risk/relevance score, no fire-risk prediction and no material certification.
+- No risk score, fire-risk prediction or material certification. Scenario retrieval uses
+  explicitly documented heuristic points with missingness shown separately; these are not
+  physical measurements, probabilities or scientific confidence.
 - Every assistant answer cites its source locator and abstains when unsupported.
 
 ## Deployment

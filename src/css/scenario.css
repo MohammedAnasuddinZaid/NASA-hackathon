@@ -1,0 +1,31 @@
+.scenario-candidate {
+  padding: 1.5rem 0;
+  border-top: 1px solid #ffffff26;
+}
+.scenario-candidate h3 {
+  overflow-wrap: anywhere;
+}
+.scenario-candidate details {
+  margin-top: 1rem;
+}
+.page--gap .compare-table {
+  min-width: 650px;
+}
+.page--gap .compare-table td {
+  white-space: normal;
+}
+.page--gap .gap-form-panel select {
+  max-width: 100%;
+}
+.page--gap input[type='checkbox'] {
+  width: auto;
+  margin-right: 0.5rem;
+  accent-color: #c6f432;
+}
+.page--gap .gap-results {
+  min-width: 0;
+}
+.page--gap caption {
+  text-align: left;
+  padding: 0.75rem;
+}
