@@ -16,4 +16,7 @@ ChatGPT browser checked8 routes, workflows, sources, error/empty states and390px
 No public deployment, paid service, AI call or merge.
 
 Documentation, real screenshots, scientific evaluation and compatibility notes complete.
-PR publication is the remaining handoff step.
+Published open/unmerged PR: https://github.com/MohammedAnasuddinZaid/NASA-hackathon/pull/4
+Title: feat: Enhance scenario planning, experiment comparison and explainable evidence ranking.
+Created through the signed-in ChatGPT browser, feat/scenario-comparison-ranking → main.
+PRs #2/#3 remain open; no PR was merged. Local review app runs on127.0.0.1:5186.
