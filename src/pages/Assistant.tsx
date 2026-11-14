@@ -2,10 +2,12 @@ import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { ask, answerToText } from '../lib/assistant';
 import type { AnswerGrade, AssistantAnswer } from '../lib/assistant';
-import { ApiError, ServiceUnavailable, evidenceApi } from '../lib/apiClient';
+import { ApiError } from '../lib/apiClient';
 import type { ApiAnswer } from '../lib/apiClient';
 import { Badge, PageHeader, Panel, SourceLink } from '../components/ui';
 import { VoiceAgent } from '../components/VoiceAgent';
+import { askTrace, resolveLocalQuestion, TraceUnavailable } from '../lib/traceClient';
+import type { TraceResult } from '../lib/traceClient';
 
 type Provenance =
   | { source: 'api'; corpusVersion: string; checked: number; validated: number }
@@ -13,7 +15,7 @@ type Provenance =
 
 type Message =
   | { role: 'user'; text: string; id: number }
-  | { role: 'assistant'; answer: AssistantAnswer; provenance: Provenance; id: number }
+  | { role: 'assistant'; answer: AssistantAnswer; provenance: Provenance; trace?: TraceResult; id: number }
   | { role: 'error'; text: string; fieldPath: string | null; id: number };
 
 const gradeLabel: Record<AnswerGrade, string> = {
@@ -83,6 +85,8 @@ export function Assistant() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [pending, setPending] = useState(false);
+  const [deterministic, setDeterministic] = useState(false);
+  const [lastQuestion, setLastQuestion] = useState('');
   const counter = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -92,7 +96,7 @@ export function Assistant() {
   }
 
   function push(message: Message) {
-    setMessages((current) => [...current, message]);
+    setMessages((current) => [...current, message].slice(-60));
   }
 
   async function submit(question: string) {
@@ -101,12 +105,17 @@ export function Assistant() {
     push({ role: 'user', text, id: nextId() });
     setInput('');
     setPending(true);
+    setLastQuestion(text);
 
     try {
-      const answer = await evidenceApi.ask({ question: text });
+      const history = messages.filter((message) => message.role === 'user').slice(-8)
+        .map((message) => ({ role: 'user' as const, content: message.role === 'user' ? message.text.slice(0, 1000) : '' }));
+      const trace = await askTrace(text, history, deterministic);
+      const answer = trace.answer;
       push({
         role: 'assistant',
         answer: fromApiAnswer(answer),
+        trace,
         provenance: {
           source: 'api',
           corpusVersion: answer.corpus_version,
@@ -116,12 +125,12 @@ export function Assistant() {
         id: nextId(),
       });
     } catch (error) {
-      if (error instanceof ServiceUnavailable) {
+      if (error instanceof TraceUnavailable) {
         // The service is down: keep working with the bundled deterministic engine
         // and say so under the answer instead of pretending nothing changed.
         push({
           role: 'assistant',
-          answer: ask(text),
+          answer: ask(resolveLocalQuestion(text, messages.filter((m) => m.role === 'user').map((m) => ({ role: 'user', content: m.role === 'user' ? m.text : '' })))),
           provenance: { source: 'local' },
           id: nextId(),
         });
@@ -153,12 +162,13 @@ export function Assistant() {
         index="05"
         eyebrow="Evidence Assistant"
         title={<>Ask the corpus. <em>It will tell you when it can’t answer.</em></>}
-        lede="A deterministic retrieval and citation engine over the bundled records, claims and source manifest. No external language model, no cloud call, no generated scientific claims."
+        lede="TRACE retrieves verified evidence and can explain it with a server-configured AI model. Exact claims and calculations remain deterministic. Every answer identifies its mode and limitations."
         actions={<Badge tone="mint">Abstention enabled</Badge>}
       />
 
       <div className="assistant-layout">
         <div className="assistant-main">
+          <label className="ask-foot" style={{ justifyContent: 'flex-start', gap: 8 }}><input type="checkbox" checked={deterministic} onChange={(event) => setDeterministic(event.target.checked)} /> Use deterministic evidence only</label>
           <div className="conversation" aria-live="polite">
             {messages.length === 0 ? (
               <div className="assistant-intro">
@@ -223,6 +233,18 @@ export function Assistant() {
                       </div>
                       <h3>{message.answer.headline}</h3>
                       <p className="mono muted">{provenanceLabel(message.provenance)}</p>
+                      <p role="status">{message.trace?.notice ?? 'Backend unavailable. Bundled deterministic evidence answer; no external model called.'}</p>
+                      {message.trace?.interpretation && <section className="answer__citations" aria-label="AI interpretation">
+                        <div className="answer__section-label">AI interpretation · {message.trace.model_used}</div>
+                        <p>{message.trace.interpretation}</p>
+                        <ul>{message.trace.interpretation_evidence_ids.map((id) => {
+                          const evidence = message.trace?.evidence.find((item) => item.evidence_id === id);
+                          const citationIndex = message.answer.citations.findIndex((citation) => citation.sourceId === evidence?.source_id);
+                          return <li key={id}><button className="text-link" onClick={() => document.getElementById(`${message.id}-citation-${citationIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>{evidence?.source_id} · {evidence?.locator}</button></li>;
+                        })}</ul>
+                      </section>}
+                      {message.trace && message.trace.ai_status !== 'generated' && message.trace.ai_status !== 'not_applicable' &&
+                        <button className="text-link" disabled={pending} onClick={() => void submit(message.answer.question)}>Retry question</button>}
                       {message.answer.paragraphs.map((paragraph) => (
                         <p key={paragraph}>{paragraph}</p>
                       ))}
@@ -254,8 +276,8 @@ export function Assistant() {
                       <div className="answer__citations">
                         <div className="answer__section-label">Retrieved sources</div>
                         <ol>
-                          {message.answer.citations.map((citation) => (
-                            <li key={`${citation.sourceId}-${citation.locator}`}>
+                          {message.answer.citations.map((citation, citationIndex) => (
+                            <li id={`${message.id}-citation-${citationIndex}`} key={`${citation.sourceId}-${citation.locator}`}>
                               <div className="citation__head">
                                 <span className="mono">{citation.sourceId}</span>
                                 <span>{citation.locator}</span>
@@ -277,7 +299,9 @@ export function Assistant() {
                             <li key={step}>{step}</li>
                           ))}
                         </ol>
-                        <p className="mono">No external model was called. Answer constructed from bundled fields.</p>
+                        <p className="mono">{message.trace?.ai_status === 'generated' ? 'AI explained the retrieved evidence. Exact claims below were validated independently; citation membership does not prove semantic support.' : 'No external model generated this answer. Evidence constructed deterministically.'}</p>
+                        {message.trace && <p className="mono">Resolved query: {message.trace.resolved_question}</p>}
+                        {message.trace?.answer.limitations.map((limitation) => <p key={limitation}>{limitation}</p>)}
                       </details>
 
                       <div className="answer__foot">
@@ -316,15 +340,17 @@ export function Assistant() {
               onChange={(event) => setInput(event.target.value)}
               placeholder="Ask about a record, a measured field, or a gap…"
               autoComplete="off"
+              maxLength={500}
             />
             <button type="submit" className="button button--ember" disabled={!input.trim() || pending}>
               {pending ? 'Retrieving…' : 'Retrieve'} <span aria-hidden="true">→</span>
             </button>
           </form>
           <div className="ask-foot">
-            <span>{pending ? 'Querying the evidence API…' : 'Deterministic · cites every answer'}</span>
+            <span role="status">{pending ? 'TRACE is retrieving and verifying evidence…' : 'Evidence first · answer mode shown per response'}</span>
+            {!pending && lastQuestion && <button className="text-link" onClick={() => void submit(lastQuestion)}>Retry last question</button>}
             {messages.length > 0 && (
-              <button className="text-link" onClick={() => setMessages([])}>Clear conversation</button>
+              <button className="text-link" disabled={pending} onClick={() => setMessages([])}>Clear conversation</button>
             )}
           </div>
         </div>
@@ -342,7 +368,7 @@ export function Assistant() {
 
           <Panel kicker="Guarantees" title="What it will never do">
             <ul className="refusal-list">
-              <li>Call an external AI model or API.</li>
+              <li>Expose model credentials to your browser.</li>
               <li>Fill a missing pressure or gravity value.</li>
               <li>Predict fire risk or certify a material.</li>
               <li>Combine BASS-II and Saffire into one score.</li>

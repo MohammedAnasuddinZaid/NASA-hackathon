@@ -8,6 +8,7 @@ Pydantic and the Python standard library.
 from __future__ import annotations
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from app.config import settings
 from app.v1 import API_VERSION, policy
@@ -36,9 +37,14 @@ def create_app() -> FastAPI:
     )
     install_error_handlers(app, get_store)
     app.include_router(router, prefix="/api/v1")
+    from app.v1.trace import router as trace_router
+    app.include_router(trace_router, prefix="/api/v1")
     app.include_router(health_router)
     install_middleware(app, get_store)
     app.state.policy_version = policy.POLICY_VERSION
+    @app.get("/docs", include_in_schema=False)
+    def docs_alias():
+        return RedirectResponse("/api/docs")
     return app
 
 

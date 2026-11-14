@@ -37,7 +37,9 @@ hidden behind a score.
 
 ## Application limitations
 
-- The assistant is deterministic retrieval only. It does not generate scientific claims.
+- Exact assistant claims use deterministic retrieval. Optional TRACE interpretations use
+  a server-configured model and can still mischaracterize evidence despite lexical/citation
+  checks. Live authenticated model verification is pending; see trace-assistant.md.
 - The Gap Planner is a checklist for test design, not a protocol, prediction or certification.
 - The bundle is large because the corpus is imported directly for offline use.
 - No external deployment, domain or hosting configuration is included.

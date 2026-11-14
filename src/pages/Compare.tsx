@@ -1,7 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { evidenceApi } from '../lib/apiClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 import { records, recordById } from '../lib/corpus';
 import type { ExperimentRecord } from '../lib/types';
-import { comparabilityAudit, compareFields, comparisonBlockerCount, fieldDisplay, fieldStatus } from '../lib/compare';
+import { comparabilityAudit, compareFields, comparisonBlockerCount, fieldDisplay, fieldStatus, type ComparabilityCheck } from '../lib/compare';
 import { formatCompact } from '../lib/format';
 import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, Callout, EmptyState, PageHeader, Panel } from '../components/ui';
@@ -28,7 +30,19 @@ const stateLabel = {
 export function Compare() {
   const [selected, setSelected] = useState<ExperimentRecord[]>(initialSelection);
   const [toAdd, setToAdd] = useState('');
-  const checks = useMemo(() => comparabilityAudit(selected), [selected]);
+  const localChecks = useMemo(() => comparabilityAudit(selected), [selected]);
+  const session = useEvidenceSession();
+  const [remote, setRemote] = useState<{ key: string; checks: ComparabilityCheck[] } | null>(null);
+  const key = selected.map(r => r.experiment_id).join(',');
+  useEffect(() => {
+    if (session.mode !== 'api' || selected.length < 2) return;
+    let active = true;
+    evidenceApi.compare(selected.map(r => r.experiment_id)).then(result => {
+      if (active) setRemote({ key, checks: result.fields.map(field => ({ id: field.field, label: field.label, state: field.outcome === 'matched' ? Object.values(field.values).some(value => value.status === 'investigation_level' || value.basis === 'investigation_level') ? 'partial' : 'shared' : field.outcome === 'mismatched' ? 'blocked' : 'unknown', detail: field.explanation })) });
+    }).catch(error => { if (active) session.fallback(error.message); });
+    return () => { active = false; };
+  }, [key, session.mode]);
+  const checks = session.mode === 'api' && selected.length >= 2 && remote?.key === key ? remote.checks : localChecks;
   const blockers = comparisonBlockerCount(checks);
   const groups = [...new Set(compareFields.map((field) => field.group))];
 

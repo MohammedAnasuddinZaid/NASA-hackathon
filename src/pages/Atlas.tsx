@@ -1,5 +1,7 @@
-import { useMemo, useState } from 'react';
-import { records } from '../lib/corpus';
+import { useEffect, useMemo, useState } from 'react';
+import { records, recordById } from '../lib/corpus';
+import { evidenceApi, type ExperimentPage } from '../lib/apiClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 import type { ExperimentRecord } from '../lib/types';
 import { emptyFilters, filterRecords, uniqueFamilies, uniqueMaterials } from '../lib/records';
 import type { AtlasFilters, SortKey } from '../lib/records';
@@ -19,11 +21,30 @@ export function Atlas() {
   const [filters, setFilters] = useState<AtlasFilters>({ ...emptyFilters, family: initialFamily() });
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState<ExperimentRecord | null>(null);
+  const session = useEvidenceSession();
+  const [remote, setRemote] = useState<{ key: string; data: ExperimentPage } | null>(null);
+  const key = JSON.stringify([filters, page]);
+  useEffect(() => {
+    if (session.mode !== 'api') return;
+    let active = true;
+    evidenceApi.experiments({ q: filters.query, family: filters.family === 'all' ? undefined : filters.family, material: filters.material === 'all' ? undefined : filters.material, material_exact: true, atlas_search: true, validation_status: filters.quality === 'all' ? undefined : filters.quality, min_o2: filters.o2Min ?? undefined, max_o2: filters.o2Max ?? undefined, flow_only: filters.flowOnly, sort: filters.sort, limit: PAGE_SIZE, offset: page * PAGE_SIZE })
+      .then(data => { if (active) setRemote({ key, data }); }).catch(error => { if (active) session.fallback(error.message); });
+    return () => { active = false; };
+  }, [key, session.mode]);
+  const apiData = session.mode === 'api' && remote?.key === key ? remote.data : null;
+  async function openRecord(record: ExperimentRecord) {
+    if (session.mode !== 'api') { setSelected(record); return; }
+    try {
+      const detail = await evidenceApi.experiment(record.experiment_id);
+      setSelected({ ...record, ...detail, ...detail.fields } as ExperimentRecord);
+    } catch (error) { session.fallback((error as Error).message); setSelected(record); }
+  }
 
   const filtered = useMemo(() => filterRecords(records, filters), [filters]);
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const count = apiData?.total ?? filtered.length;
+  const pageCount = Math.max(1, Math.ceil(count / PAGE_SIZE));
   const safePage = Math.min(page, pageCount - 1);
-  const visible = filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
+  const visible = apiData ? apiData.items.map(r => recordById.get(r.experiment_id)!).filter(Boolean) : filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
   const families = useMemo(() => uniqueFamilies(), []);
   const materials = useMemo(() => uniqueMaterials(), []);
   const flagged = filtered.filter((record) => record.validation_status !== 'validated').length;
@@ -57,7 +78,7 @@ export function Atlas() {
 
       <div className="atlas-summary">
         <div className="atlas-summary__count">
-          <strong>{filtered.length}</strong>
+          <strong>{count}</strong>
           <span>records in view</span>
         </div>
         <div className="atlas-summary__meta">
@@ -189,12 +210,12 @@ export function Atlas() {
                   <tr
                     key={record.experiment_id}
                     className="data-table__row"
-                    onClick={() => setSelected(record)}
+                    onClick={() => void openRecord(record)}
                     tabIndex={0}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
-                        setSelected(record);
+                        void openRecord(record);
                       }
                     }}
                     aria-label={`Open ${record.experiment_id}`}

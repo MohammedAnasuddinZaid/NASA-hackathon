@@ -2,6 +2,11 @@
 
 Local-only FastAPI service for the FIRETRACE evidence workspace.
 
+TRACE adds an optional server-side OpenAI interpretation endpoint at
+`POST /api/v1/assistant/query`, disabled by default, and a deterministic calculation
+endpoint at `POST /api/v1/assistant/calculate`. Install requirements-ai.txt for generation;
+see [setup, evidence checks, privacy and limits](../docs/trace-assistant.md).
+
 It has two layers:
 
 | Layer | Prefix | Needs AI runtime? |

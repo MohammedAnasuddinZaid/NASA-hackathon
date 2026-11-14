@@ -59,7 +59,9 @@ The pipeline records the following checks in `validation_report.json`:
 ## Assistant
 
 The Evidence Assistant is deterministic retrieval over the bundled corpus, claims and source
-manifest. It performs no external model or API call. It answers only from reported values and
+manifest by default. The optional server-side TRACE endpoint adds bounded AI interpretations;
+see [TRACE safeguards and configuration](trace-assistant.md). Exact claims remain deterministic.
+The bundled engine performs no external model call. It answers only from reported values and
 abstains otherwise. The 30-question benchmark in `data/processed/benchmark.json` records its
 current behavior.
 
