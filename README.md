@@ -12,7 +12,8 @@ used offline after a build.
 
 ## What it does
 
-- **Overview** — corpus ledger, coverage counts, the central evidence gap.
+- **Overview** — a 45-second voiced explainer, corpus ledger, coverage counts and the central
+  evidence gap.
 - **Atmosphere Explorer** — Dalton-law oxygen partial-pressure calculator, reference atmospheres,
   the reported oxygen distribution, and an explicit “unknown pressure” placement for every record.
 - **Evidence Atlas** — searchable, filterable table of all 131 records, with a provenance drawer.
@@ -70,11 +71,18 @@ npm run preview
 
 The static output is written to `dist/`. It can be served from any static host or opened locally.
 
+## Design
+
+The interface uses a three-color system — black `#0B0B0C`, white `#FFFFFF` and lime `#C6F432` —
+with Manrope for display type and Inter for body copy. The overview explainer is voiced by five
+recorded narration clips in `public/audio/`; if the browser blocks unmuted autoplay, the player
+shows a **Sound on** prompt and starts narration on the first click.
+
 ## Tests
 
 ```bash
 npm test        # 80 Vitest unit tests
-npm run e2e     # 16 Playwright end-to-end tests
+npm run e2e     # 18 Playwright end-to-end tests
 npm run benchmark # 30-question assistant benchmark
 ```
 

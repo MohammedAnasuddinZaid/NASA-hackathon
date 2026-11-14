@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const routes = [
-  ['Overview', '/#/overview', 'Fire changes when gravity lets go'],
+  ['Overview', '/#/overview', 'Evidence has an address'],
   ['Atmosphere', '/#/atmosphere', 'An atmosphere is two numbers'],
   ['Evidence Atlas', '/#/atlas', 'Every record'],
   ['Compare', '/#/compare', 'Side by side'],
@@ -129,4 +129,96 @@ test('mobile layout has no page-level horizontal overflow', async ({ page }) => 
     );
     expect(overflow, `horizontal overflow on ${path}`).toBeLessThanOrEqual(1);
   }
+});
+
+test('film narration follows play, pause, mute and chapter changes', async ({ page }) => {
+  await page.goto('/#/overview');
+  await page.locator('.film').scrollIntoViewIfNeeded();
+
+  const audios = page.locator('.film audio');
+  await expect(audios).toHaveCount(5);
+  await expect
+    .poll(() =>
+      audios.evaluateAll((nodes) =>
+        nodes.every((node) => {
+          const duration = (node as HTMLAudioElement).duration;
+          return Number.isFinite(duration) && duration > 4.5 && duration < 9.5;
+        }),
+      ),
+    )
+    .toBe(true);
+
+  // A blocked-autoplay prompt may appear depending on browser policy.
+  if (await page.locator('.film__unmute').isVisible().catch(() => false)) {
+    await page.locator('.film__unmute').click();
+  }
+
+  await page.locator('.film__chapter').first().click();
+  await expect
+    .poll(() => audios.nth(0).evaluate((node) => !(node as HTMLAudioElement).paused))
+    .toBe(true);
+
+  await page.locator('.film__button--play').click();
+  await expect
+    .poll(() => audios.nth(0).evaluate((node) => (node as HTMLAudioElement).paused))
+    .toBe(true);
+
+  await page.locator('.film__button--play').click();
+  await expect
+    .poll(() => audios.nth(0).evaluate((node) => !(node as HTMLAudioElement).paused))
+    .toBe(true);
+
+  await page.locator('.film__chapter').nth(3).click();
+  await expect
+    .poll(() => audios.nth(3).evaluate((node) => !(node as HTMLAudioElement).paused))
+    .toBe(true);
+  await expect
+    .poll(() => audios.nth(0).evaluate((node) => (node as HTMLAudioElement).paused))
+    .toBe(true);
+
+  await page.locator('.film__sound').click();
+  await expect
+    .poll(() => audios.evaluateAll((nodes) => nodes.every((node) => (node as HTMLAudioElement).paused)))
+    .toBe(true);
+
+  await page.locator('.film__sound').click();
+  await expect
+    .poll(() => audios.nth(3).evaluate((node) => !(node as HTMLAudioElement).paused))
+    .toBe(true);
+});
+
+test('film offers a sound prompt when autoplay is blocked', async ({ page }) => {
+  await page.addInitScript(() => {
+    const state = window as unknown as { __allowPlay?: boolean };
+    state.__allowPlay = false;
+    document.addEventListener('click', () => {
+      state.__allowPlay = true;
+    }, true);
+    const original = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function play() {
+      if (!state.__allowPlay) {
+        return Promise.reject(new DOMException('Autoplay blocked', 'NotAllowedError'));
+      }
+      return original.call(this);
+    };
+  });
+
+  await page.goto('/#/overview');
+  await page.locator('.film').scrollIntoViewIfNeeded();
+
+  await expect(page.locator('.film__unmute')).toBeVisible();
+  await expect(page.locator('.film__head-meta')).toContainText('Tap for sound');
+  await expect(page.locator('.film audio').first()).toBeAttached();
+  expect(
+    await page.locator('.film audio').first().evaluate((node) => (node as HTMLAudioElement).paused),
+  ).toBe(true);
+
+  await page.locator('.film__unmute').click();
+  await expect(page.locator('.film__unmute')).toBeHidden();
+  await expect(page.locator('.film__head-meta')).toContainText('Voiceover');
+  await expect
+    .poll(() =>
+      page.locator('.film audio').first().evaluate((node) => !(node as HTMLAudioElement).paused),
+    )
+    .toBe(true);
 });

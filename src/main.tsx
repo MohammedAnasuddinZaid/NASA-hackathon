@@ -1,9 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import './styles.css';
-import './freshman-override.css';
-import './spacing-fix.css';
+import './css/base.css';
+import './css/home.css';
+import './css/film.css';
+import './css/pages.css';
+import './css/modules.css';
+import './css/responsive.css';
+import './css/startup.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
