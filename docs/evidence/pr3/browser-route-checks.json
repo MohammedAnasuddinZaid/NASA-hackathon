@@ -1,0 +1,34 @@
+[
+  {
+    "route": "overview",
+    "heading": "  - heading \"Evidence has an address.\" [level=1]:"
+  },
+  {
+    "route": "atmosphere",
+    "heading": "  - heading \"An atmosphere is two numbers. The corpus reports one.\" [level=1]:"
+  },
+  {
+    "route": "atlas",
+    "heading": "  - heading \"Every record, every gap.\" [level=1]:"
+  },
+  {
+    "route": "compare",
+    "heading": "  - heading \"Side by side, without pretending.\" [level=1]:"
+  },
+  {
+    "route": "gap",
+    "heading": "  - heading \"Design the test the evidence is missing.\" [level=1]:"
+  },
+  {
+    "route": "assistant",
+    "heading": "  - heading \"Ask the corpus. It will tell you when it can’t answer.\" [level=1]:"
+  },
+  {
+    "route": "methodology",
+    "heading": "  - heading \"Built to be checked, not trusted.\" [level=1]:"
+  },
+  {
+    "route": "exports",
+    "heading": "  - heading \"Take the evidence with you.\" [level=1]:"
+  }
+]

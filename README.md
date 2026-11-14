@@ -13,7 +13,9 @@ The repository ships two runnable surfaces over one curated corpus:
 - a **local FastAPI evidence API** in `backend/` that serves the same corpus with per-field
   provenance, claim validation and explicit abstention.
 
-Neither surface calls an external model. The evidence API boots with no Ollama, whisper.cpp or
+The optional TRACE endpoint can call OpenAI when explicitly enabled server-side; see
+[TRACE setup and safeguards](docs/trace-assistant.md). Its default is deterministic with no
+external model call. The evidence API boots with no Ollama, whisper.cpp or
 sherpa-onnx installed; those are optional extras used only by the legacy local voice routes.
 
 ## What it does

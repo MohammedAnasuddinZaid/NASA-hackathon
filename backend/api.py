@@ -36,6 +36,8 @@ def create_app() -> FastAPI:
     )
     install_error_handlers(app, get_store)
     app.include_router(router, prefix="/api/v1")
+    from app.v1.trace import router as trace_router
+    app.include_router(trace_router, prefix="/api/v1")
     app.include_router(health_router)
     install_middleware(app, get_store)
     app.state.policy_version = policy.POLICY_VERSION

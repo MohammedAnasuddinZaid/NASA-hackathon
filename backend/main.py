@@ -122,6 +122,8 @@ app = FastAPI(
 
 install_error_handlers(app, get_store)
 app.include_router(v1_router, prefix="/api/v1")
+from app.v1.trace import router as trace_router
+app.include_router(trace_router, prefix="/api/v1")
 app.include_router(health_router)
 install_middleware(
     app,
