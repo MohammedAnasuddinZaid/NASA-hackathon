@@ -55,4 +55,6 @@ live model call because no key is configured.10 labelled evaluation cases pass.
 Eight routes and core assistant interactions checked in ChatGPT browser. Standalone
 Playwright blocked by missing headless-shell1254; mobile override ineffective, unverified.
 Source data unchanged. Screenshots/logs in docs/evidence/pr3. See trace-assistant.md.
-PR publication is the remaining handoff step.
+Published unmerged PR: https://github.com/MohammedAnasuddinZaid/NASA-hackathon/pull/3
+Title: feat: Add evidence-grounded AI research assistant with verified citations.
+Created in the signed-in ChatGPT browser against main; PR #2 remains open.
