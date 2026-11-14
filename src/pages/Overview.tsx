@@ -54,6 +54,11 @@ export function Overview() {
   return (
     <div className="page page--overview">
       <section className="hero">
+        <div className="hero__torch" aria-hidden="true">
+          <span className="hero__torch-beam" />
+          <span className="hero__torch-glow" />
+          <span className="hero__torch-flare" />
+        </div>
         <div className="hero__top">
           <span className="hero__badge">
             <span className="hero__badge-dot" aria-hidden="true" /> NASA Space Apps 2026

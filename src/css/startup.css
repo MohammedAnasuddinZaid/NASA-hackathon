@@ -565,6 +565,91 @@ body .film em {
   border-bottom: 1px solid var(--line);
   background: radial-gradient(900px 520px at 88% -16%, rgba(198, 244, 50, 0.14), transparent 68%);
   overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+.hero__torch {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero__torch-beam {
+  position: absolute;
+  top: -40%;
+  right: -12%;
+  width: 78%;
+  height: 180%;
+  background:
+    radial-gradient(60% 45% at 50% 50%, rgba(255, 255, 255, 0.18) 0%, rgba(198, 244, 50, 0.22) 22%, transparent 62%),
+    conic-gradient(from 200deg at 50% 50%, transparent 0deg, rgba(198, 244, 50, 0.16) 28deg, rgba(255, 255, 255, 0.12) 46deg, transparent 72deg, transparent 360deg);
+  filter: blur(28px);
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  transform-origin: 30% 50%;
+  animation: hero-torch-sweep 9s ease-in-out infinite;
+}
+
+.hero__torch-glow {
+  position: absolute;
+  top: -20%;
+  right: -6%;
+  width: 52%;
+  height: 140%;
+  background: radial-gradient(55% 50% at 50% 50%, rgba(198, 244, 50, 0.28) 0%, rgba(255, 255, 255, 0.10) 30%, transparent 70%);
+  filter: blur(40px);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  animation: hero-torch-pulse 4.6s ease-in-out infinite;
+}
+
+.hero__torch-flare {
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(198, 244, 50, 0.4) 28%, transparent 68%);
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+  animation: hero-torch-flicker 2.8s steps(6, end) infinite;
+}
+
+.hero > *:not(.hero__torch) {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes hero-torch-sweep {
+  0%, 100% { transform: rotate(-6deg) scale(1.0); opacity: 0.75; }
+  50% { transform: rotate(4deg) scale(1.06); opacity: 0.95; }
+}
+
+@keyframes hero-torch-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.96); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+@keyframes hero-torch-flicker {
+  0%, 100% { opacity: 0.45; }
+  17% { opacity: 0.7; }
+  33% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+  67% { opacity: 0.4; }
+  83% { opacity: 0.65; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__torch-beam,
+  .hero__torch-glow,
+  .hero__torch-flare {
+    animation: none;
+  }
 }
 
 .hero__top {

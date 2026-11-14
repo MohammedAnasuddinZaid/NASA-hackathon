@@ -9,3 +9,14 @@ Thumbs.db
 tmp/
 scripts/__pycache__/
 # Keep source data and screenshots in the repository.
+
+# Backend (local-only, never commit secrets, models, venvs or runtime data)
+backend/.venv/
+backend/models/
+backend/logs/
+backend/runtime/
+backend/data/*.db
+backend/data/*.db-*
+backend/.env
+backend/**/*.pyc
+backend/**/__pycache__/
