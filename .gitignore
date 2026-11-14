@@ -17,6 +17,10 @@ backend/logs/
 backend/runtime/
 backend/data/*.db
 backend/data/*.db-*
+backend/data/*.sqlite3
+backend/data/*.sqlite3-*
+**/__pycache__/
+.pytest_cache/
 backend/.env
 backend/**/*.pyc
 backend/**/__pycache__/
