@@ -83,7 +83,7 @@ describe('bundled corpus integrity', () => {
   });
 
   it('retains verified source artifacts and their provenance fields', () => {
-    expect(sourceManifest.sources).toHaveLength(8);
+    expect(sourceManifest.sources).toHaveLength(10);
     expect(sourceManifest.context_sources.length).toBeGreaterThanOrEqual(2);
     for (const source of sourceManifest.sources) {
       expect(source.sha256).toMatch(/^[a-f0-9]{64}$/);
@@ -103,4 +103,17 @@ describe('bundled corpus integrity', () => {
       expect(claim.limitation.length).toBeGreaterThan(0);
     }
   });
+});
+
+
+it('separates calibration notes from uncertainty and preserves conversion provenance', () => {
+  const bass = records.find((record) => record.experiment_id === 'BASS2-B1')!;
+  expect(bass.oxygen_initial_pct.status).toBe('corrected');
+  expect(bass.oxygen_initial_pct.source_file).toBe('PSI-25_experimental.csv');
+  for (const record of records) for (const value of record.measurements) expect(value.uncertainty).toBeNull();
+  const thickness = records.find((record) => record.experiment_id === 'SAFFIRE1-S1')!.measurements.find((value) => value.quantity === 'sample_thickness')!;
+  expect(thickness.original_unit).toBe('cm');
+  expect(thickness.normalized_unit).toBe('mm');
+  expect(thickness.original_value).toBe('0.37');
+  expect(thickness.normalized_value).toBeCloseTo(3.7);
 });

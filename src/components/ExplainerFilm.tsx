@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { records, coverage, recordById } from '../lib/corpus';
+import { formatCompact } from '../lib/format';
 
 const DURATION = 45;
 
@@ -9,7 +11,7 @@ const scenes = [
     act: 'Act I',
     label: 'The problem',
     caption:
-      'The corpus contains 131 experiment records. Not one of them reports total pressure. The gap is not a blank to fill — it is the finding.',
+      `The corpus contains ${records.length} experiment records. ${coverage.pressure_reported} report total pressure. This is a gap in these tables; the summary report contains additional context.`,
   },
   {
     start: 9,
@@ -17,7 +19,7 @@ const scenes = [
     act: 'Act II',
     label: 'The missing axis',
     caption:
-      'Oxygen fraction is reported; total pressure is not. Without both, an atmosphere cannot be placed — and this model refuses to invent the missing ordinate.',
+      'These records report oxygen fraction without per-test total pressure. Without both, an atmosphere cannot be placed — and this model refuses to invent the missing ordinate.',
   },
   {
     start: 19,
@@ -33,7 +35,7 @@ const scenes = [
     act: 'Act IV',
     label: 'The plan',
     caption:
-      'The solution is not a better guess. The Gap Planner turns the absence into a test design: pressure, per-test gravity, flow basis and a standardized outcome.',
+      'The solution is not a better guess. The Gap Planner turns missing record fields into a planning checklist: pressure, per-test gravity, flow basis and a standardized outcome.',
   },
   {
     start: 38,
@@ -56,12 +58,10 @@ function typed(text: string, progress: number, from = 0.06, to = 0.46): string {
   return text.slice(0, Math.ceil(text.length * ratio));
 }
 
-const rows = [
-  ['BASS2-B1', '15.2%', 'Not reported', 'microgravity*'],
-  ['BASS2-B2', '16.0%', 'Not reported', 'microgravity*'],
-  ['BASS2-P22b', '15.5%', 'Not reported', 'microgravity*'],
-  ['SAFFIRE1-S1', '21.0%', 'Not reported', 'microgravity*'],
-] as const;
+const rows = ['BASS2-B1', 'BASS2-B2', 'BASS2-P22b', 'SAFFIRE1-S1'].map((id) => {
+  const record = recordById.get(id)!;
+  return [id, formatCompact(record.oxygen_initial_pct), formatCompact(record.total_pressure_psia), `${record.gravity_regime.value}*`];
+});
 
 function Cursor({ scene, progress }: { scene: number; progress: number }) {
   const positions = [
@@ -132,10 +132,10 @@ function SceneProblem({ progress }: { progress: number }) {
         </div>
         <div className="fm-statrow">
           <span>
-            <strong>131</strong> records
+            <strong>{records.length}</strong> records
           </span>
           <span>
-            <strong>0</strong> pressure values
+            <strong>{coverage.pressure_reported}</strong> record pressure values
           </span>
           <span>
             <strong>0</strong> per-test g
@@ -184,9 +184,9 @@ function SceneProblem({ progress }: { progress: number }) {
         </div>
         <div className="fm-field">
           <span>Source</span>
-          <strong>PSI-25 · row 14</strong>
+          <strong>{recordById.get('BASS2-B1')!.source_locator}</strong>
         </div>
-        <div className="fm-stamp">0 / 131</div>
+        <div className="fm-stamp">{coverage.pressure_reported} / {records.length}</div>
       </aside>
     </div>
   );
@@ -256,7 +256,7 @@ function SceneAtmosphere({ progress }: { progress: number }) {
           </div>
         </div>
         <div className="fm-stamp">Cannot place a record</div>
-        <div className="fm-stamp-sub">0 of 131 have a pressure value</div>
+        <div className="fm-stamp-sub">{coverage.pressure_reported} of {records.length} have a pressure value</div>
       </div>
     </div>
   );
@@ -283,7 +283,7 @@ function SceneAssistant({ progress }: { progress: number }) {
             The corpus does not report a total pressure for BASS-II.
           </div>
           <p>
-            <strong>0 of 131</strong> records carry a pressure value. The experimental table has no
+            <strong>{coverage.pressure_reported} of {records.length}</strong> records carry a pressure value. The experimental table has no
             pressure column, so no per-test pressure can be retrieved.
           </p>
           <div className="fm-cites">
@@ -362,7 +362,7 @@ function SceneEnd() {
       </div>
       <p className="fm-end-lede">Retrieve what was measured. Expose what wasn't.</p>
       <div className="fm-end-foot">
-        <span>131 records</span>
+        <span>{records.length} records</span>
         <span>0 pressure values</span>
         <span>1 honest answer</span>
       </div>
@@ -509,7 +509,7 @@ export function ExplainerFilm() {
         <div className="film__head-meta">
           <span>5 acts</span>
           <span>{voiceOn ? (audioBlocked ? 'Tap for sound' : 'Voiceover') : 'Muted'}</span>
-          <span>Runs on the bundled corpus</span>
+          <span>Record-layer narration; report context in Sources</span>
         </div>
       </div>
 

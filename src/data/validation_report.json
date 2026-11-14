@@ -1,6 +1,6 @@
 {
-  "pipeline_version": "0.1.0",
-  "generated_at": "2026-11-13T16:44:28.398269+00:00",
+  "pipeline_version": "0.2.0",
+  "generated_at": "2026-11-13T16:08:14.167011+00:00",
   "input_rows": {
     "PSI-25": 129,
     "PSI-98": 4
@@ -66,7 +66,7 @@
   },
   "quality_flag_counts": {
     "free_text_note_without_standardized_outcome": 105,
-    "flow_reported_as_sequence_not_single_value": 79,
+    "flow_reported_as_sequence_not_single_value": 75,
     "flow_not_parseable_from_display_field": 8,
     "material_polymer_not_named_in_row": 4,
     "final_o2_exceeds_initial_by_more_than_2pp": 2,
@@ -81,7 +81,7 @@
     "material_text_formatting_differences": 34,
     "air_display_formatting_differences": 86,
     "substantive_numeric_conflicts": [],
-    "interpretation": "Test IDs and initial O2 values agree between the PSI CSV and the six-sheet test-matrix workbook. Text differences are punctuation/capitalisation only; no substantive numeric conflict was found."
+    "interpretation": "Test IDs and initial O2 values agree between the PSI CSV and the six-sheet test-matrix workbook. Only test IDs and initial O2 were numerically cross-checked. Material and air-display differences were counted, not established as formatting-only; other numeric columns were not cross-checked."
   },
   "fan_calibration": {
     "factor": 1.0066,

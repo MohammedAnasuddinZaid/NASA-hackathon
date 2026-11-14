@@ -130,3 +130,31 @@ describe('retrieval and provenance', () => {
     expect(text).toContain('No external model was called');
   });
 });
+
+
+describe('specific quantity and named-source routing', () => {
+  it.each([
+    ['What burn time did SAFFIRE1-S2 report?', '70 s'],
+    ['What ignition power did SAFFIRE1-S1 report?', '182 W'],
+    ['What ignition time did SAFFIRE1-S1 report?', '8 s'],
+  ])('answers %s as reported evidence', (question, value) => {
+    const answer = ask(question);
+    expect(answer.grade).toBe('direct');
+    expect(answer.headline).toContain(value);
+    expect(answer.citations[0].sourceId).toBe('PSI-98');
+  });
+  it('does not fabricate a missing duration', () => {
+    expect(ask('What burn time did BASS2-B1 report?').grade).toBe('absent');
+  });
+  it.each(['What did LUCI find about lunar gravity?', 'What did LUCI report about lunar-gravity spread?'])(
+    'retrieves named LUCI context for %s', (question) => {
+      const answer = ask(question);
+      expect(answer.grade).toBe('context');
+      expect(answer.paragraphs.join(' ')).toContain('0.92 mm/s');
+      expect(answer.citations.some((citation) => citation.sourceId === 'NTRS-20250010653')).toBe(true);
+    },
+  );
+  it('keeps safety refusal ahead of named-source retrieval', () => {
+    expect(ask('Can LUCI certify PMMA safe on the Moon?').grade).toBe('out-of-scope');
+  });
+});

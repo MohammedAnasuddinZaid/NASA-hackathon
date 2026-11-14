@@ -18,8 +18,7 @@ Run it with:
 npm run ingest
 ```
 
-Python is invoked as `py`; the MSYS2 `python` executable on this workstation has no pip or
-site-packages.
+Python is invoked as `python`; activate a virtual environment and install `pipeline/requirements.txt` first. Run `npm run validate:data` for offline source and reproducibility checks.
 
 ## Normalization rules
 
@@ -51,7 +50,7 @@ The pipeline records the following checks in `validation_report.json`:
 - test-ID match against the six-sheet matrix workbook
 - initial O2 numeric match against the matrix
 - material and air-display formatting differences
-- absence of substantive numeric conflicts
+- absence of initial-O2 conflicts only
 - pressure coverage
 - per-test gravity coverage
 - standardized outcome coverage
@@ -68,3 +67,5 @@ current behavior.
 
 CSV and JSON exports are generated locally from the bundled corpus. Empty cells mean “not
 reported,” not zero. Raw source locators, validation status and quality flags are included.
+
+Pipeline v0.2.0 changes and schema notes are detailed in [scientific-audit.md](scientific-audit.md) and [data-dictionary.md](data-dictionary.md). Output generation uses acquisition-manifest timestamps; unknown acquisition dates stay null. Measurement notes are not uncertainty.

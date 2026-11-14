@@ -1,0 +1,34 @@
+{
+  "reviewed_on": "2026-11-14",
+  "integration_base": "2fb1d12",
+  "checks": [
+    {
+      "source_id": "PSI-25",
+      "method": "Authoritative version-1 download compared byte-for-byte",
+      "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Experimental+table_BASS-II.csv&version=1&redirect=true",
+      "result": "match",
+      "sha256": "71e792bf6b5fb5ea620c5dd70fbbac05515992e12aefcf5dff47312caa48c042"
+    },
+    {
+      "source_id": "PSI-98",
+      "method": "Authoritative version-1 download compared byte-for-byte",
+      "url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Experimental+table_SAFFIRE-1.csv&version=1&redirect=true",
+      "result": "match",
+      "sha256": "c01f29c62455f0a3b512290ab85e5687ecded326733189f002f580368402308d"
+    },
+    {
+      "source_id": "NTRS-20210011385",
+      "url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf",
+      "sha256": "5ffa911fd9b6356f204646003fb9342e341810dcdfdf5cb15756e7f01ec5f770",
+      "bytes": 48972416,
+      "reviewed_pages_pdf": [
+        14,
+        19,
+        46,
+        102
+      ],
+      "page_number_note": "Printed pages are PDF page minus eight in this report.",
+      "storage": "Original retained in ignored tmp/BASS-II-Summary.pdf locally; authoritative download linked, not redistributed in the frontend."
+    }
+  ]
+}

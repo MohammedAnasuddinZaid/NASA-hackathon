@@ -1,3 +1,4 @@
+import { EvidenceScope } from './components/EvidenceScope';
 import { AppShell } from './components/AppShell';
 import { useRoute } from './lib/router';
 import { Overview } from './pages/Overview';
@@ -48,5 +49,5 @@ export default function App() {
     }
   })();
 
-  return <AppShell>{page}</AppShell>;
+  return <AppShell><EvidenceScope />{page}</AppShell>;
 }

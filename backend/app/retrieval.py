@@ -155,7 +155,7 @@ class RetrievalEngine:
                 headline=f"No total pressure is reported for {experiment_id}.",
                 paragraphs=[
                     f"The {record['investigation_acronym']} experimental table has no total-pressure column for this record, so neither total pressure nor oxygen partial pressure can be stated.",
-                    "FIRETRACE does not substitute a nominal cabin pressure. Absence of a pressure column is a metadata gap, not evidence that pressure was uncontrolled.",
+                    "FIRETRACE does not substitute a nominal cabin pressure. Absence of a pressure column is a metadata gap, not evidence that pressure was uncontrolled. The BASS-II report gives pressure context for subsets, without a verified mapping to this record.",
                 ],
                 bullets=[
                     f"Recorded initial O2: {format_compact(_dv(record, 'oxygen_initial_pct'))} (fraction only).",
@@ -249,13 +249,45 @@ class RetrievalEngine:
                     ),
                 ],
                 citations=self.dedupe_citations(
-                    [citation, *self.claim_citations(["CL-BASS2-AIR", "CL-BASS2-FAN"])]
+                    [citation, *self.claim_citations(["CL-BASS2-AIR", "CL-FAN-CAL"])],
                 ),
                 trace=trace,
                 followUps=[
                     f"What oxygen fraction did {test_number} report?",
                     "Why is flow not directly comparable between BASS-II and Saffire-I?",
                     "Show the flow calibration caveat.",
+                ],
+                page={"href": "#/atlas", "label": "Open record in Evidence Atlas"},
+            )
+
+        quantity = None
+        if re.search(r"burn (?:time|duration)|how long.*burn", q):
+            quantity = ("burn time", _dv(record, "burn_time_s"))
+        elif re.search(r"ignition power", q):
+            quantity = ("ignition power", _dv(record, "ignition_power_w"))
+        elif re.search(r"ignition (?:time|duration)", q):
+            quantity = ("ignition time", _dv(record, "ignition_time_s"))
+        if quantity is not None:
+            label, field = quantity
+            known = field.get("value") is not None
+            return self.base_answer(
+                question,
+                grade="direct" if known else "absent",
+                headline=(
+                    f"{experiment_id} reports {label}: {format_compact(field)}."
+                    if known
+                    else f"No {label} is reported for {experiment_id}."
+                ),
+                paragraphs=[
+                    field.get("note") or "Read from the preserved experimental table row.",
+                    "A reported duration or power is not a standardized flammability outcome or a material-safety conclusion.",
+                ],
+                bullets=[],
+                citations=[citation],
+                trace=trace,
+                followUps=[
+                    f"What outcome did {experiment_id} report?",
+                    f"What oxygen did {experiment_id} report?",
                 ],
                 page={"href": "#/atlas", "label": "Open record in Evidence Atlas"},
             )
@@ -355,30 +387,43 @@ class RetrievalEngine:
         )
 
     def corpus_pressure_answer(self, question: str) -> dict[str, Any]:
+        total = len(self.corpus.records)
+        bass_total = sum(1 for r in self.corpus.records if r.get("family") == "BASS-II")
+        saffire_total = sum(1 for r in self.corpus.records if r.get("family") == "Saffire-I")
+        pressure_count = sum(
+            1 for r in self.corpus.records if _value(r, "total_pressure_psia") is not None
+        )
         return self.base_answer(
             question,
             grade="absent",
-            headline="Total pressure is reported for 0 of 131 experiment records.",
+            headline=f"Total pressure is reported for {pressure_count} of {total} experiment records.",
             paragraphs=[
                 "Both PSI experimental tables lack a total-pressure column. BASS-II covers 129 tests and Saffire-I covers 2 samples; neither supplies pressure for any record.",
                 "This is why FIRETRACE will not place these tests on an atmosphere plane or compute oxygen partial pressure. Substituting a cabin pressure would create a measurement that the sources do not contain.",
             ],
             bullets=[
-                "BASS-II: 0 of 129 records report total pressure.",
-                "Saffire-I: 0 of 2 records report total pressure.",
+                f"BASS-II: 0 of {bass_total} records report total pressure.",
+                f"Saffire-I: 0 of {saffire_total} records report total pressure.",
                 "No cabin pressure was substituted anywhere in the corpus.",
                 "Absence of a column is a metadata gap, not proof that pressure was uncontrolled.",
+                "The BASS-II Summary Report discusses monitored pressure of 99.2–99.5 kPa (printed p.38 / PDF p.46) for a subset. It is not verified as a pressure for each CSV row; those record values remain null.",
             ],
             citations=self.dedupe_citations(
                 [
                     self.citation_for("PSI-25", "PSI-25 experimental table, columns A–Q"),
                     self.citation_for("PSI-98", "PSI-98 experimental table, columns A–M"),
+                    {
+                        "sourceId": "NTRS-20210011385",
+                        "title": "BASS-II Summary Report",
+                        "locator": "Printed p.38 / PDF p.46; printed p.94 / PDF p.102",
+                        "url": "https://ntrs.nasa.gov/citations/20210011385",
+                    },
                     *self.claim_citations(["CL-BASS2-PRESS", "CL-SAF-PRESS"]),
                 ]
             ),
             trace=[
                 "Counted records where total_pressure_psia.value is non-null.",
-                "Result: 0 of 131.",
+                f"Result: {pressure_count} of {total}.",
                 "Confirmed neither experimental table has a pressure column.",
             ],
             followUps=[
@@ -390,17 +435,24 @@ class RetrievalEngine:
         )
 
     def corpus_gravity_answer(self, question: str) -> dict[str, Any]:
+        total = len(self.corpus.records)
+        gravity_count = sum(
+            1 for r in self.corpus.records if _status(r, "gravity_regime") == "measured"
+        )
+        partial_gravity = int(
+            (self.corpus.meta.get("coverage") or {}).get("partial_gravity_records", 0)
+        )
         return self.base_answer(
             question,
             grade="absent",
-            headline="Per-test gravity is reported for 0 of 131 records; partial-gravity records: 0.",
+            headline=f"Per-test gravity is reported for {gravity_count} of {total} records; partial-gravity records: {partial_gravity}.",
             paragraphs=[
                 "BASS-II is described as an ISS microgravity investigation and Saffire-I as a Cygnus microgravity experiment. Those are investigation-level labels, not measured g-levels for individual tests.",
                 "The official 2026 challenge states that PSI currently has no partial-gravity combustion data. LUCI is included here only as context and has no structured per-test records in this corpus.",
             ],
             bullets=[
-                "Microgravity is assigned at investigation level for all 131 records.",
-                "No record contains a measured gravity value or direction.",
+                f"Microgravity is assigned at investigation level for all {total} records.",
+                "No record contains a measured gravity g-level or gravity-vector direction.",
                 "No lunar, Martian, or other partial-gravity experiment records are included.",
                 "LUCI flew at 11 RPM with a 1.22 m effective radius in simulated lunar gravity; its findings are presentation-level context only.",
             ],
@@ -414,7 +466,7 @@ class RetrievalEngine:
             ),
             trace=[
                 "Counted records with a measured per-test gravity status.",
-                "Result: 0 of 131.",
+                f"Result: {gravity_count} of {total}.",
                 "Separated investigation-level microgravity labels from measurements.",
                 "Retrieved LUCI as context without importing it as experiment data.",
             ],
@@ -442,12 +494,12 @@ class RetrievalEngine:
             question,
             grade="partial",
             headline=(
-                f"Initial O2 is reported for {len(initial)} of 131 records, spanning "
+                f"Initial O2 is reported for {len(initial)} of {len(records)} records, spanning "
                 f"{format_number(min(initial))}–{format_number(max(initial))}%."
             ),
             paragraphs=[
                 f"Final O2 is reported for {len(final)} records (range {format_number(min(final))}–{format_number(max(final))}%).",
-                "BASS-II oxygen readings were corrected with a constant offset because the sensor was out of calibration; per-sample uncertainty is not supplied. Two Saffire-I values are approximate midpoints of reported ranges.",
+                "BASS-II oxygen readings were corrected with a constant offset because the sensor was out of calibration; per-sample uncertainty is not supplied. Saffire S1 uses a range midpoint; S2 retains an approximate single value.",
                 "Oxygen fraction is only half of an atmosphere description. Without total pressure, partial pressure and atmospheric equivalence cannot be established.",
             ],
             bullets=[
@@ -488,7 +540,7 @@ class RetrievalEngine:
         return self.base_answer(
             question,
             grade="partial",
-            headline=f"{len(counts)} parsed material families across 131 records.",
+            headline=f"{len(counts)} parsed material families across {len(self.corpus.records)} records.",
             paragraphs=[
                 "Material family and dimensions are parsed from free-text source fields, not from a controlled materials taxonomy. They are marked derived.",
                 f"{counts.get('Unknown', 0)} records have no identifiable material family in the source row, and {thickness} records have a parsable thickness.",
@@ -524,7 +576,7 @@ class RetrievalEngine:
             question,
             grade="partial",
             headline=(
-                f"Air flow is reported for {len(values)} of 131 records; the corpus spans "
+                f"Air flow is reported for {len(values)} of {len(self.corpus.records)} records; the corpus spans "
                 f"{format_number(min(values))}–{format_number(max(values))} cm/s."
             ),
             paragraphs=[
@@ -616,7 +668,7 @@ class RetrievalEngine:
         return self.base_answer(
             question,
             grade="direct",
-            headline="BASS-II contributes 129 experiment records across six principal investigators.",
+            headline=f"BASS-II contributes {len(bass)} experiment records across {len(pis)} principal investigators.",
             paragraphs=[
                 "Burning and Suppression of Solids – II studied ignition, flame growth, flame spread and extinction limits for solid fuels in low-velocity forced flows in microgravity, using a small wind tunnel in the Microgravity Science Glovebox.",
                 f"Principal investigators represented: {', '.join(pis)}. Initial O2 spans 13.6–22.2%. No record reports total pressure, per-test gravity, ignition method, or a standardized outcome.",
@@ -735,7 +787,7 @@ class RetrievalEngine:
                 f"Measured per-test gravity: 0 of {total} records.",
                 f"Standardized outcome: 0 of {total} records.",
                 f"Ignition method: 0 of {total} records.",
-                f"Final O2: {final} of {total} records; four BASS-II finals are absent.",
+                f"Final O2: {final} of {total} records; two BASS-II and both Saffire final O2 fields are absent.",
                 f"Thickness: {thickness} of {total} records parsed from free text.",
             ],
             citations=self.dedupe_citations(
@@ -764,11 +816,11 @@ class RetrievalEngine:
             grade="direct",
             headline="The corpus passed its identity, cross-check, missing-data and provenance gates.",
             paragraphs=[
-                "All 131 experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No substantive numeric conflict was found.",
+                f"All {len(self.corpus.records)} experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No initial-O2 conflict was found; other numeric fields were not exhaustively cross-checked.",
                 "Quality distribution: 71 validated, 56 partial, 4 suspect. Suspect flags are retained, not corrected: two final-O2 values exceed their initials by more than 2 percentage points, and two dates carry an unexpected 2018 year.",
             ],
             bullets=[
-                "Unique experiment IDs: 131, 0 duplicates.",
+                f"Unique experiment IDs: {len(self.corpus.records)}, 0 duplicates.",
                 "Test IDs matched to matrix: 129/129.",
                 "Initial O2 exact matches: 129/129.",
                 "Records with total pressure: 0.",
@@ -800,7 +852,7 @@ class RetrievalEngine:
             grade="absent",
             headline="BASS-II and Saffire-I cannot be treated as directly comparable tests.",
             paragraphs=[
-                "They differ in investigation, hardware, sample form and flow measurement basis. Neither reports total pressure or per-test gravity, and neither reports a standardized outcome.",
+                "They differ in investigation, hardware, sample form and flow measurement basis. Their ingested tables omit per-test total pressure, measured gravity and a standardized outcome; reports contain additional context.",
                 "A side-by-side table is still useful, but it is a provenance comparison, not a controlled experimental comparison. FIRETRACE shows the blockers explicitly rather than collapsing them into a score.",
             ],
             bullets=[
@@ -919,6 +971,8 @@ class RetrievalEngine:
         if record:
             return self.test_answer(q, record)
 
+        if re.search(r"luci|sounding rocket|new shepard", q, flags=re.IGNORECASE):
+            return self.luci_answer(q)
         if re.search(
             r"partial[- ]gravity|lunar|moon|mars|microgravity|gravity|\bg[- ]?level\b",
             q,
@@ -937,8 +991,6 @@ class RetrievalEngine:
             flags=re.IGNORECASE,
         ):
             return self.missing_answer(q)
-        if re.search(r"luci|sounding rocket|new shepard", q, flags=re.IGNORECASE):
-            return self.luci_answer(q)
         if re.search(r"saffire", q, flags=re.IGNORECASE):
             return self.saffire_answer(q)
         if re.search(r"bass", q, flags=re.IGNORECASE):
