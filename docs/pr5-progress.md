@@ -19,4 +19,4 @@ selected records exactly; CSV62 rows/26 columns preserves nulls/correction/origi
 Mobile basket/brief390px overflow0; header/source hash overflow fixed.2 Playwright workflows
 blocked before launch by missing headless-shell1254. No PDF binary generation claimed.
 
-Documentation, screenshots, schema and future integration notes prepared. PR publication pending.
+Published https://github.com/MohammedAnasuddinZaid/NASA-hackathon/pull/5 against main; open and unmerged. All eight routes checked in ChatGPT browser with basket retained. Documentation, screenshots, downloaded examples, schema, tests and future integration notes are included.

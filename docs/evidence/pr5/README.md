@@ -27,4 +27,4 @@ and clear/cancel. No automated end-to-end pass, PDF-save dialog or direct PDF bi
 Run python scripts/validate-research-artifacts.py to independently verify the actual downloaded
 examples:2 records,62 CSV rows,26 columns, exact JSON record equality, source SHA, unknown
 pressure, corrected22.2% oxygen, original0.37cm/normalized3.7mm thickness and citations.
-`nCommitted text evidence has trailing whitespace normalized; report content is unchanged.
+Committed text evidence has trailing whitespace normalized; report content is unchanged.
