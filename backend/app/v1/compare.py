@@ -53,6 +53,7 @@ def _cell(store: EvidenceStore, record: dict[str, Any], field: str) -> dict[str,
     return {
         "value": payload.get("value"),
         "status": payload.get("status"),
+        "basis": payload.get("basis"),
         "unit": payload.get("unit"),
         "raw": payload.get("raw"),
     }
@@ -69,7 +70,7 @@ def _compare_field(
     missing = [
         key
         for key, cell in cells.items()
-        if cell.get("value") is None or cell.get("status") in policy.NO_VALUE_STATUSES
+        if cell.get("value") is None or cell.get("status") in policy.NO_VALUE_STATUSES or (field == "flow_direction" and (cell.get("status") == "investigation_level" or cell.get("basis") == "investigation_level"))
     ]
     if missing:
         return {
@@ -212,17 +213,19 @@ def compare(store: EvidenceStore, ids: list[str]) -> dict[str, Any]:
         seen.add(experiment_id)
         resolved.append(record)
 
+    # Direction changes flame-spread geometry even when speed settings agree.
+    field_specs = policy.CONSEQUENTIAL_FIELDS + (("flow_direction", "Flow direction"),) + policy.CONTEXTUAL_FIELDS
     cells_by_field: dict[str, dict[str, dict[str, Any]]] = {}
     for record in resolved:
         experiment_id = store.record_id(record)
-        for field, _label in policy.CONSEQUENTIAL_FIELDS + policy.CONTEXTUAL_FIELDS:
+        for field, _label in field_specs:
             cells_by_field.setdefault(field, {})[experiment_id] = _cell(store, record, field)
 
-    label_by_field = dict(policy.CONSEQUENTIAL_FIELDS + policy.CONTEXTUAL_FIELDS)
-    consequential_names = {name for name, _ in policy.CONSEQUENTIAL_FIELDS}
+    label_by_field = dict(field_specs)
+    consequential_names = {name for name, _ in policy.CONSEQUENTIAL_FIELDS} | {"flow_direction"}
 
     fields: list[dict[str, Any]] = []
-    for field, _label in policy.CONSEQUENTIAL_FIELDS + policy.CONTEXTUAL_FIELDS:
+    for field, _label in field_specs:
         category = "consequential" if field in consequential_names else "contextual"
         fields.append(
             _compare_field(

@@ -4,6 +4,8 @@ import { artifactsFor } from '../lib/corpus';
 import { formatCompact, humanizeToken, shortDate, statusLabel, statusTone } from '../lib/format';
 import { Badge, SourceLink, StatusBadge } from './ui';
 import { downloadJson } from '../lib/export';
+import { evidenceApi } from '../lib/apiClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 
 function Field({
   label,
@@ -39,6 +41,16 @@ export function RecordDrawer({
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const [copied, setCopied] = useState(false);
+  const session = useEvidenceSession();
+  const [originals, setOriginals] = useState<Array<{ artifact_id: string; original_filename: string; download_available: boolean }>>([]);
+  useEffect(() => {
+    setOriginals([]);
+    if (!record || session.mode !== 'api') return;
+    let active = true;
+    evidenceApi.source(record.source_id).then(result => { if (active) setOriginals(result.artifacts as typeof originals); })
+      .catch(error => { if (active) session.fallback(error.message); });
+    return () => { active = false; };
+  }, [record?.source_id, session.mode]);
 
   useEffect(() => {
     if (!record) return;
@@ -183,7 +195,7 @@ export function RecordDrawer({
               DOI {artifact?.doi ?? 'not assigned'} · {artifact?.license ?? 'license not stated'}
             </p>
             {artifact?.source_url && <SourceLink href={artifact.source_url}>Open source landing page</SourceLink>}
-            {artifact?.local_original_url && <p><a href={artifact.local_original_url} download>Download preserved NASA CSV original ↓</a></p>}
+            {session.mode === 'api' ? originals.filter(item => item.download_available).map(item => <p key={item.artifact_id}><a href={evidenceApi.originalUrl(record.source_id, item.artifact_id)} download>Download original: {item.original_filename}</a></p>) : artifact?.local_original_url && <p><a href={artifact.local_original_url} download>Download preserved NASA CSV original ↓</a></p>}
             <p className="panel-caption">Not reported means absent from this record layer, not absent from all NASA research. The BASS-II report discusses pressure and ignition for subsets without a verified mapping to these rows.</p>
             <ul className="provenance-notes">
               {record.provenance_notes.map((note) => (

@@ -1,0 +1,53 @@
+
+> firertrace@0.1.0 e2e
+> playwright test
+
+[WebServer] (node:28188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:42676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 23 tests using 6 workers
+
+(node:16424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:40096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:48084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:47540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Compare renders without console or page errors (1.7s)
+  ok  3 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Atmosphere renders without console or page errors (1.7s)
+  ok  4 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Gap Planner renders without console or page errors (2.4s)
+  ok  1 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Evidence Atlas renders without console or page errors (2.3s)
+  ok  5 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Overview renders without console or page errors (2.6s)
+  ok  6 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Evidence Assistant renders without console or page errors (2.7s)
+  ok  7 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Methodology renders without console or page errors (1.4s)
+  ok  8 [chromium] › e2e\app.spec.ts:20:5 › route smoke › Exports renders without console or page errors (2.5s)
+  ok  9 [chromium] › e2e\app.spec.ts:36:1 › Atlas exact-ID search narrows to one row and opens its provenance drawer (1.8s)
+  ok 11 [chromium] › e2e\app.spec.ts:67:1 › Compare states the comparability blockers before the numbers (1.7s)
+  ok 13 [chromium] › e2e\app.spec.ts:94:1 › Gap Planner computes the target ppO2 and labels the missing evidence (1.4s)
+  ok 10 [chromium] › e2e\app.spec.ts:57:1 › Atlas investigation filter shows only the two Saffire records (2.0s)
+  ok 12 [chromium] › e2e\app.spec.ts:76:1 › Assistant answers pressure with abstention and refuses a safety question (2.2s)
+  ok 15 [chromium] › e2e\app.spec.ts:115:1 › the loaded app keeps working with the network offline (2.0s)
+  ok 14 [chromium] › e2e\app.spec.ts:105:1 › Exports switches scope and previews only the selected records (2.3s)
+  ok 16 [chromium] › e2e\app.spec.ts:126:1 › mobile layout has no page-level horizontal overflow (2.3s)
+  ok 19 [chromium] › e2e\app.spec.ts:231:1 › Saffire export quality summary follows the selected scope (1.9s)
+  ok 18 [chromium] › e2e\app.spec.ts:194:1 › film offers a sound prompt when autoplay is blocked (2.6s)
+  ok 17 [chromium] › e2e\app.spec.ts:138:1 › film narration follows play, pause, mute and chapter changes (3.5s)
+  ok 22 [chromium] › e2e\app.spec.ts:262:1 › methodology scopes table omissions against report context (2.2s)
+  ok 23 [chromium] › e2e\app.spec.ts:270:1 › demo uses real oxygen values and the real B1 source row (2.2s)
+  ok 20 [chromium] › e2e\app.spec.ts:237:1 › specific burn-time question is direct evidence (3.0s)
+  ok 21 [chromium] › e2e\app.spec.ts:246:1 › record provenance exposes corrected values, original files and missing-value scope (3.5s)
+
+  23 passed (41.1s)

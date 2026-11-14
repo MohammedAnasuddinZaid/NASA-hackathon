@@ -281,6 +281,8 @@ class RequestContextMiddleware:
                     for name, value in SECURITY_HEADERS:
                         if name not in headers:
                             headers[name] = value
+                    if scope.get("path") == "/api/docs":
+                        headers["Content-Security-Policy"] = "default-src 'none'; script-src https://cdn.jsdelivr.net 'unsafe-inline'; style-src https://cdn.jsdelivr.net 'unsafe-inline'; img-src data: https://fastapi.tiangolo.com; connect-src 'self'; frame-ancestors 'none'"
                     if "cache-control" not in headers:
                         headers["Cache-Control"] = "no-store"
                     await send(buffered)
@@ -289,6 +291,12 @@ class RequestContextMiddleware:
             await send(message)
 
         try:
+            expected = _header(scope, b"x-corpus-version")
+            if expected and expected != corpus_version:
+                body = json.dumps({"error": "corpus_mismatch", "message": "Requested corpus differs from the server corpus", "corpus_version": corpus_version}).encode()
+                await send_wrapper({"type": "http.response.start", "status": 409, "headers": [(b"content-type", b"application/json")]})
+                await send_wrapper({"type": "http.response.body", "body": body})
+                return
             await self.app(scope, receive, send_wrapper)
         finally:
             duration_ms = (time.perf_counter() - started) * 1000

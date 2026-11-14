@@ -1,6 +1,7 @@
 import { corpus, validation, sourceManifest, records } from '../lib/corpus';
 import { formatNumber, shortIso, humanizeToken } from '../lib/format';
 import { Badge, PageHeader, Panel, SectionRule, SourceLink, Stat } from '../components/ui';
+import { useEvidenceSession } from '../lib/evidenceSession';
 
 function bytes(value: number): string {
   if (value > 1_000_000) return `${(value / 1_000_000).toFixed(1)} MB`;
@@ -9,6 +10,7 @@ function bytes(value: number): string {
 }
 
 export function Methodology() {
+  const session = useEvidenceSession();
   const suspect = records.filter((record) => record.validation_status === 'suspect');
   const excluded = validation.excluded_non_experiment_rows;
   const downloads = [
@@ -34,6 +36,12 @@ export function Methodology() {
         <Stat value={String(suspect.length)} label="records flagged suspect" detail="Retained and disclosed" tone="amber" />
       </div>
 
+      {session.coverage && <Panel kicker="Evidence API" title="Imported dataset coverage">
+        <p>{session.coverage.record_count} records. Non-null context and qualitative notes are not measured per-test conditions or standardized outcomes.</p>
+        <div className="table-wrap"><table className="data-table"><thead><tr><th>Field</th><th>Non-null</th><th>Measured / corrected</th><th>Context only</th><th>Null</th><th>Statuses</th></tr></thead><tbody>
+          {Object.entries(session.coverage.field_coverage).map(([key, field]) => <tr key={key}><td>{field.label}</td><td>{field.reported}</td><td>{field.per_test_measured}</td><td>{field.context_only}</td><td>{field.missing}</td><td>{Object.entries(field.statuses).map(([status, count]) => `${status}: ${count}`).join(' · ')}</td></tr>)}
+        </tbody></table></div>
+      </Panel>}
       <SectionRule label="Pipeline" meta="Raw files are never modified" />
       <div className="pipeline">
         {[

@@ -12,7 +12,7 @@ from typing import Any, Callable, Optional
 
 from fastapi import APIRouter, Depends, Path, Query, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.config import settings
@@ -23,6 +23,7 @@ from app.v1.errors import ApiError
 from app.v1.exports import export as build_export
 from app.v1.scenario import evaluate as evaluate_scenario
 from app.v1.store import EvidenceStore, get_store
+from app.v1.artifacts import source_view, original_path, artifact_id
 
 router = APIRouter(tags=["evidence"])
 health_router = APIRouter(tags=["health"])
@@ -36,7 +37,7 @@ def store_dependency() -> EvidenceStore:
         raise ApiError(
             503,
             "service_degraded",
-            f"The curated corpus could not be loaded: {exc}",
+            "The curated corpus could not be loaded; check local evidence initialization.",
         )
 
 
@@ -81,6 +82,8 @@ def api_info(store: EvidenceStore = Depends(store_dependency)) -> dict[str, Any]
             "GET /api/v1/experiments",
             "GET /api/v1/experiments/{id}",
             "GET /api/v1/sources/{id}",
+            "GET /api/v1/sources",
+            "GET /api/v1/sources/{id}/download",
             "GET /api/v1/coverage",
             "POST /api/v1/compare",
             "POST /api/v1/ask",
@@ -111,6 +114,7 @@ def api_info(store: EvidenceStore = Depends(store_dependency)) -> dict[str, Any]
     summary="Filter and page curated experiment records",
 )
 def list_experiments(
+    request: Request,
     q: str = Query("", max_length=200),
     family: str = Query("", max_length=80),
     material: str = Query("", max_length=120),
@@ -120,9 +124,15 @@ def list_experiments(
     flow_only: bool = False,
     validation_status: str = Query("", max_length=40),
     limit: int = Query(25, ge=1, le=200),
-    offset: int = Query(0, ge=0),
+    offset: int = Query(0, ge=0, le=100000),
+    sort: str = Query("source", pattern="^(source|id|o2-asc|o2-desc|material|date)$"),
+    material_exact: bool = False,
+    atlas_search: bool = False,
     store: EvidenceStore = Depends(store_dependency),
 ) -> dict[str, Any]:
+    allowed = {"q", "family", "material", "gravity", "min_o2", "max_o2", "flow_only", "validation_status", "limit", "offset", "sort", "material_exact", "atlas_search"}
+    if set(request.query_params) - allowed:
+        raise ApiError(422, "validation_error", "Unsupported experiment filter", "query")
     if min_o2 is not None and max_o2 is not None and min_o2 > max_o2:
         raise ApiError(
             422,
@@ -140,7 +150,17 @@ def list_experiments(
         max_o2=max_o2,
         flow_only=flow_only,
         validation_status=validation_status,
+        material_exact=material_exact,
+        atlas_search=atlas_search,
     )
+    if sort != "source":
+        import re
+        natural = lambda record: re.sub(r"\d+", lambda m: m[0].zfill(8), str(record.get("experiment_id")))
+        if sort == "id": records.sort(key=natural)
+        elif sort == "material": records.sort(key=lambda r: (str(r.get("material_family") or ""), natural(r)))
+        elif sort == "date": records.sort(key=lambda r: (str(r.get("date_reported") or ""), natural(r)))
+        else:
+            records.sort(key=lambda r: (policy.as_number(r.get("oxygen_initial_pct")) is None, (policy.as_number(r.get("oxygen_initial_pct")) or 0) * (-1 if sort == "o2-desc" else 1), natural(r)))
     window = records[offset : offset + limit]
     return {
         "corpus_version": store.corpus_version,
@@ -187,10 +207,23 @@ def get_source(
     source_id: str = Path(..., max_length=80),
     store: EvidenceStore = Depends(store_dependency),
 ) -> dict[str, Any]:
-    source = store.resolve_source(source_id)
-    if source is None:
-        raise ApiError(404, "not_found", f"Unknown source id: {source_id}", "path.source_id")
-    return source
+    return source_view(store, source_id)
+
+
+@router.get("/sources", response_model=schemas.SourceListResponse, summary="Registered source and context inventory")
+def list_sources(store: EvidenceStore = Depends(store_dependency)):
+    return {"corpus_version": store.corpus_version, "items": [source_view(store, sid) for sid in sorted(store.sources_by_id)]}
+
+
+@router.get("/sources/{source_id}/download", summary="Download a registered CC0 original")
+def download_source(source_id: str = Path(max_length=80), artifact: str = Query(max_length=180), corpus_version: str | None = Query(None, max_length=64), store: EvidenceStore = Depends(store_dependency)):
+    if corpus_version and corpus_version != store.corpus_version:
+        raise ApiError(409, "corpus_mismatch", "Download corpus differs from current corpus")
+    source = next((s for s in store.sources_by_id.get(source_id, []) if artifact_id(s) == artifact), None)
+    path = original_path(source) if source else None
+    if path is None:
+        raise ApiError(404, "download_unavailable", "Registered original unavailable; use the authoritative source link")
+    return FileResponse(path, media_type=source["content_type"], filename=source["original_filename"])
 
 
 @router.get(

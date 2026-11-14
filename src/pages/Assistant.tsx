@@ -6,6 +6,7 @@ import { ApiError, ServiceUnavailable, evidenceApi } from '../lib/apiClient';
 import type { ApiAnswer } from '../lib/apiClient';
 import { Badge, PageHeader, Panel, SourceLink } from '../components/ui';
 import { VoiceAgent } from '../components/VoiceAgent';
+import { useEvidenceSession } from '../lib/evidenceSession';
 
 type Provenance =
   | { source: 'api'; corpusVersion: string; checked: number; validated: number }
@@ -80,6 +81,7 @@ function provenanceLabel(provenance: Provenance): string {
 }
 
 export function Assistant() {
+  const session = useEvidenceSession();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [pending, setPending] = useState(false);
@@ -103,6 +105,7 @@ export function Assistant() {
     setPending(true);
 
     try {
+      if (session.mode === 'bundled') throw new ServiceUnavailable('Bundled session');
       const answer = await evidenceApi.ask({ question: text });
       push({
         role: 'assistant',
@@ -117,6 +120,7 @@ export function Assistant() {
       });
     } catch (error) {
       if (error instanceof ServiceUnavailable) {
+        if (session.mode !== 'bundled') session.fallback(error.message);
         // The service is down: keep working with the bundled deterministic engine
         // and say so under the answer instead of pretending nothing changed.
         push({

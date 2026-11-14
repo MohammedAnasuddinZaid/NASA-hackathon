@@ -24,6 +24,7 @@ from typing import Any, Iterable, Optional
 
 from app.config import settings
 from app.v1 import policy
+from app.v1.persistence import SCHEMA_VERSION, write_snapshot
 
 logger = logging.getLogger("firetrace.store")
 
@@ -227,14 +228,22 @@ class EvidenceStore:
             self.sources_by_id.setdefault(str(artifact.get("source_id")), []).append(artifact)
 
         self._lock = threading.Lock()
-        self._conn, self.index_mode = self._open_index()
         self._validate_referential_integrity()
+        self._conn, self.index_mode = self._open_index()
+        # Runtime record lookups now read the lossless SQLite snapshot, not FTS text.
+        persisted = [json.loads(row[0]) for row in self._conn.execute("SELECT payload FROM scientific_records ORDER BY rowid")]
+        if persisted != self.records:
+            self._conn.close()
+            raise CorpusLoadError("Scientific snapshot differs from the curated corpus; rebuild the index")
+        self.records = persisted
+        self.records_by_id = {str(r["experiment_id"]).upper(): r for r in self.records}
 
     # ------------------------------------------------------------------ #
     # index
     # ------------------------------------------------------------------ #
     def _open_index(self) -> tuple[sqlite3.Connection, str]:
         if self.index_path.exists():
+            conn = None
             try:
                 # ``check_same_thread=False`` is required: FastAPI runs these sync
                 # handlers in a worker thread, so the connection is opened on the
@@ -247,20 +256,28 @@ class EvidenceStore:
                 row = conn.execute(
                     "SELECT value FROM index_meta WHERE key = 'corpus_version'"
                 ).fetchone()
-                if row and row["value"] == self.corpus_version:
+                schema = conn.execute("SELECT value FROM index_meta WHERE key='scientific_schema'").fetchone()
+                if row and row["value"] == self.corpus_version and schema and schema[0] == SCHEMA_VERSION:
+                    conn.execute("SELECT payload FROM scientific_records LIMIT 1").fetchone()
                     return conn, "persistent"
                 conn.close()
             except sqlite3.Error:
-                pass
+                if conn is not None:
+                    conn.close()
         return self._build_memory_index(), "memory"
 
     def _build_memory_index(self) -> sqlite3.Connection:
         conn = sqlite3.connect(":memory:", check_same_thread=False)
         conn.row_factory = sqlite3.Row
-        build_fts_index(conn, self.records, self.claims, self.sources + self.context_sources)
+        build_fts_index(conn, self.records, self.claims, self.sources + self.context_sources, self.meta.get("investigations", []))
         return conn
 
     def _validate_referential_integrity(self) -> None:
+        if self.raw.get("sources") is not None and self.raw["sources"] != self.sources:
+            raise CorpusLoadError("Corpus and source manifest differ")
+        ids = [str(r.get("experiment_id") or "") for r in self.records]
+        if not all(ids) or len(set(ids)) != len(ids):
+            raise CorpusLoadError("Missing or duplicate experiment identifiers")
         declared = int(self.meta.get("record_count") or len(self.records))
         if declared != len(self.records):
             raise CorpusLoadError(
@@ -374,6 +391,8 @@ class EvidenceStore:
         max_o2: float | None = None,
         flow_only: bool = False,
         validation_status: str = "",
+        material_exact: bool = False,
+        atlas_search: bool = False,
     ) -> list[dict[str, Any]]:
         needle = (q or "").strip().lower()
         family_needle = (family or "").strip().lower()
@@ -388,6 +407,8 @@ class EvidenceStore:
             if status_needle and str(record.get("validation_status") or "").lower() != status_needle:
                 continue
             if material_needle:
+                if material_exact and material_needle != str(record.get("material_family") or "").lower():
+                    continue
                 haystack = " ".join(
                     str(record.get(key) or "")
                     for key in ("material_raw", "material_family", "material_species")
@@ -422,9 +443,16 @@ class EvidenceStore:
                         "source_id",
                     )
                 ).lower()
-                if needle not in haystack:
+                if atlas_search:
+                    haystack += " " + " ".join(str(record.get(k) or "") for k in ("pi", "date_reported", "geometry")).lower()
+                matches = all(term in haystack for term in needle.split()) if atlas_search else needle in haystack
+                if not matches:
                     continue
             matched.append(record)
+        if atlas_search and needle:
+            exact = self.resolve_record(needle)
+            if exact is not None and exact in matched:
+                return [exact]
         return matched
 
     # ------------------------------------------------------------------ #
@@ -574,6 +602,8 @@ class EvidenceStore:
         for field in sorted(all_fields):
             reported = 0
             missing = 0
+            per_test_measured = 0
+            context_only = 0
             statuses: dict[str, int] = {}
             units: set[str] = set()
             for record in self.records:
@@ -587,12 +617,17 @@ class EvidenceStore:
                     units.add(str(payload["unit"]))
                 if policy.has_value(payload):
                     reported += 1
+                    context = status == "investigation_level" or payload.get("basis") == "investigation_level"
+                    context_only += int(context)
+                    per_test_measured += int(not context and status in {"measured", "corrected"})
                 else:
                     missing += 1
             field_coverage[field] = {
                 "label": self.field_label(field),
                 "reported": reported,
                 "missing": missing,
+                "per_test_measured": per_test_measured,
+                "context_only": context_only,
                 "statuses": statuses,
                 "units": sorted(units),
             }
@@ -697,8 +732,11 @@ def build_fts_index(
     records: Iterable[dict[str, Any]],
     claims: Iterable[dict[str, Any]],
     sources: Iterable[dict[str, Any]],
+    investigations: Iterable[dict[str, Any]] = (),
 ) -> None:
     """(Re)build the FTS5 table. Shared by the loader and build_index.py."""
+    records, claims, sources = list(records), list(claims), list(sources)
+    conn.execute("PRAGMA foreign_keys=ON")
     conn.execute("DROP TABLE IF EXISTS evidence_fts")
     conn.execute(
         "CREATE VIRTUAL TABLE evidence_fts USING fts5("
@@ -764,6 +802,7 @@ def build_fts_index(
         (str(len(rows)),),
     )
     conn.commit()
+    write_snapshot(conn, records, claims, sources, investigations)
 
 
 _store: Optional[EvidenceStore] = None
