@@ -32,19 +32,7 @@ def normalize_for_speech(text: str) -> str:
     """Expand tokens the VITS lexicon does not pronounce well."""
     clean = " ".join(str(text or "").split())
     replacements = [
-        (r"\bCareSpeak\b", "Care Speak"),
-        (r"\bVoiceLink\b", "Voice Link"),
-        (r"\bCS-(\d)(\d)(\d)(\d)\b", r"C S \1 \2 \3 \4"),
-        (r"\b1-1-2\b", "one one two"),
-        (r"\b112\b", "one one two"),
-        (r"\bBP\b", "blood pressure"),
-        (r"\bER\b", "emergency room"),
         (r"\bAI\b", "A I"),
-        (r"\bDr\.", "Doctor"),
-        (r"\bMr\.", "Mister"),
-        (r"\bMrs\.", "Missus"),
-        (r"\bappt\.?", "appointment"),
-        (r"\bmeds\b", "medicines"),
         (r"\bmin\.", "minutes"),
         (r"\bhr\.", "hour"),
         (r"&", " and "),

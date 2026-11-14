@@ -15,6 +15,8 @@ Updated 2026-11-14. This is a review candidate, not a declaration of scientific 
   when the API is unreachable.
 - Unit suite: 89 Vitest tests passing.
 - Backend suite: 155 pytest tests passing.
+- Index gate: `python scripts/build_index.py` passes referential-integrity, null-discipline,
+  unit and FTS checks and exits 0.
 - Evaluation: `eval/run_eval.py` exits 0 with 0 integrity problems over 30 questions.
 - Assistant benchmark: 30/30 questions passing against the bundled engine.
 - Static build: passing (`npm run build`).

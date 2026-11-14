@@ -615,7 +615,7 @@ class EvidenceStore:
                 1
                 for record in self.records
                 if policy.status_of(self.record_fields(record).get("outcome"))
-                in {"measured", "derived"}
+                in {"measured", "corrected", "derived"}
             ),
             "partial_gravity_records": sum(
                 1

@@ -62,8 +62,7 @@ copy .env.example .env
 .venv\Scripts\python.exe -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
-Voice model files are not committed. Copy them from a CareSpeak checkout or run your own setup
-into `backend/models/`:
+Voice model files are not committed. Provide your own local copies under `backend/models/`:
 
 - `models/whisper/ggml-base.en.bin`
 - `models/whisper.cpp/cpu/Release/whisper-server.exe` (+ DLLs)

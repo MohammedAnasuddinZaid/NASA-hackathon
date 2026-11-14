@@ -71,6 +71,10 @@ npm run dev
 Open `http://localhost:5173`. The Assistant page calls the evidence API first and falls back to
 the bundled deterministic engine when the API is not running.
 
+On Windows, `run-local.bat` (or `run-local.ps1`) starts the evidence API and the Vite dev
+server together. It uses `backend\.venv` when present and otherwise falls back to `python` on
+`PATH`.
+
 **Evidence API** — one command after installing the core requirements:
 
 ```bash

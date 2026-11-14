@@ -1,8 +1,7 @@
 """Input sanitising and local-origin checks for the FIRETRACE backend.
 
-This module is scoped to a combustion-evidence application. It contains no
-medical, triage, dialling or call-routing logic: text is sanitised, length is
-bounded, and only loopback / RFC1918 origins are accepted for local services.
+Text is sanitised, length is bounded, and only loopback / RFC1918 origins are
+accepted for local services.
 """
 from __future__ import annotations
 

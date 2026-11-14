@@ -35,6 +35,21 @@ def _load(path: Path) -> tuple[dict[str, Any], bytes]:
     return json.loads(raw.decode("utf-8")), raw
 
 
+def _index_is_current(path: Path, corpus_version: str) -> bool:
+    if not path.exists():
+        return False
+    try:
+        conn = sqlite3.connect(f"file:{path.as_posix()}?mode=ro", uri=True)
+        try:
+            meta = dict(conn.execute("SELECT key, value FROM index_meta").fetchall())
+            documents = conn.execute("SELECT count(*) FROM evidence_fts").fetchone()[0]
+        finally:
+            conn.close()
+    except sqlite3.Error:
+        return False
+    return meta.get("corpus_version") == corpus_version and documents > 0
+
+
 def main() -> int:
     checks: list[dict[str, Any]] = []
     failures: list[str] = []
@@ -75,7 +90,18 @@ def main() -> int:
         int(meta.get("experiment_record_count") or -1) == len(records),
         f"meta.experiment_record_count={meta.get('experiment_record_count')}",
     )
-    check("source_count", len(known_sources) == 4, f"sources={sorted(known_sources)}")
+    experiment_sources = sorted(
+        {
+            str(item.get("source_id"))
+            for item in sources
+            if item.get("role") == "experiment_table"
+        }
+    )
+    check(
+        "experiment_sources",
+        experiment_sources == ["PSI-25", "PSI-98"],
+        f"experiment_table sources={experiment_sources}",
+    )
 
     # ---- identifiers --------------------------------------------------- #
     ids = [str(record.get("experiment_id")) for record in records]
@@ -128,7 +154,7 @@ def main() -> int:
                 unknown_status.append(f"{experiment_id}.{field}={status}")
             if value is not None and status in policy.NO_VALUE_STATUSES:
                 value_with_null_status.append(f"{experiment_id}.{field}")
-            if value is None and status in {"measured", "derived"}:
+            if value is None and status in {"measured", "corrected", "derived"}:
                 null_status_with_value.append(f"{experiment_id}.{field}")
             if policy.is_number(value) and not payload.get("unit"):
                 missing_unit.append(f"{experiment_id}.{field}")
@@ -141,7 +167,12 @@ def main() -> int:
     check(
         "measured_values_not_null",
         not null_status_with_value,
-        ", ".join(null_status_with_value[:5]) or "measured and derived fields carry values",
+        ", ".join(null_status_with_value[:5]) or "measured, corrected and derived fields carry values",
+    )
+    check(
+        "numeric_values_have_units",
+        not missing_unit,
+        ", ".join(missing_unit[:5]) or "all numeric values carry a unit",
     )
 
     # ---- documented gaps stay gaps ------------------------------------- #
@@ -170,7 +201,10 @@ def main() -> int:
     # ---- index --------------------------------------------------------- #
     index_ok = False
     index_detail = "not built"
-    if not failures:
+    if not failures and _index_is_current(INDEX_PATH, corpus_version):
+        index_ok = True
+        index_detail = f"already current path={INDEX_PATH}"
+    elif not failures:
         INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
         tmp_path = INDEX_PATH.with_suffix(".sqlite3.tmp")
         if tmp_path.exists():
@@ -201,7 +235,16 @@ def main() -> int:
         finally:
             conn.close()
         if index_ok:
-            os.replace(tmp_path, INDEX_PATH)
+            try:
+                os.replace(tmp_path, INDEX_PATH)
+            except PermissionError:
+                index_ok = False
+                index_detail = (
+                    "index is locked by another process; stop the API and retry "
+                    f"({INDEX_PATH})"
+                )
+                if tmp_path.exists():
+                    tmp_path.unlink()
         elif tmp_path.exists():
             tmp_path.unlink()
 

@@ -1,8 +1,8 @@
 """WebSocket voice session manager for FIRETRACE.
 
-Adapted from the CareSpeak VoiceLink turn loop, but scoped to a single
-browser-facing agent: no telephony, no patient directory. Every answer still
-flows through the deterministic retrieval engine and the grounding guard.
+Scoped to a single browser-facing evidence agent: no telephony, no contact
+directory. Every answer still flows through the deterministic retrieval engine
+and the grounding guard.
 """
 from __future__ import annotations
 
