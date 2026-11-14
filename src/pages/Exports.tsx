@@ -78,7 +78,7 @@ export function Exports() {
             <div><dt>Columns</dt><dd className="mono">{columns.length}</dd></div>
             <div><dt>Records with pressure</dt><dd className="mono">{pressure}</dd></div>
             <div><dt>Records with per-test gravity</dt><dd className="mono">{selected.filter((record) => record.gravity_regime.status === 'measured').length}</dd></div>
-            <div><dt>Validation</dt><dd className="mono">71 validated / 56 partial / 4 suspect (all)</dd></div>
+            <div><dt>Validation</dt><dd className="mono">{selected.filter((record) => record.validation_status === 'validated').length} validated / {selected.filter((record) => record.validation_status === 'partial').length} partial / {selected.filter((record) => record.validation_status === 'suspect').length} suspect (selected)</dd></div>
             <div><dt>Encoding</dt><dd className="mono">UTF-8 CSV</dd></div>
           </dl>
 

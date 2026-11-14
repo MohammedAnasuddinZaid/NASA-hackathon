@@ -49,7 +49,9 @@ describe('comparability audit', () => {
     expect(byId.gravity.state).toBe('unknown');
     expect(byId.flow.state).toBe('blocked');
     expect(byId.outcome.state).toBe('unknown');
-    expect(comparisonBlockerCount(checks)).toBe(5);
+    expect(byId.thickness_mm.state).toBe('blocked');
+    expect(byId.width_cm.state).toBe('blocked');
+    expect(comparisonBlockerCount(checks)).toBeGreaterThan(5);
   });
 
   it('still blocks a same-investigation Saffire pair on pressure, gravity and outcome', () => {
@@ -60,7 +62,11 @@ describe('comparability audit', () => {
     expect(byId.pressure.state).toBe('unknown');
     expect(byId.gravity.state).toBe('unknown');
     expect(byId.outcome.state).toBe('unknown');
-    expect(comparisonBlockerCount(checks)).toBe(3);
+    expect(byId.flow_direction.state).toBe('blocked');
+    expect(byId.flow_direction.detail).toContain('Concurrent versus Opposed');
+    expect(byId.flow.detail).not.toContain('BASS-II');
+    expect(byId.oxygen.detail).not.toContain('BASS-II');
+    expect(comparisonBlockerCount(checks)).toBe(4);
   });
 
   it('does not treat investigation-level microgravity as a measured match', () => {
@@ -79,4 +85,11 @@ describe('comparability audit', () => {
   it('returns no checks for an empty selection', () => {
     expect(comparabilityAudit([])).toEqual([]);
   });
+});
+
+
+it('flags different BASS film thickness and leaves missing direction unresolved', () => {
+  const checks = comparabilityAudit([get('BASS2-B1'), get('BASS2-B2')]);
+  expect(checks.find((check) => check.id === 'thickness_mm')?.state).toBe('blocked');
+  expect(checks.find((check) => check.id === 'flow_direction')?.state).toBe('partial');
 });

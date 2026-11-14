@@ -81,12 +81,12 @@ shows a **Sound on** prompt and starts narration on the first click.
 ## Tests
 
 ```bash
-npm test        # 80 Vitest unit tests
-npm run e2e     # 18 Playwright end-to-end tests
+npm test        # 88 Vitest unit tests
+npm run e2e     # 20 Playwright end-to-end tests
 npm run benchmark # 30-question assistant benchmark
 ```
 
-The current repository state passes all 80 unit tests, all 16 end-to-end tests and the 30-question
+The current repository state passes all 88 unit tests, all 20 end-to-end tests and the 30-question
 assistant benchmark.
 
 ## Re-running the data pipeline
@@ -133,3 +133,5 @@ load because all evidence is bundled. No secrets or paid services are required.
 Source artifacts are preserved under their published licenses (PSI data is CC0 1.0 Universal).
 FIRETRACE is an independent project and is not affiliated with, endorsed by or certified by NASA.
 See `docs/data_sources.md` and `docs/methodology.md`.
+
+Current correctness milestone and remaining work: see `docs/work-plan.md`.

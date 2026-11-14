@@ -207,6 +207,32 @@ function testAnswer(question: string, record: ExperimentRecord): AssistantAnswer
     });
   }
 
+  // Answer explicit reported quantities before the broader outcome intent.
+  const quantity = /burn (?:time|duration)|how long.*burn/.test(q)
+    ? { label: 'burn time', field: record.burn_time_s }
+    : /ignition power/.test(q)
+      ? { label: 'ignition power', field: record.ignition_power_w }
+      : /ignition (?:time|duration)/.test(q)
+        ? { label: 'ignition time', field: record.ignition_time_s }
+        : null;
+  if (quantity) {
+    const known = quantity.field.value !== null;
+    return baseAnswer(question, {
+      grade: known ? 'direct' : 'absent',
+      headline: known
+        ? `${record.experiment_id} reports ${quantity.label}: ${formatCompact(quantity.field)}.`
+        : `No ${quantity.label} is reported for ${record.experiment_id}.`,
+      paragraphs: [
+        quantity.field.note ?? 'Read from the preserved experimental table row.',
+        'A reported duration or power is not a standardized flammability outcome or a material-safety conclusion.',
+      ],
+      bullets: [],
+      citations: [citation],
+      trace,
+      followUps: [`What outcome did ${record.experiment_id} report?`, `What oxygen did ${record.experiment_id} report?`],
+    });
+  }
+
   if (/outcome|extinct|burn|ignit|spread|result/.test(q)) {
     return baseAnswer(question, {
       grade: record.outcome.status === 'measured' ? 'direct' : 'absent',
@@ -790,6 +816,10 @@ export function ask(question: string): AssistantAnswer {
   const record = findRecord(q);
   if (record) return testAnswer(q, record);
 
+  if (/luci|sounding rocket|new shepard/i.test(q)) {
+    return luciAnswer(q);
+  }
+
   if (/partial[- ]gravity|lunar|moon|mars|microgravity|gravity|\bg[- ]?level\b/i.test(q)) {
     return corpusGravityAnswer(q);
   }
@@ -798,9 +828,6 @@ export function ask(question: string): AssistantAnswer {
   }
   if (/missing|absent|not reported|reported|coverage|\bgap\b|what.*lack/i.test(q)) {
     return missingAnswer(q);
-  }
-  if (/luci|sounding rocket|new shepard/i.test(q)) {
-    return luciAnswer(q);
   }
   if (/saffire/i.test(q)) {
     return saffireAnswer(q);

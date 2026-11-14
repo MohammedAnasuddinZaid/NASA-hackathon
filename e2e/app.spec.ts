@@ -62,7 +62,7 @@ test('Atlas investigation filter shows only the two Saffire records', async ({ p
 
 test('Compare states the comparability blockers before the numbers', async ({ page }) => {
   await page.goto('/#/compare');
-  await expect(page.locator('.comparability h2')).toContainText('5 blockers');
+  await expect(page.locator('.comparability h2')).toContainText('7 blockers');
   await expect(page.locator('.check-grid')).toContainText('No selected record reports total pressure');
   await expect(page.locator('.check-grid')).toContainText('No selected record has a measured g-level');
   await expect(page.locator('.compare-table')).toContainText('Not reported');
@@ -221,4 +221,19 @@ test('film offers a sound prompt when autoplay is blocked', async ({ page }) => 
       page.locator('.film audio').first().evaluate((node) => !(node as HTMLAudioElement).paused),
     )
     .toBe(true);
+});
+
+
+test('Saffire export quality summary follows the selected scope', async ({ page }) => {
+  await page.goto('/#/exports');
+  await page.getByRole('tab', { name: 'Saffire-I 2', exact: true }).click();
+  await expect(page.getByText('0 validated / 2 partial / 0 suspect (selected)', { exact: true })).toBeVisible();
+});
+
+test('specific burn-time question is direct evidence', async ({ page }) => {
+  await page.goto('/#/assistant');
+  await page.getByRole('textbox', { name: 'Ask the evidence assistant' }).fill('What burn time did SAFFIRE1-S2 report?');
+  await page.getByRole('button', { name: 'Retrieve', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'SAFFIRE1-S2 reports burn time: 70 s.', exact: true })).toBeVisible();
+  await expect(page.getByText('Direct evidence', { exact: true })).toBeVisible();
 });
