@@ -351,7 +351,12 @@ async def voice_turn(request: Request):
     if samples is not None and samples.size > 0:
         engine, _manager = _require_voice()
         try:
-            transcript = await engine.asr.transcribe(samples)
+            asr_result = await engine.asr.transcribe(samples)
+            transcript = (
+                asr_result.get("text", "")
+                if isinstance(asr_result, dict)
+                else str(asr_result)
+            )
         except Exception as exc:
             raise HTTPException(status_code=503, detail=str(exc))
     if not transcript:

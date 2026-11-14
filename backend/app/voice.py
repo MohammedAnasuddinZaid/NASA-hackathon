@@ -225,11 +225,19 @@ class VoiceManager:
                 if samples is not None and samples.size > 0:
                     t0 = time.perf_counter()
                     try:
-                        transcript_text = await self.engine.asr.transcribe(samples)
+                        asr_result = await self.engine.asr.transcribe(samples)
+                        transcript_text = (
+                            asr_result.get("text", "")
+                            if isinstance(asr_result, dict)
+                            else str(asr_result)
+                        )
+                        if isinstance(asr_result, dict) and asr_result.get("elapsed_ms") is not None:
+                            metrics["asr_ms"] = int(asr_result["elapsed_ms"])
                     except Exception as exc:
                         transcript_text = ""
                         await session.send({"type": "error", "code": "asr_error", "message": str(exc), "fatal": False})
-                    metrics["asr_ms"] = int((time.perf_counter() - t0) * 1000)
+                    if metrics.get("asr_ms") is None:
+                        metrics["asr_ms"] = int((time.perf_counter() - t0) * 1000)
                     await session.send({"type": "transcript", "turn_id": turn_id, "role": "user", "text": transcript_text, "final": True})
 
                 if cancel_event.is_set():
