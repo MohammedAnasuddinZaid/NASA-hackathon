@@ -37,7 +37,7 @@ test('scenario candidates, explanations, selection, Atlas, and return state', as
 test('invalid targets and no-credit filters produce explicit states', async ({ page }) => {
   await page.goto('/#/gap');
   await page.getByRole('spinbutton', { name: 'Oxygen (% by vol)', exact: true }).fill('101');
-  await expect(page.getByRole('alert')).toContainText('Oxygen');
+  await expect(page.getByRole('alert')).toContainText('Initial oxygen');
   await page.getByRole('spinbutton', { name: 'Oxygen (% by vol)', exact: true }).fill('100');
   await page.getByRole('spinbutton', { name: 'Flow velocity (cm/s)', exact: true }).fill('');
   await page

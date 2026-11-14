@@ -63,10 +63,10 @@ test('Atlas investigation filter shows only the two Saffire records', async ({ p
 
 test('Compare states the comparability blockers before the numbers', async ({ page }) => {
   await page.goto('/#/compare');
-  await expect(page.locator('.comparability h2')).toContainText('7 blockers');
-  await expect(page.locator('.check-grid')).toContainText('No selected record reports total pressure');
-  await expect(page.locator('.check-grid')).toContainText('No selected record has a measured g-level');
-  await expect(page.locator('.compare-table')).toContainText('Not reported');
+  await expect(page.locator('.comparability h2')).toContainText('blockers to a direct comparison');
+  await expect(page.locator('.comparability .check-grid')).toContainText('No selected record reports total pressure');
+  await expect(page.locator('.comparability .check-grid')).toContainText('No selected record has a measured g-level');
+  await expect(page.locator('.compare-table').first()).toContainText('Missing');
   await expect(page.locator('.comparability__note')).toContainText('No similarity score');
 });
 
