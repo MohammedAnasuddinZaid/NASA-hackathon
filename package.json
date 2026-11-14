@@ -15,6 +15,7 @@
     "benchmark": "tsx scripts/run-benchmark.ts",
     "ingest": "python pipeline/ingest.py",
     "e2e": "playwright test",
+    "e2e:research": "playwright test --config playwright.research.config.ts",
     "shots": "tsx scripts/capture.ts",
     "validate:data": "python -m unittest discover -s pipeline -p test_*.py -v"
   },

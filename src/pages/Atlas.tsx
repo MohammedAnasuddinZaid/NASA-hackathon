@@ -7,6 +7,7 @@ import { formatCompact, formatNumber } from '../lib/format';
 import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, EmptyState, PageHeader, Panel } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
+import { BasketButton } from '../lib/basketContext';
 
 const PAGE_SIZE = 24;
 
@@ -233,6 +234,7 @@ export function Atlas() {
                   <th>Pressure</th>
                   <th>Gravity</th>
                   <th>Status</th>
+                  <th>Evidence basket</th>
                 </tr>
               </thead>
               <tbody>
@@ -288,6 +290,7 @@ export function Atlas() {
                         {record.validation_status}
                       </Badge>
                     </td>
+                    <td><BasketButton id={record.experiment_id} /></td>
                   </tr>
                 ))}
               </tbody>

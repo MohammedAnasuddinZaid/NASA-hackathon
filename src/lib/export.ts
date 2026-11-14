@@ -1,6 +1,7 @@
 import { artifactsFor } from './corpus';
 import type { Claim, ExperimentRecord } from './types';
 import { formatNumber } from './format';
+import { csvCell } from './researchFormats';
 
 export const exportColumns = [
   'experiment_id',
@@ -135,9 +136,7 @@ function cellValue(record: ExperimentRecord, column: ExportColumn): string | num
 }
 
 function quote(value: string | number): string {
-  const text = String(value);
-  if (/[",\r\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
-  return text;
+  return csvCell(value);
 }
 
 export function recordsToCsv(source: ExperimentRecord[], columns: readonly ExportColumn[] = exportColumns): string {
@@ -176,9 +175,11 @@ export function downloadText(filename: string, content: string, mime = 'text/pla
   anchor.href = url;
   anchor.download = filename;
   document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
+  try { anchor.click(); }
+  finally {
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
 }
 
 export function downloadJson(filename: string, data: unknown): void {

@@ -12,6 +12,7 @@ import { formatCompact } from '../lib/format';
 import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, Callout, EmptyState, PageHeader, Panel, SourceLink } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
+import { BasketButton } from '../lib/basketContext';
 import { comparisonRows, labels, relationLabels } from '../lib/scenario';
 
 function initialSelection(): ExperimentRecord[] {
@@ -105,6 +106,7 @@ export function Compare() {
           </button>
         }
       />
+      {new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('from') === 'basket' && <p><a className="text-link" href="#/exports">← Return to evidence basket</a></p>}
       {new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('from') === 'gap' && (
         <p>
           <a className="text-link" href="#/gap">
@@ -370,6 +372,7 @@ export function Compare() {
                 return (
                   <section key={r.experiment_id}>
                     <h3>{r.experiment_id}</h3>
+                      <BasketButton id={r.experiment_id} />
                     <p>{r.source_locator}</p>
                     <p>Retained flags: {r.quality_flags.join('; ') || 'none'}</p>
                     <button className="text-link" onClick={() => setDetail(r)}>
