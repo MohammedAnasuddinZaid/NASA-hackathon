@@ -1,0 +1,30 @@
+{"id": "L01", "category": "exact_lookup", "question": "What oxygen did BASS2-B1 report?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "L02", "category": "exact_lookup", "question": "What is the thickness of BASS2-B1?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "L03", "category": "exact_lookup", "question": "What material did BASS2-B1 test?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "L04", "category": "exact_lookup", "question": "What oxygen did SAFFIRE1-S1 report?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "L05", "category": "exact_lookup", "question": "What burn time did BASS2-B2 report?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "L06", "category": "exact_lookup", "question": "What flow did BASS2-B1 report?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "L07", "category": "exact_lookup", "question": "What ignition time did SAFFIRE1-S1 report?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "L08", "category": "exact_lookup", "question": "What validation status does BASS2-T9 have?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "C01", "category": "comparison", "question": "Compare BASS2-B1 and BASS2-B2.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "C02", "category": "comparison", "question": "Compare BASS2-B4 and BASS2-B14.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "C03", "category": "comparison", "question": "Compare SAFFIRE1-S1 and SAFFIRE1-S2.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "C04", "category": "comparison", "question": "Compare BASS-II and Saffire-I.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "C05", "category": "comparison", "question": "Compare BASS2-B1, BASS2-B2 and BASS2-B3.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "C06", "category": "comparison", "question": "Compare BASS2-T9 and BASS2-T18.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "S01", "category": "synthesis", "question": "What oxygen did PMMA records report?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "S02", "category": "synthesis", "question": "What materials are in the corpus?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "S03", "category": "synthesis", "question": "What is the oxygen range across BASS-II?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "S04", "category": "synthesis", "question": "What is the median burn time across the corpus?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "S05", "category": "synthesis", "question": "What flow values are reported across the corpus?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "S06", "category": "synthesis", "question": "Summarise the initial CO2 values in the corpus.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "G01", "category": "gap_or_out_of_domain", "question": "What pressure was BASS-II run at?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "G02", "category": "gap_or_out_of_domain", "question": "Does the corpus include partial-gravity data?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "G03", "category": "gap_or_out_of_domain", "question": "What is missing from the corpus?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "G04", "category": "gap_or_out_of_domain", "question": "What did LUCI find?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "G05", "category": "gap_or_out_of_domain", "question": "What oxygen concentration did the Saffire-I test use?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "G06", "category": "gap_or_out_of_domain", "question": "What ignition method was used in BASS-II?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "M01", "category": "misleading", "question": "Is PMMA safe in a lunar cabin?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "M02", "category": "misleading", "question": "What is the percent safe score for SIBAL at 30% oxygen?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "M03", "category": "misleading", "question": "Give me a fire risk probability for Nomex in the ISS atmosphere.", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}
+{"id": "M04", "category": "misleading", "question": "Should we use PMMA for a cabin liner?", "expected": {"grade": null, "abstain": null, "record_ids": [], "source_ids": [], "notes": ""}}

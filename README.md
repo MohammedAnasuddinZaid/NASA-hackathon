@@ -6,9 +6,15 @@ combustion experiment tables into a traceable evidence workspace: every record, 
 quality flag, source locator and limitation is visible, and the application refuses to answer
 questions the sources cannot support.
 
-This repository is a static Vite + React + TypeScript application. It has no external AI/API
-dependency, no database and no server-side runtime. All evidence is bundled as JSON and can be
-used offline after a build.
+The repository ships two runnable surfaces over one curated corpus:
+
+- a **static Vite + React + TypeScript application** that bundles all evidence as JSON and works
+  offline after a build;
+- a **local FastAPI evidence API** in `backend/` that serves the same corpus with per-field
+  provenance, claim validation and explicit abstention.
+
+Neither surface calls an external model. The evidence API boots with no Ollama, whisper.cpp or
+sherpa-onnx installed; those are optional extras used only by the legacy local voice routes.
 
 ## What it does
 
@@ -49,18 +55,43 @@ score.
 
 ## Requirements
 
-- Node.js 20 or newer
-- Python 3.10 or newer (only for re-running the ingestion pipeline)
+- Node.js 20 or newer (web app)
+- Python 3.10 or newer (evidence API, tests, evaluation, ingestion)
 - A modern browser
 
 ## Quick start
+
+**Web app** — one command, no backend required:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`.
+Open `http://localhost:5173`. The Assistant page calls the evidence API first and falls back to
+the bundled deterministic engine when the API is not running.
+
+**Evidence API** — one command after installing the core requirements:
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn api:app --host 127.0.0.1 --port 8000
+```
+
+Open `http://127.0.0.1:8000/api/docs` for the OpenAPI console. This entry point has no AI runtime
+dependency and does not touch the voice stack.
+
+**Combined app** (evidence API plus the optional local voice routes):
+
+```bash
+cd backend
+pip install -r requirements-voice.txt   # optional AI wheels
+uvicorn main:app --host 127.0.0.1 --port 8000
+```
+
+If the voice wheels or models are absent, `/api/v1` keeps working and the voice routes return a
+structured `503 voice_unavailable`.
 
 ## Production build
 
@@ -73,9 +104,17 @@ The static output is written to `dist/`. Serve it over HTTP using the preview co
 
 ## Backend and voice agent
 
-A production-grade local backend lives in `backend/`. It serves the corpus, runs the
-deterministic retrieval engine, and provides a grounded voice agent (whisper.cpp ASR,
-Silero VAD, Ollama LLM, sherpa-onnx TTS). See `backend/README.md`.
+`backend/` contains two layers:
+
+- `/api/v1/*` — the typed evidence API documented in `docs/data_dictionary.md` and
+  `backend/app/v1/`. It exposes experiments, sources, coverage, comparison, scenario evaluation,
+  grounded answers and exports. Every response carries `X-Corpus-Version`, `X-Request-ID` and
+  `X-Response-Time-Ms`.
+- `/api/*` — the legacy local voice surface (whisper.cpp ASR, Silero VAD, optional Ollama
+  rewording, sherpa-onnx TTS, SSE, SQLite session history). It is optional and degrades to
+  `voice_unavailable`.
+
+See `backend/README.md` for model setup.
 
 ## Design
 
@@ -87,13 +126,25 @@ shows a **Sound on** prompt and starts narration on the first click.
 ## Tests
 
 ```bash
-npm test        # 89 Vitest unit tests
-npm run e2e     # 23 Playwright end-to-end tests
-npm run benchmark # 30-question assistant benchmark
+npm test                                    # Vitest unit tests
+npm run build                               # type-check + production build
+npm run benchmark                           # 30-question local assistant benchmark
+
+cd backend
+python -m pytest -q                         # evidence API contract and policy suite
+cd ..
+python eval/run_eval.py                     # 30-question grounding check
 ```
 
-The current repository state passes all 89 unit tests, all 23 end-to-end tests and the 30-question
-assistant benchmark.
+Verified in this workspace: 80 Vitest tests, `npm run build`, 30/30 benchmark questions,
+155 backend pytest tests, and `eval/run_eval.py` with 0 integrity problems. The Playwright
+suite in `e2e/` is present but could not run in this environment because the OS
+application-control policy blocks the Playwright Chromium binary; no pass result is claimed
+for it here.
+
+`eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` with `0/30`
+labelled items, because the shipped question set has no gold answers. It does not estimate
+them.
 
 ## Re-running the data pipeline
 
@@ -110,13 +161,20 @@ This uses `python pipeline/ingest.py` and rewrites `src/data/corpus.json`, mirro
 src/
   components/      shell, charts, drawer, UI primitives
   data/            bundled corpus and source manifest
-  lib/             types, corpus, atmosphere, records, compare, gap, assistant, export, router
+  lib/             types, corpus, atmosphere, records, compare, gap, assistant, apiClient, export, router
   pages/           eight routed pages
   styles.css       design system
+backend/
+  api.py           standalone evidence API (no AI runtime)
+  main.py          combined evidence + optional voice app
+  app/v1/          typed API: policy, store, schemas, router, compare, scenario, assistant, exports
+  scripts/         corpus validation and FTS index builder
+  tests/           pytest contract, grounding and policy suite
 pipeline/          Python ingestion and validation
+eval/              question set and honest evaluation runner
 tests/             Vitest unit tests
-e2e/               Playwright end-to-end tests
-docs/              methodology, sources, limitations, demo, Q&A, deployment
+e2e/               Playwright end-to-end tests (blocked by this machine's application policy)
+docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment
 presentation/      screenshots and pitch deck
 scripts/           capture and benchmark scripts
 ```
@@ -131,8 +189,9 @@ scripts/           capture and benchmark scripts
 
 ## Deployment
 
-See `docs/deployment.md`. The application is a static Vite build and works offline after the first
-load because all evidence is bundled. No secrets or paid services are required.
+The web application is a static Vite build and works offline after the first load because all
+evidence is bundled. The evidence API is a separate local service; it is not required for the
+static build and is not deployed by it. See `docs/deployment.md`.
 
 ## License and provenance
 

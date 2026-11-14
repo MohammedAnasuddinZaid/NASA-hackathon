@@ -17,9 +17,11 @@ backend/logs/
 backend/runtime/
 backend/data/*.db
 backend/data/*.db-*
+backend/index/
 backend/.env
 backend/**/*.pyc
 backend/**/__pycache__/
 pipeline/__pycache__/
 
 .venv/
+eval_report.json

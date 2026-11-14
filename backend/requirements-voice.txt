@@ -1,0 +1,15 @@
+# Optional local voice stack.
+#
+# Only needed for the legacy `/api/tts`, `/api/voice/turn` and `/ws/voice`
+# routes on the combined app (`uvicorn main:app`). The evidence API at
+# `/api/v1` and the standalone `api:app` entry point work without any of these.
+#
+# These versions were declared by the project but are NOT installed in the
+# development environment used for this build, so the voice routes were not
+# exercised. Expect to adjust them to match your platform's wheels.
+-r requirements.txt
+
+numpy==2.5.2
+sherpa-onnx==2.0.1
+onnxruntime==1.20.1
+websockets==13.1

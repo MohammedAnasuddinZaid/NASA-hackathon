@@ -2,12 +2,19 @@ import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { ask, answerToText } from '../lib/assistant';
 import type { AnswerGrade, AssistantAnswer } from '../lib/assistant';
+import { ApiError, ServiceUnavailable, evidenceApi } from '../lib/apiClient';
+import type { ApiAnswer } from '../lib/apiClient';
 import { Badge, PageHeader, Panel, SourceLink } from '../components/ui';
 import { VoiceAgent } from '../components/VoiceAgent';
 
+type Provenance =
+  | { source: 'api'; corpusVersion: string; checked: number; validated: number }
+  | { source: 'local' };
+
 type Message =
   | { role: 'user'; text: string; id: number }
-  | { role: 'assistant'; answer: AssistantAnswer; id: number };
+  | { role: 'assistant'; answer: AssistantAnswer; provenance: Provenance; id: number }
+  | { role: 'error'; text: string; fieldPath: string | null; id: number };
 
 const gradeLabel: Record<AnswerGrade, string> = {
   direct: 'Direct evidence',
@@ -36,27 +43,108 @@ const suggestions = [
   'Which records are flagged suspect?',
 ];
 
+/**
+ * The evidence API and the bundled engine agree on the answer shape in spirit but
+ * use different key casing (snake_case over HTTP, camelCase in the app). This
+ * adapter is the only translation point, so the render path stays unchanged.
+ */
+function fromApiAnswer(answer: ApiAnswer): AssistantAnswer {
+  return {
+    id: answer.answer_id,
+    question: answer.question,
+    grade: answer.grade,
+    headline: answer.headline,
+    paragraphs: answer.paragraphs,
+    bullets: answer.bullets,
+    claims: answer.claims.map((claim) => ({
+      text: claim.text,
+      sourceId: claim.source_id,
+      locator: claim.locator,
+    })),
+    citations: answer.citations.map((citation) => ({
+      sourceId: citation.source_id,
+      title: citation.title,
+      locator: citation.locator,
+      url: citation.url,
+      doi: citation.doi,
+    })),
+    trace: answer.trace,
+    followUps: answer.follow_ups,
+  };
+}
+
+function provenanceLabel(provenance: Provenance): string {
+  if (provenance.source === 'local') return 'local engine · offline';
+  const hash = provenance.corpusVersion ? provenance.corpusVersion.slice(0, 12) : 'unknown';
+  return `evidence API · corpus ${hash} · ${provenance.validated}/${provenance.checked} claims validated`;
+}
+
 export function Assistant() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
+  const [pending, setPending] = useState(false);
   const counter = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
 
-  function submit(question: string) {
+  function nextId(): number {
+    counter.current += 1;
+    return counter.current;
+  }
+
+  function push(message: Message) {
+    setMessages((current) => [...current, message]);
+  }
+
+  async function submit(question: string) {
     const text = question.trim();
-    if (!text) return;
-    counter.current += 1;
-    const user: Message = { role: 'user', text, id: counter.current };
-    counter.current += 1;
-    const assistant: Message = { role: 'assistant', answer: ask(text), id: counter.current };
-    setMessages((current) => [...current, user, assistant]);
+    if (!text || pending) return;
+    push({ role: 'user', text, id: nextId() });
     setInput('');
-    window.setTimeout(() => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }), 50);
+    setPending(true);
+
+    try {
+      const answer = await evidenceApi.ask({ question: text });
+      push({
+        role: 'assistant',
+        answer: fromApiAnswer(answer),
+        provenance: {
+          source: 'api',
+          corpusVersion: answer.corpus_version,
+          checked: answer.validation.checked,
+          validated: answer.claims.length,
+        },
+        id: nextId(),
+      });
+    } catch (error) {
+      if (error instanceof ServiceUnavailable) {
+        // The service is down: keep working with the bundled deterministic engine
+        // and say so under the answer instead of pretending nothing changed.
+        push({
+          role: 'assistant',
+          answer: ask(text),
+          provenance: { source: 'local' },
+          id: nextId(),
+        });
+      } else {
+        const message =
+          error instanceof ApiError
+            ? error.message
+            : 'The request could not be completed.';
+        const fieldPath = error instanceof ApiError ? error.fieldPath : null;
+        push({ role: 'error', text: message, fieldPath, id: nextId() });
+      }
+    } finally {
+      setPending(false);
+      window.setTimeout(
+        () => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }),
+        50,
+      );
+    }
   }
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
-    submit(input);
+    void submit(input);
   }
 
   return (
@@ -65,7 +153,7 @@ export function Assistant() {
         index="05"
         eyebrow="Evidence Assistant"
         title={<>Ask the corpus. <em>It will tell you when it can’t answer.</em></>}
-        lede="A deterministic retrieval and citation engine over the bundled records, claims and source manifest. No external language model, no API call, no generated scientific claims."
+        lede="A deterministic retrieval and citation engine over the bundled records, claims and source manifest. No external language model, no cloud call, no generated scientific claims."
         actions={<Badge tone="mint">Abstention enabled</Badge>}
       />
 
@@ -83,7 +171,7 @@ export function Assistant() {
                 </p>
                 <div className="suggestion-grid">
                   {suggestions.map((suggestion) => (
-                    <button key={suggestion} className="suggestion" onClick={() => submit(suggestion)}>
+                    <button key={suggestion} className="suggestion" onClick={() => void submit(suggestion)}>
                       <span>{suggestion}</span>
                       <span aria-hidden="true">↗</span>
                     </button>
@@ -91,13 +179,39 @@ export function Assistant() {
                 </div>
               </div>
             ) : (
-              messages.map((message) =>
-                message.role === 'user' ? (
-                  <div className="message message--user" key={message.id}>
-                    <div className="message__role mono">YOU</div>
-                    <div className="message__bubble">{message.text}</div>
-                  </div>
-                ) : (
+              messages.map((message) => {
+                if (message.role === 'user') {
+                  return (
+                    <div className="message message--user" key={message.id}>
+                      <div className="message__role mono">YOU</div>
+                      <div className="message__bubble">{message.text}</div>
+                    </div>
+                  );
+                }
+                if (message.role === 'error') {
+                  return (
+                    <article className="message message--assistant" key={message.id}>
+                      <div className="message__role mono">FIRETRACE / REQUEST REJECTED</div>
+                      <div className="answer">
+                        <div className="answer__top">
+                          <Badge tone="red" dot>
+                            Not answered
+                          </Badge>
+                          {message.fieldPath && (
+                            <span className="mono muted">{message.fieldPath}</span>
+                          )}
+                        </div>
+                        <h3>The evidence API rejected this request.</h3>
+                        <p>{message.text}</p>
+                        <p className="mono muted">
+                          The request was not retried against the offline engine, so the server
+                          message above is the whole story.
+                        </p>
+                      </div>
+                    </article>
+                  );
+                }
+                return (
                   <article className="message message--assistant" key={message.id}>
                     <div className="message__role mono">FIRETRACE / RETRIEVAL</div>
                     <div className="answer">
@@ -108,6 +222,7 @@ export function Assistant() {
                         <span className="mono muted">{message.answer.citations.length} citation{message.answer.citations.length === 1 ? '' : 's'}</span>
                       </div>
                       <h3>{message.answer.headline}</h3>
+                      <p className="mono muted">{provenanceLabel(message.provenance)}</p>
                       {message.answer.paragraphs.map((paragraph) => (
                         <p key={paragraph}>{paragraph}</p>
                       ))}
@@ -117,6 +232,23 @@ export function Assistant() {
                             <li key={bullet}>{bullet}</li>
                           ))}
                         </ul>
+                      )}
+
+                      {message.answer.claims && message.answer.claims.length > 0 && (
+                        <div className="answer__citations">
+                          <div className="answer__section-label">Validated claims</div>
+                          <ol>
+                            {message.answer.claims.map((claim, index) => (
+                              <li key={`${claim.sourceId}-${claim.locator}-${index}`}>
+                                <div className="citation__title">{claim.text}</div>
+                                <div className="citation__head">
+                                  <span className="mono">{claim.sourceId}</span>
+                                  <span>{claim.locator}</span>
+                                </div>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
                       )}
 
                       <div className="answer__citations">
@@ -164,14 +296,14 @@ export function Assistant() {
                         <div className="follow-ups">
                           <span className="mono">Follow up</span>
                           {message.answer.followUps.map((followUp) => (
-                            <button key={followUp} onClick={() => submit(followUp)}>{followUp}</button>
+                            <button key={followUp} onClick={() => void submit(followUp)}>{followUp}</button>
                           ))}
                         </div>
                       )}
                     </div>
                   </article>
-                ),
-              )
+                );
+              })
             )}
             <div ref={endRef} />
           </div>
@@ -185,12 +317,12 @@ export function Assistant() {
               placeholder="Ask about a record, a measured field, or a gap…"
               autoComplete="off"
             />
-            <button type="submit" className="button button--ember" disabled={!input.trim()}>
-              Retrieve <span aria-hidden="true">→</span>
+            <button type="submit" className="button button--ember" disabled={!input.trim() || pending}>
+              {pending ? 'Retrieving…' : 'Retrieve'} <span aria-hidden="true">→</span>
             </button>
           </form>
           <div className="ask-foot">
-            <span>Deterministic · local · cites every answer</span>
+            <span>{pending ? 'Querying the evidence API…' : 'Deterministic · cites every answer'}</span>
             {messages.length > 0 && (
               <button className="text-link" onClick={() => setMessages([])}>Clear conversation</button>
             )}

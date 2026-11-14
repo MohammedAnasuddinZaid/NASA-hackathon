@@ -18,7 +18,7 @@ Run it with:
 npm run ingest
 ```
 
-Python is invoked as `python`; activate a virtual environment and install `pipeline/requirements.txt` first. Run `npm run validate:data` for offline source and reproducibility checks.
+Python is invoked as `python`; activate a virtual environment and install `pipeline/requirements.txt` first. The pipeline runs on Python 3.10 or newer. Run `npm run validate:data` for offline source and reproducibility checks.
 
 ## Normalization rules
 
@@ -62,6 +62,25 @@ The Evidence Assistant is deterministic retrieval over the bundled corpus, claim
 manifest. It performs no external model or API call. It answers only from reported values and
 abstains otherwise. The 30-question benchmark in `data/processed/benchmark.json` records its
 current behavior.
+
+## Evidence API
+
+`backend/app/v1/` exposes the same retrieval logic over HTTP. Its scientific rules are versioned in
+`policy.py`:
+
+- each field carries a status from a fixed vocabulary, and only value-bearing statuses may be
+  quoted; `null` never becomes zero;
+- each claim carries a `source_id` and a `locator`, and is re-validated against the cited records
+  before it is returned; a claim whose numbers are not in its evidence is rejected;
+- comparisons use the published `matching-1.0` tolerances and classify each field as `matched`,
+  `mismatched` or `unknown`, with no fused score;
+- scenario evaluation reports applicability and coverage gaps instead of a probability;
+- questions that ask for safety, certification, risk or operational advice return
+  `out-of-scope` with zero claims.
+
+`corpus_version` is the SHA-256 of the raw corpus bytes and appears in every response, so an
+answer or export can be tied to the exact dataset it came from. Field-level semantics are in
+`docs/data_dictionary.md`.
 
 ## Exports
 

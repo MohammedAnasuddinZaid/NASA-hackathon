@@ -41,3 +41,7 @@ hidden behind a score.
 - The Gap Planner is a checklist for test design, not a protocol, prediction or certification.
 - The bundle is large because the corpus is imported directly for offline use.
 - No external deployment, domain or hosting configuration is included.
+- The evidence API is a local read-only service. It has no authentication, is intended for
+  localhost or a trusted LAN, and rejects POST bodies above 1 MiB.
+- `eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` because the shipped
+  question set has no gold answers. No metric is estimated.

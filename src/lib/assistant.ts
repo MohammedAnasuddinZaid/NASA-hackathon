@@ -12,6 +12,12 @@ export interface Citation {
   doi?: string | null;
 }
 
+export interface AnswerClaim {
+  text: string;
+  sourceId: string;
+  locator: string;
+}
+
 export interface AssistantAnswer {
   id: string;
   question: string;
@@ -19,6 +25,7 @@ export interface AssistantAnswer {
   headline: string;
   paragraphs: string[];
   bullets: string[];
+  claims?: AnswerClaim[];
   citations: Citation[];
   trace: string[];
   followUps: string[];
@@ -896,6 +903,12 @@ export function ask(question: string): AssistantAnswer {
 export function answerToText(answer: AssistantAnswer): string {
   const lines = [answer.headline, '', ...answer.paragraphs];
   if (answer.bullets.length) lines.push('', ...answer.bullets.map((bullet) => `• ${bullet}`));
+  if (answer.claims?.length) {
+    lines.push('', 'Claims:');
+    for (const claim of answer.claims) {
+      lines.push(`- ${claim.text} [${claim.sourceId} · ${claim.locator}]`);
+    }
+  }
   if (answer.citations.length) {
     lines.push('', 'Sources:');
     for (const citation of answer.citations) {

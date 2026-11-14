@@ -188,7 +188,8 @@ class Settings:
     max_question_chars: int = _int_env("FIRETRACE_MAX_QUESTION_CHARS", 500)
     max_tts_chars: int = _int_env("FIRETRACE_MAX_TTS_CHARS", 1_500)
     max_audio_bytes: int = _int_env("FIRETRACE_MAX_AUDIO_BYTES", 16 * 1024 * 1024)
-    max_request_bytes: int = _int_env("FIRETRACE_MAX_REQUEST_BYTES", 20 * 1024 * 1024)
+    # Evidence API contract: any POST body above 1 MiB is rejected with 413.
+    max_request_bytes: int = _int_env("FIRETRACE_MAX_REQUEST_BYTES", 1024 * 1024)
     rate_limit_per_minute: int = _int_env("FIRETRACE_RATE_LIMIT_PER_MINUTE", 90)
     rate_limit_burst: int = _int_env("FIRETRACE_RATE_LIMIT_BURST", 30)
     health_cache_seconds: float = _float_env("FIRETRACE_HEALTH_CACHE_S", 8.0)
