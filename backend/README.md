@@ -2,6 +2,11 @@
 
 Local-only FastAPI service for the FIRETRACE evidence workspace.
 
+The existing FTS index now includes a lossless scientific SQLite snapshot. Run the existing
+`scripts/build_index.py` to validate original hashes/CSV rows and rebuild it atomically.
+The new source inventory/download endpoints and API-backed frontend use this same service.
+See [foundation setup and dictionary](../docs/pr2-foundation.md); no second backend is required.
+
 It has two layers:
 
 | Layer | Prefix | Needs AI runtime? |

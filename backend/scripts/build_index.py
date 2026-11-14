@@ -24,6 +24,7 @@ if str(BACKEND_DIR) not in sys.path:
 from app.config import settings  # noqa: E402
 from app.v1 import policy  # noqa: E402
 from app.v1.store import DEFAULT_INDEX_PATH, build_fts_index, value_fields  # noqa: E402
+from app.v1.persistence import SCHEMA_VERSION, validate_originals  # noqa: E402
 
 CORPUS_PATH = Path(settings.corpus_path)
 MANIFEST_PATH = Path(settings.manifest_path)
@@ -47,7 +48,7 @@ def _index_is_current(path: Path, corpus_version: str) -> bool:
             conn.close()
     except sqlite3.Error:
         return False
-    return meta.get("corpus_version") == corpus_version and documents > 0
+    return meta.get("corpus_version") == corpus_version and meta.get("scientific_schema") == SCHEMA_VERSION and documents > 0
 
 
 def main() -> int:
@@ -77,6 +78,12 @@ def main() -> int:
     sources: list[dict[str, Any]] = list(manifest.get("sources") or [])
     context_sources: list[dict[str, Any]] = list(manifest.get("context_sources") or [])
     known_sources = {str(item.get("source_id")) for item in sources + context_sources}
+    check("manifest_matches_corpus", corpus.get("sources") == sources and corpus.get("context_sources") == context_sources, "embedded source registry matches manifest")
+    try:
+        validate_originals(settings.project_dir / "data/raw", sources, list(corpus.get("records") or []))
+        check("original_artifacts_and_rows", True, "SHA-256 and original CSV row checks passed")
+    except (ValueError, OSError) as exc:
+        check("original_artifacts_and_rows", False, str(exc))
 
     # ---- counts ------------------------------------------------------- #
     declared = int(meta.get("record_count") or -1)
@@ -211,7 +218,7 @@ def main() -> int:
             tmp_path.unlink()
         conn = sqlite3.connect(tmp_path)
         try:
-            build_fts_index(conn, records, claims, sources + context_sources)
+            build_fts_index(conn, records, claims, sources + context_sources, meta.get("investigations", []))
             conn.execute(
                 "INSERT OR REPLACE INTO index_meta (key, value) VALUES ('corpus_version', ?)",
                 (corpus_version,),

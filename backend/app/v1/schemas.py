@@ -139,6 +139,10 @@ class SourceDetail(CorpusEnvelope):
     claim_ids: list[str] = Field(default_factory=list)
 
 
+class SourceListResponse(CorpusEnvelope):
+    items: list[SourceDetail]
+
+
 class CoverageResponse(CorpusEnvelope):
     policy_version: str
     record_count: int
