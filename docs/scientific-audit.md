@@ -64,3 +64,7 @@ The review does not map report pressure/ignition passages to all CSV tests, vali
 | NASA downloads | Preserved local snapshots | PSI-25/98 CSVs exactly reverified; NTRS report retrieved and reviewed |
 
 Python checks used the ignored tmp/traceability-venv environment. UI captures were visually reviewed; record details show corrected oxygen and scoped nulls, provenance exposes untouched CSV downloads, Sources shows report context, and the demo uses actual values and CSV row 2. Nine descriptive flow-token ranges changed after excluding ambiguous parenthetical annotations (M18, O5a, O13b, P3a, P3b, P4, P14, P15, T21); variation-flag count is now 75 rather than 79. No scalar numeric measurement, suspect ID or original source file changed.
+
+## PR creation access limitation
+
+Branch feat/scientific-traceability was pushed successfully. GitHub connector create-pull-request returned HTTP 403 “Resource not accessible by integration.” The local GitHub CLI is not installed and the browser is signed out. No PR was created or merged. The exact ready-to-paste body is docs/pr1-description.md; use the pushed branch against main. Implementation commit f0318bf and earlier correctness commit c6baad0 are preserved.

@@ -34,7 +34,7 @@ Files: pipeline/, src/data + public/data mirrors, source lock, record drawer, sh
 | Demo values/citation | Fictitious values, wrong row | [PSI-25](https://psi.nasa.gov/physci/repo/data/investigations/PSI-25), B1 row 2; other selected rows | Actual data, exact locator | Browser regression + screenshot |
 | LUCI | Distinction between partial-gravity context and orbital records | [NTRS LUCI](https://ntrs.nasa.gov/citations/20250010653), PDF pp.12,16,19–22 | Context retained; not new structured rows | Presentation and citation review |
 
-Full claim review, scope and limitations: [scientific audit](docs/scientific-audit.md); [source verification](docs/source-verification.json).
+Full claim review, scope and limitations: [scientific audit](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/blob/feat/scientific-traceability/docs/scientific-audit.md); [source verification](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/blob/feat/scientific-traceability/docs/source-verification.json).
 
 ## 5. GitHub Issues
 
@@ -46,14 +46,14 @@ Real local Chromium captures, visually inspected. Before is integrated baseline 
 
 | Before | After | Result |
 |---|---|---|
-| ![Record before](docs/evidence/pr1/before/record.png) | ![Record after](docs/evidence/pr1/after/record.png) | Correction status, raw token/row, scoped nulls |
-| ![Provenance before](docs/evidence/pr1/before/provenance.png) | ![Provenance after](docs/evidence/pr1/after/provenance.png) | Original CSV access and measurement ledger |
-| ![Methodology before](docs/evidence/pr1/before/methodology.png) | ![Methodology after](docs/evidence/pr1/after/methodology.png) | Source-scope notice and computed inventory |
+| ![Record before](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/before/record.png) | ![Record after](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/after/record.png) | Correction status, raw token/row, scoped nulls |
+| ![Provenance before](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/before/provenance.png) | ![Provenance after](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/after/provenance.png) | Original CSV access and measurement ledger |
+| ![Methodology before](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/before/methodology.png) | ![Methodology after](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/after/methodology.png) | Source-scope notice and computed inventory |
 
-![Report context](docs/evidence/pr1/after/report-context.png)
-![Corrected demo](docs/evidence/pr1/after/demo.png)
+![Report context](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/after/report-context.png)
+![Corrected demo](https://raw.githubusercontent.com/MohammedAnasuddinZaid/NASA-hackathon/refs/heads/feat/scientific-traceability/docs/evidence/pr1/after/demo.png)
 
-No separate baseline demo screenshot was captured; it is not mislabeled as before evidence. See [evidence notes](docs/evidence/pr1/README.md).
+No separate baseline demo screenshot was captured; it is not mislabeled as before evidence. See [evidence notes](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/blob/feat/scientific-traceability/docs/evidence/pr1/README.md).
 
 ## 7. Testing and Validation
 
