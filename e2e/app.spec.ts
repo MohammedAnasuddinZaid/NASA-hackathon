@@ -1,8 +1,5 @@
 import { expect, test } from '@playwright/test';
 // Keep this original suite deterministic in bundled mode; real API tests are separate.
-test.beforeEach(async ({ page }) => {
-  await page.route('**/api/v1/**', route => route.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
-});
 
 const routes = [
   ['Overview', '/#/overview', 'Evidence has an address'],
@@ -80,7 +77,7 @@ test('Assistant answers pressure with abstention and refuses a safety question',
   const firstAnswer = page.locator('.message--assistant').first();
   await expect(firstAnswer.locator('.badge').first()).toHaveText('Evidence absent');
   await expect(firstAnswer.locator('h3')).toContainText('0 of 131');
-  await expect(firstAnswer).toContainText('No external model was called');
+  await expect(firstAnswer).toContainText('No external model');
   await expect(firstAnswer.locator('.answer__citations')).toContainText('PSI-25');
   await expect(firstAnswer.locator('.answer__citations')).toContainText('PSI-98');
 

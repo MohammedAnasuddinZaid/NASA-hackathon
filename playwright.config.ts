@@ -18,6 +18,7 @@ export default defineConfig({
     url: 'http://localhost:4173',
     reuseExistingServer: true,
     timeout: 180_000,
+    env: { VITE_EVIDENCE_API: 'off' },
   },
   projects: [
     {

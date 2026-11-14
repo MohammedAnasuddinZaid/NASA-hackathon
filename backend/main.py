@@ -177,7 +177,7 @@ def _require_voice() -> tuple[Any, Any]:
 # legacy voice + corpus routes
 # --------------------------------------------------------------------------- #
 @app.get("/api/health")
-def health(refresh: bool = False):
+async def health(refresh: bool = False):
     status = voice_status()
     if not status["available"]:
         return {
@@ -189,15 +189,13 @@ def health(refresh: bool = False):
         }
     engine, _manager = voice_stack()
     try:
-        payload = engine.health(refresh=refresh)
+        payload = await engine.health(refresh=refresh)
     except Exception as exc:  # pragma: no cover - defensive
         return {
             "status": "degraded",
             "voice": {"available": False, "reason": str(exc)},
             "corpus_version": get_store().corpus_version,
         }
-    if asyncio.iscoroutine(payload):
-        return payload
     payload["voice"] = status
     payload["corpus_version"] = get_store().corpus_version
     return payload
