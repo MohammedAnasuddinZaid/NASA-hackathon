@@ -22,7 +22,9 @@ hidden behind a score.
 ## Comparability limitations
 
 - BASS-II and Saffire-I cannot be treated as directly comparable tests.
-- No similarity or relevance score is computed.
+- Scenario candidates can be ordered by documented heuristic retrieval points, with missing
+  conditions receiving zero credit and their weights retained. This is neither experimental
+  equivalence nor material safety, scientific confidence or a fire-risk probability.
 - No material is labeled safe or unsafe.
 - No atmosphere is certified.
 - No missing pressure or gravity value is imputed.
@@ -38,7 +40,9 @@ hidden behind a score.
 ## Application limitations
 
 - The assistant is deterministic retrieval only. It does not generate scientific claims.
-- The Gap Planner is a checklist for test design, not a protocol, prediction or certification.
+- The Gap Planner retrieves candidate records and explains target correspondence plus research
+  reporting requirements. It is not a protocol, prediction or certification. Parsed categories,
+  approximate values and investigation-level context retain their limitations.
 - The bundle is large because the corpus is imported directly for offline use.
 - No external deployment, domain or hosting configuration is included.
 - The evidence API is a local read-only service. It has no authentication, is intended for

@@ -84,6 +84,12 @@ answer or export can be tied to the exact dataset it came from. Field-level sema
 
 ## Exports
 
+Scenario retrieval and condition-aware comparison use a separate explicit browser policy,
+scenario-retrieval-1.0. Numerical tolerances align with existing backend matching tolerances,
+but approximate, suspect, contextual and varying-flow handling is deliberately conservative.
+See [matching, weights, gaps and integration notes](scenario-planner.md). No scientific source
+values are modified, and heuristic points are not probabilities or certification evidence.
+
 CSV and JSON exports are generated locally from the bundled corpus. Empty cells mean “not
 reported,” not zero. Raw source locators, validation status and quality flags are included.
 

@@ -8,6 +8,7 @@ import './css/pages.css';
 import './css/modules.css';
 import './css/responsive.css';
 import './css/startup.css';
+import './css/scenario.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
