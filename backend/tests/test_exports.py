@@ -31,7 +31,7 @@ def test_records_csv_keeps_missing_values_empty_with_status(client):
     assert row["total_pressure_psia_status"] == "not_reported"
     assert row["total_pressure_psia_unit"] == "psia"
     assert row["oxygen_initial_pct_value"] == "22.2"
-    assert row["oxygen_initial_pct_status"] == "measured"
+    assert row["oxygen_initial_pct_status"] == "corrected"
     assert row["gravity_regime_status"] == "investigation_level"
 
 

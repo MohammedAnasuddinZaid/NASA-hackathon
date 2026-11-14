@@ -136,7 +136,7 @@ cd ..
 python eval/run_eval.py                     # 30-question grounding check
 ```
 
-Verified in this workspace: 80 Vitest tests, `npm run build`, 30/30 benchmark questions,
+Verified in this workspace: 89 Vitest tests, `npm run build`, 30/30 benchmark questions,
 155 backend pytest tests, and `eval/run_eval.py` with 0 integrity problems. The Playwright
 suite in `e2e/` is present but could not run in this environment because the OS
 application-control policy blocks the Playwright Chromium binary; no pass result is claimed

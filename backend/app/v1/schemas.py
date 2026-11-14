@@ -24,6 +24,7 @@ from app.v1 import policy
 
 ValueStatus = Literal[
     "measured",
+    "corrected",
     "derived",
     "investigation_level",
     "not_reported",
@@ -31,6 +32,7 @@ ValueStatus = Literal[
     "over_range",
     "reported_flag",
     "reported_qualitative",
+    "unverified",
 ]
 
 EvidenceType = Literal[

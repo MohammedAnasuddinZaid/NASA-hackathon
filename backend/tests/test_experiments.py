@@ -101,7 +101,7 @@ def test_record_detail_has_statuses_and_locator(client):
     oxygen = body["fields"]["oxygen_initial_pct"]
     assert oxygen["value"] == 22.2
     assert oxygen["unit"] == "% by vol"
-    assert oxygen["status"] == "measured"
+    assert oxygen["status"] == "corrected"
 
 
 def test_record_detail_pressure_is_null_not_zero(client):

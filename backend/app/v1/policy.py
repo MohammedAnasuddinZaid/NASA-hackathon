@@ -8,9 +8,8 @@ Two rules drive everything in this module:
    operational firefighting instruction, or a claim of NASA endorsement.
 
 The corpus statuses are documented rather than invented. The curated data uses
-six primary statuses plus two qualitative statuses that were already present in
-``corpus.json`` before this API existed; both are listed so the data dictionary
-matches reality.
+ten value statuses; both value-bearing and no-value statuses are listed so the
+data dictionary matches the schema actually shipped in ``corpus.json``.
 """
 from __future__ import annotations
 
@@ -28,6 +27,7 @@ ANSWER_SCHEMA_VERSION = "1.0.0"
 VALUE_BEARING_STATUSES: frozenset[str] = frozenset(
     {
         "measured",
+        "corrected",
         "derived",
         "investigation_level",
         "reported_qualitative",
@@ -41,11 +41,13 @@ NO_VALUE_STATUSES: frozenset[str] = frozenset(
         "not_extracted",
         "over_range",
         "reported_flag",
+        "unverified",
     }
 )
 
 VALUE_STATUSES: tuple[str, ...] = (
     "measured",
+    "corrected",
     "derived",
     "investigation_level",
     "not_reported",
@@ -53,10 +55,12 @@ VALUE_STATUSES: tuple[str, ...] = (
     "over_range",
     "reported_flag",
     "reported_qualitative",
+    "unverified",
 )
 
 STATUS_MEANING: dict[str, str] = {
     "measured": "The source reports this number directly for this record.",
+    "corrected": "The source reports this number after a documented correction (for example the BASS-II MCA offset).",
     "derived": "Computed from a reported source value by a documented rule (parsed text or a workbook factor).",
     "investigation_level": "Documented for the investigation, not measured per test (for example ISS microgravity).",
     "reported_qualitative": "The source reports a qualitative token rather than a number.",
@@ -64,6 +68,7 @@ STATUS_MEANING: dict[str, str] = {
     "not_extracted": "A source document may contain it but the value is not in the structured corpus. Null, never inferred.",
     "over_range": "The source reports an out-of-range marker such as '>500'. No numeric value is established.",
     "reported_flag": "The source reports a code such as '-1' that is a flag, not a concentration.",
+    "unverified": "The source token has an unresolved or ambiguous basis. Null, never guessed.",
 }
 
 CURATED_SOURCE_OF_TRUTH = "src/data/corpus.json"

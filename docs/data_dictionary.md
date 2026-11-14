@@ -36,6 +36,7 @@ whether a value may be quoted.
 | Status | Has a usable value? | Meaning |
 |---|---:|---|
 | `measured` | yes | The source reports this number directly for this record. |
+| `corrected` | yes | The source reports this number after a documented correction, such as the BASS-II MCA offset. |
 | `derived` | yes | Computed from a reported source value by a documented rule (parsed text, or a published workbook factor). |
 | `investigation_level` | yes (qualitative/nominal) | Documented for the investigation, not measured per test. Example: ISS/Cygnus microgravity. |
 | `reported_qualitative` | yes (text) | The source reports a qualitative token rather than a number. |
@@ -43,10 +44,11 @@ whether a value may be quoted.
 | `not_extracted` | **no** | A source document may contain it, but it is not in the structured corpus. Never inferred. |
 | `over_range` | **no** | The source reports an out-of-range marker such as `>500`. No numeric value is established. |
 | `reported_flag` | **no** | The source reports a code such as `-1` that is a flag, not a concentration. |
+| `unverified` | **no** | The source token has an unresolved or ambiguous basis. `value` is `null`, never guessed. |
 
 Rules the API enforces mechanically:
 
-- `null` is missing, not zero. A zero value is only ever `measured` or `derived` with `value: 0`.
+- `null` is missing, not zero. A zero value is only ever `measured`, `corrected` or `derived` with `value: 0`.
 - Aggregate answers count only value-bearing records and always print the denominator.
 - Comparisons treat two missing values as `unknown`, never as `matched`.
 - No field is imputed, interpolated or replaced with a reference atmosphere.
@@ -89,13 +91,13 @@ Denominator is 131.
 | `width_cm` | `cm` | 73 | derived 71, measured 2, not_reported 58 | Same parsing rule as thickness. |
 | `length_cm` | `cm` | 2 | measured 2, not_reported 129 | Only the two Saffire-I records report a length. |
 | `diameter_mm` | `mm` | 46 | derived 46, not_reported 85 | Parsed for rod/cylinder and spherical geometries. |
-| `oxygen_initial_pct` | `% by vol` | 131 | measured 129, reported_qualitative 2 | Calibrated reading; see the per-record note about the sensor offset. |
-| `oxygen_final_pct` | `% by vol` | 127 | measured 127, not_reported 4 | |
+| `oxygen_initial_pct` | `% by vol` | 131 | corrected 129, reported_qualitative 2 | Already MCA-offset corrected in the source; see the per-record note. |
+| `oxygen_final_pct` | `% by vol` | 127 | corrected 127, not_reported 4 | |
 | `oxygen_partial_pressure_psi` | `psi` | 0 | not_reported 131 | Cannot be computed because total pressure is absent. Not substituted with cabin pressure. |
 | `total_pressure_psia` | `psia` | 0 | not_reported 131 | **Structural gap: the PSI tables have no total-pressure column.** |
-| `flow_initial_cm_s` | `cm/s` | 123 | measured 123, not_reported 8 | Duct air-speed display as recorded. Slow response; steady only at a fixed setting. |
+| `flow_initial_cm_s` | `cm/s` | 123 | measured 123, unverified 2, not_reported 6 | Duct air-speed display as recorded. Slow response; steady only at a fixed setting. |
 | `flow_derived_cm_s` | `cm/s` | 121 | derived 121, not_reported 10 | `U = 1.0066 × air display`. One workbook factor from a single-location SPICE calibration, not a per-test calibration. |
-| `flow_direction` | `null` (categorical) | 56 | reported_qualitative 54, measured 2, not_reported 75 | Concurrent/opposed flow. Most values are investigation-level geometry descriptions. |
+| `flow_direction` | `null` (categorical) | 56 | investigation_level 54, measured 2, not_reported 75 | Concurrent/opposed flow. Most values are investigation-level geometry descriptions. |
 | `gravity_regime` | `null` (categorical) | 131 | investigation_level 131 | `microgravity` for every record. **No per-test measured g-level exists.** |
 | `ignition_method` | `null` (categorical) | 0 | not_reported 131 | Absent from the source tables. |
 | `ignition_power_w` | `W` | 2 | measured 2, not_reported 129 | Only Saffire-I records. |

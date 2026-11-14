@@ -248,9 +248,9 @@ def _verify_computation(
                 if label == "qualitative_count":
                     matched = policy.has_value(payload) and status == "reported_qualitative"
                 elif label == "measured_count":
-                    matched = status == "measured"
+                    matched = status in {"measured", "corrected"}
                 elif label == "standardized_count":
-                    matched = status in {"measured", "derived"}
+                    matched = status in {"measured", "corrected", "derived"}
                 else:
                     matched = policy.has_value(payload)
                 if matched:
