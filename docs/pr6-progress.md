@@ -36,4 +36,4 @@ Actual ChatGPT-browser research/coverage JSON downloads equal generated snapshot
 CSV download contains131 records with empty pressure fields. All8 routes checked.
 Original corpus SHA remains89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9.
 
-Source/ingestion guide, screenshots and cross-PR compatibility report prepared. Publication pending.
+Published https://github.com/MohammedAnasuddinZaid/NASA-hackathon/pull/6 against main; open and unmerged. Implementation6960fa8 and review documentation are on the independent feature branch. Source/ingestion guide, actual downloads, screenshots and cross-PR compatibility report are included.
