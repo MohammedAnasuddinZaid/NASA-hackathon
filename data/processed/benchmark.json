@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T06:30:06.029Z",
+  "generated_at": "2026-11-14T07:15:47.986Z",
   "total": 30,
   "passed": 30,
   "failed": 0,
@@ -14,7 +14,7 @@
         "lack a total-pressure column"
       ],
       "actualGrade": "absent",
-      "citations": 4,
+      "citations": 5,
       "pass": true,
       "failures": []
     },
@@ -167,7 +167,7 @@
         "0 of 131"
       ],
       "actualGrade": "absent",
-      "citations": 4,
+      "citations": 5,
       "pass": true,
       "failures": []
     },
@@ -355,7 +355,7 @@
         "0 of 131"
       ],
       "actualGrade": "absent",
-      "citations": 4,
+      "citations": 5,
       "pass": true,
       "failures": []
     },

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "FIRETRACE — evidence intelligence for spacecraft fire safety research",
+  "description": "FIRETRACE \u00e2\u20ac\u201d evidence intelligence for spacecraft fire safety research",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -11,9 +11,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "benchmark": "tsx scripts/run-benchmark.ts",
-    "ingest": "py pipeline/ingest.py",
+    "ingest": "python pipeline/ingest.py",
     "e2e": "playwright test",
-    "shots": "tsx scripts/capture.ts"
+    "shots": "tsx scripts/capture.ts",
+    "validate:data": "python -m unittest discover -s pipeline -p test_*.py -v"
   },
   "dependencies": {
     "react": "^19.2.0",

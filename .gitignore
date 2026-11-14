@@ -20,3 +20,6 @@ backend/data/*.db-*
 backend/.env
 backend/**/*.pyc
 backend/**/__pycache__/
+pipeline/__pycache__/
+
+.venv/

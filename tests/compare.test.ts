@@ -27,7 +27,7 @@ describe('compare field definitions', () => {
   });
 
   it('retains the reported basis status for numeric values', () => {
-    expect(fieldStatus(compareFields.find((field) => field.key === 'o2_initial')!, get('BASS2-B1'))).toBe('Reported');
+    expect(fieldStatus(compareFields.find((field) => field.key === 'o2_initial')!, get('BASS2-B1'))).toBe('Reported · corrected');
     expect(fieldStatus(compareFields.find((field) => field.key === 'o2_initial')!, get('SAFFIRE1-S1'))).toBe('Reported · approximate');
     expect(fieldStatus(compareFields.find((field) => field.key === 'flow_derived')!, get('BASS2-B1'))).toBe('Derived');
   });

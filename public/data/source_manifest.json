@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T16:44:28.398269+00:00",
+  "generated_at": "2026-11-13T16:08:14.167011+00:00",
   "sources": [
     {
       "source_id": "PSI-25",
@@ -11,7 +11,10 @@
       "original_filename": "PSI-25_experimental.csv",
       "file_size_bytes": 16590,
       "sha256": "71e792bf6b5fb5ea620c5dd70fbbac05515992e12aefcf5dff47312caa48c042",
-      "download_timestamp": "2026-11-13T16:08:00.286316+00:00",
+      "download_timestamp": "2026-11-13T16:08:00.287340+00:00",
+      "local_original_url": "./data/original/PSI-25_experimental.csv",
+      "timestamp_note": "Original acquisition manifest timestamp.",
+      "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Experimental+table_BASS-II.csv&version=1&redirect=true",
       "license": "Creative Commons Zero v1.0 Universal",
       "license_url": "https://spdx.org/licenses/CC0-1.0.html",
       "content_type": "text/csv",
@@ -19,7 +22,7 @@
       "role": "experiment_table",
       "source_locator": "Experimental table tab; CSV rows 2-130",
       "limitations": [
-        "No total-pressure column.",
+        "No total-pressure column in this table; pressure is discussed for subsets in NTRS 20210011385 (not mapped to these rows).",
         "No per-test gravity column.",
         "No standardized outcome column.",
         "Flow is an instrument display with a slow (~1 min) response, not a calibrated per-test velocity.",
@@ -36,7 +39,10 @@
       "original_filename": "PSI-25_ReadMe.docx",
       "file_size_bytes": 21538,
       "sha256": "69f32647792f54ab2a561e3cdafc6c87d854564fe487aed2b09265286bd84e1d",
-      "download_timestamp": "2026-11-13T16:08:03.035237+00:00",
+      "download_timestamp": "2026-11-13T16:08:03.035713+00:00",
+      "local_original_url": "./data/original/PSI-25_ReadMe.docx",
+      "timestamp_note": "Original acquisition manifest timestamp.",
+      "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_ReadMe.docx&version=2&redirect=true",
       "license": "Creative Commons Zero v1.0 Universal",
       "license_url": "https://spdx.org/licenses/CC0-1.0.html",
       "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -57,7 +63,10 @@
       "original_filename": "PSI-25_Test_Matrices.xlsx",
       "file_size_bytes": 28956,
       "sha256": "1a3b283dd0adec861793bbc4a454aab64d398cd32d6f37d7a1ad0f642879e686",
-      "download_timestamp": "2026-11-13T16:08:06.207022+00:00",
+      "download_timestamp": "2026-11-13T16:08:06.207690+00:00",
+      "local_original_url": "./data/original/PSI-25_Test_Matrices.xlsx",
+      "timestamp_note": "Original acquisition manifest timestamp.",
+      "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_Test.Matrices.xlsx&version=2&redirect=true",
       "license": "Creative Commons Zero v1.0 Universal",
       "license_url": "https://spdx.org/licenses/CC0-1.0.html",
       "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -65,7 +74,7 @@
       "role": "test_matrix_workbook",
       "source_locator": "Spreadsheets folder; six PI sheets",
       "limitations": [
-        "Values are formatted differently from the CSV in places; cross-check found no substantive numeric conflict."
+        "Test IDs and initial O2 were checked. Text differences were counted; other numeric fields were not exhaustively cross-checked."
       ]
     },
     {
@@ -78,7 +87,10 @@
       "original_filename": "PSI-25_Fan_Calibration.xlsx",
       "file_size_bytes": 23973,
       "sha256": "bc0dca3efdef44a7774d8dd37aebc0cedae8d67d7bae8c9cbde9590014a3c983",
-      "download_timestamp": "2026-11-13T16:08:08.678793+00:00",
+      "download_timestamp": "2026-11-13T16:08:08.679758+00:00",
+      "local_original_url": "./data/original/PSI-25_Fan_Calibration.xlsx",
+      "timestamp_note": "Original acquisition manifest timestamp.",
+      "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Reference+Data_Fan+calibration+data.xlsx&version=2&redirect=true",
       "license": "Creative Commons Zero v1.0 Universal",
       "license_url": "https://spdx.org/licenses/CC0-1.0.html",
       "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -100,7 +112,10 @@
       "original_filename": "PSI-98_experimental.csv",
       "file_size_bytes": 469,
       "sha256": "c01f29c62455f0a3b512290ab85e5687ecded326733189f002f580368402308d",
-      "download_timestamp": "2026-11-13T16:08:10.847113+00:00",
+      "download_timestamp": "2026-11-13T16:08:10.847327+00:00",
+      "local_original_url": "./data/original/PSI-98_experimental.csv",
+      "timestamp_note": "Original acquisition manifest timestamp.",
+      "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Experimental+table_SAFFIRE-1.csv&version=1&redirect=true",
       "license": "Creative Commons Zero v1.0 Universal",
       "license_url": "https://spdx.org/licenses/CC0-1.0.html",
       "content_type": "text/csv",
@@ -124,7 +139,10 @@
       "original_filename": "PSI-98_ReadMe.docx",
       "file_size_bytes": 65426,
       "sha256": "49c939337fa00a0473f7efa10367288f510afcbf69dd7f5405054a2617d3a66d",
-      "download_timestamp": "2026-11-13T16:08:14.166285+00:00",
+      "download_timestamp": "2026-11-13T16:08:14.167011+00:00",
+      "local_original_url": "./data/original/PSI-98_ReadMe.docx",
+      "timestamp_note": "Original acquisition manifest timestamp.",
+      "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Science+Documents_SAFFIRE-I+and+SAFFIRE-III+Readme.docx&version=1&redirect=true",
       "license": "Creative Commons Zero v1.0 Universal",
       "license_url": "https://spdx.org/licenses/CC0-1.0.html",
       "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -145,7 +163,10 @@
       "original_filename": "NTRS_20250010653.json",
       "file_size_bytes": 5645,
       "sha256": "a7f842cf384ed21dcd83d1b461a58ff5259273fc5438986b700f9702f7ace87b",
-      "download_timestamp": "2026-11-13T16:10:31.936672+00:00",
+      "download_timestamp": null,
+      "local_original_url": null,
+      "timestamp_note": "Acquisition timestamp not preserved; local file mtime is not used.",
+      "original_download_url": null,
       "license": "NASA public distribution (NTRS)",
       "license_url": null,
       "content_type": "application/json",
@@ -167,7 +188,10 @@
       "original_filename": "NTRS_20250010653_LUCI.pdf",
       "file_size_bytes": 2906408,
       "sha256": "bb0aadd2f9543483467b86796e6aa19f4e13c3f8169eec96134015f95ed61d79",
-      "download_timestamp": "2026-11-13T16:12:48.824053+00:00",
+      "download_timestamp": null,
+      "local_original_url": null,
+      "timestamp_note": "Acquisition timestamp not preserved; local file mtime is not used.",
+      "original_download_url": "https://ntrs.nasa.gov/api/citations/20250010653/downloads/ASGSR%202025-LUCI-Ferkul-Presentation-v2-20250010653.pdf",
       "license": "NASA public distribution (NTRS)",
       "license_url": null,
       "content_type": "application/pdf",
@@ -178,6 +202,54 @@
         "Presentation of LUCI results, not a PSI experiment table.",
         "No structured per-test data file is included; results are reported as presentation findings.",
         "Not directly comparable record-by-record with BASS-II or Saffire."
+      ]
+    },
+    {
+      "source_id": "PSI-25",
+      "investigation_id": "PSI-25",
+      "source_title": "PSI-25 investigation metadata",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "doi": "10.60555/4qc4-de67",
+      "version": "preserved metadata snapshot",
+      "original_filename": "PSI-25_metadata.json",
+      "file_size_bytes": 680349,
+      "sha256": "8ea9e8672c2e363288a662cb5ca09829a3bb25884a3c065bfd18999ca48969e3",
+      "download_timestamp": null,
+      "local_original_url": "./data/original/PSI-25_metadata.json",
+      "timestamp_note": "Acquisition timestamp not preserved; local file mtime is not used.",
+      "original_download_url": null,
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "application/json",
+      "processing_status": "parsed",
+      "role": "investigation_metadata",
+      "source_locator": "Investigation description and hardware",
+      "limitations": [
+        "Investigation-level context; not a per-test measurement."
+      ]
+    },
+    {
+      "source_id": "PSI-98",
+      "investigation_id": "PSI-98",
+      "source_title": "PSI-98 investigation metadata",
+      "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+      "doi": "10.60555/0t15-1z43",
+      "version": "preserved metadata snapshot",
+      "original_filename": "PSI-98_metadata.json",
+      "file_size_bytes": 134231,
+      "sha256": "33cf15ead6c39d3b578258a3f9b9016c853b814cef6ba96fe13a5b78d0f89c52",
+      "download_timestamp": null,
+      "local_original_url": "./data/original/PSI-98_metadata.json",
+      "timestamp_note": "Acquisition timestamp not preserved; local file mtime is not used.",
+      "original_download_url": null,
+      "license": "Creative Commons Zero v1.0 Universal",
+      "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+      "content_type": "application/json",
+      "processing_status": "parsed",
+      "role": "investigation_metadata",
+      "source_locator": "Investigation description and hardware",
+      "limitations": [
+        "Investigation-level context; not a per-test measurement."
       ]
     }
   ],
@@ -204,6 +276,20 @@
       "limitations": [
         "Presentation, 44 slides; no structured per-test data file.",
         "Not part of the PSI experiment corpus."
+      ]
+    },
+    {
+      "source_id": "NTRS-20210011385",
+      "source_title": "BASS-II Summary Report (NASA/TM-20210011385)",
+      "source_url": "https://ntrs.nasa.gov/citations/20210011385",
+      "original_download_url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf",
+      "role": "reviewed_report_context",
+      "license": "Public NTRS distribution; see citation copyright terms",
+      "retrieved": "2026-11-14",
+      "limitations": [
+        "Printed p.38 (PDF p.46) reports monitored pressure 99.2–99.5 kPa for its test subset; printed p.94 (PDF p.102) gives ambient pressure 1 atm and Kanthal hot-wire ignition for another subset.",
+        "Printed p.11 (PDF p.19) uses 1 atm and 300 K in a gas-law calculation; these are calculation inputs, not per-test measurements.",
+        "No row-level pressure or ignition-method mapping was verified; normalized record fields remain null. Report contains findings beyond the two ingested CSVs."
       ]
     }
   ]

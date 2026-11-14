@@ -25,6 +25,10 @@ export interface AssistantAnswer {
   page?: { href: string; label: string };
 }
 
+const total = records.length;
+const bassTotal = records.filter((record) => record.family === 'BASS-II').length;
+const saffireTotal = records.filter((record) => record.family === 'Saffire-I').length;
+
 const alias = new Map<string, ExperimentRecord>();
 for (const record of records) {
   alias.set(record.experiment_id.toUpperCase(), record);
@@ -123,7 +127,7 @@ function testAnswer(question: string, record: ExperimentRecord): AssistantAnswer
       headline: `No total pressure is reported for ${record.experiment_id}.`,
       paragraphs: [
         `The ${record.investigation_acronym} experimental table has no total-pressure column for this record, so neither total pressure nor oxygen partial pressure can be stated.`,
-        'FIRETRACE does not substitute a nominal cabin pressure. Absence of a pressure column is a metadata gap, not evidence that pressure was uncontrolled.',
+        'FIRETRACE does not substitute a nominal cabin pressure. Absence of a pressure column is a metadata gap, not evidence that pressure was uncontrolled. The BASS-II report gives pressure context for subsets, without a verified mapping to this record.',
       ],
       bullets: [
         `Recorded initial O2: ${formatCompact(record.oxygen_initial_pct)} (fraction only).`,
@@ -196,7 +200,7 @@ function testAnswer(question: string, record: ExperimentRecord): AssistantAnswer
         `Flow direction: ${record.flow_direction.value ?? 'not reported'}.`,
         record.flow_varies ? 'The source records a changing flow sequence, not one steady value.' : 'The source records a single value for this test.',
       ],
-      citations: dedupeCitations([citation, ...claimCitations(['CL-BASS2-AIR', 'CL-BASS2-FAN'])]),
+      citations: dedupeCitations([citation, ...claimCitations(['CL-BASS2-AIR', 'CL-FAN-CAL'])]),
       trace,
       followUps: [
         `What oxygen fraction did ${record.test_number} report?`,
@@ -322,25 +326,27 @@ function testAnswer(question: string, record: ExperimentRecord): AssistantAnswer
 function corpusPressureAnswer(question: string): AssistantAnswer {
   return baseAnswer(question, {
     grade: 'absent',
-    headline: 'Total pressure is reported for 0 of 131 experiment records.',
+    headline: `Total pressure is reported for ${records.filter((record) => record.total_pressure_psia.value !== null).length} of ${total} experiment records.`,
     paragraphs: [
       'Both PSI experimental tables lack a total-pressure column. BASS-II covers 129 tests and Saffire-I covers 2 samples; neither supplies pressure for any record.',
       'This is why FIRETRACE will not place these tests on an atmosphere plane or compute oxygen partial pressure. Substituting a cabin pressure would create a measurement that the sources do not contain.',
     ],
     bullets: [
-      'BASS-II: 0 of 129 records report total pressure.',
-      'Saffire-I: 0 of 2 records report total pressure.',
+      `BASS-II: 0 of ${bassTotal} records report total pressure.`,
+      `Saffire-I: 0 of ${saffireTotal} records report total pressure.`,
       'No cabin pressure was substituted anywhere in the corpus.',
       'Absence of a column is a metadata gap, not proof that pressure was uncontrolled.',
+      'The BASS-II Summary Report discusses monitored pressure of 99.2–99.5 kPa (printed p.38 / PDF p.46) for a subset. It is not verified as a pressure for each CSV row; those record values remain null.',
     ],
     citations: dedupeCitations([
       citationFor('PSI-25', 'PSI-25 experimental table, columns A–Q'),
       citationFor('PSI-98', 'PSI-98 experimental table, columns A–M'),
+      { sourceId: 'NTRS-20210011385', title: 'BASS-II Summary Report', locator: 'Printed p.38 / PDF p.46; printed p.94 / PDF p.102', url: 'https://ntrs.nasa.gov/citations/20210011385' },
       ...claimCitations(['CL-BASS2-PRESS', 'CL-SAF-PRESS']),
     ]),
     trace: [
       'Counted records where total_pressure_psia.value is non-null.',
-      'Result: 0 of 131.',
+      `Result: 0 of ${total}.`,
       'Confirmed neither experimental table has a pressure column.',
     ],
     followUps: [
@@ -355,14 +361,14 @@ function corpusPressureAnswer(question: string): AssistantAnswer {
 function corpusGravityAnswer(question: string): AssistantAnswer {
   return baseAnswer(question, {
     grade: 'absent',
-    headline: 'Per-test gravity is reported for 0 of 131 records; partial-gravity records: 0.',
+    headline: `Per-test gravity is reported for ${records.filter((record) => record.gravity_regime.status === 'measured').length} of ${total} records; partial-gravity records: ${corpus.meta.coverage.partial_gravity_records}.`,
     paragraphs: [
       'BASS-II is described as an ISS microgravity investigation and Saffire-I as a Cygnus microgravity experiment. Those are investigation-level labels, not measured g-levels for individual tests.',
       'The official 2026 challenge states that PSI currently has no partial-gravity combustion data. LUCI is included here only as context and has no structured per-test records in this corpus.',
     ],
     bullets: [
-      'Microgravity is assigned at investigation level for all 131 records.',
-      'No record contains a measured gravity value or direction.',
+      `Microgravity is assigned at investigation level for all ${total} records.`,
+      'No record contains a measured gravity g-level or gravity-vector direction.',
       'No lunar, Martian, or other partial-gravity experiment records are included.',
       'LUCI flew at 11 RPM with a 1.22 m effective radius in simulated lunar gravity; its findings are presentation-level context only.',
     ],
@@ -374,7 +380,7 @@ function corpusGravityAnswer(question: string): AssistantAnswer {
     ]),
     trace: [
       'Counted records with a measured per-test gravity status.',
-      'Result: 0 of 131.',
+      `Result: 0 of ${total}.`,
       'Separated investigation-level microgravity labels from measurements.',
       'Retrieved LUCI as context without importing it as experiment data.',
     ],
@@ -396,10 +402,10 @@ function corpusOxygenAnswer(question: string): AssistantAnswer {
     .filter((value): value is number => typeof value === 'number');
   return baseAnswer(question, {
     grade: 'partial',
-    headline: `Initial O2 is reported for ${initial.length} of 131 records, spanning ${formatNumber(Math.min(...initial))}–${formatNumber(Math.max(...initial))}%.`,
+    headline: `Initial O2 is reported for ${initial.length} of ${total} records, spanning ${formatNumber(Math.min(...initial))}–${formatNumber(Math.max(...initial))}%.`,
     paragraphs: [
       `Final O2 is reported for ${final.length} records (range ${formatNumber(Math.min(...final))}–${formatNumber(Math.max(...final))}%).`,
-      'BASS-II oxygen readings were corrected with a constant offset because the sensor was out of calibration; per-sample uncertainty is not supplied. Two Saffire-I values are approximate midpoints of reported ranges.',
+      'BASS-II oxygen readings were corrected with a constant offset because the sensor was out of calibration; per-sample uncertainty is not supplied. Saffire S1 uses a range midpoint; S2 retains an approximate single value.',
       'Oxygen fraction is only half of an atmosphere description. Without total pressure, partial pressure and atmospheric equivalence cannot be established.',
     ],
     bullets: [
@@ -433,7 +439,7 @@ function corpusMaterialAnswer(question: string): AssistantAnswer {
   const top = [...counts.entries()].sort((a, b) => b[1] - a[1]);
   return baseAnswer(question, {
     grade: 'partial',
-    headline: `${counts.size} parsed material families across 131 records.`,
+    headline: `${counts.size} parsed material families across ${total} records.`,
     paragraphs: [
       'Material family and dimensions are parsed from free-text source fields, not from a controlled materials taxonomy. They are marked derived.',
       `${counts.get('Unknown') ?? 0} records have no identifiable material family in the source row, and ${records.filter((record) => record.thickness_mm.value !== null).length} records have a parsable thickness.`,
@@ -464,7 +470,7 @@ function corpusFlowAnswer(question: string): AssistantAnswer {
   const sequences = records.filter((record) => record.flow_varies).length;
   return baseAnswer(question, {
     grade: 'partial',
-    headline: `Air flow is reported for ${values.length} of 131 records; the corpus spans ${formatNumber(Math.min(...values))}–${formatNumber(Math.max(...values))} cm/s.`,
+    headline: `Air flow is reported for ${values.length} of ${total} records; the corpus spans ${formatNumber(Math.min(...values))}–${formatNumber(Math.max(...values))} cm/s.`,
     paragraphs: [
       'The values do not share one measurement basis. BASS-II records a duct air-speed display with a response time of about one minute; Saffire-I reports a flow setting for each sample.',
       'The BASS-II derived velocity applies a single workbook factor (U = 1.0066 × Air display). Day- and restrictor-specific calibration exists but was not applied per test.',
@@ -539,7 +545,7 @@ function bassAnswer(question: string): AssistantAnswer {
   const pis = [...new Set(bass.map((record) => record.pi).filter(Boolean))];
   return baseAnswer(question, {
     grade: 'direct',
-    headline: 'BASS-II contributes 129 experiment records across six principal investigators.',
+    headline: `BASS-II contributes ${bassTotal} experiment records across ${pis.length} principal investigators.`,
     paragraphs: [
       'Burning and Suppression of Solids – II studied ignition, flame growth, flame spread and extinction limits for solid fuels in low-velocity forced flows in microgravity, using a small wind tunnel in the Microgravity Science Glovebox.',
       `Principal investigators represented: ${pis.join(', ')}. Initial O2 spans 13.6–22.2%. No record reports total pressure, per-test gravity, ignition method, or a standardized outcome.`,
@@ -647,7 +653,7 @@ function missingAnswer(question: string): AssistantAnswer {
       `Measured per-test gravity: 0 of ${total} records.`,
       `Standardized outcome: 0 of ${total} records.`,
       `Ignition method: 0 of ${total} records.`,
-      `Final O2: ${final} of ${total} records; four BASS-II finals are absent.`,
+      `Final O2: ${final} of ${total} records; two BASS-II and both Saffire final O2 fields are absent.`,
       `Thickness: ${thickness} of ${total} records parsed from free text.`,
     ],
     citations: dedupeCitations([
@@ -674,11 +680,11 @@ function validationAnswer(question: string): AssistantAnswer {
     grade: 'direct',
     headline: 'The corpus passed its identity, cross-check, missing-data and provenance gates.',
     paragraphs: [
-      'All 131 experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No substantive numeric conflict was found.',
+      `All ${total} experiment IDs are unique. All 129 BASS-II test IDs appear in the six-sheet matrix workbook, and all 129 initial O2 values match numerically. No initial-O2 conflict was found; other numeric fields were not exhaustively cross-checked.`,
       'Quality distribution: 71 validated, 56 partial, 4 suspect. Suspect flags are retained, not corrected: two final-O2 values exceed their initials by more than 2 percentage points, and two dates carry an unexpected 2018 year.',
     ],
     bullets: [
-      'Unique experiment IDs: 131, 0 duplicates.',
+      `Unique experiment IDs: ${total}, 0 duplicates.`,
       'Test IDs matched to matrix: 129/129.',
       'Initial O2 exact matches: 129/129.',
       'Records with total pressure: 0.',
@@ -708,7 +714,7 @@ function compareAnswer(question: string): AssistantAnswer {
     grade: 'absent',
     headline: 'BASS-II and Saffire-I cannot be treated as directly comparable tests.',
     paragraphs: [
-      'They differ in investigation, hardware, sample form and flow measurement basis. Neither reports total pressure or per-test gravity, and neither reports a standardized outcome.',
+      'They differ in investigation, hardware, sample form and flow measurement basis. Their ingested tables omit per-test total pressure, measured gravity and a standardized outcome; reports contain additional context.',
       'A side-by-side table is still useful, but it is a provenance comparison, not a controlled experimental comparison. FIRETRACE shows the blockers explicitly rather than collapsing them into a score.',
     ],
     bullets: [

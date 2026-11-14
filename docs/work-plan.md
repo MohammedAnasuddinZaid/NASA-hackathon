@@ -20,3 +20,5 @@ Retain Vite, React, TypeScript and bundled JSON for the current local explorer. 
 
 ## Remaining limitations
 Assistant remains deterministic and supports a limited set of intents. Scenario planner remains a coverage checklist. No new model, dataset, safety prediction or deployment is introduced by this milestone. Source download documentation, scientific claim audit, accessibility and submission artifacts remain subsequent work.
+
+PR #1 scientific traceability work is documented in scientific-audit.md: reproducible ingestion, scope corrections, original downloads, ledger and screenshots. Final checks: 89 unit / 23 browser / 9 ingestion / 20 existing backend tests; 30 benchmark cases.

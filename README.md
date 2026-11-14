@@ -34,7 +34,7 @@ used offline after a build.
 Total: **131 experiment records**. Context only (not structured records): LUCI (NTRS 20250010653)
 and the official challenge page.
 
-## Central scientific finding
+## Current table coverage
 
 The experimental tables report **oxygen fraction** and **flow** but contain **no total-pressure
 column** and **no per-test gravity value**. FIRETRACE therefore reports:
@@ -69,7 +69,7 @@ npm run build
 npm run preview
 ```
 
-The static output is written to `dist/`. It can be served from any static host or opened locally.
+The static output is written to `dist/`. Serve it over HTTP using the preview command.
 
 ## Backend and voice agent
 
@@ -87,12 +87,12 @@ shows a **Sound on** prompt and starts narration on the first click.
 ## Tests
 
 ```bash
-npm test        # 88 Vitest unit tests
-npm run e2e     # 20 Playwright end-to-end tests
+npm test        # 89 Vitest unit tests
+npm run e2e     # 23 Playwright end-to-end tests
 npm run benchmark # 30-question assistant benchmark
 ```
 
-The current repository state passes all 88 unit tests, all 20 end-to-end tests and the 30-question
+The current repository state passes all 89 unit tests, all 23 end-to-end tests and the 30-question
 assistant benchmark.
 
 ## Re-running the data pipeline
@@ -101,7 +101,7 @@ assistant benchmark.
 npm run ingest
 ```
 
-This uses `py pipeline/ingest.py` and rewrites `src/data/corpus.json`, mirrors it to
+This uses `python pipeline/ingest.py` and rewrites `src/data/corpus.json`, mirrors it to
 `public/data/`, and refreshes `data/processed/validation_report.json`.
 
 ## Project layout
@@ -141,3 +141,23 @@ FIRETRACE is an independent project and is not affiliated with, endorsed by or c
 See `docs/data_sources.md` and `docs/methodology.md`.
 
 Current correctness milestone and remaining work: see `docs/work-plan.md`.
+
+## Scientific traceability validation
+
+The table-coverage gaps above do not imply NASA never measured pressure or studied outcomes.
+The BASS-II Summary Report provides pressure/ignition context for subsets; no row mapping is inferred.
+See [scientific audit](docs/scientific-audit.md), [data dictionary](docs/data-dictionary.md) and
+[source verification](docs/source-verification.json).
+
+```bash
+python -m venv .venv
+# Windows: .venv/Scripts/Activate.ps1 (or use .venv/Scripts/python.exe directly)
+# POSIX: source .venv/bin/activate
+python -m pip install -r pipeline/requirements.txt
+npm run ingest
+npm run validate:data
+```
+
+Validation is offline and regenerates in temporary directories; two runs must be byte-identical.
+The static explorer does not require the optional upstream voice backend. This PR does not change
+or introduce that backend. No lint command is configured; production build includes TypeScript checking.

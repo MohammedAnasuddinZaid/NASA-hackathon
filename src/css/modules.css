@@ -2322,3 +2322,6 @@
 .not-found .index-mark {
   font-size: 9px;
 }
+
+.evidence-scope { margin: 24px 28px 0; padding: 16px; border: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+.evidence-scope strong, .evidence-scope a { color: var(--lime); }

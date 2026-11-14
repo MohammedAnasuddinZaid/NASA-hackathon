@@ -73,7 +73,7 @@ export function Overview() {
             </h1>
             <p className="hero__lede">
               FIRETRACE turns public NASA microgravity combustion tables into a traceable evidence
-              workspace. See what 131 experiments measured, what they missed, and why a
+              workspace. Inspect {corpus.records.length} source-table records, their coverage gaps, and why a
               plausible-sounding answer can still be unsupported.
             </p>
             <div className="hero__actions">
@@ -87,14 +87,14 @@ export function Overview() {
             <dl className="hero__stats">
               <div>
                 <dt>Records</dt>
-                <dd>131</dd>
+                <dd>{corpus.records.length}</dd>
               </div>
               <div>
                 <dt>Pressure values</dt>
                 <dd className="is-lime">0</dd>
               </div>
               <div>
-                <dt>Invented answers</dt>
+                <dt>Imputed pressure values</dt>
                 <dd className="is-lime">0</dd>
               </div>
             </dl>
@@ -128,7 +128,7 @@ export function Overview() {
             <div className="hero-card__verdict">
               <span className="hero-card__dot" aria-hidden="true" />
               <span>
-                <strong>Cannot place.</strong> 0 of 131 records report total pressure.
+                <strong>Cannot place.</strong> {coverage.pressure_reported} of {corpus.records.length} records report total pressure.
               </span>
             </div>
             <button type="button" className="hero-card__link" onClick={scrollToFilm}>
@@ -154,7 +154,7 @@ export function Overview() {
             pressure and any atmospheric equivalence remain unknown.
           </p>
           <div className="gap-card__figure">
-            <span className="mono">0 / 131</span>
+            <span className="mono">{coverage.pressure_reported} / {corpus.records.length}</span>
             <span>records with total pressure</span>
           </div>
           <SourceLink href="https://psi.nasa.gov/physci/repo/data/investigations/PSI-25">
@@ -170,7 +170,7 @@ export function Overview() {
             carries a measured g-level or direction, and no partial-gravity records are included.
           </p>
           <div className="gap-card__figure">
-            <span className="mono">0 / 131</span>
+            <span className="mono">{coverage.gravity_per_record_reported} / {corpus.records.length}</span>
             <span>records with measured per-test gravity</span>
           </div>
           <SourceLink href="https://psi.nasa.gov/physci/repo/data/investigations/PSI-98">
@@ -186,7 +186,7 @@ export function Overview() {
             classification, so a material cannot be ranked from these records alone.
           </p>
           <div className="gap-card__figure">
-            <span className="mono">0 / 131</span>
+            <span className="mono">{coverage.standardized_outcome_reported} / {corpus.records.length}</span>
             <span>records with a standardized outcome</span>
           </div>
           <SourceLink href="https://psi.nasa.gov/physci/repo/data/investigations/PSI-25">
@@ -221,16 +221,16 @@ export function Overview() {
           </div>
           <div>
             <span className="mono">{profile.approximateInitial}</span>
-            <span>approximate range midpoints</span>
+            <span>approximate O2 values (one midpoint)</span>
           </div>
           <div>
-            <span className="mono">0 / 131</span>
+            <span className="mono">{coverage.pressure_reported} / {corpus.records.length}</span>
             <span>records with a pressure ordinate</span>
           </div>
         </div>
         <p className="panel-caption">
           BASS-II oxygen readings were corrected with a constant offset after an out-of-calibration
-          sensor. Two Saffire-I values are midpoints of reported ranges. Neither table reports
+          sensor. Saffire S1 uses a range midpoint; S2 retains an approximate single value. Neither table reports
           per-sample uncertainty. The distribution is not a flammability envelope.
         </p>
       </Panel>

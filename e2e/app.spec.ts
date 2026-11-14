@@ -237,3 +237,36 @@ test('specific burn-time question is direct evidence', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'SAFFIRE1-S2 reports burn time: 70 s.', exact: true })).toBeVisible();
   await expect(page.getByText('Direct evidence', { exact: true })).toBeVisible();
 });
+
+
+test('record provenance exposes corrected values, original files and missing-value scope', async ({ page }) => {
+  await page.goto('/#/atlas');
+  await page.getByRole('searchbox').fill('BASS2-B1');
+  await page.getByRole('row', { name: 'Open BASS2-B1', exact: true }).click();
+  const drawer = page.locator('.drawer');
+  await expect(drawer).toContainText('Reported · corrected');
+  await expect(drawer).toContainText('Original token: 22.2');
+  await expect(drawer).toContainText('not absent from all NASA research');
+  const original = drawer.getByRole('link', { name: 'Download preserved NASA CSV original' });
+  const [download] = await Promise.all([page.waitForEvent('download'), original.click()]);
+  const { readFile } = await import('node:fs/promises');
+  const { createHash } = await import('node:crypto');
+  const bytes = await readFile((await download.path())!);
+  expect(createHash('sha256').update(bytes).digest('hex')).toBe('71e792bf6b5fb5ea620c5dd70fbbac05515992e12aefcf5dff47312caa48c042');
+});
+
+test('methodology scopes table omissions against report context', async ({ page }) => {
+  await page.goto('/#/methodology');
+  await expect(page.getByLabel('Evidence scope')).toContainText('table-coverage gap');
+  await expect(page.getByText(/Printed p.38/).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Original report PDF (NASA)', exact: true })).toHaveAttribute('href', /ntrs.nasa.gov/);
+});
+
+
+test('demo uses real oxygen values and the real B1 source row', async ({ page }) => {
+  await page.goto('/#/overview');
+  await page.getByRole('button', { name: '01 The problem', exact: true }).click();
+  await expect(page.locator('.fm-tr').filter({ hasText: 'BASS2-B1' })).toContainText('22.2');
+  await expect(page.locator('.fm-drawer')).toContainText('CSV row 2, test B1');
+  await expect(page.locator('.fm-drawer')).not.toContainText('row 14');
+});

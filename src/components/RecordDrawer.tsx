@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { ExperimentRecord } from '../lib/types';
+import type { ExperimentRecord, DataValue } from '../lib/types';
 import { artifactsFor } from '../lib/corpus';
 import { formatCompact, humanizeToken, shortDate, statusLabel, statusTone } from '../lib/format';
 import { Badge, SourceLink, StatusBadge } from './ui';
@@ -11,19 +11,21 @@ function Field({
   unit,
 }: {
   label: string;
-  data: { value: string | number | null; status: string; note: string | null; unit: string | null };
+  data: DataValue<string> | DataValue<number>;
   unit?: string;
 }) {
   return (
     <div className="drawer-field">
       <div className="drawer-field__label">{label}</div>
       <div className={`drawer-field__value ${data.value === null ? 'is-missing' : ''}`}>
-        {data.value === null ? 'Not reported' : formatCompact(data as never, unit)}
+        {data.value === null ? (data.status === 'not_reported' ? 'Not reported in this record' : statusLabel(data.status)) : formatCompact(data, unit)}
       </div>
       <div className="drawer-field__status">
         <StatusBadge status={data.status} />
       </div>
       {data.note && <p className="drawer-field__note">{data.note}</p>}
+      {data.raw !== null && <p className="drawer-field__note">Original token: <code>{data.raw}</code></p>}
+      {data.source_file && <p className="drawer-field__note">Source: {data.source_file} · {data.source_locator}</p>}
     </div>
   );
 }
@@ -142,6 +144,10 @@ export function RecordDrawer({
               <Field label="Burn time" data={record.burn_time_s} />
               <Field label="Standardized outcome" data={record.outcome} />
               <Field label="Thickness" data={record.thickness_mm} />
+              <Field label="Initial CO2" data={record.co2_initial_pct} />
+              <Field label="Final CO2" data={record.co2_final_pct} />
+              <Field label="Initial CO" data={record.co_initial_ppm} />
+              <Field label="Final CO" data={record.co_final_ppm} />
               <Field label="Width" data={record.width_cm} />
               <Field label="Length" data={record.length_cm} />
               <Field label="Diameter" data={record.diameter_mm} />
@@ -177,12 +183,26 @@ export function RecordDrawer({
               DOI {artifact?.doi ?? 'not assigned'} · {artifact?.license ?? 'license not stated'}
             </p>
             {artifact?.source_url && <SourceLink href={artifact.source_url}>Open source landing page</SourceLink>}
+            {artifact?.local_original_url && <p><a href={artifact.local_original_url} download>Download preserved NASA CSV original ↓</a></p>}
+            <p className="panel-caption">Not reported means absent from this record layer, not absent from all NASA research. The BASS-II report discusses pressure and ignition for subsets without a verified mapping to these rows.</p>
             <ul className="provenance-notes">
               {record.provenance_notes.map((note) => (
                 <li key={note}>{note}</li>
               ))}
             </ul>
           </section>
+
+          <details className="raw-row">
+            <summary>Measurement ledger: original values, units and transformations</summary>
+            <div className="table-wrap"><table className="data-table"><thead><tr><th>Quantity</th><th>Original</th><th>Normalized</th><th>Basis / source</th></tr></thead>
+              <tbody>{record.measurements.map((measurement) => <tr key={measurement.measurement_id}>
+                <th>{humanizeToken(measurement.quantity)}</th>
+                <td>{measurement.original_value ?? 'Not reported'} {measurement.original_unit}</td>
+                <td>{measurement.normalized_value ?? 'Unknown'} {measurement.normalized_unit}</td>
+                <td>{statusLabel(measurement.status)} · {measurement.note} · {measurement.source_file} · {measurement.source_locator}</td>
+              </tr>)}</tbody></table></div>
+            <p className="panel-caption">Per-value uncertainty is not supplied in these tables. Correction and interpretation notes are not uncertainty estimates.</p>
+          </details>
 
           <details className="raw-row">
             <summary>Raw source row ({Object.keys(record.raw).length} fields)</summary>

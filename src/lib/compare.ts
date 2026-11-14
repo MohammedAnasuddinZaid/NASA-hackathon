@@ -92,7 +92,7 @@ export function comparabilityAudit(source: ExperimentRecord[]): ComparabilityChe
     source.map((record) => (record.family === 'BASS-II' ? 'instrument display' : 'reported flow')),
   );
 
-  const directions = source.map((record) => record.flow_direction.value);
+  const directions = source.map((record) => record.flow_direction.status === 'investigation_level' ? null : record.flow_direction.value);
   const knownDirections = directions.filter((value): value is string => value !== null);
   const directionDiffers = new Set(knownDirections.map((value) => value.toLowerCase())).size > 1;
   const dimensionChecks: ComparabilityCheck[] = (['thickness_mm', 'width_cm', 'length_cm', 'diameter_mm'] as const).map((key) => {
