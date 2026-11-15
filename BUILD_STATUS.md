@@ -19,3 +19,10 @@ no deployment, video, slide/PDF or event-form submission is performed.
 
 [Scientific/release evidence](docs/pr9-review.md) and [integration history](docs/final-integration-review.md)
 remain historical records. No NASA endorsement, engineering certification or submission success is claimed.
+
+## Compact navigation follow-up
+
+Four main links, Research/Workspace dropdowns and a compact accordion Menu replace the
+17-tab header. All routes and keyboard access remain. Deployment configuration from `b79fbfb`
+is reconciled without force-pushing; prior verified runtime/submission work is preserved.
+See [navigation review](docs/compact-navigation.md).

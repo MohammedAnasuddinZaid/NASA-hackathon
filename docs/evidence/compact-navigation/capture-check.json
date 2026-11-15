@@ -1,0 +1,12 @@
+[
+  {
+    "browser": "chromium",
+    "width": 390,
+    "status": "PASS"
+  },
+  {
+    "browser": "chromium",
+    "width": 1440,
+    "status": "PASS"
+  }
+]

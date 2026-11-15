@@ -27,8 +27,9 @@ material certification or fire-risk predictions.
 | Organize and export | Persistent evidence basket, Research Notebook, saved Atlas views, analysis runs, briefs and reports; CSV, JSON, Markdown, printable HTML and hashed ZIP exports |
 | Audit | Methodology, source manifest, coverage, corpus integrity and real capability/status checks |
 
-All 17 main pages have direct navigation tabs. Wider screens wrap tabs; narrow screens scroll
-the tab strip. The Overview's six-scene story has pause and reduced-motion support. Its internal
+Four main links stay visible: Overview, Atlas, Compare and Assistant. Research and Workspace
+dropdowns keep the other tools accessible without crowding the header. Menu is a compact
+grouped accordion; all 17 pages remain reachable by keyboard and touch. The Overview's six-scene story has pause and reduced-motion support. Its internal
 45-second explainer is caption-only; **it is not the event's required <=30-second submission demo**.
 
 ## Actual NASA evidence

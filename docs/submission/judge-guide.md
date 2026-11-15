@@ -24,7 +24,8 @@ is the final project link; localhost addresses work only on the machine running 
 7. **Coverage / Integrity / System Health:** inspect gaps, actual integrity checks and capability
    status. Failure/fallback messages distinguish API, bundled and optional model availability.
 
-All 17 pages have visible tabs. Phones use a scrollable strip. Pause decorative motion or use
+Four main pages have visible tabs; Research/Workspace dropdowns and the compact grouped Menu
+provide access to all 17 pages. Pause decorative motion or use
 reduced-motion settings. The internal 45-second captioned explainer is an application feature,
 not the separate event submission demo.
 

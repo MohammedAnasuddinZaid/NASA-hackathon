@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
 import { CommandPalette } from './CommandPalette';
+import { CompactNavigation } from './CompactNavigation';
 import { corpus } from '../lib/corpus';
 import { BasketIndicator } from '../lib/basketContext';
 
@@ -51,6 +52,8 @@ function MenuOverlay({
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
+  useEffect(() => { if (open) setExpandedGroup(routes.find(item => item.path === active)?.group ?? 'Explore'); }, [open, active]);
 
   useEffect(() => {
     if (!open) return;
@@ -90,12 +93,14 @@ function MenuOverlay({
   }, [open, onClose, returnFocus]);
 
   return (
-    <div ref={panelRef} className={`menu ${open ? 'is-open' : ''}`} role="dialog" aria-label="All sections menu" aria-modal={open || undefined} aria-hidden={!open}
+    <div ref={panelRef} className={`menu menu--compact ${open ? 'is-open' : ''}`} role="dialog" aria-label="All sections menu" aria-modal={open || undefined} aria-hidden={!open}
+      onClick={event => { if (event.target === event.currentTarget) onClose(); }}
       onTransitionEnd={event => { if (open && event.target === panelRef.current && !panelRef.current?.contains(document.activeElement)) closeRef.current?.focus(); }}>
+      <div className="menu__panel">
       <div className="menu__bar">
         <div className="menu__bar-meta">
           <Glyph size={12} />
-          <span>Index / FIRETRACE</span>
+          <span>Navigation</span>
         </div>
         <span className="menu__bar-count">
           {routes.length} sections &middot; {corpus.records.length} records
@@ -117,7 +122,10 @@ function MenuOverlay({
         <nav className="menu__links" aria-label="All sections">
           {routeGroups.map((group) => (
             <div className="menu__group" key={group}>
-              <div className="menu__group-title kicker">{group}</div>
+              <button type="button" className="menu__group-toggle" aria-expanded={expandedGroup === group} aria-controls={`menu-group-${group}`} onClick={() => setExpandedGroup(current => current === group ? null : group)}>
+                <span>{group}</span><span className="menu__group-count">{routesInGroup(group).length}</span><span className="nav-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div id={`menu-group-${group}`} hidden={expandedGroup !== group}>
               {routesInGroup(group).map((item) => (
                 <a
                   key={item.path}
@@ -134,39 +142,14 @@ function MenuOverlay({
                   </span>
                 </a>
               ))}
+              </div>
             </div>
           ))}
         </nav>
 
-        <aside className="menu__aside">
-          <div className="menu__wordmark">
-            fıretrace<sup>&reg;</sup>
-          </div>
-          <p className="menu__statement">
-            A retrieval workspace for public NASA microgravity combustion data. It answers with
-            sources, and abstains when the table is silent.
-          </p>
-          <dl className="menu__facts">
-            <div>
-              <dt>Records</dt>
-              <dd>{corpus.records.length}</dd>
-            </div>
-            <div>
-              <dt>Pressure values</dt>
-              <dd>0</dd>
-            </div>
-            <div>
-              <dt>Per-test gravity</dt>
-              <dd>0</dd>
-            </div>
-            <div>
-              <dt>TRACE generation</dt>
-              <dd>Optional · server configured</dd>
-            </div>
-          </dl>
-          <span className="hand">[ evidence, not vibes ]</span>
-          <span className="menu__edition">Edition 01 / 2026</span>
-        </aside>
+
+      </div>
+      <div className="menu__foot">Research support · Source-linked evidence · No safety certification</div>
       </div>
     </div>
   );
@@ -273,17 +256,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </a>
 
         <nav ref={navigationRef} className="nav nav--horizontal" aria-label="Primary sections">
-          {routes.map((item) => (
-            <a
-              key={item.path}
-              href={`#/${item.path}`}
-              className={`nav__item ${active === item.path ? 'is-active' : ''}`}
-              aria-current={active === item.path ? 'page' : undefined}
-            >
-              <span className="nav__index">{item.index}</span>
-              <span>{item.label}</span>
-            </a>
-          ))}
+          <CompactNavigation active={active} closeOn={menuOpen || paletteOpen} />
         </nav>
 
         <div className="topbar__right">
@@ -303,7 +276,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             aria-controls="site-menu"
             onClick={() => setMenuOpen(true)}
           >
-            <span aria-hidden="true">+</span> Menu
+            <span aria-hidden="true">☰</span> Menu
           </button>
         </div>
       </header>
