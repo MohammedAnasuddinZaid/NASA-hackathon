@@ -8,6 +8,8 @@ import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, EmptyState, PageHeader, Panel } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
 import { BasketButton } from '../lib/basketContext';
+import { evidenceApi, ServiceUnavailable, type ExperimentPage } from '../lib/apiClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 
 const PAGE_SIZE = 24;
 const ResearchLibrary = lazy(() => import('../components/ResearchLibrary'));
@@ -29,6 +31,24 @@ export function Atlas() {
     family: initialFamily(),
   });
   const [page, setPage] = useState(0);
+  const session = useEvidenceSession();
+  const [remote, setRemote] = useState<{ key: string; data: ExperimentPage } | null>(null);
+  const queryKey = JSON.stringify([filters, page]);
+  useEffect(() => {
+    if (research || session.mode !== 'api') return;
+    let active = true;
+    evidenceApi.experiments({
+      q: filters.query, family: filters.family === 'all' ? undefined : filters.family,
+      material: filters.material === 'all' ? undefined : filters.material,
+      material_exact: true, atlas_search: true, validation_status: filters.quality === 'all' ? undefined : filters.quality,
+      min_o2: filters.o2Min ?? undefined, max_o2: filters.o2Max ?? undefined,
+      flow_only: filters.flowOnly, sort: filters.sort, limit: PAGE_SIZE, offset: page * PAGE_SIZE,
+    }).then(data => {
+      if (data.items.some(item => !recordById.has(item.experiment_id))) throw new ServiceUnavailable('API returned an unknown experiment; using bundled data.');
+      if (active) setRemote({ key: queryKey, data });
+    }).catch(error => { if (active) session.fallback(error.message); });
+    return () => { active = false; };
+  }, [queryKey, session.mode, research]);
   const params = new URLSearchParams(window.location.hash.split('?')[1] ?? '');
   const [selected, setSelected] = useState<ExperimentRecord | null>(
     () => recordById.get(params.get('id') ?? '') ?? null,
@@ -44,9 +64,11 @@ export function Atlas() {
   }, []);
 
   const filtered = useMemo(() => filterRecords(records, filters), [filters]);
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const apiData = session.mode === 'api' && remote?.key === queryKey ? remote.data : null;
+  const count = apiData?.total ?? filtered.length;
+  const pageCount = Math.max(1, Math.ceil(count / PAGE_SIZE));
   const safePage = Math.min(page, pageCount - 1);
-  const visible = filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
+  const visible = apiData ? apiData.items.map(item => recordById.get(item.experiment_id)!) : filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
   const families = useMemo(() => uniqueFamilies(), []);
   const materials = useMemo(() => uniqueMaterials(), []);
   const flagged = filtered.filter((record) => record.validation_status !== 'validated').length;
@@ -96,7 +118,7 @@ export function Atlas() {
 
       <div className="atlas-summary">
         <div className="atlas-summary__count">
-          <strong>{filtered.length}</strong>
+          <strong>{count}</strong>
           <span>records in view</span>
         </div>
         <div className="atlas-summary__meta">
@@ -209,7 +231,7 @@ export function Atlas() {
             <span>Only records with reported flow</span>
           </label>
           <span className="mono">
-            {filtered.length} / {records.length} records · showing {visible.length} on page{' '}
+            {count} / {records.length} records · showing {visible.length} on page{' '}
             {safePage + 1} of {pageCount}
           </span>
           <button

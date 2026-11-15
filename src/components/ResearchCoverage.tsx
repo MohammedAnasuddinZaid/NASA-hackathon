@@ -1,7 +1,10 @@
 import { researchCoverage as data, combustionLabel } from '../lib/researchLibrary';
 import { Panel } from './ui';
+import { bundledCorpusVersion } from '../lib/datasetIdentity';
 
 export function ResearchCoverage() {
+  if (data.base_corpus_sha256 !== bundledCorpusVersion)
+    return <p role="alert">Research coverage is incompatible with the loaded experiment dataset. Rebuild the research snapshot; experiment browsing remains available.</p>;
   return <Panel kicker="Research coverage" title="Records, findings and documents are different evidence">
     <div className="research-counts" aria-label="Research coverage counts">
       <p><strong>{data.counts.investigations}</strong> investigations</p>

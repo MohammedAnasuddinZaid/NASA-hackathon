@@ -14,6 +14,8 @@ import { Badge, Callout, EmptyState, PageHeader, Panel, SourceLink } from '../co
 import { RecordDrawer } from '../components/RecordDrawer';
 import { BasketButton } from '../lib/basketContext';
 import { comparisonRows, labels, relationLabels } from '../lib/scenario';
+import { evidenceApi, type Comparison } from '../lib/apiClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 
 function initialSelection(): ExperimentRecord[] {
   const query = window.location.hash.split('?')[1] ?? '';
@@ -36,8 +38,19 @@ const stateLabel = {
 } as const;
 
 export function Compare() {
+  const session = useEvidenceSession();
   const [selected, setSelected] = useState<ExperimentRecord[]>(initialSelection);
   const [toAdd, setToAdd] = useState('');
+  const [apiAudit, setApiAudit] = useState<{ key: string; result: Comparison } | null>(null);
+  const selectionKey = selected.map(r => r.experiment_id).join(',');
+  useEffect(() => {
+    if (session.mode !== 'api' || selected.length < 2) return;
+    let active = true;
+    evidenceApi.compare(selected.map(r => r.experiment_id))
+      .then(result => { if (active) setApiAudit({ key: selectionKey, result }); })
+      .catch(error => { if (active) session.fallback(error.message); });
+    return () => { active = false; };
+  }, [selectionKey, session.mode]);
   const [detail, setDetail] = useState<ExperimentRecord | null>(null);
   const [invalidIds, setInvalidIds] = useState(() =>
     (
@@ -118,6 +131,15 @@ export function Compare() {
         <p role="alert">
           Unknown record IDs excluded: {invalidIds.join(', ')}. No substitute was selected.
         </p>
+      )}
+      {session.mode === 'api' && apiAudit?.key === selectionKey && (
+        <Panel kicker="Verified evidence API" title="Backend matching audit">
+          <div data-testid="api-comparison">
+            <p>Policy {apiAudit.result.matching_policy}. This API tolerance audit is separate from the browser's conservative condition relationships below. Neither establishes experimental equivalence or safety.</p>
+            {apiAudit.result.fields.map(field => <p key={field.field}><strong>{field.label}: {field.outcome}</strong> · {field.explanation}</p>)}
+            <p>{apiAudit.result.score_note}</p>
+          </div>
+        </Panel>
       )}
 
       <Panel

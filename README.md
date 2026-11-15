@@ -9,7 +9,7 @@ questions the sources cannot support.
 The repository ships two runnable surfaces over one curated corpus:
 
 - a **static Vite + React + TypeScript application** that bundles all evidence as JSON and works
-  offline after a build;
+  without a backend after its assets have loaded;
 - a **local FastAPI evidence API** in `backend/` that serves the same corpus with per-field
   provenance, claim validation and explicit abstention.
 
@@ -23,6 +23,11 @@ run `npm run dev:full`. Atlas/detail/source browsing and coverage use the local 
 when its corpus matches the bundle, with explicit complete bundled fallback otherwise.
 See [the evidence foundation guide](docs/pr2-foundation.md) for setup, SQLite schema, source
 downloads, tests and the user-approved adaptation to current main after PR #1 was merged externally.
+
+The integrated release review, test evidence, remaining limitations and PR reconciliation are in
+[Final integration review](docs/final-integration-review.md). Follow [Deployment](docs/deployment.md)
+for reproducible Windows/Linux setup and same-origin API configuration. Research reports load lazily
+and require an initial network fetch; there is no service worker or guaranteed offline reload.
 
 ## What it does
 
@@ -78,7 +83,7 @@ score.
 
 ## Requirements
 
-- Node.js 20 or newer (web app)
+- Node.js 22.12+ or 24 LTS (web app; Vite 7 requirements)
 - Python 3.10 or newer (evidence API, tests, evaluation, ingestion)
 - A modern browser
 

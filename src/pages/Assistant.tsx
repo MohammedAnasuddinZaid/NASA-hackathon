@@ -8,6 +8,7 @@ import { Badge, PageHeader, Panel, SourceLink } from '../components/ui';
 import { VoiceAgent } from '../components/VoiceAgent';
 import { askTrace, resolveLocalQuestion, TraceUnavailable } from '../lib/traceClient';
 import type { TraceResult } from '../lib/traceClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 
 type Provenance =
   | { source: 'api'; corpusVersion: string; checked: number; validated: number }
@@ -82,6 +83,7 @@ function provenanceLabel(provenance: Provenance): string {
 }
 
 export function Assistant() {
+  const session = useEvidenceSession();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [pending, setPending] = useState(false);
@@ -110,6 +112,7 @@ export function Assistant() {
     try {
       const history = messages.filter((message) => message.role === 'user').slice(-8)
         .map((message) => ({ role: 'user' as const, content: message.role === 'user' ? message.text.slice(0, 1000) : '' }));
+      if (session.mode === 'bundled') throw new TraceUnavailable(session.reason);
       const trace = await askTrace(text, history, deterministic);
       const answer = trace.answer;
       push({
@@ -126,6 +129,7 @@ export function Assistant() {
       });
     } catch (error) {
       if (error instanceof TraceUnavailable) {
+        if (session.mode !== 'bundled') session.fallback('TRACE unavailable or dataset mismatch; using bundled evidence.');
         // The service is down: keep working with the bundled deterministic engine
         // and say so under the answer instead of pretending nothing changed.
         push({

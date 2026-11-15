@@ -21,6 +21,9 @@ describe('separate verified research corpus', () => {
     expect(researchCoverage.counts.new_structured_records).toBe(0);
     expect(records.every(r => r.total_pressure_psia.value === null && r.gravity_regime.status === 'investigation_level')).toBe(true);
   });
+  it('refuses mutually consistent research/coverage snapshots built for a different actual experiment bundle', () => {
+    expect(() => validateResearch(raw, 'newer-actual-bundle')).toThrow(/does not match/);
+  });
   it.each(['dataset_version', 'base_corpus_sha256', 'schema_version'])('rejects stale %s', key => {
     expect(() => validateResearch({ ...raw, [key]: 'stale' })).toThrow();
   });

@@ -1,5 +1,6 @@
 import coverageJson from '../data/research_coverage.json';
 import type { ExperimentRecord } from './types';
+import { bundledCorpusVersion } from './datasetIdentity';
 
 export type CombustionType = 'solid_fuel' | 'liquid_droplet';
 export interface ResearchInvestigation {
@@ -39,11 +40,12 @@ export function nasaUrl(value: string): boolean {
   } catch { return false; }
 }
 /** Refuse mixed, malformed or stale snapshots; build-time ingestion performs deeper scientific validation. */
-export function validateResearch(value: unknown): ResearchLibraryData {
+export function validateResearch(value: unknown, actualCorpusVersion = bundledCorpusVersion): ResearchLibraryData {
   const data = value as ResearchLibraryData;
   if (!data || data.schema_version !== 'firetrace.research/1' ||
       data.dataset_version !== researchCoverage.dataset_version ||
       data.base_corpus_sha256 !== researchCoverage.base_corpus_sha256 ||
+      data.base_corpus_sha256 !== actualCorpusVersion ||
       !Array.isArray(data.investigations) || !Array.isArray(data.sources) || !Array.isArray(data.findings))
     throw new Error('Research snapshot is invalid or does not match this build.');
   const unique = (items: { id: string }[]) => items.every(x => typeof x.id === 'string') && new Set(items.map(x => x.id)).size === items.length;

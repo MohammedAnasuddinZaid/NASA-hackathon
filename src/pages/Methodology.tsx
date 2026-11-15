@@ -68,7 +68,7 @@ export function Methodology() {
             <li><strong>No level promotion.</strong> Investigation-level context is not presented as a per-test measurement.</li>
             <li><strong>No silent correction.</strong> Anomalies are flagged and retained, not rewritten.</li>
             <li><strong>No fabricated outcome.</strong> Free-text notes and burn duration are not converted into a flammability classification.</li>
-            <li><strong>No external generation.</strong> The assistant retrieves from this corpus; it does not call a language model.</li>
+            <li><strong>Evidence before interpretation.</strong> Deterministic answers work without a model. Optional TRACE interpretation is generated server-side only when configured, and is labeled separately from cited facts. Research Library report passages are not indexed by TRACE.</li>
           </ul>
         </Panel>
 

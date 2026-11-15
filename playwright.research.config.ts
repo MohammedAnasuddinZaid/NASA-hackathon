@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 import base from './playwright.config';
-export default defineConfig(base, {
+export default defineConfig({ ...base,
   testMatch: '**/research.spec.ts',
   workers: 1,
   use: { baseURL: 'http://127.0.0.1:4188' },

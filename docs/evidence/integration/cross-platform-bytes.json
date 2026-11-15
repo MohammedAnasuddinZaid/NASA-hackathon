@@ -1,0 +1,23 @@
+[
+  {
+    "path": "src/data/corpus.json",
+    "main_git_sha256": "17178f22e31a05ab3d547080dcc906834644af54761af03f53f3956f37405410",
+    "working_and_new_git_equal": true,
+    "release_sha256": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+    "line_endings_only": true
+  },
+  {
+    "path": "src/data/source_manifest.json",
+    "main_git_sha256": "6a6eac10fd7c1aaf86eb06bac9d4bd67e468f170f2bac7a142a798d96a2bfaf2",
+    "working_and_new_git_equal": true,
+    "release_sha256": "85376bdcd644e3ad5d6e3ccc769985d5bf4a8c956cdfc8d06f4b6bb82948bdec",
+    "line_endings_only": true
+  },
+  {
+    "path": "data/raw/PSI-25_experimental.csv",
+    "main_git_sha256": "872a5c3b8dd9137c1c066441d0b360bdbee3268fad36b38d98b53d9eb74d6090",
+    "working_and_new_git_equal": true,
+    "release_sha256": "71e792bf6b5fb5ea620c5dd70fbbac05515992e12aefcf5dff47312caa48c042",
+    "line_endings_only": true
+  }
+]

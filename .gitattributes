@@ -1,4 +1,17 @@
 # Exact preserved NASA bytes must survive checkout on Windows and POSIX.
+data/raw/** -text -whitespace
+public/data/original/** -text -whitespace
+# Preserve the verified legacy CRLF corpus identity on every platform.
+src/data/corpus.json -text -whitespace
+public/data/corpus.json -text -whitespace
+src/data/source_manifest.json -text -whitespace
+public/data/source_manifest.json -text -whitespace
+src/data/validation_report.json -text -whitespace
+public/data/validation_report.json -text -whitespace
+data/processed/validation_report.json -text -whitespace
+data/processed/records_raw.csv -text -whitespace
+src/data/readme_*.txt -text -whitespace
+public/data/readme_*.txt -text -whitespace
 data/research/raw/** -text -whitespace
 # Original CRLF/spacing is scientific provenance, not authored-code whitespace.
 docs/evidence/pr6/downloaded-*.json -text -whitespace
