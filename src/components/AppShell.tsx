@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
-import { primaryRoutes, routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
+import { routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
 import { CommandPalette } from './CommandPalette';
 import { corpus } from '../lib/corpus';
 import { BasketIndicator } from '../lib/basketContext';
@@ -180,6 +180,44 @@ export function AppShell({ children }: { children: ReactNode }) {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const navigationRef = useRef<HTMLElement>(null);
+  const revealCurrentTab = useCallback(() => {
+    const nav = navigationRef.current;
+    const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!nav || !current || nav.scrollWidth <= nav.clientWidth) return;
+    const item = current.getBoundingClientRect(), bounds = nav.getBoundingClientRect();
+    if (item.left < bounds.left) nav.scrollLeft -= bounds.left - item.left;
+    else if (item.right > bounds.right) nav.scrollLeft += item.right - bounds.right;
+  }, []);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const root = document.documentElement;
+    const previous = root.style.getPropertyValue('--nav-h');
+    const measure = () => {
+      root.style.setProperty('--nav-h', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+      revealCurrentTab();
+    };
+    measure();
+    let disposed = false;
+    void document.fonts?.ready.then(() => { if (!disposed) measure(); });
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
+    observer?.observe(header);
+    window.addEventListener('resize', measure);
+    return () => {
+      disposed = true;
+      observer?.disconnect();
+      window.removeEventListener('resize', measure);
+      if (previous) root.style.setProperty('--nav-h', previous);
+      else root.style.removeProperty('--nav-h');
+    };
+  }, [revealCurrentTab]);
+
+  useEffect(() => {
+    revealCurrentTab();
+  }, [active, revealCurrentTab]);
 
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
@@ -224,7 +262,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
 
-      <header className="topbar topbar--primary" aria-label="Primary">
+      <header ref={headerRef} className="topbar topbar--primary" aria-label="Primary">
         <a className="brand brand--wordmark" href="#/overview" aria-label="fıretrace® — FIRETRACE home">
           <span className="brand__tile">
             <Glyph size={14} />
@@ -234,8 +272,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           </span>
         </a>
 
-        <nav className="nav nav--horizontal" aria-label="Primary sections">
-          {primaryRoutes.map((item) => (
+        <nav ref={navigationRef} className="nav nav--horizontal" aria-label="Primary sections">
+          {routes.map((item) => (
             <a
               key={item.path}
               href={`#/${item.path}`}

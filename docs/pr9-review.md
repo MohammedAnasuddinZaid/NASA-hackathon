@@ -251,3 +251,13 @@ Suggested 30-second visual demo: hero/pause (5s), scene3 corpus counts (6s), sce
 (6s), Atlas/B1 source (8s), final report/limitations (5s). Use an actual captured demo, and keep
 NASA data attribution and AI assistance disclosure on the team project page. Do not submit or
 publish anything automatically.
+
+
+## Navbar follow-up (2026-11-15)
+
+The previous CSS hid direct tabs below 1400px and the shell rendered only six routes.
+All 17 route tabs are now present: wrapped rows above 767px and a native horizontal strip below.
+The measured header height prevents content overlap. The active tab stays visible after route,
+viewport and font changes. A Graph grid minimum-size fix prevents narrow-screen overflow.
+See [final navbar QA](navbar-final-qa.md) for current verification and genuine captures. Earlier
+measurements above describe the pre-navbar candidate.

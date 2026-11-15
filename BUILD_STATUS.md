@@ -11,7 +11,7 @@ PR9 branch: `codex/cinematic-overview`. Review candidate only; no feature PR mer
 - Zero reported test pressure, measured per-test gravity or standardized outcomes; nulls preserved.
 - Research: 3 investigations / 16 findings / 2 reports; zero normalized FLEX records.
 - 316 frontend units, 211 backend, 19 pipeline tests pass; 24 artifacts byte-identical.
-- Browser: 80 default, 6 real-API (Swagger enabled), 2 TRACE, 5 integration, 33 expanded QA pass.
+- Browser: 88 default, 6 real-API (Swagger enabled), 2 TRACE, 5 integration, 33 expanded QA pass.
 - Chromium/Firefox/WebKit smoke passes; genuine before/after, mobile, static and WebM evidence.
 - Actual owned backend stopped/restored: bundled core workflows and reconnect pass.
 - No new runtime dependency or scientific data/calculation changes.

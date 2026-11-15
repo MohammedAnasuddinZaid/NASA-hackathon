@@ -181,9 +181,9 @@ npm run e2e                                 # Playwright end-to-end + accessibil
 
 PR #9 local verification: **316 frontend unit tests**, **211 backend tests**,
 **19 pipeline tests**, **24 byte-identical scientific artifacts**, **36/36 benchmark cases**,
-and a production build passed. Browser runs: **80 default**, **6 real-API** (Swagger enabled),
+and a production build passed. Browser runs: **88 default**, **6 real-API** (Swagger enabled),
 **2 TRACE**, **5 integration**, **33 expanded QA**. These are suite executions, not unique
-feature counts; the 10 cinematic cases are included in 80. CI's optional Swagger capture may skip.
+feature counts; the 10 cinematic and 8 navbar cases are included in 88. CI's optional Swagger capture may skip.
 See [the cinematic/release review](docs/pr9-review.md) for source versions, genuine screenshots,
 recording, performance measurements, actual backend-stop/reconnect and remaining limitations.
 The large corpus bundle remains intentional; no new animation runtime dependency was added.

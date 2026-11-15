@@ -14,6 +14,7 @@ import './css/scenario.css';
 import './css/workbench.css';
 import './css/research-library.css';
 import './css/research.css';
+import './css/navigation.css';
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {

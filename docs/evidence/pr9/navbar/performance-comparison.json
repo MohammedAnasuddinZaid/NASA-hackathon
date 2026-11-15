@@ -1,0 +1,35 @@
+{
+  "baseline_commit": "8a7304083dc193173029cc9ff891d64b810b23e5",
+  "payload": [
+    {
+      "kind": ".js",
+      "before_bytes": 2427735,
+      "after_bytes": 2440819,
+      "before_gzip": 265450,
+      "after_gzip": 268994,
+      "delta_gzip": 3544
+    },
+    {
+      "kind": ".css",
+      "before_bytes": 170413,
+      "after_bytes": 179271,
+      "before_gzip": 28396,
+      "after_gzip": 30252,
+      "delta_gzip": 1856
+    }
+  ],
+  "combined_gzip_delta": 5400,
+  "combined_growth_percent": 1.838,
+  "budget_pass": true,
+  "heading_medians": {
+    "1": {
+      "before_ms": 810,
+      "after_ms": 1275
+    },
+    "4": {
+      "before_ms": 3838,
+      "after_ms": 4087
+    }
+  },
+  "timing_limit": "Three local samples per condition; not a speed guarantee or real-device benchmark."
+}

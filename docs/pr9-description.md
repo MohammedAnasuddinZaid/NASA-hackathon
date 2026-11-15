@@ -9,6 +9,15 @@ Started from main `c53b915`; incorporated the concurrent main update `8a73040`, 
 fixes and the expanded regression suite. No PR8 branch was merged, cherry-picked or modified.
 See [the full review](docs/pr9-review.md) and [genuine evidence](docs/evidence/pr9/).
 
+## Navbar follow-up
+
+Restore all 17 direct page tabs at every viewport: wrapped rows on desktop/tablet and a native
+horizontal tab strip on phones, with Menu retained as a secondary index. Measure the actual
+header height so page content stays clear; reveal the active tab after route, size and font
+changes. Fix the Graph grid minimum sizing on narrow screens. Eight regression tests cover
+seven widths, every tab, keyboard activation and active-tab visibility. Chromium, Firefox and
+WebKit each pass all seven widths. See [final navbar QA](docs/navbar-final-qa.md).
+
 ## Cinematic UI & Scrollytelling Enhancements
 
 - **Overview only:** original sparse SVG starfield, restrained atmospheric glow, a fine orbital
@@ -27,7 +36,7 @@ See [the full review](docs/pr9-review.md) and [genuine evidence](docs/evidence/p
   hidden-document pause; observer/media-listener cleanup; reduced-motion preference changes;
   static mobile treatment. Story entry focuses its heading. Existing narration starts muted and
   remains available by explicit opt-in. No automatic sound or flashing.
-- **Performance:** entry JS+CSS grows by **4,856 bytes gzip (1.653%)**, within the <8KiB/<3%
+- **Performance:** entry JS+CSS grows by **5,400 bytes gzip (1.838%)**, within the <8KiB/<3%
   budget. No new runtime dependency, custom frame loop, per-scroll React state or
   scientific-data duplication. Raw/gzip bundle sizes and three-sample normal/4× CPU comparisons
   are in the report. Controlled comparisons remove remote-font variance; they are local samples,
@@ -60,8 +69,8 @@ linked in the report. No model-generated measurement or unsupported safety score
 
 Local results: **316 frontend units, 211 backend tests, 19 pipeline tests, 24 byte-identical
 artifacts, 36/36 deterministic benchmark**, and production build pass. Browser suites:
-**80 default + 6 real API + 2 TRACE + 5 integration + 33 expanded QA = 126 executions**.
-All pass; the 10 cinematic cases are included in 80. Chromium/Firefox/WebKit smoke and actual
+**88 default + 6 real API + 2 TRACE + 5 integration + 33 expanded QA = 134 executions**.
+All pass; the 10 cinematic cases are included in 88. Chromium/Firefox/WebKit smoke and actual
 backend stop/restart pass. Automated accessibility covers all 17 routes plus expanded menu/drawer.
 Final local/hosted runner results are recorded in the linked review and attached check runs.
 Unit, backend, pipeline, byte-reproduction, benchmark, real API/TRACE/integration, default

@@ -1,0 +1,24 @@
+test_approximation_and_unresolved_flags (test_ingest.IngestionTests.test_approximation_and_unresolved_flags) ... ok
+test_conversion_units_and_original_tokens (test_ingest.IngestionTests.test_conversion_units_and_original_tokens) ... ok
+test_downloads_are_untouched_originals (test_ingest.IngestionTests.test_downloads_are_untouched_originals) ... ok
+test_finite_numeric_parsing_and_missing_zero (test_ingest.IngestionTests.test_finite_numeric_parsing_and_missing_zero) ... ok
+test_generated_files_match_committed_data (test_ingest.IngestionTests.test_generated_files_match_committed_data) ... ok
+test_invalid_ids_and_csv_shape (test_ingest.IngestionTests.test_invalid_ids_and_csv_shape) ... ok
+test_modified_source_refuses_publication (test_ingest.IngestionTests.test_modified_source_refuses_publication) ... ok
+test_records_and_source_row_mapping (test_ingest.IngestionTests.test_records_and_source_row_mapping) ... ok
+test_repeat_is_byte_identical (test_ingest.IngestionTests.test_repeat_is_byte_identical) ... ok
+test_bad_nasa_url_and_quantitative_classification (test_research.ResearchTests.test_bad_nasa_url_and_quantitative_classification) ... ok
+test_determinism_and_committed_mirrors (test_research.ResearchTests.test_determinism_and_committed_mirrors) ... ok
+test_duplicate_sources_findings_investigations_rejected (test_research.ResearchTests.test_duplicate_sources_findings_investigations_rejected) ... ok
+test_fingerprint_changes_with_curation (test_research.ResearchTests.test_fingerprint_changes_with_curation) ... ok
+test_invalid_source_association_and_locator (test_research.ResearchTests.test_invalid_source_association_and_locator) ... ok
+test_invalid_units_status_raw_and_nonfinite_rejected (test_research.ResearchTests.test_invalid_units_status_raw_and_nonfinite_rejected) ... ok
+test_original_record_bytes_unchanged_and_missing (test_research.ResearchTests.test_original_record_bytes_unchanged_and_missing) ... ok
+test_report_values_remain_qualified_and_unmapped (test_research.ResearchTests.test_report_values_remain_qualified_and_unmapped) ... ok
+test_source_hash_and_path_fail_closed (test_research.ResearchTests.test_source_hash_and_path_fail_closed) ... ok
+test_verified_identities_and_counts (test_research.ResearchTests.test_verified_identities_and_counts) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 5.335s
+
+OK
