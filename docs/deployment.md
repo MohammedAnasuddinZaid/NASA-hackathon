@@ -145,3 +145,17 @@ make a different extractor pass. NASA originals and experiment snapshots are unc
 Optional voice uses combined `main:app` on a separate port and `VITE_VOICE_API_BASE` in the frontend.
 No speech models are required for evidence browsing. See the local QA report for verified
 degraded behavior; successful text responses do not establish functioning speech.
+
+## Vercel (static frontend)
+
+1. Import the repository into Vercel (framework: Vite).
+2. Build command: `npm run build` (runs `tsc -b && vite build`).
+3. Output directory: `dist`.
+4. Install command: `npm ci`.
+5. Environment variable: `VITE_EVIDENCE_API=off` (no backend; app uses bundled corpus).
+6. Node.js 20+ (set in `package.json` engines).
+
+The app is fully static and offline-capable. The FastAPI backend is NOT deployed; the frontend falls back to the bundled corpus automatically. Voice/TRACE-LLM features require a separate backend deployment.
+
+Optional: deploy the backend (`backend/`) to a Python host (Render, Fly.io, Railway) and set `VITE_EVIDENCE_API` to its URL if you want live API mode.
+

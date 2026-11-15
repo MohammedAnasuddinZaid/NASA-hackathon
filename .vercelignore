@@ -1,0 +1,14 @@
+backend/
+pipeline/
+eval/
+docs/evidence/
+test-results/
+playwright-report/
+*.tsbuildinfo
+.env
+.env.*
+node_modules/
+.git/
+scripts/
+presentation/
+tmp/
