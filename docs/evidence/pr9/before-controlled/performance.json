@@ -1,0 +1,48 @@
+{
+  "method": "Three fresh Chromium contexts per CPU rate, 1440×1000, production preview, service workers blocked, time to original h1 assertion; local samples only.",
+  "remoteFontStylesheet": "empty fixture to remove font-network variance",
+  "bundle": [
+    {
+      "file": "index-C3IdUpL7.js",
+      "bytes": 2422977,
+      "gzip": 263815
+    },
+    {
+      "file": "index-CvIQghK7.css",
+      "bytes": 169963,
+      "gzip": 28309
+    }
+  ],
+  "samples": [
+    {
+      "cpuRate": 1,
+      "sample": 0,
+      "headingMs": 616
+    },
+    {
+      "cpuRate": 1,
+      "sample": 1,
+      "headingMs": 540
+    },
+    {
+      "cpuRate": 1,
+      "sample": 2,
+      "headingMs": 609
+    },
+    {
+      "cpuRate": 4,
+      "sample": 0,
+      "headingMs": 3943
+    },
+    {
+      "cpuRate": 4,
+      "sample": 1,
+      "headingMs": 3874
+    },
+    {
+      "cpuRate": 4,
+      "sample": 2,
+      "headingMs": 3898
+    }
+  ]
+}

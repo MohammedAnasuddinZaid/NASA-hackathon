@@ -158,7 +158,11 @@ test('film narration follows play, pause, mute and chapter changes', async ({ pa
     )
     .toBe(true);
 
-  // A blocked-autoplay prompt may appear depending on browser policy.
+  // Merely scrolling into the existing film must never opt the user into sound.
+  await expect(page.locator('.film__sound')).toHaveAttribute('aria-pressed', 'false');
+  expect(await audios.evaluateAll(nodes => nodes.every(node => (node as HTMLAudioElement).paused))).toBe(true);
+  await page.locator('.film__sound').click();
+  // A browser-policy prompt can still appear after the explicit sound request.
   if (await page.locator('.film__unmute').isVisible().catch(() => false)) {
     await page.locator('.film__unmute').click();
   }
@@ -197,12 +201,12 @@ test('film narration follows play, pause, mute and chapter changes', async ({ pa
     .toBe(true);
 });
 
-test('film offers a sound prompt when autoplay is blocked', async ({ page }) => {
+test('film offers a retry prompt when explicitly requested sound is blocked', async ({ page }) => {
   await page.addInitScript(() => {
     const state = window as unknown as { __allowPlay?: boolean };
     state.__allowPlay = false;
-    document.addEventListener('click', () => {
-      state.__allowPlay = true;
+    document.addEventListener('click', event => {
+      if ((event.target as Element | null)?.closest('.film__unmute')) state.__allowPlay = true;
     }, true);
     const original = HTMLMediaElement.prototype.play;
     HTMLMediaElement.prototype.play = function play() {
@@ -216,6 +220,8 @@ test('film offers a sound prompt when autoplay is blocked', async ({ page }) => 
   await page.goto('/#/overview');
   await page.locator('.film').scrollIntoViewIfNeeded();
 
+  await expect(page.locator('.film__unmute')).toBeHidden();
+  await page.locator('.film__sound').click();
   await expect(page.locator('.film__unmute')).toBeVisible();
   await expect(page.locator('.film__head-meta')).toContainText('Tap for sound');
   await expect(page.locator('.film audio').first()).toBeAttached();

@@ -70,4 +70,5 @@ jobs:
             test-results/
             docs/evidence/integration/*.png
             docs/evidence/local-qa/*.png
+            docs/evidence/pr9/
           retention-days: 7

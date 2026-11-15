@@ -379,7 +379,8 @@ export function ExplainerFilm() {
   );
   const [inView, setInView] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [voiceOn, setVoiceOn] = useState(true);
+  // Narration is preserved, but sound requires explicit user opt-in.
+  const [voiceOn, setVoiceOn] = useState(false);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [audioFailures, setAudioFailures] = useState<number[]>([]);
   const [sync, setSync] = useState(0);

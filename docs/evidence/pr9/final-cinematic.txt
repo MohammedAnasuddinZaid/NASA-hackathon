@@ -1,0 +1,32 @@
+
+> firertrace@0.1.0 e2e
+> playwright test cinematic.spec.ts --workers=2
+
+[WebServer] (node:4184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:4656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 2 workers
+
+(node:16796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:47892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › e2e\cinematic.spec.ts:31:1 › motion runs only onscreen and pauses through the keyboard-accessible user control (4.3s)
+  ok  2 [chromium] › e2e\cinematic.spec.ts:6:1 › cinematic story preserves source-derived counts, unknowns, original demo and research workflow (9.6s)
+  ok  3 [chromium] › e2e\cinematic.spec.ts:51:1 › hidden document signal pauses and resumes decoration; observers clean up across route changes (5.8s)
+  ok  4 [chromium] › e2e\cinematic.spec.ts:79:1 › reduced motion is complete and static, including preference changes while open (3.8s)
+  ok  5 [chromium] › e2e\cinematic.spec.ts:97:1 › without intersection effects every scene and CTA remains available (4.0s)
+  ok  6 [chromium] › e2e\cinematic.spec.ts:110:50 › story remains readable with forward/reverse/fast scroll at 320px (4.1s)
+  ok  7 [chromium] › e2e\cinematic.spec.ts:110:50 › story remains readable with forward/reverse/fast scroll at 390px (4.7s)
+  ok  8 [chromium] › e2e\cinematic.spec.ts:110:50 › story remains readable with forward/reverse/fast scroll at 768px (4.7s)
+  ok  9 [chromium] › e2e\cinematic.spec.ts:110:50 › story remains readable with forward/reverse/fast scroll at 1440px (5.4s)
+  ok 10 [chromium] › e2e\cinematic.spec.ts:110:50 › story remains readable with forward/reverse/fast scroll at 1920px (5.0s)
+
+  10 passed (56.9s)

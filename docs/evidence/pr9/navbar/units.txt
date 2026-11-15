@@ -1,0 +1,41 @@
+
+> firertrace@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 C:/Users/novaz/OneDrive/Documents/ChatGPT/NASA/FIRETRACE-cinematic
+
+ ✓ tests/traceClient.test.ts (7 tests) 102ms
+ ✓ tests/assistant.test.ts (20 tests) 98ms
+ ✓ tests/voice.test.ts (7 tests) 147ms
+ ✓ tests/analysisRun.test.ts (7 tests) 333ms
+ ✓ tests/export.test.ts (14 tests) 229ms
+ ✓ tests/capabilities.test.ts (3 tests) 359ms
+ ✓ tests/research.test.ts (44 tests) 717ms
+     ✓ handles a basket containing the complete real corpus without truncating scope  500ms
+ ✓ tests/research-library.test.tsx (33 tests) 134ms
+ ✓ tests/report.test.ts (4 tests) 552ms
+ ✓ tests/evidenceGraph.test.ts (6 tests) 117ms
+ ✓ tests/apiClient.test.ts (5 tests) 78ms
+ ✓ tests/corpus.test.ts (12 tests) 94ms
+ ✓ tests/verification.test.ts (11 tests) 92ms
+ ✓ tests/scenario.test.ts (36 tests) 123ms
+ ✓ tests/notebook.test.ts (12 tests) 55ms
+ ✓ tests/records.test.ts (16 tests) 80ms
+ ✓ tests/atmosphere.test.ts (11 tests) 25ms
+ ✓ tests/research-ui.test.tsx (5 tests) 361ms
+ ✓ tests/integrity.test.ts (4 tests) 29ms
+ ✓ tests/scenario-ui.test.tsx (5 tests) 624ms
+ ✓ tests/atlasView.test.ts (6 tests) 23ms
+ ✓ tests/calculation.test.ts (7 tests) 22ms
+ ✓ tests/atlasEvidence.test.ts (8 tests) 28ms
+ ✓ tests/gap.test.ts (11 tests) 28ms
+ ✓ tests/zip.test.ts (5 tests) 18ms
+ ✓ tests/storage.test.ts (7 tests) 11ms
+ ✓ tests/compare.test.ts (10 tests) 16ms
+
+ Test Files  27 passed (27)
+      Tests  316 passed (316)
+   Start at  19:04:50
+   Duration  6.06s (transform 15.48s, setup 0ms, import 21.43s, tests 4.49s, environment 11ms)
+

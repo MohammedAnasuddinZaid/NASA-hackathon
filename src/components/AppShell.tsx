@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
-import { primaryRoutes, routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
+import { routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
 import { CommandPalette } from './CommandPalette';
 import { corpus } from '../lib/corpus';
 import { BasketIndicator } from '../lib/basketContext';
@@ -50,6 +50,7 @@ function MenuOverlay({
   returnFocus: RefObject<HTMLButtonElement | null>;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -79,9 +80,9 @@ function MenuOverlay({
     };
     document.addEventListener('keydown', onKey);
     document.body.classList.add('menu-open');
-    const firstLink = panelRef.current?.querySelector<HTMLElement>('.menu__link');
-    firstLink?.focus();
+    const focusFrame = window.requestAnimationFrame(() => closeRef.current?.focus());
     return () => {
+      window.cancelAnimationFrame(focusFrame);
       document.removeEventListener('keydown', onKey);
       document.body.classList.remove('menu-open');
       previousFocus?.focus?.();
@@ -89,7 +90,8 @@ function MenuOverlay({
   }, [open, onClose, returnFocus]);
 
   return (
-    <div className={`menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+    <div ref={panelRef} className={`menu ${open ? 'is-open' : ''}`} role="dialog" aria-label="All sections menu" aria-modal={open || undefined} aria-hidden={!open}
+      onTransitionEnd={event => { if (open && event.target === panelRef.current && !panelRef.current?.contains(document.activeElement)) closeRef.current?.focus(); }}>
       <div className="menu__bar">
         <div className="menu__bar-meta">
           <Glyph size={12} />
@@ -101,6 +103,7 @@ function MenuOverlay({
         <button
           type="button"
           className="menu__close"
+          ref={closeRef}
           onClick={() => {
             onClose();
             returnFocus.current?.focus();
@@ -110,7 +113,7 @@ function MenuOverlay({
         </button>
       </div>
 
-      <div className="menu__grid" ref={panelRef}>
+      <div className="menu__grid">
         <nav className="menu__links" aria-label="All sections">
           {routeGroups.map((group) => (
             <div className="menu__group" key={group}>
@@ -157,8 +160,8 @@ function MenuOverlay({
               <dd>0</dd>
             </div>
             <div>
-              <dt>External model calls</dt>
-              <dd>0</dd>
+              <dt>TRACE generation</dt>
+              <dd>Optional · server configured</dd>
             </div>
           </dl>
           <span className="hand">[ evidence, not vibes ]</span>
@@ -174,8 +177,47 @@ export function AppShell({ children }: { children: ReactNode }) {
   const active = route.segment;
   const online = useOnline();
   const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const navigationRef = useRef<HTMLElement>(null);
+  const revealCurrentTab = useCallback(() => {
+    const nav = navigationRef.current;
+    const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!nav || !current || nav.scrollWidth <= nav.clientWidth) return;
+    const item = current.getBoundingClientRect(), bounds = nav.getBoundingClientRect();
+    if (item.left < bounds.left) nav.scrollLeft -= bounds.left - item.left;
+    else if (item.right > bounds.right) nav.scrollLeft += item.right - bounds.right;
+  }, []);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const root = document.documentElement;
+    const previous = root.style.getPropertyValue('--nav-h');
+    const measure = () => {
+      root.style.setProperty('--nav-h', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+      revealCurrentTab();
+    };
+    measure();
+    let disposed = false;
+    void document.fonts?.ready.then(() => { if (!disposed) measure(); });
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
+    observer?.observe(header);
+    window.addEventListener('resize', measure);
+    return () => {
+      disposed = true;
+      observer?.disconnect();
+      window.removeEventListener('resize', measure);
+      if (previous) root.style.setProperty('--nav-h', previous);
+      else root.style.removeProperty('--nav-h');
+    };
+  }, [revealCurrentTab]);
+
+  useEffect(() => {
+    revealCurrentTab();
+  }, [active, revealCurrentTab]);
 
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
@@ -220,8 +262,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
 
-      <header className="topbar topbar--primary" aria-label="Primary">
-        <a className="brand brand--wordmark" href="#/overview" aria-label="FIRETRACE — home">
+      <header ref={headerRef} className="topbar topbar--primary" aria-label="Primary">
+        <a className="brand brand--wordmark" href="#/overview" aria-label="fıretrace® — FIRETRACE home">
           <span className="brand__tile">
             <Glyph size={14} />
           </span>
@@ -230,8 +272,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           </span>
         </a>
 
-        <nav className="nav nav--horizontal" aria-label="Primary sections">
-          {primaryRoutes.map((item) => (
+        <nav ref={navigationRef} className="nav nav--horizontal" aria-label="Primary sections">
+          {routes.map((item) => (
             <a
               key={item.path}
               href={`#/${item.path}`}
@@ -313,7 +355,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <MenuOverlay
           open={menuOpen}
           active={active}
-          onClose={() => setMenuOpen(false)}
+          onClose={closeMenu}
           returnFocus={menuButton}
         />
       </div>

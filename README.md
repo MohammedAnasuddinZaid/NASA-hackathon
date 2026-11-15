@@ -31,8 +31,9 @@ and require an initial network fetch; there is no service worker or guaranteed o
 
 ## What it does
 
-- **Overview** — a 45-second voiced explainer, corpus ledger, coverage counts and the central
-  evidence gap.
+- **Overview** — a45-second captioned explainer with opt-in narration, corpus ledger, coverage
+  counts, and a six-scene cinematic story. Decorative motion can be paused; mobile and
+  reduced-motion views stay static. The original research tools remain unchanged.
 - **Atmosphere Explorer** — Dalton-law oxygen partial-pressure calculator, reference atmospheres,
   the reported oxygen distribution, and an explicit “unknown pressure” placement for every record.
 - **Evidence Atlas** — searchable, filterable table of all 131 records, with a provenance drawer.
@@ -178,11 +179,14 @@ python eval/run_eval.py                     # 30-question grounding check (hit@5
 npm run e2e                                 # Playwright end-to-end + accessibility suite
 ```
 
-Verified in this workspace: **300 Vitest tests**, **226 pytest tests** (3 skipped when the voice stack is
-absent), **19 pipeline unittests**, **70 Playwright tests**, **36/36 benchmark cases**, and `npm run build`.
-The Playwright suite covers 17 route-smoke tests, 20 accessibility (axe-core) tests, 11 workbench
-workflow tests, 2 scenario tests, 2 TRACE tests, and 16 feature tests. The bundle is a single large
-JavaScript chunk (~2.38 MB) because the corpus JSON is imported directly for offline use.
+PR #9 local verification: **316 frontend unit tests**, **211 backend tests**,
+**19 pipeline tests**, **24 byte-identical scientific artifacts**, **36/36 benchmark cases**,
+and a production build passed. Browser runs: **88 default**, **6 real-API** (Swagger enabled),
+**2 TRACE**, **5 integration**, **33 expanded QA**. These are suite executions, not unique
+feature counts; the 10 cinematic and 8 navbar cases are included in 88. CI's optional Swagger capture may skip.
+See [the cinematic/release review](docs/pr9-review.md) for source versions, genuine screenshots,
+recording, performance measurements, actual backend-stop/reconnect and remaining limitations.
+The large corpus bundle remains intentional; no new animation runtime dependency was added.
 
 `eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` with `0/30`
 labelled items, because the shipped question set has no gold answers. It does not estimate
@@ -217,7 +221,7 @@ backend/
 pipeline/          Python ingestion and validation
 eval/              question set and honest evaluation runner
 tests/             Vitest unit tests (300)
-e2e/               Playwright end-to-end + accessibility tests (68)
+e2e/               Workstation, accessibility, cinematic, API and regression suites
 docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment, phase checklists
 presentation/      screenshots and pitch deck
 scripts/           capture and benchmark scripts
@@ -236,8 +240,9 @@ public/            manifest.webmanifest, sw.js (PWA offline shell)
 
 ## Deployment
 
-The web application is a static Vite build and works offline after the first load because all
-evidence is bundled. The evidence API is a separate local service; it is not required for the
+The frontend has a cached offline shell and bundled experiment evidence. Already-loaded or
+cached core routes work without the backend; first access to lazy research assets and original
+NASA PDFs can still need network access. This is not a universal cold-cache offline guarantee. The evidence API is a separate local service; it is not required for the
 static build and is not deployed by it. See `docs/deployment.md`.
 
 ## License and provenance

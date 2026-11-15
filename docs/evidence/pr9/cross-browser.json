@@ -1,0 +1,20 @@
+[
+  {
+    "browser": "chromium",
+    "status": "PASS",
+    "checks": "Six-scene story, motion boundary, muted film, actual CTA, Back, Research-to-BASS2-B1 drawer, Graph/Notebook/Reports",
+    "uncaughtErrors": []
+  },
+  {
+    "browser": "firefox",
+    "status": "PASS",
+    "checks": "Six-scene story, motion boundary, muted film, actual CTA, Back, Research-to-BASS2-B1 drawer, Graph/Notebook/Reports",
+    "uncaughtErrors": []
+  },
+  {
+    "browser": "webkit",
+    "status": "PASS",
+    "checks": "Six-scene story, motion boundary, muted film, actual CTA, Back, Research-to-BASS2-B1 drawer, Graph/Notebook/Reports",
+    "uncaughtErrors": []
+  }
+]
