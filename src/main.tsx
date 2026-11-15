@@ -10,6 +10,7 @@ import './css/modules.css';
 import './css/responsive.css';
 import './css/startup.css';
 import './css/scenario.css';
+import './css/research-library.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { records, recordById } from '../lib/corpus';
 import type { ExperimentRecord } from '../lib/types';
 import { emptyFilters, filterRecords, uniqueFamilies, uniqueMaterials } from '../lib/records';
@@ -9,6 +9,7 @@ import { Badge, EmptyState, PageHeader, Panel } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
 
 const PAGE_SIZE = 24;
+const ResearchLibrary = lazy(() => import('../components/ResearchLibrary'));
 
 function initialFamily(): string {
   const query = window.location.hash.split('?')[1] ?? '';
@@ -16,6 +17,12 @@ function initialFamily(): string {
 }
 
 export function Atlas() {
+  const [research, setResearch] = useState(() => new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
+  useEffect(() => {
+    const readView = () => setResearch(new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
+    window.addEventListener('hashchange', readView);
+    return () => window.removeEventListener('hashchange', readView);
+  }, []);
   const [filters, setFilters] = useState<AtlasFilters>({
     ...emptyFilters,
     family: initialFamily(),
@@ -56,6 +63,8 @@ export function Atlas() {
     );
   }
 
+  if (research) return <Suspense fallback={<div className="page" role="status">Loading research library…</div>}><ResearchLibrary onBack={() => { setResearch(false); window.history.replaceState(null, '', '#/atlas'); }} /></Suspense>;
+
   return (
     <div className="page page--atlas">
       <PageHeader
@@ -68,9 +77,9 @@ export function Atlas() {
         }
         lede="Search the normalized experiment records and open any row for its measurements, quality flags, raw source fields and provenance. Missing values stay missing."
         actions={
-          <button className="button button--ghost button--small" onClick={exportFiltered}>
+          <><button className="button button--ghost button--small" onClick={() => { setResearch(true); window.history.replaceState(null, '', '#/atlas?view=research'); }}>Research findings & coverage</button><button className="button button--ghost button--small" onClick={exportFiltered}>
             Export filtered CSV
-          </button>
+          </button></>
         }
       />
       {params.get('from') === 'gap' && (

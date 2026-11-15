@@ -2,6 +2,7 @@ import { corpus, validation, sourceManifest, records } from '../lib/corpus';
 import { formatNumber, shortIso, humanizeToken } from '../lib/format';
 import { Badge, PageHeader, Panel, SectionRule, SourceLink, Stat } from '../components/ui';
 import { useEvidenceSession } from '../lib/evidenceSession';
+import { ResearchCoverage } from '../components/ResearchCoverage';
 
 function bytes(value: number): string {
   if (value > 1_000_000) return `${(value / 1_000_000).toFixed(1)} MB`;
@@ -156,7 +157,15 @@ export function Methodology() {
         </Panel>
       </div>
 
-      <SectionRule label="Sources" meta={`${sourceManifest.sources.length} artifacts + ${sourceManifest.context_sources.length} context sources`} />
+      <ResearchCoverage />
+      <Panel kicker="Expanded NASA reports" title="Verified report evidence, separate from test data">
+        <p>BASS-II report findings and FLEX liquid-droplet research are available in the searchable Research library, with page locators, source-specific rights and measurement qualifications. The experimental record layer and API remain unchanged.</p>
+        <p><SourceLink href="https://ntrs.nasa.gov/citations/20210011385">BASS-II Summary Report · NTRS20210011385</SourceLink></p>
+        <p><SourceLink href="https://ntrs.nasa.gov/citations/20150023456">FLEX Detailed Results · NTRS20150023456</SourceLink></p>
+        <p><SourceLink href="https://psi.nasa.gov/physci/repo/data/investigations/PSI-69">FLEX · PSI-69 · DOI10.60555/mbq8-0451</SourceLink></p>
+        <a className="text-link" href="#/atlas?view=research">Review findings, source documents and missing measurements →</a>
+      </Panel>
+      <SectionRule label="Original record-layer sources" meta={`${sourceManifest.sources.length} artifacts + ${sourceManifest.context_sources.length} context sources`} />
       <div className="source-list">
         {sourceManifest.sources.map((source) => (
           <article className="source-card" key={`${source.source_id}-${source.original_filename}`}>
