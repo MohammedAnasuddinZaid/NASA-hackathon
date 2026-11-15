@@ -13,6 +13,14 @@ function expectGrounded(answer: AssistantAnswer) {
 }
 
 describe('retrieval and provenance', () => {
+  it('directs report and droplet questions to the separate Research Library', () => {
+    for (const question of ['How does FLEX differ from BASS-II?', 'What does the BASS-II summary report say about pressure?']) {
+      const result = ask(question);
+      expect(result.grade).toBe('absent');
+      expect(result.claims ?? []).toHaveLength(0);
+      expect(result.page?.href).toBe('#/atlas?view=research');
+    }
+  });
   it('abstains from total pressure while stating the exact coverage', () => {
     const answer = ask('What pressure was BASS-II run at?');
     expect(answer.grade).toBe('absent');

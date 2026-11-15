@@ -28,17 +28,23 @@ def test_combined_app_serves_evidence_api_when_voice_is_absent():
         assert draft.json()["grade"] == "direct"
 
 
-def test_health_reports_degraded_without_voice():
+def test_health_reports_voice_status():
     with TestClient(main.app) as client:
         response = client.get("/api/health")
         assert response.status_code == 200
         body = response.json()
-        assert body["status"] == "degraded"
-        assert body["voice"]["available"] is False
+        status = main.voice_status()
+        if status["available"]:
+            assert body["voice"]["available"] is True
+        else:
+            assert body["status"] == "degraded"
+            assert body["voice"]["available"] is False
         assert body["corpus_version"]
 
 
 def test_status_endpoint_explains_the_missing_runtime():
+    if main.voice_status()["available"]:
+        pytest.skip("voice stack available in this environment")
     with TestClient(main.app) as client:
         body = client.get("/api/status").json()
         assert body["available"] is False
@@ -46,6 +52,8 @@ def test_status_endpoint_explains_the_missing_runtime():
 
 
 def test_tts_returns_structured_503_not_a_crash():
+    if main.voice_status()["available"]:
+        pytest.skip("voice stack available in this environment")
     with TestClient(main.app) as client:
         response = client.post("/api/tts", json={"text": "hello"})
         assert response.status_code == 503
@@ -79,6 +87,8 @@ def test_legacy_corpus_routes_still_work():
 
 
 def test_websocket_reports_voice_unavailable_instead_of_hanging():
+    if main.voice_status()["available"]:
+        pytest.skip("voice stack available in this environment")
     with TestClient(main.app) as client:
         with client.websocket_connect("/ws/voice") as websocket:
             message = websocket.receive_json()

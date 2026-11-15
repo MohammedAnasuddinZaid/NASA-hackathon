@@ -1,0 +1,844 @@
+{
+  "schema_version": "firetrace.research/1",
+  "pipeline_version": "research-1.0",
+  "verified_at": "2026-11-14T21:16:44.391584Z",
+  "sources": [
+    {
+      "id": "PSI-25-TABLE",
+      "investigation_id": "PSI-25",
+      "title": "BASS-II experimental table (PSI-25)",
+      "kind": "experimental_table",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Experimental+table_BASS-II.csv&version=1&redirect=true",
+      "doi": "10.60555/4qc4-de67",
+      "version": "table v1 (investigation metadata v4)",
+      "sha256": "71e792bf6b5fb5ea620c5dd70fbbac05515992e12aefcf5dff47312caa48c042",
+      "bytes": 16590,
+      "local_path": "data/raw/PSI-25_experimental.csv",
+      "acquired_at": "2026-11-13T16:08:00.287340+00:00",
+      "access": "verified_existing_artifact",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "limitations": [
+        "No total-pressure column in this table; pressure is discussed for subsets in NTRS 20210011385 (not mapped to these rows).",
+        "No per-test gravity column.",
+        "No standardized outcome column.",
+        "Flow is an instrument display with a slow (~1 min) response, not a calibrated per-test velocity.",
+        "Oxygen sensor was out of calibration and corrected by a constant offset."
+      ]
+    },
+    {
+      "id": "PSI-98-TABLE",
+      "investigation_id": "PSI-98",
+      "title": "Saffire-I experimental table (PSI-98)",
+      "kind": "experimental_table",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+      "download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Experimental+table_SAFFIRE-1.csv&version=1&redirect=true",
+      "doi": "10.60555/0t15-1z43",
+      "version": "table v1 (investigation metadata v4)",
+      "sha256": "c01f29c62455f0a3b512290ab85e5687ecded326733189f002f580368402308d",
+      "bytes": 469,
+      "local_path": "data/raw/PSI-98_experimental.csv",
+      "acquired_at": "2026-11-13T16:08:10.847327+00:00",
+      "access": "verified_existing_artifact",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "limitations": [
+        "Only two instrumented samples; remaining rows are pre/post-flow image-set descriptors, not experiments.",
+        "No total-pressure column.",
+        "No per-test gravity column.",
+        "No standardized extinction outcome column."
+      ]
+    },
+    {
+      "id": "NTRS-20210011385",
+      "investigation_id": "PSI-25",
+      "title": "Burning and Suppression of Solids-II (BASS-II) Summary Report",
+      "kind": "research_report",
+      "url": "https://ntrs.nasa.gov/citations/20210011385",
+      "download_url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf",
+      "doi": null,
+      "nasa_id": "20210011385",
+      "report_number": "NASA/TM-20210011385",
+      "version": "October 2021",
+      "sha256": "5ffa911fd9b6356f204646003fb9342e341810dcdfdf5cb15756e7f01ec5f770",
+      "bytes": 48972416,
+      "local_path": null,
+      "cache_filename": "BASS-II-Summary.pdf",
+      "acquired_at": null,
+      "verified_at": "2026-11-14T21:16:44.391584Z",
+      "access": "full_pdf_reviewed",
+      "license": "NTRS: Use by or on behalf of the US Gov. Permitted.",
+      "limitations": [
+        "Attribution and short FIRETRACE paraphrases only; PDF/figures not redistributed. NASA STI rights may differ by document or contributed material.",
+        "Printed page and one-based PDF page are both retained; findings are not test measurements."
+      ]
+    },
+    {
+      "id": "NTRS-20150023456",
+      "investigation_id": "PSI-69",
+      "title": "Detailed Results From the Flame Extinguishment Experiment (FLEX) March 2009 to December 2011",
+      "kind": "research_report",
+      "url": "https://ntrs.nasa.gov/citations/20150023456",
+      "download_url": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf",
+      "doi": null,
+      "nasa_id": "20150023456",
+      "report_number": "NASA/TP-2015-216046",
+      "version": "November 2015",
+      "sha256": "b4f6ca983e2792c33a0b92220a791a818f426bb635b94f7fd33dc8c9c471e79d",
+      "bytes": 42900650,
+      "local_path": null,
+      "cache_filename": "FLEX-20150023456.pdf",
+      "acquired_at": "2026-11-14T21:16:44.391584Z",
+      "verified_at": "2026-11-14T21:16:44.391584Z",
+      "access": "full_pdf_reviewed",
+      "license": "NTRS: Public Use Permitted.",
+      "limitations": [
+        "Attribution and short FIRETRACE paraphrases only; PDF/figures not redistributed. NASA STI rights may differ by document or contributed material.",
+        "Printed page and one-based PDF page are both retained; findings are not test measurements."
+      ]
+    },
+    {
+      "id": "PSI-69-METADATA",
+      "investigation_id": "PSI-69",
+      "title": "Flame Extinguishment Experiment - PSI investigation metadata",
+      "kind": "investigation_metadata",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+      "download_url": "https://psi.nasa.gov/geode-py/ws/repo/investigations/PSI-69",
+      "doi": "10.60555/mbq8-0451",
+      "version": "metadata modified 06-Jun-2025",
+      "sha256": "a2d8ec5d0e9ad1060f6ecc7a850598634cc5519c373ae70462bf76c31fc8731c",
+      "bytes": 31770,
+      "local_path": "data/research/raw/PSI-69-metadata.json",
+      "acquired_at": "2026-11-14T21:16:44.391584Z",
+      "access": "verified_metadata",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "limitations": [
+        "Portal objective/hypothesis prose is not treated as an observed result."
+      ]
+    },
+    {
+      "id": "PSI-69-TABLE",
+      "investigation_id": "PSI-69",
+      "title": "FLEX experimental table, version 1",
+      "kind": "experimental_table",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+      "download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-69/download?file=PSI-69_Experimental%20table_FLEX.csv&version=1&redirect=true",
+      "doi": "10.60555/mbq8-0451",
+      "version": "1",
+      "sha256": "37c88ce8ae9391b7544ff630a45ce87543d04d317cdbfbed104fe7d5c27e1b96",
+      "bytes": 24776,
+      "local_path": "data/research/raw/PSI-69-experimental.csv",
+      "acquired_at": "2026-11-14T21:16:44.391584Z",
+      "access": "verified_original_not_normalized",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "limitations": [
+        "Not imported as structured tests: burning-rate header says mm; original gas species headers omit subscripts.",
+        "CSV test1 initial diameter1.69mm differs from report TableI1.80mm. No silent reconciliation; report/CSV versions remain distinct."
+      ]
+    },
+    {
+      "id": "PSI-25-METADATA",
+      "investigation_id": "PSI-25",
+      "title": "PSI-25 investigation metadata",
+      "kind": "investigation_metadata",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "download_url": "https://psi.nasa.gov/geode-py/ws/repo/investigations/PSI-25",
+      "doi": "10.60555/4qc4-de67",
+      "version": "preserved metadata snapshot",
+      "sha256": "8ea9e8672c2e363288a662cb5ca09829a3bb25884a3c065bfd18999ca48969e3",
+      "bytes": 680349,
+      "local_path": "data/raw/PSI-25_metadata.json",
+      "acquired_at": null,
+      "access": "verified_existing_artifact",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "limitations": [
+        "Investigation objective and hardware metadata are context, not measured test outcomes."
+      ]
+    },
+    {
+      "id": "PSI-98-METADATA",
+      "investigation_id": "PSI-98",
+      "title": "PSI-98 investigation metadata",
+      "kind": "investigation_metadata",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+      "download_url": "https://psi.nasa.gov/geode-py/ws/repo/investigations/PSI-98",
+      "doi": "10.60555/0t15-1z43",
+      "version": "preserved metadata snapshot",
+      "sha256": "33cf15ead6c39d3b578258a3f9b9016c853b814cef6ba96fe13a5b78d0f89c52",
+      "bytes": 134231,
+      "local_path": "data/raw/PSI-98_metadata.json",
+      "acquired_at": null,
+      "access": "verified_existing_artifact",
+      "license": "Creative Commons Zero v1.0 Universal",
+      "limitations": [
+        "Investigation objective and hardware metadata are context, not measured test outcomes."
+      ]
+    }
+  ],
+  "investigations": [
+    {
+      "id": "PSI-25",
+      "acronym": "BASS-II",
+      "title": "Burning and Suppression of Solids-II",
+      "combustion_type": "solid_fuel",
+      "fuel_category": "solid",
+      "doi": "10.60555/4qc4-de67",
+      "gravity_context": "orbital microgravity; not per-test measured gravity",
+      "objective": "Study ignition, growth, spread and extinction of solid fuels in low-velocity forced flows in microgravity.",
+      "platform": "Microgravity Science Glovebox (MSG) aboard ISS",
+      "metadata_source_id": "PSI-25-METADATA",
+      "metadata_locator": "PSI metadata: title, objective, approach and experimentHardware fields; objective is intent, not a result."
+    },
+    {
+      "id": "PSI-98",
+      "acronym": "Saffire-I",
+      "title": "Spacecraft Fire Safety Experiment-I",
+      "combustion_type": "solid_fuel",
+      "fuel_category": "solid",
+      "doi": "10.60555/0t15-1z43",
+      "gravity_context": "orbital microgravity; not per-test measured gravity",
+      "objective": "Investigate large-scale low-gravity fire growth and compare flammability limits with normal-gravity screening.",
+      "platform": "Saffire1 enclosure in Cygnus after departure from ISS",
+      "metadata_source_id": "PSI-98-METADATA",
+      "metadata_locator": "PSI metadata: title, objective, approach and experimentHardware fields; objective is intent, not a result."
+    },
+    {
+      "id": "PSI-69",
+      "acronym": "FLEX",
+      "title": "Flame Extinguishment Experiment",
+      "combustion_type": "liquid_droplet",
+      "fuel_category": "liquid",
+      "doi": "10.60555/mbq8-0451",
+      "gravity_context": "orbital microgravity; not per-test measured gravity",
+      "objective": "Investigate liquid-droplet combustion and limiting oxygen conditions, including effects of ambient pressure and dilution.",
+      "platform": "Multi-User Droplet Combustion Apparatus (MDCA) in the Combustion Integrated Rack (CIR), ISS",
+      "metadata_source_id": "PSI-69-METADATA",
+      "metadata_locator": "PSI metadata: title, objective, approach and experimentHardware fields; objective is intent, not a result."
+    }
+  ],
+  "findings": [
+    {
+      "id": "BASS-REPORT-HARDWARE",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Solid samples, geometry and flow",
+      "summary": "The hardware supports PMMA rods, slabs and spherical sections, plus flat blended fabric. Mounting can support opposed or concurrent flow; hot-wire ignition is described.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": false,
+      "topics": [
+        "solid fuels",
+        "geometry",
+        "flow direction",
+        "ignition"
+      ],
+      "locator": {
+        "pdf_page": 13,
+        "printed_page": "5",
+        "section": "1.2 Experimental Hardware"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "Apparatus description is not a verified mounting or ignition mapping for every PSI row.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "A number of sample geometries",
+        "page_text_sha256": "a6e744ca614601fabff65d5e694f37d33d0cdb330977c0c61f8f62f2885538b8"
+      }
+    },
+    {
+      "id": "BASS-REPORT-OXYGEN-OFFSET",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Daily oxygen correction",
+      "summary": "CSA-CP oxygen readings use a daily MCA-referenced offset. The stated sensor resolution is distinct from per-value uncertainty.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": true,
+      "topics": [
+        "oxygen",
+        "sensor correction",
+        "uncertainty"
+      ],
+      "locator": {
+        "pdf_page": 14,
+        "printed_page": "6",
+        "section": "1.2 Experimental Hardware"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "oxygen sensor resolution",
+          "raw": "0.1 percent O2",
+          "value": 0.1,
+          "unit": "% O2",
+          "status": "method_specification",
+          "qualifier": "Sensor resolution, not an error bar.",
+          "uncertainty": null
+        }
+      ],
+      "limitations": [
+        "No new correction applied to already-corrected PSI values.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "offset on a daily basis",
+        "page_text_sha256": "fced809ca7c8ee4717a41d32f0607f1e54795103787ad240f87f9eace5fea5fe"
+      }
+    },
+    {
+      "id": "BASS-REPORT-DILUTION",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Nitrogen dilution model",
+      "summary": "A continuously stirred tank model describes nitrogen dilution, with instantaneous mixing and constant pressure, temperature and volume assumptions.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": false,
+      "topics": [
+        "oxygen",
+        "nitrogen",
+        "model assumptions"
+      ],
+      "locator": {
+        "pdf_page": 14,
+        "printed_page": "6",
+        "section": "1.3 Validation of MSG Dilution"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "Model assumptions must not become measured test conditions.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "constant pressure and",
+        "page_text_sha256": "fced809ca7c8ee4717a41d32f0607f1e54795103787ad240f87f9eace5fea5fe"
+      }
+    },
+    {
+      "id": "BASS-REPORT-CALORIMETRY",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Oxygen-consumption calorimetry",
+      "summary": "Reported heat release estimates use oxygen consumption and burn duration with a specified heat-per-oxygen-mass factor.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": true,
+      "topics": [
+        "heat release",
+        "oxygen consumption",
+        "derived values"
+      ],
+      "locator": {
+        "pdf_page": 10,
+        "printed_page": "2",
+        "section": "Abstract continuation"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "heat per oxygen consumed",
+          "raw": "13.1 kJ of heat released per gram of O2 consumed",
+          "value": 13.1,
+          "unit": "kJ/g O2",
+          "status": "calculation_constant",
+          "qualifier": "Report calculation factor, not a test heat-release measurement.",
+          "uncertainty": null
+        }
+      ],
+      "limitations": [
+        "No individual heat-release values are imported.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "13.1 kJ",
+        "page_text_sha256": "2bc59a69915a20ae0946ccb53b4f4b8e673187a72840f360b074de3e9cecd585"
+      }
+    },
+    {
+      "id": "BASS-REPORT-HEAT-SUMMARY",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Heat-release summary",
+      "summary": "Most reported tests had estimated heat release well below 100 W. The report also discusses window damage during one prolonged burn near that level.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "report_aggregate",
+      "quantitative": true,
+      "topics": [
+        "heat release",
+        "limitations"
+      ],
+      "locator": {
+        "pdf_page": 19,
+        "printed_page": "11",
+        "section": "1.6 Overall Conclusions"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "heat release summary",
+          "raw": "most of the tests released well below 100 W",
+          "value": 100,
+          "unit": "W",
+          "status": "qualified_aggregate",
+          "qualifier": "Reference level only; most, well below. Not an exact measurement.",
+          "uncertainty": null
+        }
+      ],
+      "limitations": [
+        "This qualified aggregate is neither a per-test value nor a safe operating threshold.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "well below 100 W",
+        "page_text_sha256": "2bcea7d5eb6d1c82ee5a58a83440a46f7fc0425d27561f8562e3d06938774819"
+      }
+    },
+    {
+      "id": "BASS-REPORT-PRESSURE-SUBSET",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Pressure exists for a report subset",
+      "summary": "The opposed-flow section reports monitored pressure spanning 99.2 to 99.5 kPa for its described tests. The imported PSI tables still have no pressure column.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "report_aggregate",
+      "quantitative": true,
+      "topics": [
+        "pressure",
+        "opposed flow",
+        "missing data"
+      ],
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": "38",
+        "section": "2.2 Experimental setup, Figure 2.16"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "subset pressure lower",
+          "raw": "99.2",
+          "value": 99.2,
+          "unit": "kPa",
+          "status": "reported_range_bound",
+          "qualifier": "Lower bound for described subset.",
+          "uncertainty": null
+        },
+        {
+          "quantity": "subset pressure upper",
+          "raw": "99.5",
+          "value": 99.5,
+          "unit": "kPa",
+          "status": "reported_range_bound",
+          "qualifier": "Upper bound for described subset.",
+          "uncertainty": null
+        }
+      ],
+      "limitations": [
+        "Subset association to normalized CSV rows remains unresolved; do not backfill.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "99.2 to 99.5 kPa",
+        "page_text_sha256": "4bd3529701dc14a98c0095309d6418d1121bdddae07e1f94e24adc88c208dfbc"
+      }
+    },
+    {
+      "id": "BASS-REPORT-GAS-LAW",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Gas-law inputs are assumptions",
+      "summary": "The oxygen-consumption gas-law calculation uses pressure of 1 atm and temperature of 300 K. These are calculation inputs, distinct from measured row conditions.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": true,
+      "topics": [
+        "pressure",
+        "temperature",
+        "model assumptions"
+      ],
+      "locator": {
+        "pdf_page": 19,
+        "printed_page": "11",
+        "section": "1.5, Equation 1.3"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "assumed pressure",
+          "raw": "P = 1 atm",
+          "value": 1,
+          "unit": "atm",
+          "status": "calculation_assumption",
+          "qualifier": "Ideal-gas calculation input.",
+          "uncertainty": null
+        },
+        {
+          "quantity": "assumed temperature",
+          "raw": "T = 300 K",
+          "value": 300,
+          "unit": "K",
+          "status": "calculation_assumption",
+          "qualifier": "Ideal-gas calculation input.",
+          "uncertainty": null
+        }
+      ],
+      "limitations": [
+        "No per-test pressure or temperature inferred.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "temperature T = 300 K",
+        "page_text_sha256": "2bcea7d5eb6d1c82ee5a58a83440a46f7fc0425d27561f8562e3d06938774819"
+      }
+    },
+    {
+      "id": "BASS-REPORT-PRODUCTS",
+      "investigation_id": "PSI-25",
+      "source_id": "NTRS-20210011385",
+      "title": "Combustion products depend on configuration",
+      "summary": "CO versus CO2 follows a linear trend in some datasets, but not across all fuel geometries and flows described.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "qualitative_observation",
+      "quantitative": false,
+      "topics": [
+        "carbon monoxide",
+        "carbon dioxide",
+        "geometry",
+        "flow"
+      ],
+      "locator": {
+        "pdf_page": 10,
+        "printed_page": "2",
+        "section": "Abstract continuation"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "Do not generalize one relationship across geometries or infer toxicity limits.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "not for all the different",
+        "page_text_sha256": "2bc59a69915a20ae0946ccb53b4f4b8e673187a72840f360b074de3e9cecd585"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-SCOPE",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "Liquid-fuel droplet research",
+      "summary": "FLEX uses MDCA inside the CIR chamber on ISS. This report archives the first 284 tests; that historical count is not the number of imported FIRETRACE rows.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": true,
+      "topics": [
+        "droplet combustion",
+        "hardware",
+        "coverage"
+      ],
+      "locator": {
+        "pdf_page": 7,
+        "printed_page": "1",
+        "section": "Executive Summary"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "historical tests described",
+          "raw": "first 284 tests",
+          "value": 284,
+          "unit": "tests",
+          "status": "report_scope",
+          "qualifier": "Historical report count only, not imported records.",
+          "uncertainty": null
+        }
+      ],
+      "limitations": [
+        "No FLEX tests are normalized here; 284 is report scope.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "first 284 tests",
+        "page_text_sha256": "c8b536f2c64ac82be939ddbefda76672399831483e4dfdb75321942b7a5a898d"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-ATMOSPHERES",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "Fuels and atmosphere scope",
+      "summary": "The report covers methanol and n-heptane droplets in oxygen diluted with nitrogen, carbon dioxide or their mixtures, with reported pressure scope of 0.70 to 3.05 atm.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "report_aggregate",
+      "quantitative": true,
+      "topics": [
+        "droplet combustion",
+        "fuel",
+        "pressure",
+        "suppressants"
+      ],
+      "locator": {
+        "pdf_page": 8,
+        "printed_page": "2",
+        "section": "Executive Summary continuation"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "report pressure lower",
+          "raw": "0.70",
+          "value": 0.7,
+          "unit": "atm",
+          "status": "reported_range_bound",
+          "qualifier": "Report scope lower bound.",
+          "uncertainty": null
+        },
+        {
+          "quantity": "report pressure upper",
+          "raw": "3.05",
+          "value": 3.05,
+          "unit": "atm",
+          "status": "reported_range_bound",
+          "qualifier": "Report scope upper bound.",
+          "uncertainty": null
+        }
+      ],
+      "limitations": [
+        "Report range does not supply conditions for any individual normalized row.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "0.70 and 3.05 atm",
+        "page_text_sha256": "ac00404cc618dc080a3763ea2d5bf4e1d3949d756065ef2750eadcd0d5dd6c8a"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-SUPPORT",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "Free and supported droplets",
+      "summary": "Droplets may be free-floating or fiber-supported; translated fibers introduce prescribed subbuoyant flow. Support and motion must be checked before comparisons.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": false,
+      "topics": [
+        "droplet combustion",
+        "flow",
+        "support geometry"
+      ],
+      "locator": {
+        "pdf_page": 10,
+        "printed_page": "4",
+        "section": "2.1 Experimental Hardware"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "Not equivalent to solid-sample forced-flow flame spread.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "fiber-supported tests",
+        "page_text_sha256": "754242aabd6f04e4d2c70585b0c5a11568b22ad92036971ad3fdf51d7577f6c8"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-EXTINCTION",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "Different extinction behaviors",
+      "summary": "Both radiative and diffusive extinction are reported, along with disruptive extinctions. This is a qualitative report observation, not a material safety classification.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "qualitative_observation",
+      "quantitative": false,
+      "topics": [
+        "extinction",
+        "droplet combustion",
+        "soot"
+      ],
+      "locator": {
+        "pdf_page": 8,
+        "printed_page": "2",
+        "section": "Executive Summary continuation"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "Needle contamination qualifications in Section5.2 apply; no new row outcome labels.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "radiative and diffusive",
+        "page_text_sha256": "ac00404cc618dc080a3763ea2d5bf4e1d3949d756065ef2750eadcd0d5dd6c8a"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-SIZE-UNCERTAINTY",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "Droplet imaging uncertainty",
+      "summary": "The HiBMs droplet-size analysis estimates uncertainty of plus or minus 50 micrometres after considering resolution, segmentation and image noise.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "methodology",
+      "quantitative": true,
+      "topics": [
+        "droplet diameter",
+        "diagnostics",
+        "uncertainty"
+      ],
+      "locator": {
+        "pdf_page": 14,
+        "printed_page": "8",
+        "section": "3.1.2 Error Analysis"
+      },
+      "experiment_ids": [],
+      "quantities": [
+        {
+          "quantity": "droplet size uncertainty",
+          "raw": "±50 µm",
+          "value": 50,
+          "unit": "µm",
+          "status": "method_uncertainty",
+          "qualifier": "Symmetric plus/minus method estimate; not per-test.",
+          "uncertainty": "±50 µm"
+        }
+      ],
+      "limitations": [
+        "Method estimate only; not assigned as an uncertainty to each CSV measurement.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "uncertainty in the droplet size",
+        "page_text_sha256": "b88aa8b7e88509f4cb3b2e9b320fa7a492585a45d82420117ecc658600ec478a"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-RADIOMETRY",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "Radiometric output not reported",
+      "summary": "The radiometers were insufficiently sensitive for reliable quantitative output in the reported tests, so those data are not reported.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "research_limitation",
+      "quantitative": false,
+      "topics": [
+        "radiation",
+        "diagnostics",
+        "missing data"
+      ],
+      "locator": {
+        "pdf_page": 10,
+        "printed_page": "4",
+        "section": "2.2 Experiment Diagnostics"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "An instrument being installed does not establish usable measurement coverage.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "not sensitive enough",
+        "page_text_sha256": "754242aabd6f04e4d2c70585b0c5a11568b22ad92036971ad3fdf51d7577f6c8"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-VIEW-GAPS",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "A trace ending is not necessarily extinction",
+      "summary": "Droplet drift can end or interrupt camera histories. An abrupt trace end may mark loss from the field of view rather than the end of a test.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "research_limitation",
+      "quantitative": false,
+      "topics": [
+        "extinction",
+        "diagnostics",
+        "missing data"
+      ],
+      "locator": {
+        "pdf_page": 22,
+        "printed_page": "16",
+        "section": "5.1 General Observations"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "Do not infer extinction from truncated image traces.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "does not correspond to the end of the test",
+        "page_text_sha256": "57d51a75c433be9c2196cd9ff4e94aa783b457c58f3afa41f6ff19844cb39044"
+      }
+    },
+    {
+      "id": "FLEX-REPORT-CONTAMINATION",
+      "investigation_id": "PSI-69",
+      "source_id": "NTRS-20150023456",
+      "title": "Contamination qualifies observations",
+      "summary": "The authors consider some minor disruptions probably influenced by needle coating. Methanol disruptive extinction is probably contamination-related; heptane disruptive burning remains unresolved in this dataset.",
+      "content_origin": "FIRETRACE-authored paraphrase; not original NASA text",
+      "finding_type": "research_limitation",
+      "quantitative": false,
+      "topics": [
+        "fuel contamination",
+        "extinction",
+        "uncertainty"
+      ],
+      "locator": {
+        "pdf_page": 23,
+        "printed_page": "17",
+        "section": "5.2 Fuel Needle Contamination continuation"
+      },
+      "experiment_ids": [],
+      "quantities": [],
+      "limitations": [
+        "Preserve the authors' probable and unresolved qualifications; do not assert a universal causal result.",
+        "Not mapped to individual normalized experiment records."
+      ],
+      "verification": {
+        "anchor": "no conclusion can be drawn",
+        "page_text_sha256": "fdca5850029c6259a35a26bd586b4f2ddb2ccd0d7e2570b226aad3e97c6afc23"
+      }
+    }
+  ],
+  "acquisitions": [
+    {
+      "path": "data/research/raw/BASS-ntrs-metadata.json",
+      "sha256": "3fcf1e93014a6c0e210bc77714c5a7f95b0ccbedb7e28390184e051d517ab9e9",
+      "bytes": 7042,
+      "acquired_at": "2026-11-14T21:16:44.391584Z"
+    },
+    {
+      "path": "data/research/raw/FLEX-ntrs-metadata.json",
+      "sha256": "738926274e32b6e4b0ba7fa98a4be389969c49b5b67399bb5e029fcd22445826",
+      "bytes": 5520,
+      "acquired_at": "2026-11-14T21:16:44.391584Z"
+    },
+    {
+      "path": "data/research/raw/PSI-69-experimental.csv",
+      "sha256": "37c88ce8ae9391b7544ff630a45ce87543d04d317cdbfbed104fe7d5c27e1b96",
+      "bytes": 24776,
+      "acquired_at": "2026-11-14T21:16:44.391584Z"
+    },
+    {
+      "path": "data/research/raw/PSI-69-metadata.json",
+      "sha256": "a2d8ec5d0e9ad1060f6ecc7a850598634cc5519c373ae70462bf76c31fc8731c",
+      "bytes": 31770,
+      "acquired_at": "2026-11-14T21:16:44.391584Z"
+    }
+  ],
+  "limitations": [
+    "Report findings are not experiment rows. No FLEX measurements have been normalized.",
+    "Solid-fuel spread and droplet burning or extinction do not support interchangeable numerical comparison.",
+    "Original 131 records and their missing pressure/gravity/outcome fields remain unchanged.",
+    "FLEX CSV/report test1 diameter disagreement and ambiguous burning-rate units require reconciliation before import.",
+    "Cool-flame evidence was not curated from these selected passages; absence here is not absence from FLEX research."
+  ],
+  "dataset_version": "8901d73c117984bd28f8195d41ace0d4021b44346b2c575d1eca7477ca24d5f8",
+  "base_corpus_sha256": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9"
+}

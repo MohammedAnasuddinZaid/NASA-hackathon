@@ -1,0 +1,20 @@
+
+> firertrace@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 C:/Users/novaz/OneDrive/Documents/ChatGPT/NASA/FIRETRACE-ai-assistant
+
+ ✓ tests/traceClient.test.ts (4 tests) 10ms
+ ✓ tests/gap.test.ts (11 tests) 14ms
+ ✓ tests/corpus.test.ts (12 tests) 43ms
+ ✓ tests/atmosphere.test.ts (11 tests) 15ms
+ ✓ tests/export.test.ts (10 tests) 15ms
+ ✓ tests/assistant.test.ts (19 tests) 37ms
+ ✓ tests/records.test.ts (16 tests) 24ms
+ ✓ tests/compare.test.ts (10 tests) 7ms
+
+ Test Files  8 passed (8)
+      Tests  93 passed (93)
+   Start at  21:04:19
+   Duration  1.15s (transform 1.41s, setup 0ms, import 2.10s, tests 164ms, environment 1ms)

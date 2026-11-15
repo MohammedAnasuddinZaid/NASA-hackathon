@@ -1,7 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { records, recordById } from '../lib/corpus';
-import { evidenceApi, type ExperimentPage } from '../lib/apiClient';
-import { useEvidenceSession } from '../lib/evidenceSession';
 import type { ExperimentRecord } from '../lib/types';
 import { emptyFilters, filterRecords, uniqueFamilies, uniqueMaterials } from '../lib/records';
 import type { AtlasFilters, SortKey } from '../lib/records';
@@ -9,8 +7,12 @@ import { formatCompact, formatNumber } from '../lib/format';
 import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, EmptyState, PageHeader, Panel } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
+import { BasketButton } from '../lib/basketContext';
+import { evidenceApi, ServiceUnavailable, type ExperimentPage } from '../lib/apiClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 
 const PAGE_SIZE = 24;
+const ResearchLibrary = lazy(() => import('../components/ResearchLibrary'));
 
 function initialFamily(): string {
   const query = window.location.hash.split('?')[1] ?? '';
@@ -18,33 +20,55 @@ function initialFamily(): string {
 }
 
 export function Atlas() {
-  const [filters, setFilters] = useState<AtlasFilters>({ ...emptyFilters, family: initialFamily() });
+  const [research, setResearch] = useState(() => new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
+  useEffect(() => {
+    const readView = () => setResearch(new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
+    window.addEventListener('hashchange', readView);
+    return () => window.removeEventListener('hashchange', readView);
+  }, []);
+  const [filters, setFilters] = useState<AtlasFilters>({
+    ...emptyFilters,
+    family: initialFamily(),
+  });
   const [page, setPage] = useState(0);
-  const [selected, setSelected] = useState<ExperimentRecord | null>(null);
   const session = useEvidenceSession();
   const [remote, setRemote] = useState<{ key: string; data: ExperimentPage } | null>(null);
-  const key = JSON.stringify([filters, page]);
+  const queryKey = JSON.stringify([filters, page]);
   useEffect(() => {
-    if (session.mode !== 'api') return;
+    if (research || session.mode !== 'api') return;
     let active = true;
-    evidenceApi.experiments({ q: filters.query, family: filters.family === 'all' ? undefined : filters.family, material: filters.material === 'all' ? undefined : filters.material, material_exact: true, atlas_search: true, validation_status: filters.quality === 'all' ? undefined : filters.quality, min_o2: filters.o2Min ?? undefined, max_o2: filters.o2Max ?? undefined, flow_only: filters.flowOnly, sort: filters.sort, limit: PAGE_SIZE, offset: page * PAGE_SIZE })
-      .then(data => { if (active) setRemote({ key, data }); }).catch(error => { if (active) session.fallback(error.message); });
+    evidenceApi.experiments({
+      q: filters.query, family: filters.family === 'all' ? undefined : filters.family,
+      material: filters.material === 'all' ? undefined : filters.material,
+      material_exact: true, atlas_search: true, validation_status: filters.quality === 'all' ? undefined : filters.quality,
+      min_o2: filters.o2Min ?? undefined, max_o2: filters.o2Max ?? undefined,
+      flow_only: filters.flowOnly, sort: filters.sort, limit: PAGE_SIZE, offset: page * PAGE_SIZE,
+    }).then(data => {
+      if (data.items.some(item => !recordById.has(item.experiment_id))) throw new ServiceUnavailable('API returned an unknown experiment; using bundled data.');
+      if (active) setRemote({ key: queryKey, data });
+    }).catch(error => { if (active) session.fallback(error.message); });
     return () => { active = false; };
-  }, [key, session.mode]);
-  const apiData = session.mode === 'api' && remote?.key === key ? remote.data : null;
-  async function openRecord(record: ExperimentRecord) {
-    if (session.mode !== 'api') { setSelected(record); return; }
-    try {
-      const detail = await evidenceApi.experiment(record.experiment_id);
-      setSelected({ ...record, ...detail, ...detail.fields } as ExperimentRecord);
-    } catch (error) { session.fallback((error as Error).message); setSelected(record); }
-  }
+  }, [queryKey, session.mode, research]);
+  const params = new URLSearchParams(window.location.hash.split('?')[1] ?? '');
+  const [selected, setSelected] = useState<ExperimentRecord | null>(
+    () => recordById.get(params.get('id') ?? '') ?? null,
+  );
+  useEffect(() => {
+    const readDetail = () => {
+      if (!window.location.hash.startsWith('#/atlas')) return;
+      const query = new URLSearchParams(window.location.hash.split('?')[1] ?? '');
+      setSelected(recordById.get(query.get('id') ?? '') ?? null);
+    };
+    window.addEventListener('hashchange', readDetail);
+    return () => window.removeEventListener('hashchange', readDetail);
+  }, []);
 
   const filtered = useMemo(() => filterRecords(records, filters), [filters]);
+  const apiData = session.mode === 'api' && remote?.key === queryKey ? remote.data : null;
   const count = apiData?.total ?? filtered.length;
   const pageCount = Math.max(1, Math.ceil(count / PAGE_SIZE));
   const safePage = Math.min(page, pageCount - 1);
-  const visible = apiData ? apiData.items.map(r => recordById.get(r.experiment_id)!).filter(Boolean) : filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
+  const visible = apiData ? apiData.items.map(item => recordById.get(item.experiment_id)!) : filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
   const families = useMemo(() => uniqueFamilies(), []);
   const materials = useMemo(() => uniqueMaterials(), []);
   const flagged = filtered.filter((record) => record.validation_status !== 'validated').length;
@@ -62,19 +86,35 @@ export function Atlas() {
     );
   }
 
+  if (research) return <Suspense fallback={<div className="page" role="status">Loading research library…</div>}><ResearchLibrary onBack={() => { setResearch(false); window.history.replaceState(null, '', '#/atlas'); }} /></Suspense>;
+
   return (
     <div className="page page--atlas">
       <PageHeader
         index="02"
         eyebrow="Evidence Atlas"
-        title={<>Every record, <em>every gap.</em></>}
+        title={
+          <>
+            Every record, <em>every gap.</em>
+          </>
+        }
         lede="Search the normalized experiment records and open any row for its measurements, quality flags, raw source fields and provenance. Missing values stay missing."
         actions={
-          <button className="button button--ghost button--small" onClick={exportFiltered}>
+          <><button className="button button--ghost button--small" onClick={() => { setResearch(true); window.history.replaceState(null, '', '#/atlas?view=research'); }}>Research findings & coverage</button><button className="button button--ghost button--small" onClick={exportFiltered}>
             Export filtered CSV
-          </button>
+          </button></>
         }
       />
+      {params.get('from') === 'gap' && (
+        <p>
+          <a className="text-link" href="#/gap">
+            ← Return to saved scenario
+          </a>
+        </p>
+      )}
+      {params.has('id') && !recordById.has(params.get('id') ?? '') && (
+        <p role="alert">Requested record ID was not found. No substitute record was opened.</p>
+      )}
 
       <div className="atlas-summary">
         <div className="atlas-summary__count">
@@ -101,25 +141,38 @@ export function Atlas() {
           </label>
           <label className="field">
             <span>Investigation</span>
-            <select value={filters.family} onChange={(event) => update({ family: event.target.value })}>
+            <select
+              value={filters.family}
+              onChange={(event) => update({ family: event.target.value })}
+            >
               <option value="all">All investigations</option>
               {families.map((family) => (
-                <option key={family} value={family}>{family}</option>
+                <option key={family} value={family}>
+                  {family}
+                </option>
               ))}
             </select>
           </label>
           <label className="field">
             <span>Material family</span>
-            <select value={filters.material} onChange={(event) => update({ material: event.target.value })}>
+            <select
+              value={filters.material}
+              onChange={(event) => update({ material: event.target.value })}
+            >
               <option value="all">All materials</option>
               {materials.map((material) => (
-                <option key={material} value={material}>{material}</option>
+                <option key={material} value={material}>
+                  {material}
+                </option>
               ))}
             </select>
           </label>
           <label className="field">
             <span>Quality</span>
-            <select value={filters.quality} onChange={(event) => update({ quality: event.target.value })}>
+            <select
+              value={filters.quality}
+              onChange={(event) => update({ quality: event.target.value })}
+            >
               <option value="all">All statuses</option>
               <option value="validated">Validated</option>
               <option value="partial">Partial</option>
@@ -135,7 +188,9 @@ export function Atlas() {
               step={0.1}
               value={filters.o2Min ?? ''}
               placeholder="13.6"
-              onChange={(event) => update({ o2Min: event.target.value === '' ? null : Number(event.target.value) })}
+              onChange={(event) =>
+                update({ o2Min: event.target.value === '' ? null : Number(event.target.value) })
+              }
             />
           </label>
           <label className="field">
@@ -147,12 +202,17 @@ export function Atlas() {
               step={0.1}
               value={filters.o2Max ?? ''}
               placeholder="22.2"
-              onChange={(event) => update({ o2Max: event.target.value === '' ? null : Number(event.target.value) })}
+              onChange={(event) =>
+                update({ o2Max: event.target.value === '' ? null : Number(event.target.value) })
+              }
             />
           </label>
           <label className="field">
             <span>Sort</span>
-            <select value={filters.sort} onChange={(event) => update({ sort: event.target.value as SortKey })}>
+            <select
+              value={filters.sort}
+              onChange={(event) => update({ sort: event.target.value as SortKey })}
+            >
               <option value="id">Record ID</option>
               <option value="o2-asc">O2 ascending</option>
               <option value="o2-desc">O2 descending</option>
@@ -171,7 +231,8 @@ export function Atlas() {
             <span>Only records with reported flow</span>
           </label>
           <span className="mono">
-            {filtered.length} / {records.length} records · showing {visible.length} on page {safePage + 1} of {pageCount}
+            {count} / {records.length} records · showing {visible.length} on page{' '}
+            {safePage + 1} of {pageCount}
           </span>
           <button
             className="text-link"
@@ -188,7 +249,8 @@ export function Atlas() {
       <Panel className="table-panel" kicker="Records" title="Experiment table">
         {visible.length === 0 ? (
           <EmptyState title="No records match these filters">
-            The corpus still contains {records.length} records. Clear a filter or widen the oxygen range.
+            The corpus still contains {records.length} records. Clear a filter or widen the oxygen
+            range.
           </EmptyState>
         ) : (
           <div className="table-wrap">
@@ -203,6 +265,7 @@ export function Atlas() {
                   <th>Pressure</th>
                   <th>Gravity</th>
                   <th>Status</th>
+                  <th>Evidence basket</th>
                 </tr>
               </thead>
               <tbody>
@@ -210,12 +273,12 @@ export function Atlas() {
                   <tr
                     key={record.experiment_id}
                     className="data-table__row"
-                    onClick={() => void openRecord(record)}
+                    onClick={() => setSelected(record)}
                     tabIndex={0}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
-                        void openRecord(record);
+                        setSelected(record);
                       }
                     }}
                     aria-label={`Open ${record.experiment_id}`}
@@ -233,7 +296,11 @@ export function Atlas() {
                       <span className="record-sub">{record.geometry}</span>
                     </td>
                     <td className="num mono">{formatCompact(record.oxygen_initial_pct)}</td>
-                    <td className="num mono">{record.flow_initial_cm_s.value === null ? '—' : formatCompact(record.flow_initial_cm_s)}</td>
+                    <td className="num mono">
+                      {record.flow_initial_cm_s.value === null
+                        ? '—'
+                        : formatCompact(record.flow_initial_cm_s)}
+                    </td>
                     <td>
                       <span className="missing-value">Not reported</span>
                     </td>
@@ -254,6 +321,7 @@ export function Atlas() {
                         {record.validation_status}
                       </Badge>
                     </td>
+                    <td><BasketButton id={record.experiment_id} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -269,7 +337,9 @@ export function Atlas() {
           >
             ← Previous
           </button>
-          <span className="mono">page {safePage + 1} / {pageCount}</span>
+          <span className="mono">
+            page {safePage + 1} / {pageCount}
+          </span>
           <button
             className="button button--ghost button--small"
             disabled={safePage >= pageCount - 1}
@@ -290,9 +360,17 @@ export function Atlas() {
           </p>
         </div>
         <div className="atlas-note__stats">
-          <span><strong>{formatNumber(records.length, 0)}</strong> total records</span>
-          <span><strong>{records.filter((record) => record.quality_flags.length > 0).length}</strong> with quality flags</span>
-          <span><strong>{records.filter((record) => record.thickness_mm.value !== null).length}</strong> with thickness</span>
+          <span>
+            <strong>{formatNumber(records.length, 0)}</strong> total records
+          </span>
+          <span>
+            <strong>{records.filter((record) => record.quality_flags.length > 0).length}</strong>{' '}
+            with quality flags
+          </span>
+          <span>
+            <strong>{records.filter((record) => record.thickness_mm.value !== null).length}</strong>{' '}
+            with thickness
+          </span>
         </div>
       </div>
 

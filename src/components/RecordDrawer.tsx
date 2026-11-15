@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ExperimentRecord, DataValue } from '../lib/types';
-import { artifactsFor } from '../lib/corpus';
+import { artifactsFor, recordById } from '../lib/corpus';
 import { formatCompact, humanizeToken, shortDate, statusLabel, statusTone } from '../lib/format';
 import { Badge, SourceLink, StatusBadge } from './ui';
 import { downloadJson } from '../lib/export';
@@ -33,15 +33,28 @@ function Field({
 }
 
 export function RecordDrawer({
-  record,
+  record: requestedRecord,
   onClose,
 }: {
   record: ExperimentRecord | null;
   onClose: () => void;
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
   const session = useEvidenceSession();
+  const [remote, setRemote] = useState<ExperimentRecord | null>(null);
+  useEffect(() => {
+    setRemote(null);
+    if (!requestedRecord || session.mode !== 'api') return;
+    let active = true;
+    evidenceApi.experiment(requestedRecord.experiment_id).then(detail => {
+      if (active) setRemote({ ...requestedRecord, ...detail, ...detail.fields } as ExperimentRecord);
+    }).catch(error => { if (active) session.fallback(error.message); });
+    return () => { active = false; };
+  }, [requestedRecord?.experiment_id, session.mode]);
+  const record = session.mode === 'api' && remote?.experiment_id === requestedRecord?.experiment_id
+    ? remote : requestedRecord ? recordById.get(requestedRecord.experiment_id) ?? requestedRecord : null;
   const [originals, setOriginals] = useState<Array<{ artifact_id: string; original_filename: string; download_available: boolean }>>([]);
   useEffect(() => {
     setOriginals([]);
@@ -54,8 +67,19 @@ export function RecordDrawer({
 
   useEffect(() => {
     if (!record) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
+      if (event.key === 'Tab') {
+        const nodes = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), [tabindex="0"]') ?? [])
+          .filter(node => node.getClientRects().length > 0);
+        const first = nodes[0], last = nodes.at(-1);
+        if (first && last && event.shiftKey && document.activeElement === first) {
+          event.preventDefault(); last.focus();
+        } else if (first && last && !event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first.focus();
+        }
+      }
     };
     document.addEventListener('keydown', onKey);
     document.body.classList.add('has-drawer');
@@ -63,8 +87,9 @@ export function RecordDrawer({
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.classList.remove('has-drawer');
+      if (previousFocus?.isConnected) previousFocus.focus();
     };
-  }, [record, onClose]);
+  }, [record?.experiment_id, onClose]);
 
   if (!record) return null;
   const artifact = artifactsFor(record.source_id).find((item) => item.role === 'experiment_table');
@@ -81,7 +106,7 @@ export function RecordDrawer({
   }
 
   return (
-    <div className="drawer-layer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div ref={dialogRef} className="drawer-layer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
       <button className="drawer-backdrop" aria-label="Close record detail" onClick={onClose} />
       <aside className="drawer">
         <header className="drawer__head">

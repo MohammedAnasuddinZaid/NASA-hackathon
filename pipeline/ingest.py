@@ -326,8 +326,8 @@ psi25 = source_metadata("PSI-25")
 psi98 = source_metadata("PSI-98")
 readme25 = docx_text(RAW / "PSI-25_ReadMe.docx")
 readme98 = docx_text(RAW / "PSI-98_ReadMe.docx")
-(OUT / "readme_PSI-25.txt").write_text(readme25, encoding="utf-8")
-(OUT / "readme_PSI-98.txt").write_text(readme98, encoding="utf-8")
+(OUT / "readme_PSI-25.txt").write_text(readme25, encoding="utf-8", newline="\r\n")
+(OUT / "readme_PSI-98.txt").write_text(readme98, encoding="utf-8", newline="\r\n")
 
 sources = [
     artifact("PSI-25", "PSI-25_experimental.csv",
@@ -1076,13 +1076,15 @@ corpus = {
 if any(check["result"] == "FAIL" for check in validation["checks"]):
     raise ValueError("Validation failed; corpus publication refused")
 
-with open(OUT / "corpus.json", "w", encoding="utf-8") as f:
+# Legacy verified snapshots use CRLF. Explicit encoding/newlines preserve their
+# exact published SHA on Linux/macOS as well as Windows; measurements are unchanged.
+with open(OUT / "corpus.json", "w", encoding="utf-8", newline="\r\n") as f:
     json.dump(corpus, f, indent=2, ensure_ascii=False)
 
-with open(OUT / "source_manifest.json", "w", encoding="utf-8") as f:
+with open(OUT / "source_manifest.json", "w", encoding="utf-8", newline="\r\n") as f:
     json.dump({"generated_at": GENERATED_AT, "sources": sources, "context_sources": context_sources}, f, indent=2, ensure_ascii=False)
 
-with open(PROCESSED / "validation_report.json", "w", encoding="utf-8") as f:
+with open(PROCESSED / "validation_report.json", "w", encoding="utf-8", newline="\r\n") as f:
     json.dump(validation, f, indent=2, ensure_ascii=False)
 
 shutil.copy2(OUT / "corpus.json", PUBLIC_DATA / "corpus.json")

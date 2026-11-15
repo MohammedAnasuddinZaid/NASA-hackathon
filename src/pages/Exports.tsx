@@ -11,6 +11,7 @@ import {
   recordsToCsv,
 } from '../lib/export';
 import { Badge, PageHeader, Panel, SectionRule } from '../components/ui';
+import { ResearchWorkspace } from '../components/ResearchWorkspace';
 
 type Scope = 'all' | 'BASS-II' | 'Saffire-I';
 type Preset = 'core' | 'full';
@@ -45,6 +46,8 @@ export function Exports() {
         actions={<Badge tone="mint">Local generation</Badge>}
       />
 
+      <ResearchWorkspace />
+      <SectionRule label="Whole-corpus downloads" meta="Separate from your evidence basket" />
       <div className="export-layout">
         <Panel kicker="Dataset" title="Choose a scope" className="export-config">
           <div className="scope-tabs" role="tablist" aria-label="Dataset scope">

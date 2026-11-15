@@ -1,0 +1,13 @@
+
+> firertrace@0.1.0 build
+> tsc -b && vite build
+
+vite v7.3.8 building client environment for production...
+transforming...
+✓ 79 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     1.09 kB │ gzip:   0.57 kB
+dist/assets/index-A2qxfvAj.css    150.11 kB │ gzip:  24.95 kB
+dist/assets/index-B5ZWei_7.js   2,214.25 kB │ gzip: 207.82 kB
+✓ built in 2.58s

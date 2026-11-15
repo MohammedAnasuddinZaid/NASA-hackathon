@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { routes, useRoute } from '../lib/router';
 import { corpus } from '../lib/corpus';
+import { BasketIndicator } from '../lib/basketContext';
 
 const subtitles: Record<string, string> = {
   overview: 'The thesis, on one screen',
@@ -197,6 +198,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="topbar__right">
+          <BasketIndicator />
           <span className="topbar__status">
             <span className="status-dot" aria-hidden="true" />
             {corpus.meta.record_count} records &middot; live demo

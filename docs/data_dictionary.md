@@ -8,7 +8,7 @@ Every statement below was read from the shipped corpus and the shipped policy mo
 (`backend/app/v1/policy.py`). Counts are for the current corpus version:
 
 ```
-corpus_version = 467bc6ba85e94d3b11a950a361ff69d8865c3ee65c5c5149ceebaeaa0f55566c
+corpus_version = 89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9
 ```
 
 `corpus_version` is the SHA-256 of the raw `corpus.json` bytes. It appears in every API response
@@ -22,8 +22,8 @@ dataset it came from.
 | `meta` | Pipeline version, timestamps, record/investigation counts, declared coverage and quality counts, disclaimer. |
 | `records` | 131 experiment records. 129 BASS-II (PSI-25), 2 Saffire-I (PSI-98). |
 | `claims` | 12 curated, source-located investigation and corpus-level claims. Not per-test measurements. |
-| `sources` | 8 source artifacts across the two PSI investigations. Several artifacts share one `source_id`. |
-| `context_sources` | 2 context-only entries: the 2026 challenge page and NTRS 20250010653 (LUCI). They are not structured records. |
+| `sources` | 10 source artifacts across the two PSI investigations. Several artifacts share one `source_id`. |
+| `context_sources` | 3 context-only entries, including the 2026 challenge page, LUCI and BASS-II summary report. They are not structured records. |
 | `presets` | 3 reference atmospheres used by the Atmosphere Explorer (`earth-sea-level`, `spacesuit`, `lunar-cabin`). |
 | `limitations` | 10 corpus-level limitation statements. |
 

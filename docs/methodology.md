@@ -59,7 +59,9 @@ The pipeline records the following checks in `validation_report.json`:
 ## Assistant
 
 The Evidence Assistant is deterministic retrieval over the bundled corpus, claims and source
-manifest. It performs no external model or API call. It answers only from reported values and
+manifest by default. The optional server-side TRACE endpoint adds bounded AI interpretations;
+see [TRACE safeguards and configuration](trace-assistant.md). Exact claims remain deterministic.
+The bundled engine performs no external model call. It answers only from reported values and
 abstains otherwise. The 30-question benchmark in `data/processed/benchmark.json` records its
 current behavior.
 
@@ -83,6 +85,12 @@ answer or export can be tied to the exact dataset it came from. Field-level sema
 `docs/data_dictionary.md`.
 
 ## Exports
+
+Scenario retrieval and condition-aware comparison use a separate explicit browser policy,
+scenario-retrieval-1.0. Numerical tolerances align with existing backend matching tolerances,
+but approximate, suspect, contextual and varying-flow handling is deliberately conservative.
+See [matching, weights, gaps and integration notes](scenario-planner.md). No scientific source
+values are modified, and heuristic points are not probabilities or certification evidence.
 
 CSV and JSON exports are generated locally from the bundled corpus. Empty cells mean “not
 reported,” not zero. Raw source locators, validation status and quality flags are included.

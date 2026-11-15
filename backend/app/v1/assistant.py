@@ -366,7 +366,7 @@ class Assistant:
 
         claims, report = validate_claims(self.store, drafts)
 
-        if not claims and grade != "out-of-scope":
+        if not claims and grade != "out-of-scope" and not extra.get("research_scope"):
             grade = "absent"
             headline = (
                 "No validated claim survives retrieval for this question."
@@ -429,6 +429,14 @@ class Assistant:
         unresolved = self._unresolved_record_tokens(question)
         if unresolved:
             return self._unknown_identifier_answer(unresolved)
+
+        if re.search(r"\bFLEX\b|\bsummary report\b|\bresearch report\b", question, re.I):
+            return ([], "absent", "Report evidence is outside this assistant's indexed record layer.",
+                    ["Use the Research Library in Evidence Atlas for verified report findings and page citations. "
+                     "This assistant indexes the experimental record layer; it cannot retrieve those report passages. "
+                     "A report observation is not a measurement for an individual test. "
+                     "FLEX droplet research must not be substituted for solid-fuel experiment evidence."], [],
+                    {"research_scope": True, "follow_ups": ["What oxygen did BASS2-B1 report?"]})
 
         if filters:
             return self._filtered_answer(question, filters)

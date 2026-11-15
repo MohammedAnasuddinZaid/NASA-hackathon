@@ -1,105 +1,25 @@
-# FIRETRACE build status
+# FIRETRACE integrated build status
 
-Updated 2026-11-14. This is a review candidate, not a declaration of scientific certification.
+Updated 2026-11-15. Release candidate for human review; no scientific certification or public deployment.
 
-- Record explorer: Vite/React/TypeScript, static bundled data.
-- Corpus: 131 rows (129 BASS-II, 2 Saffire sample rows); 71 pipeline-validated / 56 partial / 4 suspect.
-- Pressure and measured per-test gravity: 0 records. These are current CSV coverage gaps; BASS report context exists.
-- 10 preserved artifact inventory entries, 8 small PSI originals downloadable unchanged; 3 context sources.
-- Pipeline 0.2.0: deterministic output, source locks, byte-identical regeneration tests, original-unit and uncertainty fixes.
-- Scientific review and validation evidence: docs/scientific-audit.md and docs/evidence/pr1/.
-- Evidence API: complete at `/api/v1` with experiments, sources, coverage, compare, scenario evaluation,
-  grounded answers, exports and health probes. It boots with no AI runtime.
-- Assistant UI: calls the evidence API first, shows the corpus hash, validated-claim count and the
-  validated claim text with its source locator, and falls back to the bundled deterministic engine
-  when the API is unreachable.
-- Unit suite: 89 Vitest tests passing.
-- Backend suite: 155 pytest tests passing.
-- Index gate: `python scripts/build_index.py` passes referential-integrity, null-discipline,
-  unit and FTS checks and exits 0.
-- Evaluation: `eval/run_eval.py` exits 0 with 0 integrity problems over 30 questions.
-- Assistant benchmark: 30/30 questions passing against the bundled engine.
-- Static build: passing (`npm run build`).
-- End-to-end suite: the Playwright tests exist in `e2e/`, but they do not run on this machine
-  because the OS application-control policy blocks the Playwright Chromium binary. No pass
-  result is claimed here.
-- Remaining: per-test mapping from reports, broader result ingestion, frontend/backend answer-parity
-  expansion, source licensing review for additional reuse, submission packaging.
-- No public deployment performed.
+- Main baseline: d7c53f42b009b06aea2380064610d2362e6009d8.
+- Local integration branch: integration/firetrace-final-review. PR6 then PR5 histories preserved.
+- PR1/3/4 already merged; PR2/5/6 left open and untouched.
+- 131 structured records: 129 BASS-II, 2 Saffire-I; 71 validated / 56 partial / 4 suspect.
+- 0 per-record pressure, 0 measured test-level gravity, 0 standardized outcomes; no filled-in values.
+- 3 research investigations, 16 findings (8 BASS-II / 8 FLEX), 2 reports, 0 normalized FLEX records.
+- Original verified bytes preserved across Git/platforms; generated snapshots reproduced byte-for-byte.
+- API Atlas/detail/compare behaviors restored without reverting TRACE or scenario planner.
+- TRACE, evidence API and research snapshots checked against actual bundled corpus identity.
+- Basket, selected briefs and all four formats integrated with the Research Library.
+- Frontend: 224 unit tests pass; backend: 210 tests pass; ingestion/research: 19 tests pass.
+- Browser environment repaired. Default 30, evidence API 5 including actual Swagger, TRACE mock 2,
+  combined integration 5 pass. Focus containment/return and mobile source-link overflow corrected.
+- No live OpenAI verification: no server credential. SDK wire-contract and provider failure tests pass.
+- GitHub Actions added: frontend, science/backend and browser jobs without model credentials.
+- Integration PR7 is open against main. Hosted checks and publication details are linked in the final review.
+- Remaining: report retrieval is separate from TRACE; FLEX units/version reconciliation; per-test
+  report mapping; optional voice not validated; no guaranteed cold/offline reload; no public hosting.
 
-## Key counts
-
-- Records: 131 (129 BASS-II, 2 Saffire-I)
-- Quality: 71 validated, 56 partial, 4 suspect
-- Total pressure reported: 0 / 131
-- Measured per-test gravity: 0 / 131
-- Standardized outcome: 0 / 131
-- Initial O2 reported: 131 / 131 (range 13.6–22.2 %)
-- Final O2 reported: 127 / 131
-- Flow reported: 123 / 131
-- Thickness parsed: 44 / 131
-- Source artifacts: 8 PSI/NTRS artifacts plus 2 context sources
-- Verified claims: 12
-- Matrix cross-check: 129/129 test IDs, 129/129 initial O2 matches, 0 substantive conflicts
-- `corpus_version`: recorded by `GET /health/live` and attached to every export.
-
-Field-by-field counts and semantics are in `docs/data-dictionary.md` and `docs/data_dictionary.md`.
-
-## Verification commands
-
-Run npm run build, npm test, npm run e2e, npm run benchmark, and npm run validate:data (Python
-dependency setup in README). No lint script is configured. The build includes TypeScript checking.
-The bundle-size warning is known.
-
-Web app:
-
-```bash
-npm install
-npm run build
-npm test
-npm run benchmark
-```
-
-Evidence API:
-
-```bash
-cd backend
-pip install -r requirements.txt
-python -m pytest -q
-python scripts/build_index.py
-uvicorn api:app --host 127.0.0.1 --port 8000
-```
-
-Evaluation:
-
-```bash
-python eval/run_eval.py
-```
-
-End-to-end (requires an unblocked Chromium binary):
-
-```bash
-npm run e2e
-```
-
-## Known limitations
-
-- The static bundle is a single large JavaScript chunk (about 1.73 MB raw, 172 KB gzip) because
-  the corpus JSON is imported directly for offline use.
-- Mobile Atlas hides some secondary columns to keep the table readable; the full record is
-  available in the drawer.
-- LUCI findings are context only and are not structured per-test records.
-- The Gap Planner produces a checklist, not a protocol, prediction or certification.
-- No external LLM or API is used; both assistants are deterministic retrieval.
-- The overview narration is pre-recorded; it does not read live model output.
-- The optional voice stack is not installed in this environment, so the voice routes were only
-  tested for their structured `503 voice_unavailable` behaviour.
-- `eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` with `0/30`
-  labelled items. The shipped question set has no gold answers, so no metric is estimated.
-
-## Not yet done
-
-- Authorized deployment and domain configuration.
-- Optional code-splitting of the corpus chunk.
-- Gold answers for the 30 evaluation questions, which would enable hit@5 and abstention metrics.
-- Additional accessibility audit beyond the Playwright smoke checks.
+See [Final integration review](docs/final-integration-review.md), [Deployment](docs/deployment.md),
+and [genuine test/screenshot evidence](docs/evidence/integration/).

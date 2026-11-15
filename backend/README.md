@@ -2,10 +2,10 @@
 
 Local-only FastAPI service for the FIRETRACE evidence workspace.
 
-The existing FTS index now includes a lossless scientific SQLite snapshot. Run the existing
-`scripts/build_index.py` to validate original hashes/CSV rows and rebuild it atomically.
-The new source inventory/download endpoints and API-backed frontend use this same service.
-See [foundation setup and dictionary](../docs/pr2-foundation.md); no second backend is required.
+TRACE adds an optional server-side OpenAI interpretation endpoint at
+`POST /api/v1/assistant/query`, disabled by default, and a deterministic calculation
+endpoint at `POST /api/v1/assistant/calculate`. Install requirements-ai.txt for generation;
+see [setup, evidence checks, privacy and limits](../docs/trace-assistant.md).
 
 It has two layers:
 
