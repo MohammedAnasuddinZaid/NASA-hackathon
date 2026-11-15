@@ -6,7 +6,7 @@ mkdirSync('tmp', { recursive: true });
 const env = { ...process.env, FIRETRACE_INDEX_PATH: path.resolve(mkdtempSync('tmp/api-test-'), 'evidence.sqlite3') };
 const imported = spawnSync(python, ['scripts/build_index.py'], { cwd: 'backend', env, stdio: 'inherit', windowsHide: true });
 if (imported.status !== 0) process.exit(imported.status ?? 1);
-const server = spawn(python, ['-m', 'uvicorn', 'api:app', '--host', '127.0.0.1', '--port', '8012'], { cwd: 'backend', env, stdio: 'inherit', windowsHide: true });
+const server = spawn(python, ['-m', 'uvicorn', 'api:app', '--host', '127.0.0.1', '--port', process.env.FIRETRACE_TEST_PORT ?? '8012'], { cwd: 'backend', env, stdio: 'inherit', windowsHide: true });
 process.on('SIGINT', () => server.kill());
 process.on('SIGTERM', () => server.kill());
 server.on('exit', code => { process.exitCode = code ?? 0; });

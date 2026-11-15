@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
-const evidence = 'docs/evidence/pr2';
+const evidence = 'tmp/evidence-api-captures';
 test('API Atlas search, detail, sources, coverage and untouched original', async ({ page }) => {
   const responses: string[] = [];
   page.on('response', response => { if (response.url().includes('/api/v1/') && response.ok()) responses.push(response.url()); });
@@ -29,9 +29,8 @@ test('API Atlas search, detail, sources, coverage and untouched original', async
 test('API comparison uses existing backend matching policy', async ({ page }) => {
   await page.goto('/#/compare?ids=SAFFIRE1-S1,SAFFIRE1-S2');
   await expect(page.getByTestId('evidence-connection')).toContainText('API connected');
-  await expect(page.locator('.check-grid')).toContainText('Total pressure');
-  await expect(page.locator('.check-grid')).toContainText('Flow direction');
-  await expect(page.locator('.check--unknown').filter({ hasText: 'Total pressure' })).toBeVisible();
+  await expect(page.getByTestId('api-comparison')).toContainText('Total pressure: unknown');
+  await expect(page.getByTestId('api-comparison')).toContainText('Flow direction: mismatched');
 });
 test('unavailable or mismatched API preserves all eight routes with explicit fallback', async ({ page }) => {
   await page.route('**/api/v1/**', route => route.fulfill({ status: 409, contentType: 'application/json', body: '{}' }));
@@ -56,7 +55,7 @@ test('mid-session failure switches the entire evidence session to bundled mode',
 });
 test('actual Swagger and scientific API response capture', async ({ page }) => {
   test.skip(process.env.FIRETRACE_CAPTURE_SWAGGER !== '1', 'Optional Swagger capture uses CDN assets');
-  await page.goto('http://127.0.0.1:8012/docs');
+  await page.goto('http://127.0.0.1:8012/api/docs');
   await expect(page.getByRole('heading', { name: /FIRETRACE Evidence API/ })).toBeVisible();
   await page.screenshot({ path: `${evidence}/swagger.png`, fullPage: true });
   await page.goto('http://127.0.0.1:8012/api/v1/experiments/BASS2-B1');

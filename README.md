@@ -9,7 +9,7 @@ questions the sources cannot support.
 The repository ships two runnable surfaces over one curated corpus:
 
 - a **static Vite + React + TypeScript application** that bundles all evidence as JSON and works
-  offline after a build;
+  without a backend after its assets have loaded;
 - a **local FastAPI evidence API** in `backend/` that serves the same corpus with per-field
   provenance, claim validation and explicit abstention.
 
@@ -23,6 +23,11 @@ run `npm run dev:full`. Atlas/detail/source browsing and coverage use the local 
 when its corpus matches the bundle, with explicit complete bundled fallback otherwise.
 See [the evidence foundation guide](docs/pr2-foundation.md) for setup, SQLite schema, source
 downloads, tests and the user-approved adaptation to current main after PR #1 was merged externally.
+
+The integrated release review, test evidence, remaining limitations and PR reconciliation are in
+[Final integration review](docs/final-integration-review.md). Follow [Deployment](docs/deployment.md)
+for reproducible Windows/Linux setup and same-origin API configuration. Research reports load lazily
+and require an initial network fetch; there is no service worker or guaranteed offline reload.
 
 ## What it does
 
@@ -39,6 +44,9 @@ downloads, tests and the user-approved adaptation to current main after PR #1 wa
 - **Evidence Assistant** — deterministic retrieval and citation engine with abstention.
 - **Methodology & Sources** — pipeline rules, validation gates, anomalies, sources and licenses.
 - **Exports** — CSV/JSON exports of records, claims and the source manifest.
+- **Evidence basket & research briefs** — persistent, version-aware selection across pages,
+  deterministic evidence summaries and selected CSV/JSON/Markdown/printable HTML downloads.
+  See [basket and export schema/setup](docs/research-exports.md). No external AI or backend required.
 
 ## Corpus
 
@@ -51,6 +59,16 @@ Total: **131 experiment records**. Context only (not structured records): LUCI (
 and the official challenge page.
 
 ## Current table coverage
+
+### Verified report research
+
+Atlas also offers **Research findings & coverage**:16 source-linked findings from the BASS-II
+Summary Report and FLEX Detailed Results, with3 investigations,2 research reports and explicit
+solid-fuel versus liquid-droplet classification. The131 original records remain unchanged;
+no FLEX rows are normalized. Report findings do not enter numeric comparison or scenario ranking.
+See [research expansion, source verification and ingestion](docs/research-expansion.md) and
+[cross-PR compatibility](docs/cross-pr-compatibility.md). The original source PDFs are linked,
+not bundled. Run `npm run ingest:research` and `npm run validate:research` for the offline pipeline.
 
 The experimental tables report **oxygen fraction** and **flow** but contain **no total-pressure
 column** and **no per-test gravity value**. FIRETRACE therefore reports:
@@ -65,7 +83,7 @@ score.
 
 ## Requirements
 
-- Node.js 20 or newer (web app)
+- Node.js 22.12+ or 24 LTS (web app; Vite 7 requirements)
 - Python 3.10 or newer (evidence API, tests, evaluation, ingestion)
 - A modern browser
 

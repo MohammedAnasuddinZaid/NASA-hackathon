@@ -1,0 +1,14 @@
+{
+  "selected_records": 2,
+  "csv_rows": 62,
+  "csv_columns": 26,
+  "exact_source_record_roundtrip": true,
+  "dataset_sha256": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "nulls_units_statuses_citations": "verified",
+  "formats": [
+    "CSV",
+    "JSON",
+    "Markdown",
+    "printable HTML"
+  ]
+}

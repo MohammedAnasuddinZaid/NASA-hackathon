@@ -1,0 +1,17 @@
+{
+  "actual_browser_download": true,
+  "exact_structured_equality": true,
+  "findings": 16,
+  "sources": 8,
+  "coverage": {
+    "investigations": 3,
+    "structured_records": 131,
+    "new_structured_records": 0,
+    "report_findings": 16,
+    "linked_sources": 8,
+    "research_reports": 2,
+    "findings_with_locators": 16
+  },
+  "base_corpus_sha256": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "download_sha256": "82abc0baf4dcfbe5d8265bd309560a1233efbb77f880e47ee9c812936b963a0c"
+}

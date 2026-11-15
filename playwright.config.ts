@@ -2,21 +2,21 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
-  testIgnore: 'evidence.spec.ts',
+  testIgnore: ['evidence.spec.ts', 'trace.spec.ts', 'integration.spec.ts'],
   timeout: 45_000,
   expect: { timeout: 7_500 },
   fullyParallel: true,
   retries: 0,
   reporter: [['list']],
   use: {
-    baseURL: 'http://localhost:4173',
+    baseURL: 'http://127.0.0.1:4197',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   webServer: {
-    command: 'npm run build && npm run preview',
-    url: 'http://localhost:4173',
-    reuseExistingServer: true,
+    command: 'npm run build && npm run preview -- --port 4197',
+    url: 'http://127.0.0.1:4197',
+    reuseExistingServer: false,
     timeout: 180_000,
     env: { VITE_EVIDENCE_API: 'off' },
   },

@@ -19,3 +19,7 @@ it('treats a server version conflict as explicit bundled-fallback behavior', asy
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('{}', { status: 409 })));
   await expect(evidenceApi.coverage()).rejects.toMatchObject({ code: 'corpus_mismatch' });
 });
+it('rejects a matching header with mismatched body identity', async () => {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('{"corpus_version":"stale"}', { headers: { 'X-Corpus-Version': version } })));
+  await expect(evidenceApi.coverage()).rejects.toMatchObject({ code: 'corpus_mismatch' });
+});

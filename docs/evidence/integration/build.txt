@@ -1,0 +1,18 @@
+
+> firertrace@0.1.0 build
+> tsc -b && vite build
+
+vite v7.3.8 building client environment for production...
+transforming...
+✓ 71 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     1.09 kB │ gzip:   0.57 kB
+dist/assets/index-C5TlS6fx.css    148.64 kB │ gzip:  24.63 kB
+dist/assets/index-wf20t6On.js   2,185.73 kB │ gzip: 198.70 kB
+✓ built in 2.38s
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

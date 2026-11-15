@@ -1,12 +1,18 @@
 import { expect, test } from '@playwright/test';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+const version = createHash('sha256').update(readFileSync('src/data/corpus.json')).digest('hex');
+test.beforeEach(async ({ page }) => {
+  await page.route('**/api/v1/coverage', route => route.fulfill({ headers: { 'X-Corpus-Version': version }, json: { corpus_version: version, record_count: 131 } }));
+});
 
 test('TRACE loading, interpretation citations, failure and history rendering', async ({ page }) => {
   await page.route('**/api/v1/assistant/query', async (route) => {
     const body = route.request().postDataJSON();
     // UI fixture only: scientific claims come from real backend tests, not this mock.
     await new Promise((resolve) => setTimeout(resolve, 250));
-    await route.fulfill({ json: {
-      answer: { answer_id:'fixture', question:body.question, corpus_version:'test-only', grade:'direct',
+    await route.fulfill({ headers: { 'X-Corpus-Version': version }, json: {
+      answer: { answer_id:'fixture', question:body.question, corpus_version:version, grade:'direct',
         headline:'UI test evidence', claims:[], paragraphs:[], bullets:[], citations:[{source_id:'PSI-25',title:'UI fixture',locator:'CSV row 2',url:'https://psi.nasa.gov/physci/repo/data/investigations/PSI-25',doi:null}],
         trace:[], follow_ups:[], limitations:['Test fixture only.'], validation:{checked:0}, },
       answer_type:'ai_powered', ai_status:'generated', model_used:'mock-provider-not-live',
