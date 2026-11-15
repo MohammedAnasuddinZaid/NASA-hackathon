@@ -1,7 +1,7 @@
 # FIRETRACE Next-Gen Phase 2 — Scientific Intelligence, Evidence Graph, Reproducibility & Workflows
 
 ## Verified starting state
-- Phase 1 implementation verified: 213 Vitest pass, 192 pytest pass (3 skipped), 9 pipeline unittest pass, 68 Playwright pass, 36/36 benchmark pass, production build passes.
+- Phase 1 implementation verified: 300 Vitest pass, 226 pytest pass (3 skipped), 19 pipeline unittest pass, 70 Playwright pass, 36/36 benchmark pass, production build passes.
 - Corpus: 131 records, 0 pressure/gravity/outcome/ignition-method.
 - Evidence graph: 161 nodes, 603 edges, 0 orphans.
 - Integrity: 19 checks, 0 warn, 0 fail.
@@ -57,9 +57,9 @@
 - Accessibility axe path: `D:/firetrace-tools/node_modules/axe-core/axe.min.js` (override via `FIRETRACE_AXE_PATH`)
 
 ## Test results (actual)
-- Vitest: 213 pass / 0 fail across 22 files.
-- pytest: 192 pass / 3 skipped / 0 fail.
-- Pipeline unittest: 9 pass / 0 fail.
-- Playwright: 68 pass / 0 fail (17 route smoke + 20 accessibility + 11 workbench + 2 scenario + 2 trace + 16 app feature tests).
+- Vitest: 300 pass / 0 fail across 25 files.
+- pytest: 226 pass / 3 skipped / 0 fail.
+- Pipeline unittest: 19 pass / 0 fail.
+- Playwright: 70 pass / 0 fail.
 - Benchmark: 36/36 pass (100%).
 - Production build: passes (chunk-size warning only).

@@ -4,7 +4,7 @@
 - Repository tree, routes, components, libs, data, backend, and tests inspected.
 - Corpus schema, manifest, validation report inspected: **131 records** (129 BASS-II + 2 Saffire-I), 0 pressure/gravity/outcome/ignition-method records.
 - Backend API v1 contracts inspected; corpus-version pinning and `/api/health` verified.
-- Test suites run: **213 Vitest pass**, **192 pytest pass (3 skipped when voice stack absent)**, **9 pipeline unittest pass**, **68 Playwright pass**, **36/36 benchmark pass**.
+- Test suites run: **300 Vitest pass**, **226 pytest pass (3 skipped when voice stack absent)**, **19 pipeline unittest pass**, **70 Playwright pass**, **36/36 benchmark pass**.
 - Production build passes (`tsc -b && vite build`); only known large-chunk warning (~2.38 MB).
 
 ## Implemented in this phase

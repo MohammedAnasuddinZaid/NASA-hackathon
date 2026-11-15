@@ -178,8 +178,8 @@ python eval/run_eval.py                     # 30-question grounding check (hit@5
 npm run e2e                                 # Playwright end-to-end + accessibility suite
 ```
 
-Verified in this workspace: **213 Vitest tests**, **192 pytest tests** (3 skipped when the voice stack is
-absent), **9 pipeline unittests**, **68 Playwright tests**, **36/36 benchmark cases**, and `npm run build`.
+Verified in this workspace: **300 Vitest tests**, **226 pytest tests** (3 skipped when the voice stack is
+absent), **19 pipeline unittests**, **70 Playwright tests**, **36/36 benchmark cases**, and `npm run build`.
 The Playwright suite covers 17 route-smoke tests, 20 accessibility (axe-core) tests, 11 workbench
 workflow tests, 2 scenario tests, 2 TRACE tests, and 16 feature tests. The bundle is a single large
 JavaScript chunk (~2.38 MB) because the corpus JSON is imported directly for offline use.
@@ -216,7 +216,7 @@ backend/
   tests/           pytest contract, grounding and policy suite
 pipeline/          Python ingestion and validation
 eval/              question set and honest evaluation runner
-tests/             Vitest unit tests (213)
+tests/             Vitest unit tests (300)
 e2e/               Playwright end-to-end + accessibility tests (68)
 docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment, phase checklists
 presentation/      screenshots and pitch deck
