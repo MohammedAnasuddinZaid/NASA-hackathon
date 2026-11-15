@@ -30,7 +30,7 @@ No deployment, external demo upload, slide/PDF creation or event-form submission
 - **88 default browser tests and one focused caption-only QA test pass**; raw logs are in [checks](checks/).
   Two former audio-playback tests are replaced by release tests of captions, chapter/pause/replay,
   zero narration elements/requests and the disabled sound control.
-- All 54 local documentation links resolve; JSON metadata parses; no public or built narration MP3 remains.
+- All 55 local documentation links resolve; JSON metadata parses; no public or built narration MP3 remains.
 - Public GitHub repository returned HTTP 200 without authentication; no public deployment is implied.
 - Genuine caption-only screenshot captured from the local app; no image generator was used.
 
