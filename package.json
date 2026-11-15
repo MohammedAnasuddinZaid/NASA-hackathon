@@ -25,6 +25,9 @@
     "validate:data": "python -m unittest discover -s pipeline -p test_*.py -v",
     "e2e:qa": "playwright test --config playwright.qa.config.ts"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
