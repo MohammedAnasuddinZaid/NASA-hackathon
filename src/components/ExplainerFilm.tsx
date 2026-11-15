@@ -3,6 +3,8 @@ import { records, coverage, recordById } from '../lib/corpus';
 import { formatCompact } from '../lib/format';
 
 const DURATION = 45;
+// Release narration requires verified authorship, reuse rights and AI attribution.
+const NARRATION_AVAILABLE = false;
 
 const scenes = [
   {
@@ -379,7 +381,7 @@ export function ExplainerFilm() {
   );
   const [inView, setInView] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  // Narration is preserved, but sound requires explicit user opt-in.
+  // Unverified narration is excluded from the submission release.
   const [voiceOn, setVoiceOn] = useState(false);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [audioFailures, setAudioFailures] = useState<number[]>([]);
@@ -510,12 +512,12 @@ export function ExplainerFilm() {
         </div>
         <div className="film__head-meta">
           <span>5 acts</span>
-          <span>{voiceOn ? (audioBlocked ? 'Tap for sound' : 'Voiceover') : 'Muted'}</span>
+          <span>{NARRATION_AVAILABLE ? (voiceOn ? (audioBlocked ? 'Tap for sound' : 'Voiceover') : 'Muted') : 'Captions only'}</span>
           <span>Record-layer narration; report context in Sources</span>
         </div>
       </div>
 
-      <div className="film__audio" aria-hidden="true">
+      {NARRATION_AVAILABLE && <div className="film__audio" aria-hidden="true">
         {scenes.map((item, index) => (
           <audio
             key={item.label}
@@ -527,7 +529,7 @@ export function ExplainerFilm() {
             onError={() => setAudioFailures(failed => failed.includes(index) ? failed : [...failed, index])}
           />
         ))}
-      </div>
+      </div>}
 
       <div className="film__frame">
         <div className="film__chrome">
@@ -571,6 +573,7 @@ export function ExplainerFilm() {
         )}
       </div>
 
+      {!NARRATION_AVAILABLE && <p role="status">Caption-only release: narration is excluded until its authorship and reuse rights are verified.</p>}
       {audioFailures.includes(sceneIndex) && <p role="status">Narration audio is unavailable for this act. The visual explainer and captions remain available.</p>}
       <div className="film__controls">
         <div className="film__controls-left">
@@ -595,6 +598,7 @@ export function ExplainerFilm() {
           <button
             type="button"
             className={`film__button film__sound ${voiceOn ? 'is-on' : ''}`}
+            disabled={!NARRATION_AVAILABLE}
             aria-pressed={voiceOn}
             onClick={() => {
               if (voiceOn) {
@@ -605,7 +609,7 @@ export function ExplainerFilm() {
             }}
           >
             <span className="film__sound-dot" aria-hidden="true" />
-            {voiceOn ? 'Sound on' : 'Sound off'}
+            {NARRATION_AVAILABLE ? (voiceOn ? 'Sound on' : 'Sound off') : 'Captions only'}
           </button>
           <span className="film__time">
             {formatTime(elapsed)} <span>/ 00:45</span>

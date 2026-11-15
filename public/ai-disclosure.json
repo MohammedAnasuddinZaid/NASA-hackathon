@@ -1,0 +1,38 @@
+{
+  "project": "FIRETRACE",
+  "team": "The Code Blooded",
+  "updated_on": "2026-11-15",
+  "tools_reported_by_team_owner": [
+    "ChatGPT",
+    "Codex",
+    "Claude Code",
+    "OpenCode",
+    "Cursor",
+    "DeepSeek"
+  ],
+  "verified_codex_uses": [
+    "implementation",
+    "debugging",
+    "ingestion code",
+    "source review assistance",
+    "testing",
+    "documentation",
+    "submission preparation"
+  ],
+  "other_tool_task_attribution": null,
+  "model_versions": null,
+  "scientific_measurements_ai_generated": false,
+  "code_and_documentation_ai_assisted": true,
+  "default_assistant": "deterministic retrieved evidence with citations and abstention",
+  "optional_model": "server-enabled OpenAI interpretation; no live response verified",
+  "generated_raster_or_video_assets_established": false,
+  "svg_illustrations": "AI-assisted code-based conceptual illustrations; no NASA branding",
+  "legacy_narration": {
+    "included_in_release": false,
+    "creator": null,
+    "generator": null,
+    "reuse_permission": null,
+    "reason": "Team owner cannot verify origin/rights; captions retained"
+  },
+  "details": "https://github.com/MohammedAnasuddinZaid/NASA-hackathon/blob/main/AI_DISCLOSURE.md"
+}

@@ -1,6 +1,8 @@
 # Data sources and provenance
 
-FIRETRACE uses only the artifacts below. No measurement, citation, benchmark result or deployment
+This page documents the structured experiment corpus and context artifacts. The additional
+16 page-cited BASS-II/FLEX report findings and their distinct rights are documented in
+[research expansion](research-expansion.md) and [third-party notices](../THIRD_PARTY_NOTICES.md). No measurement, citation, benchmark result or deployment
 URL has been fabricated. Original artifacts are preserved under `data/raw/`. Eight small PSI originals are available under `public/data/original/`; large NTRS documents use authoritative external links. Normalized exports are clearly separate.
 
 ## Experiment data

@@ -1,0 +1,58 @@
+{
+  "updated_on": "2026-11-15",
+  "narration": [
+    {
+      "original_path": "public/audio/act-1.mp3",
+      "sha256": "fc395f661b980009e0d3c1ac5298de6a94f894e0d08175e3a927f9e8a9498bf0",
+      "bytes": 48240,
+      "creator": null,
+      "generator": null,
+      "reuse_permission": null,
+      "included_in_current_release": false,
+      "disposition": "Local original preserved in ignored tmp/unverified-narration; excluded from tracked/public tree"
+    },
+    {
+      "original_path": "public/audio/act-2.mp3",
+      "sha256": "20322d3fac1db04a1eef85684677a8b8a7044b72cc601ee4b2a6c4333d45012d",
+      "bytes": 45936,
+      "creator": null,
+      "generator": null,
+      "reuse_permission": null,
+      "included_in_current_release": false,
+      "disposition": "Local original preserved in ignored tmp/unverified-narration; excluded from tracked/public tree"
+    },
+    {
+      "original_path": "public/audio/act-3.mp3",
+      "sha256": "6624152fd44ea756dd1dd26e7c5131e237c794fed418a98840bc5b5c6967580d",
+      "bytes": 45648,
+      "creator": null,
+      "generator": null,
+      "reuse_permission": null,
+      "included_in_current_release": false,
+      "disposition": "Local original preserved in ignored tmp/unverified-narration; excluded from tracked/public tree"
+    },
+    {
+      "original_path": "public/audio/act-4.mp3",
+      "sha256": "da0dca756bf5883fdcbe08f34418f29bc38d03f6c1615d6118d2cc0cc088c7dd",
+      "bytes": 46224,
+      "creator": null,
+      "generator": null,
+      "reuse_permission": null,
+      "included_in_current_release": false,
+      "disposition": "Local original preserved in ignored tmp/unverified-narration; excluded from tracked/public tree"
+    },
+    {
+      "original_path": "public/audio/act-5.mp3",
+      "sha256": "f48529275aecb0a310ddd28c541cea70dddac99bdfc9079e9f4385294d993814",
+      "bytes": 30240,
+      "creator": null,
+      "generator": null,
+      "reuse_permission": null,
+      "included_in_current_release": false,
+      "disposition": "Local original preserved in ignored tmp/unverified-narration; excluded from tracked/public tree"
+    }
+  ],
+  "screenshots": "Genuine browser captures; screenshot dates/scopes remain in evidence reports",
+  "illustrations": "Original code-based SVG/CSS conceptual illustrations with AI assistance; not NASA imagery",
+  "team_roster": "Names/usernames only; supplied roster screenshot is not republished"
+}

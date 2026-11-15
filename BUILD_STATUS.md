@@ -1,22 +1,21 @@
-# FIRETRACE integrated build status
+# FIRETRACE submission preparation status
 
-Updated 2026-11-15. Current main incorporated: `8a7304083dc193173029cc9ff891d64b810b23e5`.
-PR9 branch: `codex/cinematic-overview`. Review candidate only; no feature PR merged or deployed.
+Updated 2026-11-15. Merged main baseline: `1a8fe8c` (PRs #1-#9 merged).
+Team: **The Code Blooded**. Current work prepares repository/documentation for submission;
+no deployment, video, slide/PDF or event-form submission is performed.
 
-- Current 17-route workstation, Research Library, Notebook, Graph, reports and PWA preserved.
-- Additive Overview: six scenes, original SVG stars/rocket, reduced motion and explicit pause.
-- Release fixes: visible/accessible logo, complete menu focus, Atlas API/advanced-filter parity,
-  atomic Research Library record deep links and opt-in film narration.
-- 131 records: 129 BASS-II/2 Saffire-I; 71 validated / 56 partial / 4 suspect.
-- Zero reported test pressure, measured per-test gravity or standardized outcomes; nulls preserved.
-- Research: 3 investigations / 16 findings / 2 reports; zero normalized FLEX records.
-- 316 frontend units, 211 backend, 19 pipeline tests pass; 24 artifacts byte-identical.
-- Browser: 88 default, 6 real-API (Swagger enabled), 2 TRACE, 5 integration, 33 expanded QA pass.
-- Chromium/Firefox/WebKit smoke passes; genuine before/after, mobile, static and WebM evidence.
-- Actual owned backend stopped/restored: bundled core workflows and reconnect pass.
-- No new runtime dependency or scientific data/calculation changes.
-- Optional live AI/speech remain unconfigured; mock contracts are not live verification.
+- Main README now describes the actual stack, all research workflows, source coverage, setup and limits.
+- [Project-page text](docs/submission/project-page.md), [judge guide](docs/submission/judge-guide.md),
+  [checklist](docs/submission/checklist.md), team roster, NASA references and third-party credits prepared.
+- [AI disclosure](AI_DISCLOSURE.md) names all six owner-reported tools; public machine-readable metadata added.
+- Five narration clips have unverified origin/rights and are excluded; captioned film controls remain.
+- 131 records and 16 separate report findings are unchanged. No field/calculation/source transformed here.
+- The merged runtime baseline passed 316 frontend, 211 backend, 19 pipeline, 24 scientific-artifact
+  checks, 36 benchmark cases and the documented browser suites; [hosted baseline](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/actions/runs/43721404103).
+- Latest submission changes/checks: [verification](docs/submission/verification.md).
+- Remaining team actions: supply the public demo link, verify participant eligibility and rights,
+  review declarations and click Submit for Judging before the event deadline.
+- Runtime external AI/speech quality remains unverified; optional models/keys are not shipped.
 
-See [PR9 review](docs/pr9-review.md) for final performance, exact test scopes and limitations,
-[QA evidence](docs/evidence/pr9/) and [startup commands](docs/pr9-review.md#running-and-reproducing).
-Hosted PR checks remain a separate review gate. No NASA endorsement or certification claimed.
+[Scientific/release evidence](docs/pr9-review.md) and [integration history](docs/final-integration-review.md)
+remain historical records. No NASA endorsement, engineering certification or submission success is claimed.

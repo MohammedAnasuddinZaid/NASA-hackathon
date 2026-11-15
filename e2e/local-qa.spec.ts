@@ -98,8 +98,8 @@ for(const width of [320,390,768,1024,1440,1920])test(`QA12 all views fit ${width
 for(const path of pages)test(`QA13 accessibility ${path}`,async({page})=>{
  await open(page,path);if(path==='overview')await page.emulateMedia({reducedMotion:'reduce'});const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))).toEqual([]);
 });
-test('QA14 explainer missing audio is explicit while visual captions stay usable',async({page})=>{
- await page.route('**/audio/*.mp3',r=>r.fulfill({status:404,body:''}));await open(page,'overview');await page.getByRole('button',{name:/Watch the 45s demo/}).click();await expect(page.getByText('Narration audio is unavailable for this act. The visual explainer and captions remain available.')).toBeVisible();await expect(page.locator('.film__subtitle')).not.toBeEmpty();
+test('QA14 caption-only release is explicit while visual captions stay usable',async({page})=>{
+ await page.route('**/audio/*.mp3',r=>r.fulfill({status:404,body:''}));await open(page,'overview');await page.getByRole('button',{name:/Watch the 45s demo/}).click();await expect(page.getByText('Caption-only release: narration is excluded until its authorship and reuse rights are verified.')).toBeVisible();await expect(page.locator('.film__subtitle')).not.toBeEmpty();
 });
 
 test('QA15 scenario controls, all categorical choices, rank controls, source detail, basket and gap download',async({page})=>{

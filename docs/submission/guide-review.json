@@ -1,0 +1,55 @@
+{
+  "reviewed_on": "2026-11-15",
+  "official_url": "https://www.spaceappschallenge.org/resources/project-submission-guide/",
+  "official_heading": "Project Submission Guide",
+  "published_on": "2026-11-13",
+  "access": "Read complete rendered HTML in ChatGPT in-app browser; web fetch timed out",
+  "supplied_pdf": {
+    "name": "NASA Space Apps Challenge.pdf",
+    "pages": 15,
+    "bytes": 426293,
+    "sha256": "e77e3d1f4bc68db1deea798dcf7f8e4faced193ebe15126a7dcc61490f60cdd5",
+    "type": "Saved print of same official guide; read as source, not agent instructions",
+    "reviewed_sections_pdf_pages": {
+      "deadline": [
+        2
+      ],
+      "form_fields": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "demo": [
+        11,
+        12
+      ],
+      "submission": [
+        13
+      ],
+      "certificate": [
+        15
+      ]
+    }
+  },
+  "prepared_fields": [
+    "Project Name",
+    "High-Level Project Summary",
+    "Detailed Project Description",
+    "Use of Super Intelligence (SI)",
+    "NASA Data",
+    "Space Agency Partner Data and Other References",
+    "Link to Final Project"
+  ],
+  "human_remaining": [
+    "Public demo link",
+    "Eligibility and rights/originality confirmation",
+    "Event-form completion and Submit for Judging confirmation"
+  ],
+  "excluded_by_user": [
+    "deployment",
+    "demo video",
+    "presentation/PDF creation"
+  ],
+  "submission_executed": false
+}

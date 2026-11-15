@@ -141,104 +141,27 @@ test('mobile layout has no page-level horizontal overflow', async ({ page }) => 
   }
 });
 
-test('film narration follows play, pause, mute and chapter changes', async ({ page }) => {
+test('caption-only release preserves film chapter, pause and replay controls', async ({ page }) => {
   await page.goto('/#/overview');
-  await page.locator('.film').scrollIntoViewIfNeeded();
-
-  const audios = page.locator('.film audio');
-  await expect(audios).toHaveCount(5);
-  await expect
-    .poll(() =>
-      audios.evaluateAll((nodes) =>
-        nodes.every((node) => {
-          const duration = (node as HTMLAudioElement).duration;
-          return Number.isFinite(duration) && duration > 4.5 && duration < 9.5;
-        }),
-      ),
-    )
-    .toBe(true);
-
-  // Merely scrolling into the existing film must never opt the user into sound.
-  await expect(page.locator('.film__sound')).toHaveAttribute('aria-pressed', 'false');
-  expect(await audios.evaluateAll(nodes => nodes.every(node => (node as HTMLAudioElement).paused))).toBe(true);
-  await page.locator('.film__sound').click();
-  // A browser-policy prompt can still appear after the explicit sound request.
-  if (await page.locator('.film__unmute').isVisible().catch(() => false)) {
-    await page.locator('.film__unmute').click();
-  }
-
-  await page.locator('.film__chapter').first().click();
-  await expect
-    .poll(() => audios.nth(0).evaluate((node) => !(node as HTMLAudioElement).paused))
-    .toBe(true);
-
-  await page.locator('.film__button--play').click();
-  await expect
-    .poll(() => audios.nth(0).evaluate((node) => (node as HTMLAudioElement).paused))
-    .toBe(true);
-
-  await page.locator('.film__button--play').click();
-  await expect
-    .poll(() => audios.nth(0).evaluate((node) => !(node as HTMLAudioElement).paused))
-    .toBe(true);
-
-  await page.locator('.film__chapter').nth(3).click();
-  await expect
-    .poll(() => audios.nth(3).evaluate((node) => !(node as HTMLAudioElement).paused))
-    .toBe(true);
-  await expect
-    .poll(() => audios.nth(0).evaluate((node) => (node as HTMLAudioElement).paused))
-    .toBe(true);
-
-  await page.locator('.film__sound').click();
-  await expect
-    .poll(() => audios.evaluateAll((nodes) => nodes.every((node) => (node as HTMLAudioElement).paused)))
-    .toBe(true);
-
-  await page.locator('.film__sound').click();
-  await expect
-    .poll(() => audios.nth(3).evaluate((node) => !(node as HTMLAudioElement).paused))
-    .toBe(true);
+  const film=page.locator('.film');await film.scrollIntoViewIfNeeded();
+  await expect(film.locator('audio')).toHaveCount(0);
+  await expect(film.locator('.film__sound')).toBeDisabled();
+  await expect(film.locator('.film__sound')).toHaveText('Captions only');
+  await film.locator('.film__chapter').nth(3).click();
+  await expect(film.locator('.film__subtitle')).toContainText('Gap Planner');
+  await film.locator('.film__button--play').click();
+  await expect(film.locator('.film__button--play')).toContainText('Play');
+  await film.getByRole('button',{name:'Replay'}).click();
+  await expect(film.locator('.film__subtitle')).toContainText('131 experiment records');
 });
 
-test('film offers a retry prompt when explicitly requested sound is blocked', async ({ page }) => {
-  await page.addInitScript(() => {
-    const state = window as unknown as { __allowPlay?: boolean };
-    state.__allowPlay = false;
-    document.addEventListener('click', event => {
-      if ((event.target as Element | null)?.closest('.film__unmute')) state.__allowPlay = true;
-    }, true);
-    const original = HTMLMediaElement.prototype.play;
-    HTMLMediaElement.prototype.play = function play() {
-      if (!state.__allowPlay) {
-        return Promise.reject(new DOMException('Autoplay blocked', 'NotAllowedError'));
-      }
-      return original.call(this);
-    };
-  });
-
-  await page.goto('/#/overview');
-  await page.locator('.film').scrollIntoViewIfNeeded();
-
-  await expect(page.locator('.film__unmute')).toBeHidden();
-  await page.locator('.film__sound').click();
-  await expect(page.locator('.film__unmute')).toBeVisible();
-  await expect(page.locator('.film__head-meta')).toContainText('Tap for sound');
-  await expect(page.locator('.film audio').first()).toBeAttached();
-  expect(
-    await page.locator('.film audio').first().evaluate((node) => (node as HTMLAudioElement).paused),
-  ).toBe(true);
-
-  await page.locator('.film__unmute').click();
-  await expect(page.locator('.film__unmute')).toBeHidden();
-  await expect(page.locator('.film__head-meta')).toContainText('Voiceover');
-  await expect
-    .poll(() =>
-      page.locator('.film audio').first().evaluate((node) => !(node as HTMLAudioElement).paused),
-    )
-    .toBe(true);
+test('submission explainer never requests unverified narration assets', async ({ page }) => {
+  const audioRequests:string[]=[];page.on('request',r=>{if(/\/audio\/.*\.mp3/.test(r.url()))audioRequests.push(r.url());});
+  await page.goto('/#/overview');const film=page.locator('.film');await film.scrollIntoViewIfNeeded();
+  for(const chapter of await film.locator('.film__chapter').all())await chapter.click();
+  await expect(film.getByRole('status')).toContainText('authorship and reuse rights');
+  await expect(film.locator('audio')).toHaveCount(0);expect(audioRequests).toEqual([]);
 });
-
 
 test('Saffire export quality summary follows the selected scope', async ({ page }) => {
   await page.goto('/#/exports');

@@ -1,274 +1,182 @@
-# FIRETRACE — Flame in Freefall evidence intelligence
+# FIRETRACE
 
-FIRETRACE is an independent, offline-capable web application for the NASA Space Apps 2026
-“Flame in Freefall” challenge. It turns public NASA Physical Sciences Informatics (PSI) microgravity
-combustion experiment tables into a traceable evidence workspace: every record, measurement,
-quality flag, source locator and limitation is visible, and the application refuses to answer
-questions the sources cannot support.
+**Know what the evidence says. See what it doesn't.**
 
-The repository ships two runnable surfaces over one curated corpus:
+A research dashboard by **The Code Blooded** for NASA Space Apps Challenge 2026:
+[Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/).
 
-- a **static Vite + React + TypeScript application** that bundles all evidence as JSON and works
-  without a backend after its assets have loaded;
-- a **local FastAPI evidence API** in `backend/` that serves the same corpus with per-field
-  provenance, claim validation and explicit abstention.
+FIRETRACE turns NASA combustion tables and reports into a workspace for finding experiments,
+checking their conditions, comparing evidence and identifying gaps relevant to spaceflight fire
+research. Every displayed measurement retains its source and qualification. Unsupported questions
+receive an explicit abstention. This is independent research support, without NASA endorsement,
+material certification or fire-risk predictions.
 
-The optional TRACE endpoint can call OpenAI when explicitly enabled server-side; see
-[TRACE setup and safeguards](docs/trace-assistant.md). Its default is deterministic with no
-external model call. The evidence API boots with no Ollama, whisper.cpp or
-sherpa-onnx installed; those are optional extras used only by the legacy local voice routes.
+![FIRETRACE overview with direct page tabs](docs/evidence/pr9/after-navbar/hero.png)
 
-For combined local startup, install the existing backend requirements in `backend/.venv`, then
-run `npm run dev:full`. Atlas/detail/source browsing and coverage use the local evidence API
-when its corpus matches the bundle, with explicit complete bundled fallback otherwise.
-See [the evidence foundation guide](docs/pr2-foundation.md) for setup, SQLite schema, source
-downloads, tests and the user-approved adaptation to current main after PR #1 was merged externally.
+[Submission text](docs/submission/project-page.md) · [Judge's walkthrough](docs/submission/judge-guide.md) ·
+[Submission checklist](docs/submission/checklist.md) · [AI disclosure](AI_DISCLOSURE.md) ·
+[Sources and credits](THIRD_PARTY_NOTICES.md)
 
-The integrated release review, test evidence, remaining limitations and PR reconciliation are in
-[Final integration review](docs/final-integration-review.md). Follow [Deployment](docs/deployment.md)
-for reproducible Windows/Linux setup and same-origin API configuration. Research reports load lazily
-and require an initial network fetch; there is no service worker or guaranteed offline reload.
+## What you can do
 
-## What it does
+| Research task | Working features |
+|---|---|
+| Find and inspect | Search/filter 131 experiment records; source rows, units, measurement ledger, raw values and quality flags; separate Research Library with report-page citations |
+| Compare and plan | Side-by-side condition audit; atmosphere calculator; scenario evidence ranking with disclosed heuristic points and missingness; downloadable gap plan |
+| Ask and verify | Deterministic cited answers and abstention; optional backend AI interpretation; claim verification; evidence graph; 36-case evaluation harness |
+| Organize and export | Persistent evidence basket, Research Notebook, saved Atlas views, analysis runs, briefs and reports; CSV, JSON, Markdown, printable HTML and hashed ZIP exports |
+| Audit | Methodology, source manifest, coverage, corpus integrity and real capability/status checks |
 
-- **Overview** — a45-second captioned explainer with opt-in narration, corpus ledger, coverage
-  counts, and a six-scene cinematic story. Decorative motion can be paused; mobile and
-  reduced-motion views stay static. The original research tools remain unchanged.
-- **Atmosphere Explorer** — Dalton-law oxygen partial-pressure calculator, reference atmospheres,
-  the reported oxygen distribution, and an explicit “unknown pressure” placement for every record.
-- **Evidence Atlas** — searchable, filterable table of all 131 records, with a provenance drawer.
-- **Compare** — side-by-side comparison with a comparability audit that reports blockers instead
-  of a similarity score.
-- **Gap Planner** — target-condition evidence audit and a downloadable Markdown test plan.
-- **Scenario retrieval** — condition-by-condition candidate explanations, documented heuristic
-  ordering, persistent selections and linked Atlas/Compare inspection. See [scenario policy](docs/scenario-planner.md).
-- **Evidence Assistant** — deterministic retrieval and citation engine with abstention.
-- **Methodology & Sources** — pipeline rules, validation gates, anomalies, sources and licenses.
-- **Exports** — CSV/JSON exports of records, claims and the source manifest.
-- **Coverage & Validation** — field coverage, quality distribution, validation findings, and zero-coverage constraints computed from the corpus.
-- **Research Notebook** — versioned local investigations with typed items, workflow states, per-item verification, calculation runner, and Markdown/ZIP export.
-- **Evidence Graph** — typed, inspectable graph of records, sources, measurements, claims, validation findings, and notebook items.
-- **Claim Verification** — deterministic verification of assistant answers, claims, and notebook items (citation resolution, numeric support, pressure conflicts).
-- **Evaluation Harness** — 36-case deterministic/adversarial benchmark with category metrics and regression gates.
-- **Analysis Runs** — six reproducible corpus analyses with per-record fingerprints, corpus diff, and versioned persistence.
-- **Corpus Integrity** — 19-check integrity report (manifest hashes, validation gates, null discipline, duplicates).
-- **Research Reports** — Markdown + JSON + hashed ZIP manifest of evidence summaries.
-- **System Health** — real capability probes (bundled corpus, API, storage, offline shell) with honest status.
-- **Evidence basket & research briefs** — persistent, version-aware selection across pages,
-  deterministic evidence summaries and selected CSV/JSON/Markdown/printable HTML downloads.
-  See [basket and export schema/setup](docs/research-exports.md). No external AI or backend required.
+All 17 main pages have direct navigation tabs. Wider screens wrap tabs; narrow screens scroll
+the tab strip. The Overview's six-scene story has pause and reduced-motion support. Its internal
+45-second explainer is caption-only; **it is not the event's required <=30-second submission demo**.
 
-## Corpus
+## Actual NASA evidence
 
-| Investigation | PSI ID | Records | Material focus |
-|---|---:|---:|---|
-| BASS-II | PSI-25 | 129 | Solid fuels in low-velocity forced flow |
-| Saffire-I | PSI-98 | 2 | SIBAL fabric samples |
+| Evidence layer | Included | Original source |
+|---|---|---|
+| Solid-fuel experiment records | 129 BASS-II table records | [PSI-25](https://psi.nasa.gov/physci/repo/data/investigations/PSI-25), DOI [10.60555/4qc4-de67](https://doi.org/10.60555/4qc4-de67) |
+| Solid-fuel experiment records | 2 Saffire-I instrumented sample records | [PSI-98](https://psi.nasa.gov/physci/repo/data/investigations/PSI-98), DOI [10.60555/0t15-1z43](https://doi.org/10.60555/0t15-1z43) |
+| Report findings | 8 BASS-II findings, with page locators | [NASA/TM-20210011385](https://ntrs.nasa.gov/citations/20210011385) |
+| Report findings | 8 FLEX liquid-droplet findings, with page locators | [NASA/TP-2015-216046](https://ntrs.nasa.gov/citations/20150023456); [PSI-69](https://psi.nasa.gov/physci/repo/data/investigations/PSI-69) |
+| Context only | LUCI partial-gravity research; not normalized test records | [NTRS 20250010653](https://ntrs.nasa.gov/citations/20250010653) |
 
-Total: **131 experiment records**. Context only (not structured records): LUCI (NTRS 20250010653)
-and the official challenge page.
+**131 structured records + 16 separately curated report findings.** No normalized FLEX records;
+no independent-burn count inferred from table rows. Report findings are excluded from numeric
+experiment comparison and scenario ranking. Solid fuels and liquid droplets remain distinct.
 
-## Current table coverage
+The imported records contain no total pressure, measured per-test gravity, ignition method or
+standardized outcome. Those fields remain null. This is a record-layer coverage gap: NASA reports
+contain additional pressure/ignition context for subsets, which is not automatically assigned to
+every row. Comparability depends on fuel, material, geometry, thickness, atmosphere, airflow,
+scale and method. Scenario points express retrieval relevance, never a safety probability.
 
-### Verified report research
+Original artifacts, hashes, units, versions and transformations are preserved in the
+[source manifest](src/data/source_manifest.json), [data sources](docs/data_sources.md),
+[data dictionary](docs/data-dictionary.md) and [research expansion](docs/research-expansion.md).
 
-Atlas also offers **Research findings & coverage**:16 source-linked findings from the BASS-II
-Summary Report and FLEX Detailed Results, with3 investigations,2 research reports and explicit
-solid-fuel versus liquid-droplet classification. The131 original records remain unchanged;
-no FLEX rows are normalized. Report findings do not enter numeric comparison or scenario ranking.
-See [research expansion, source verification and ingestion](docs/research-expansion.md) and
-[cross-PR compatibility](docs/cross-pr-compatibility.md). The original source PDFs are linked,
-not bundled. Run `npm run ingest:research` and `npm run validate:research` for the offline pipeline.
+## Run locally
 
-The experimental tables report **oxygen fraction** and **flow** but contain **no total-pressure
-column** and **no per-test gravity value**. FIRETRACE therefore reports:
-
-- total pressure: **0 of 131 records**
-- measured per-test gravity: **0 of 131 records**
-- standardized ignition/extinction outcome: **0 of 131 records**
-- ignition method: **0 of 131 records**
-
-Missing values are preserved as unknown. They are never zero-filled, imputed or converted into a
-score.
-
-## Requirements
-
-- Node.js 22.12+ or 24 LTS (web app; Vite 7 requirements)
-- Python 3.10 or newer (evidence API, tests, evaluation, ingestion)
-- A modern browser
-
-## Quick start
-
-**Web app** — one command, no backend required:
+Requirements: Node.js 22.12+ or 24 LTS; Python 3.10+ for the optional API and data tools.
+Commands below start from the repository root. On Windows PowerShell use `npm.cmd` if script
+execution policy blocks `npm`; no system policy change is needed.
 
 ```bash
-npm install
+git clone https://github.com/MohammedAnasuddinZaid/NASA-hackathon.git
+cd NASA-hackathon
+npm ci
 npm run dev
 ```
 
-Open `http://localhost:5173`. The Assistant page calls the evidence API first and falls back to
-the bundled deterministic engine when the API is not running.
+Open the URL Vite prints (normally http://localhost:5173). The frontend can browse bundled evidence
+without a backend. The Evidence Assistant defaults to deterministic retrieval and can fall back
+to the bundle when the API is unavailable.
 
-On Windows, `run-local.bat` (or `run-local.ps1`) starts the evidence API and the Vite dev
-server together. It uses `backend\.venv` when present and otherwise falls back to `python` on
-`PATH`.
-
-**Evidence API** — one command after installing the core requirements:
+To add the local evidence API, open a second terminal at the repository root:
 
 ```bash
-cd backend
-pip install -r requirements.txt
-uvicorn api:app --host 127.0.0.1 --port 8000
+python -m venv backend/.venv
+# Windows:
+backend/.venv/Scripts/python.exe -m pip install -r backend/requirements.txt
+backend/.venv/Scripts/python.exe -m uvicorn api:app --app-dir backend --host 127.0.0.1 --port 8000
+# macOS/Linux: replace backend/.venv/Scripts/python.exe with backend/.venv/bin/python
 ```
 
-Open `http://127.0.0.1:8000/api/docs` for the OpenAPI console. This entry point has no AI runtime
-dependency and does not touch the voice stack.
-
-**Combined app** (evidence API plus the optional local voice routes):
+API documentation: http://127.0.0.1:8000/api/docs. Restart the frontend if its API target changes.
+After the environment is installed, `npm run dev:full` starts both services on 5173/8000;
+keep those ports free. See [startup and configuration](docs/deployment.md).
 
 ```bash
-cd backend
-pip install -r requirements-voice.txt   # optional AI wheels
-uvicorn main:app --host 127.0.0.1 --port 8000
+npm run build       # TypeScript check and static production output in dist/
+npm run preview     # HTTP preview on http://localhost:4173
 ```
 
-If the voice wheels or models are absent, `/api/v1` keeps working and the voice routes return a
-structured `503 voice_unavailable`.
+No deployment or public application URL is claimed. This public repository is the final-project
+source link. A future hosted frontend does not deploy the backend automatically.
 
-## Production build
+## Architecture and AI behavior
+
+React 19 + TypeScript + Vite 7, custom CSS/SVG, Python FastAPI/Pydantic and a local SQLite/FTS
+index. Data ingestion and validation run in Python. The implementation uses the existing
+workspace stack; it does not require Next.js, Tailwind, Recharts, embeddings or a GPU.
+
+The core assistant retrieves and explains evidence deterministically. Optional TRACE interpretation
+uses one OpenAI API behind the backend only when explicitly enabled. It validates evidence IDs
+and falls back when unavailable. No live provider response or speech quality was verified in the
+release checks; model/API mocks establish contracts rather than live AI performance. Keys stay
+server-side in ignored environment files. See [TRACE setup](docs/trace-assistant.md).
+
+The optional legacy voice stack is separate from the evidence API; models are not shipped.
+The five pre-existing narration clips have unverified authorship/rights and are excluded from
+this submission release. Captions, playback controls and all evidence features remain available.
+
+A service worker caches the app shell and loaded assets in production. Already-loaded/cached core
+workflows can work offline. Lazy research files, original NASA PDFs and a cold cache can require
+network access. Network font failure falls back to system fonts. This is no universal offline guarantee.
+
+## Validation
+
+The merged runtime baseline passed **316 frontend tests, 211 backend tests, 19 pipeline tests,
+24 byte-identical scientific artifact checks and 36/36 benchmark cases**. Local browser suites:
+88 default + 6 actual-API (including optional Swagger capture) + 2 TRACE + 5 integration + 33
+expanded QA = 134 executions, including repeat coverage across routes and features.
+Chromium, Firefox and WebKit navbar checks passed seven viewport widths (320-1920px).
+
+[Hosted baseline checks](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/actions/runs/43721404103),
+[final navbar QA](docs/navbar-final-qa.md), [release review](docs/pr9-review.md),
+and [submission preparation checks](docs/submission/verification.md) distinguish historical and latest runs.
+The 30-question evaluation has zero grounding-integrity problems; retrieval hit@5 and abstention
+accuracy are null because that question set lacks gold labels.
 
 ```bash
+npm test
 npm run build
-npm run preview
+npm run benchmark
+python -m unittest discover -s pipeline -p 'test_*.py' -v
+python scripts/verify-release-data.py
+# With backend/.venv active and requirements-ai.txt installed:
+python -m pytest backend/tests -q
+python eval/run_eval.py
+# Browser tools:
+npx playwright install chromium
+npm run e2e
+npm run e2e:evidence
+npm run e2e:trace
+npm run e2e:integration
+npm run e2e:qa
 ```
 
-The static output is written to `dist/`. Serve it over HTTP using the preview command.
+## Team and attribution
 
-## Backend and voice agent
+**The Code Blooded**
 
-`backend/` contains two layers:
+| Member | Space Apps username | Role confirmed by team |
+|---|---|---|
+| Abhishek Kumar Gupta | @abhi298 | Team Owner |
+| Shiv Narain | @shivnarain99 | Team member |
+| Mohammed Anasuddin Zaid | @mohd_anas176 | Team member |
+| Ansh Devkate | @insanhii | Team member |
+| Om Rupesh Kodilkar | @xomyux | Team member |
 
-- `/api/v1/*` — the typed evidence API documented in `docs/data_dictionary.md` and
-  `backend/app/v1/`. It exposes experiments, sources, coverage, comparison, scenario evaluation,
-  grounded answers and exports. Every response carries `X-Corpus-Version`, `X-Request-ID` and
-  `X-Response-Time-Ms`.
-- `/api/*` — the legacy local voice surface (whisper.cpp ASR, Silero VAD, optional Ollama
-  rewording, sherpa-onnx TTS, SSE, SQLite session history). It is optional and degrades to
-  `voice_unavailable`.
+Member names/usernames come from the team owner's supplied roster. Specific development roles
+are not invented. The team reports using ChatGPT, Codex, Claude Code, OpenCode, Cursor and
+DeepSeek; known assistant contributions and the limits of tool attribution are documented in
+[AI_DISCLOSURE.md](AI_DISCLOSURE.md) and [machine-readable metadata](public/ai-disclosure.json).
+NASA measurements are original-source data, not AI-generated measurements.
 
-See `backend/README.md` for model setup.
+PSI artifacts retain their CC0 designation; report rights are source-specific. Fonts and software
+retain upstream licenses. See [third-party notices](THIRD_PARTY_NOTICES.md). No repository-wide
+code license has been selected by the owners; public source access is not a blanket license for
+third-party assets. Screenshots are real browser captures; code-based SVG illustrations are
+conceptual, not NASA hardware or observed trajectories.
 
-## Design
+## Further documentation
 
-The interface uses a three-color system — black `#0B0B0C`, white `#FFFFFF` and lime `#C6F432` —
-with Manrope for display type and Inter for body copy. The overview explainer is voiced by five
-recorded narration clips in `public/audio/`; if the browser blocks unmuted autoplay, the player
-shows a **Sound on** prompt and starts narration on the first click.
+[Judge's walkthrough](docs/submission/judge-guide.md) · [Methodology](docs/methodology.md) ·
+[Scientific audit](docs/scientific-audit.md) · [Scenario policy](docs/scenario-planner.md) ·
+[Basket and briefs](docs/research-exports.md) · [Known limitations](docs/limitations.md) ·
+[Full integration history](docs/final-integration-review.md)
 
-## Tests
-
-```bash
-npm test                                    # Vitest unit tests
-npm run build                               # type-check + production build
-npm run benchmark                           # 36-case local assistant benchmark
-
-cd backend
-python -m pytest -q                         # evidence API contract and policy suite
-cd ..
-python eval/run_eval.py                     # 30-question grounding check (hit@5/abstention null; no gold answers)
-npm run e2e                                 # Playwright end-to-end + accessibility suite
-```
-
-PR #9 local verification: **316 frontend unit tests**, **211 backend tests**,
-**19 pipeline tests**, **24 byte-identical scientific artifacts**, **36/36 benchmark cases**,
-and a production build passed. Browser runs: **88 default**, **6 real-API** (Swagger enabled),
-**2 TRACE**, **5 integration**, **33 expanded QA**. These are suite executions, not unique
-feature counts; the 10 cinematic and 8 navbar cases are included in 88. CI's optional Swagger capture may skip.
-See [the cinematic/release review](docs/pr9-review.md) for source versions, genuine screenshots,
-recording, performance measurements, actual backend-stop/reconnect and remaining limitations.
-The large corpus bundle remains intentional; no new animation runtime dependency was added.
-
-`eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` with `0/30`
-labelled items, because the shipped question set has no gold answers. It does not estimate
-them.
-
-## Re-running the data pipeline
-
-```bash
-npm run ingest
-```
-
-This uses `python pipeline/ingest.py` and rewrites `src/data/corpus.json`, mirrors it to
-`public/data/`, and refreshes `data/processed/validation_report.json`.
-
-## Project layout
-
-```text
-src/
-  components/      shell, charts, drawer, UI primitives
-  data/            bundled corpus and source manifest
-  lib/             types, corpus, atmosphere, records, compare, gap, assistant, apiClient, export, router,
-                   atlasView, notebook, calculation, verification, evidenceGraph, benchmark, analysisRun,
-                   integrity, report, capabilities, hash, storage, zip
-  pages/           seventeen routed pages
-  styles.css       design system
-backend/
-  api.py           standalone evidence API (no AI runtime)
-  main.py          combined evidence + optional voice app
-  app/v1/          typed API: policy, store, schemas, router, compare, scenario, assistant, exports
-  scripts/         corpus validation and FTS index builder
-  tests/           pytest contract, grounding and policy suite
-pipeline/          Python ingestion and validation
-eval/              question set and honest evaluation runner
-tests/             Vitest unit tests (300)
-e2e/               Workstation, accessibility, cinematic, API and regression suites
-docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment, phase checklists
-presentation/      screenshots and pitch deck
-scripts/           capture and benchmark scripts
-public/            manifest.webmanifest, sw.js (PWA offline shell)
-```
-
-## Scientific policy
-
-- No measurement, source, citation, benchmark result, deployment or NASA endorsement is fabricated.
-- Missing data remains unknown; no zero-filling and no imputation.
-- BASS-II, Saffire-I, LUCI and the challenge page are kept distinct.
-- No risk score, fire-risk prediction or material certification. Scenario retrieval uses
-  explicitly documented heuristic points with missingness shown separately; these are not
-  physical measurements, probabilities or scientific confidence.
-- Every assistant answer cites its source locator and abstains when unsupported.
-
-## Deployment
-
-The frontend has a cached offline shell and bundled experiment evidence. Already-loaded or
-cached core routes work without the backend; first access to lazy research assets and original
-NASA PDFs can still need network access. This is not a universal cold-cache offline guarantee. The evidence API is a separate local service; it is not required for the
-static build and is not deployed by it. See `docs/deployment.md`.
-
-## License and provenance
-
-Source artifacts are preserved under their published licenses (PSI data is CC0 1.0 Universal).
-FIRETRACE is an independent project and is not affiliated with, endorsed by or certified by NASA.
-See `docs/data_sources.md` and `docs/methodology.md`.
-
-Current correctness milestone and remaining work: see `docs/work-plan.md`.
-
-## Scientific traceability validation
-
-The table-coverage gaps above do not imply NASA never measured pressure or studied outcomes.
-The BASS-II Summary Report provides pressure/ignition context for subsets; no row mapping is inferred.
-See [scientific audit](docs/scientific-audit.md), [data dictionary](docs/data-dictionary.md) and
-[source verification](docs/source-verification.json).
-
-```bash
-python -m venv .venv
-# Windows: .venv/Scripts/Activate.ps1 (or use .venv/Scripts/python.exe directly)
-# POSIX: source .venv/bin/activate
-python -m pip install -r pipeline/requirements.txt
-npm run ingest
-npm run validate:data
-```
-
-Validation is offline and regenerates in temporary directories; two runs must be byte-identical.
-The static explorer does not require the optional upstream voice backend. This PR does not change
-or introduce that backend. No lint command is configured; production build includes TypeScript checking.
+Historical PR reports preserve the state they reviewed. Current submission status is maintained
+in [the submission checklist](docs/submission/checklist.md); it does not claim the event form has
+been submitted, a demo uploaded or participant eligibility certified.
