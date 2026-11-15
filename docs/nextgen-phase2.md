@@ -39,7 +39,7 @@
 
 ## Dependencies / licenses
 - Frontend: React 19 (MIT), React-DOM 19 (MIT), Vite 7 (MIT), TypeScript 5.9 (Apache-2.0), @vitejs/plugin-react 5 (MIT), Vitest 4 (MIT), @playwright/test 1.65 (Apache-2.0), tsx 4 (MIT).
-- axe-core 4.10.2 (MPL-2.0), installed to `D:\firetrace-tools` with cache `D:\npm-cache`.
+- axe-core 4.10.2 (MPL-2.0), now a devDependency (installed via `npm ci`/`npm install`), cache `D:\npm-cache` locally.
 - Fonts: Manrope and Inter via Google Fonts (OFL-1.1).
 - Backend: FastAPI, uvicorn, pydantic, pytest (MIT/BSD); optional voice stack (Silero VAD, whisper.cpp, sherpa-onnx, Ollama) under their own licenses.
 - No new runtime dependencies added to package.json; all Phase 1/2 capabilities use existing stack + standard Web APIs.
