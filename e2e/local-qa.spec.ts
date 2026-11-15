@@ -25,31 +25,31 @@ test('QA02 skip link preserves route; menu contains keyboard focus and every men
  await page.getByRole('button',{name:'Menu',exact:true}).click();const menu=page.getByRole('dialog',{name:'All sections menu'});await expect(menu).toBeVisible();await expect(menu.getByRole('button',{name:'Close',exact:true})).toBeFocused();
  for(let i=0;i<22;i++){await page.keyboard.press(i%3===0?'Shift+Tab':'Tab');expect(await menu.evaluate(e=>e.contains(document.activeElement))).toBe(true);}
  await page.keyboard.press('Escape');await expect(menu).toBeHidden();await expect(page.getByRole('button',{name:'Menu',exact:true})).toBeFocused();
- for(const path of pages.slice(0,8)){await page.getByRole('button',{name:'Menu',exact:true}).click();await menu.locator(`a[href="#/${path}"]`).click();await expect(page.locator('h1')).toHaveText(titles[pages.indexOf(path)]);await expect(menu).toBeHidden();}
+ for(const path of [...pages.slice(0,8),'coverage','notebook','graph','verification','evaluation','analysis','integrity','reports','health']){await page.getByRole('button',{name:'Menu',exact:true}).click();await menu.locator(`a[href="#/${path}"]`).click();await expect(page).toHaveURL(new RegExp('#/'+path+'(?:\\?|$)'));if(pages.includes(path))await expect(page.locator('h1')).toHaveText(titles[pages.indexOf(path)]);else await expect(page.locator('h1')).not.toBeEmpty();await expect(menu).toBeHidden();}
 });
 test('QA03 Atlas all filters, all sorts, pagination, reset and bounded search',async({page})=>{
  await open(page,'atlas');await expect(page.getByTestId('evidence-connection')).toContainText('API connected');
  await page.getByRole('button',{name:'Next →',exact:true}).click();await expect(page.locator('.filter-foot')).toContainText('page 2');await page.getByRole('button',{name:'← Previous',exact:true}).click();
- for(const query of ['  bass2-b1  ','Bhattacharjee','PMMA','%_\'','NOT-FOUND-999']){await page.getByRole('searchbox',{name:'Search',exact:true}).fill(query);await expect(page.getByTestId('evidence-connection')).toContainText('API connected');}
+ for(const query of ['  bass2-b1  ','Bhattacharjee','PMMA','%_\'','NOT-FOUND-999']){await page.getByRole('combobox',{name:'Search',exact:true}).fill(query);await expect(page.getByTestId('evidence-connection')).toContainText('API connected');}
  await page.getByRole('button',{name:'Reset filters',exact:true}).click();
  await page.getByRole('combobox',{name:'Investigation',exact:true}).selectOption('Saffire-I');await expect(page.locator('.data-table tbody tr')).toHaveCount(2);
  await page.getByRole('combobox',{name:'Material family'}).selectOption('SIBAL fabric');await page.getByRole('combobox',{name:'Quality',exact:true}).selectOption('partial');
  await page.getByRole('checkbox',{name:'Only records with reported flow'}).check();await expect(page.locator('.data-table tbody tr')).toHaveCount(2);
- for(const sort of ['id','o2-asc','o2-desc','material','date'])await page.getByRole('combobox',{name:'Sort',exact:true}).selectOption(sort);
+ for(const sort of ['id','o2-asc','o2-desc','material','date','thickness-asc','thickness-desc','flow-desc','family','validation'])await page.getByRole('combobox',{name:'Sort',exact:true}).selectOption(sort);
  const csv=await download(page,'Export filtered CSV');expect(csv.text).toContain('SAFFIRE1-S1');expect(csv.text).not.toContain('BASS2-B1');
  await page.getByRole('button',{name:'Reset filters',exact:true}).click();await page.getByRole('spinbutton',{name:'O2 min',exact:true}).fill('24');await page.getByRole('spinbutton',{name:'O2 max',exact:true}).fill('20');await expect(page.getByRole('alert')).toContainText('Minimum oxygen');await expect(page.getByTestId('evidence-connection')).toContainText('API connected');
- await page.getByRole('button',{name:'Reset filters',exact:true}).click();await page.getByRole('searchbox',{name:'Search',exact:true}).fill('x'.repeat(250));expect((await page.getByRole('searchbox',{name:'Search',exact:true}).inputValue()).length).toBe(200);
+ await page.getByRole('button',{name:'Reset filters',exact:true}).click();await page.getByRole('combobox',{name:'Search',exact:true}).fill('x'.repeat(250));expect((await page.getByRole('combobox',{name:'Search',exact:true}).inputValue()).length).toBe(200);
 });
 test('QA04 every actual experiment opens with its own source locator; no substitute detail',async({page})=>{
  test.setTimeout(180000);
- for(const record of corpus.records){await page.goto('/#/atlas?id='+record.experiment_id);const drawer=page.getByRole('dialog',{name:record.experiment_id,exact:true});await expect(drawer).toBeVisible();await expect(drawer).toContainText(record.source_locator);await page.keyboard.press('Escape');await expect(drawer).toHaveCount(0);await page.getByRole('searchbox',{name:'Search',exact:true}).fill(record.experiment_id);await page.getByRole('button',{name:`Add ${record.experiment_id} to basket`,exact:true}).click();await page.getByRole('button',{name:`Remove ${record.experiment_id} from basket`,exact:true}).click();}
+ for(const record of corpus.records){await page.goto('/#/atlas?id='+record.experiment_id);const drawer=page.getByRole('dialog',{name:record.experiment_id,exact:true});await expect(drawer).toBeVisible();await expect(drawer).toContainText(record.source_locator);await page.keyboard.press('Escape');await expect(drawer).toHaveCount(0);await page.getByRole('combobox',{name:'Search',exact:true}).fill(record.experiment_id);await page.getByRole('button',{name:`Add ${record.experiment_id} to basket`,exact:true}).click();await page.getByRole('button',{name:`Remove ${record.experiment_id} from basket`,exact:true}).click();}
  await page.goto('/#/atlas?id=NOT-A-RECORD');await expect(page.getByRole('alert')).toContainText('not found');await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 test('QA05 drawer clipboard, JSON, raw/ledger disclosure, keyboard close and focus return',async({page,context})=>{
- await context.grantPermissions(['clipboard-read','clipboard-write']);await open(page,'atlas');await page.getByRole('searchbox',{name:'Search',exact:true}).fill('BASS2-B1');const row=page.getByRole('row',{name:'Open BASS2-B1',exact:true});await row.press('Enter');const dialog=page.getByRole('dialog');
+ await context.grantPermissions(['clipboard-read','clipboard-write']);await open(page,'atlas');await page.getByRole('combobox',{name:'Search',exact:true}).fill('BASS2-B1');const row=page.getByRole('row',{name:'Open BASS2-B1',exact:true});await row.press('Enter');const dialog=page.getByRole('dialog');
  for(const summary of ['Measurement ledger: original values, units and transformations','Raw source row (17 fields)'])await dialog.getByText(summary,{exact:true}).click();
  await dialog.getByRole('button',{name:'Copy citation',exact:true}).click();expect(await page.evaluate(()=>navigator.clipboard.readText())).toContain('CSV row 2');const file=await download(page,'Record JSON');expect(JSON.parse(file.text).experiment_id).toBe('BASS2-B1');await page.screenshot({path:'docs/evidence/local-qa/record-drawer.png'});
- await dialog.getByRole('button',{name:'Close',exact:true}).click();await expect(row).toBeFocused();
+ await dialog.locator('.drawer').getByRole('button',{name:'Close record detail',exact:true}).click();await expect(row).toBeFocused();
 });
 test('QA06 Research Library all filter categories, both comparisons, show more, retry and both exports',async({page})=>{
  await open(page,'atlas?view=research');await page.getByRole('combobox',{name:'Evidence type',exact:true}).selectOption('all');await page.getByRole('button',{name:'Show more research results',exact:true}).click();
@@ -71,7 +71,7 @@ test('QA08 assistant scientific questions, deterministic toggle, follow-up, copy
  for(const question of ['What oxygen did BASS2-B1 report?','What pressure was BASS-II run at?','Does the corpus include partial-gravity data?','Compare BASS-II and Saffire-I.','What did LUCI find?','Which records are flagged suspect?','Is PMMA safe in a lunar cabin?','What does FLEX investigate?','What is missing from the corpus?','Show evidence supporting that answer.']){
   const count=await page.locator('.answer').count();await page.getByRole('textbox',{name:'Ask the evidence assistant'}).fill(question);await page.getByRole('textbox',{name:'Ask the evidence assistant'}).press('Enter');await expect(page.locator('.answer')).toHaveCount(count+1);await expect(page.getByRole('button',{name:'Retrieve',exact:true})).toBeDisabled();
  }
- await page.getByRole('button',{name:'Copy answer',exact:true}).first().click();expect(await page.evaluate(()=>navigator.clipboard.readText())).toContain('22.2');await page.getByText('Retrieval trace',{exact:true}).first().click();await page.getByRole('button',{name:'What material does BASS2-B1 test?',exact:true}).first().click();await expect(page.locator('.answer')).toHaveCount(11);await page.getByRole('button',{name:'Retry last question'}).click();await expect(page.locator('.answer')).toHaveCount(12);await page.screenshot({path:'docs/evidence/local-qa/assistant.png'});await page.getByRole('button',{name:'Clear conversation'}).click();await expect(page.locator('.answer')).toHaveCount(0);
+ await page.getByRole('button',{name:'Copy answer',exact:true}).first().click();expect(await page.evaluate(()=>navigator.clipboard.readText())).toContain('22.2');await page.getByText('Query plan & retrieval trace',{exact:true}).first().click();await page.getByRole('button',{name:'What material does BASS2-B1 test?',exact:true}).first().click();await expect(page.locator('.answer')).toHaveCount(11);await page.getByRole('button',{name:'Retry last question'}).click();await expect(page.locator('.answer')).toHaveCount(12);await page.screenshot({path:'docs/evidence/local-qa/assistant.png'});await page.getByRole('button',{name:'Clear conversation'}).click();await expect(page.locator('.answer')).toHaveCount(0);
 });
 test('QA09 standalone optional voice is clear and does not break typed TRACE',async({page})=>{
  await open(page,'assistant');await page.getByRole('button',{name:'Health',exact:true}).click();await expect(page.getByRole('region',{name:'Voice agent (optional combined backend)'})).toContainText('Voice unavailable in evidence-only mode');await expect(page.getByRole('button',{name:'Ask & speak'})).toBeDisabled();
@@ -81,6 +81,8 @@ test('QA09 standalone optional voice is clear and does not break typed TRACE',as
 test('QA10 dataset scopes, audit presets, every download and actual JSON/null content',async({page})=>{
  await open(page,'exports');for(const [scope,count] of [['All records',131],['BASS-II',129],['Saffire-I',2]] as const){await page.getByRole('tab',{name:new RegExp('^'+scope)}).click();for(const preset of ['Analysis fields','Full audit']){await page.getByRole('button',{name:new RegExp('^'+preset)}).click();const file=await download(page,'Download CSV');expect(file.text.split('\n').length).toBeGreaterThan(count);}
  const file=await download(page,'Download JSON');const json=JSON.parse(file.text);expect(json.records).toHaveLength(count);expect(json.records.every((r:any)=>r.total_pressure_psia.value===null)).toBe(true);}
+ // Pace native downloads after the nine scope files to respect Chromium's burst limit.
+ await page.waitForTimeout(1100);
  for(const title of ['Verified claim register','Source manifest','Validation report','Normalized corpus']){const pending=page.waitForEvent('download');await page.getByRole('button').filter({has:page.getByRole('heading',{name:title,exact:true})}).click();const d=await pending;expect(await d.failure()).toBeNull();expect((await readFile((await d.path())!,'utf8')).length).toBeGreaterThan(50);}
  await page.screenshot({path:'docs/evidence/local-qa/exports.png'});
 });
@@ -115,7 +117,7 @@ test('QA15 scenario controls, all categorical choices, rank controls, source det
 });
 test('QA16 basket settings, stale preview, MIME types, escaped HTML, print layout and removal continuity',async({page,context})=>{
  await page.addInitScript(()=>{(window as any).__qaTypes=[];const original=URL.createObjectURL;URL.createObjectURL=(blob)=>{if(blob instanceof Blob)(window as any).__qaTypes.push(blob.type);return original(blob);};});
- await open(page,'atlas');for(const id of ['BASS2-B1','SAFFIRE1-S1']){await page.getByRole('searchbox',{name:'Search',exact:true}).fill(id);await page.getByRole('button',{name:`Add ${id} to basket`,exact:true}).click();}
+ await open(page,'atlas');for(const id of ['BASS2-B1','SAFFIRE1-S1']){await page.getByRole('combobox',{name:'Search',exact:true}).fill(id);await page.getByRole('button',{name:`Add ${id} to basket`,exact:true}).click();}
  await open(page,'exports');await page.getByRole('button',{name:'Move SAFFIRE1-S1 up',exact:true}).click();await page.getByRole('button',{name:'Move SAFFIRE1-S1 down',exact:true}).click();await page.getByRole('button',{name:'Inspect BASS2-B1',exact:true}).click();await expect(page.getByRole('dialog')).toContainText('22.2');await page.keyboard.press('Escape');
  await page.getByRole('textbox',{name:'Report title',exact:true}).fill('');await expect(page.getByRole('button',{name:'Generate research brief',exact:true})).toBeDisabled();await page.getByRole('textbox',{name:'Report title',exact:true}).fill('<img src=x onerror=alert(1)>');await page.getByRole('textbox',{name:'Research question (optional)',exact:true}).fill('Which conditions are missing?');
  for(const label of ['Include detailed measurement tables','Include missing-record summary','Include source notes']){await page.getByRole('checkbox',{name:label,exact:true}).uncheck();await page.getByRole('checkbox',{name:label,exact:true}).check();}
@@ -128,7 +130,7 @@ test('QA16 basket settings, stale preview, MIME types, escaped HTML, print layou
  await page.getByRole('button',{name:'Clear basket',exact:true}).click();await page.getByRole('button',{name:'Cancel',exact:true}).click();await page.getByRole('button',{name:'Clear basket',exact:true}).click();await page.getByRole('button',{name:'Confirm clear basket',exact:true}).click();await expect(page.getByText('Your evidence basket is empty',{exact:true})).toBeVisible();
 });
 
-test('QA17 all routes have no uncaught errors or failed local assets',async({page})=>{
+test('QA17 core routes and Research have no uncaught errors or failed local assets',async({page})=>{
  const errors:string[]=[];const assets:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400&&/\.(js|css|json|mp3|woff2)(\?|$)/.test(r.url())&&!r.url().includes('/api/'))assets.push(r.url());});
  for(const route of pages)await open(page,route);expect(errors).toEqual([]);expect(assets).toEqual([]);
  await page.goto('/#/unknown-route');await expect(page.getByRole('heading',{name:'This route is not in the evidence graph.'})).toBeVisible();await page.getByRole('link',{name:'Evidence Atlas',exact:true}).filter({hasText:'Evidence Atlas'}).first().click();
@@ -138,7 +140,7 @@ test('QA18 overview CTAs, live model controls and actual fullscreen/clip navigat
  for(const preset of corpus.presets)await page.locator('.live__preset').filter({hasText:preset.label}).click();await page.locator('#live-pressure').fill('10.2');await page.locator('#live-oxygen').fill('30');await page.getByRole('button',{name:/Attempt placement/}).click();await expect(page.getByRole('button',{name:/Placement failed/})).toBeVisible();
  for(let index=0;index<5;index++)await page.locator('.film__chapter').nth(index).click();await page.getByRole('button',{name:'Replay',exact:true}).click();await page.getByRole('button',{name:'Full screen',exact:false}).click();await expect.poll(()=>page.evaluate(()=>!!document.fullscreenElement)).toBe(true);await page.getByRole('button',{name:'Exit full screen',exact:false}).click();await expect.poll(()=>page.evaluate(()=>!!document.fullscreenElement)).toBe(false);
  await page.screenshot({path:'docs/evidence/local-qa/overview.png'});
- for(let i=0;i<6;i++){await open(page,'overview');const href=await page.locator('a.feature').nth(i).getAttribute('href');await page.locator('a.feature').nth(i).click();await expect(page).toHaveURL(new RegExp(href!.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'$'));}
+ for(let i=0;i<6;i++){await open(page,'overview');const href=await page.locator('a.feature').nth(i).getAttribute('href');await page.locator('a.feature').nth(i).click();await expect.poll(()=>new URL(page.url()).hash.split('?')[0]).toBe(href!.split('?')[0]);}
 });
 
 test('QA19 denied clipboard access is handled without an unhandled rejection',async({page})=>{
@@ -148,5 +150,5 @@ test('QA19 denied clipboard access is handled without an unhandled rejection',as
 });
 test('QA20 expanded menu and measurement drawer pass the same accessibility checks',async({page})=>{
  await open(page,'atlas');await page.getByRole('button',{name:'Menu',exact:true}).click();await expect(page.getByRole('dialog',{name:'All sections menu'}).getByRole('button',{name:'Close',exact:true})).toBeFocused();expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations.map(v=>v.id)).toEqual([]);await page.keyboard.press('Escape');
- await page.getByRole('searchbox',{name:'Search',exact:true}).fill('BASS2-B1');await page.getByRole('row',{name:'Open BASS2-B1',exact:true}).press('Enter');await page.getByText('Measurement ledger: original values, units and transformations',{exact:true}).click();expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations.map(v=>v.id)).toEqual([]);
+ await page.getByRole('combobox',{name:'Search',exact:true}).fill('BASS2-B1');await page.getByRole('row',{name:'Open BASS2-B1',exact:true}).press('Enter');await page.getByText('Measurement ledger: original values, units and transformations',{exact:true}).click();expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations.map(v=>v.id)).toEqual([]);
 });

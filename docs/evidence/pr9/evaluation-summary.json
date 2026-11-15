@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "questions": 30,
+  "corpus_version": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "integrity": {
+    "answers_with_problems": 0,
+    "note": "Independent re-check of source resolution, locator presence, numeric grounding and forbidden safety phrasing. Must be 0."
+  },
+  "metrics": {
+    "retrieval_hit_at_5": null,
+    "retrieval_hit_at_5_labelled_items": "0/30",
+    "abstention_accuracy": null,
+    "abstention_accuracy_labelled_items": "0/30",
+    "note": "The shipped question set has no gold answers, so both metrics are null with zero labelled items. They are not estimated. Fill expected.record_ids (record ids that should appear in the top 5) and expected.abstain (true when the corpus cannot answer) from a domain-expert review to enable them."
+  }
+}

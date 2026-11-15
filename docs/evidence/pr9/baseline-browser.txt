@@ -1,0 +1,1165 @@
+
+> firertrace@0.1.0 e2e
+> playwright test --workers=2
+
+[WebServer] (node:22908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:15132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 70 tests using 2 workers
+
+(node:30140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   2 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › atmosphere has no axe WCAG A/AA violations (14.3s)
+(node:23184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   1 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › overview has no axe WCAG A/AA violations (16.1s)
+(node:39812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   3 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › atlas has no axe WCAG A/AA violations (6.5s)
+(node:23240) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   4 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › compare has no axe WCAG A/AA violations (4.6s)
+(node:38800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   5 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › gap has no axe WCAG A/AA violations (4.1s)
+(node:32168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   6 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › assistant has no axe WCAG A/AA violations (3.1s)
+  x   7 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › notebook has no axe WCAG A/AA violations (3.3s)
+(node:11588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   8 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › methodology has no axe WCAG A/AA violations (4.7s)
+  x   9 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › exports has no axe WCAG A/AA violations (6.6s)
+(node:41120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  11 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › graph has no axe WCAG A/AA violations (3.6s)
+(node:3180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  10 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › coverage has no axe WCAG A/AA violations (4.4s)
+(node:21100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  12 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › verification has no axe WCAG A/AA violations (3.4s)
+  x  13 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › evaluation has no axe WCAG A/AA violations (4.6s)
+(node:51088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  14 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › analysis has no axe WCAG A/AA violations (3.5s)
+(node:39688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  15 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › integrity has no axe WCAG A/AA violations (3.2s)
+(node:19212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  16 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › reports has no axe WCAG A/AA violations (3.5s)
+(node:33688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 18 [chromium] › e2e\accessibility.spec.ts:73:1 › keyboard-only route change and command palette work (2.9s)
+  ok 19 [chromium] › e2e\accessibility.spec.ts:84:1 › record drawer traps focus and restores it on Escape (3.9s)
+  ok 20 [chromium] › e2e\accessibility.spec.ts:98:1 › reduced motion is respected by the shell (2.7s)
+  ok 21 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Overview renders without console or page errors (3.2s)
+  ok 22 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Atmosphere renders without console or page errors (3.4s)
+  ok 23 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Evidence Atlas renders without console or page errors (2.0s)
+  ok 24 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Compare renders without console or page errors (1.9s)
+  x  17 [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › health has no axe WCAG A/AA violations (3.6s)
+  ok 25 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Gap Planner renders without console or page errors (1.9s)
+(node:5148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 26 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Methodology renders without console or page errors (3.7s)
+  ok 28 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Exports renders without console or page errors (3.0s)
+  ok 27 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Evidence Assistant renders without console or page errors (3.3s)
+  ok 29 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Coverage renders without console or page errors (1.7s)
+  ok 30 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Research Notebook renders without console or page errors (1.7s)
+  ok 31 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Evidence Graph renders without console or page errors (1.6s)
+  ok 32 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Verification Center renders without console or page errors (1.8s)
+  ok 33 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Evaluation Harness renders without console or page errors (1.8s)
+  ok 34 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Analysis Runs renders without console or page errors (1.6s)
+  ok 35 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Corpus Integrity renders without console or page errors (1.7s)
+  ok 36 [chromium] › e2e\app.spec.ts:26:5 › route smoke › Reports renders without console or page errors (1.5s)
+  ok 37 [chromium] › e2e\app.spec.ts:26:5 › route smoke › System Health renders without console or page errors (1.8s)
+  ok 39 [chromium] › e2e\app.spec.ts:63:1 › Atlas investigation filter shows only the two Saffire records (2.4s)
+  ok 38 [chromium] › e2e\app.spec.ts:42:1 › Atlas exact-ID search narrows to one row and opens its provenance drawer (4.2s)
+  ok 40 [chromium] › e2e\app.spec.ts:73:1 › Compare states the comparability blockers before the numbers (1.4s)
+  ok 41 [chromium] › e2e\app.spec.ts:82:1 › Assistant answers pressure with abstention and refuses a safety question (2.4s)
+  ok 42 [chromium] › e2e\app.spec.ts:100:1 › Gap Planner computes the target ppO2 and labels the missing evidence (1.7s)
+  ok 43 [chromium] › e2e\app.spec.ts:111:1 › Exports switches scope and previews only the selected records (2.1s)
+  ok 44 [chromium] › e2e\app.spec.ts:121:1 › the loaded app keeps working with the network offline (2.5s)
+  ok 45 [chromium] › e2e\app.spec.ts:132:1 › mobile layout has no page-level horizontal overflow (2.2s)
+  ok 46 [chromium] › e2e\app.spec.ts:144:1 › film narration follows play, pause, mute and chapter changes (5.0s)
+  ok 47 [chromium] › e2e\app.spec.ts:200:1 › film offers a sound prompt when autoplay is blocked (4.3s)
+  ok 48 [chromium] › e2e\app.spec.ts:237:1 › Saffire export quality summary follows the selected scope (1.9s)
+  ok 49 [chromium] › e2e\app.spec.ts:243:1 › specific burn-time question is direct evidence (3.1s)
+  ok 51 [chromium] › e2e\app.spec.ts:268:1 › methodology scopes table omissions against report context (1.9s)
+  ok 52 [chromium] › e2e\app.spec.ts:276:1 › demo uses real oxygen values and the real B1 source row (2.5s)
+  ok 50 [chromium] › e2e\app.spec.ts:252:1 › record provenance exposes corrected values, original files and missing-value scope (6.8s)
+  ok 53 [chromium] › e2e\research-library.spec.ts:3:1 › report findings retain source/page/measurement distinctions and filters (3.6s)
+  ok 54 [chromium] › e2e\research-library.spec.ts:18:1 › original record navigation, discovery and actual JSON export (5.1s)
+  ok 56 [chromium] › e2e\research.spec.ts:45:1 › clearing requires confirmation and cancellation retains the basket (3.3s)
+  ok 57 [chromium] › e2e\scenario.spec.ts:3:1 › scenario candidates, explanations, selection, Atlas, and return state (4.3s)
+  ok 58 [chromium] › e2e\scenario.spec.ts:37:1 › invalid targets and no-credit filters produce explicit states (2.8s)
+  ok 55 [chromium] › e2e\research.spec.ts:3:1 › basket survives navigation/reload, compares selections, generates and downloads all formats (13.5s)
+  ok 59 [chromium] › e2e\scenario.spec.ts:51:1 › comparison direction and method differences retain original sources (2.0s)
+  ok 61 [chromium] › e2e\workbench.spec.ts:36:3 › research workbench › coverage computes zero coverage for constrained fields (2.0s)
+  ok 60 [chromium] › e2e\workbench.spec.ts:4:3 › research workbench › notebook persists a typed observation and exposes it to verification (4.1s)
+  ok 62 [chromium] › e2e\workbench.spec.ts:51:3 › research workbench › evaluation runs the deterministic benchmark and keeps failures visible (1.9s)
+  ok 63 [chromium] › e2e\workbench.spec.ts:62:3 › research workbench › evidence graph searches a record and renders a typed neighborhood (1.6s)
+  ok 64 [chromium] › e2e\workbench.spec.ts:73:3 › research workbench › verification audits an assistant answer against the corpus (1.8s)
+  ok 66 [chromium] › e2e\workbench.spec.ts:97:3 › research workbench › integrity reports all checks and no failures (1.5s)
+  ok 65 [chromium] › e2e\workbench.spec.ts:85:3 › research workbench › analysis runs are recorded, reproducible, and persisted (2.5s)
+  ok 68 [chromium] › e2e\workbench.spec.ts:116:3 › research workbench › exports downloads the research bundle with a manifest (2.2s)
+  ok 67 [chromium] › e2e\workbench.spec.ts:105:3 › research workbench › reports assemble a hashed bundle and download a ZIP (2.4s)
+  ok 69 [chromium] › e2e\workbench.spec.ts:125:3 › research workbench › health probes capabilities and the shell reports offline state (1.5s)
+  ok 70 [chromium] › e2e\workbench.spec.ts:135:3 › research workbench › manifest and offline shell are installed in the production build (2.3s)
+
+
+  1) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › overview has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--49875-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--49875-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--49875-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--49875-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › atmosphere has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--6b543-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--6b543-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--6b543-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--6b543-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › atlas has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--a6fd5-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--a6fd5-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--a6fd5-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--a6fd5-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › compare has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--16d5b-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--16d5b-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--16d5b-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--16d5b-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › gap has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--77822-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--77822-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--77822-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--77822-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › assistant has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--7bd04-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--7bd04-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--7bd04-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--7bd04-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › notebook has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--ab6e8-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--ab6e8-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--ab6e8-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--ab6e8-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › methodology has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--ea5a6-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--ea5a6-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--ea5a6-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--ea5a6-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › exports has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--62601-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--62601-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--62601-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--62601-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › coverage has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--5b6d4-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--5b6d4-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--5b6d4-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--5b6d4-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › graph has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--7cc64-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--7cc64-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--7cc64-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--7cc64-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › verification has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--98ea1-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--98ea1-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--98ea1-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--98ea1-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › evaluation has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--3a6d9-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--3a6d9-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--3a6d9-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--3a6d9-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  14) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › analysis has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--74592-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--74592-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--74592-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--74592-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  15) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › integrity has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--643c8-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--643c8-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--643c8-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--643c8-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  16) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › reports has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--a1057-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--a1057-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--a1057-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--a1057-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17) [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › health has no axe WCAG A/AA violations
+
+    Error: [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "help": "Elements must have their visible text as part of their accessible name",
+        "targets": [
+          {
+            "target": ".brand",
+            "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "targets": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "target": ".brand",
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      66 |         })),
+      67 |       }));
+    > 68 |       expect(violations, JSON.stringify(violations, null, 2)).toEqual([]);
+         |                                                               ^
+      69 |     });
+      70 |   }
+      71 | });
+        at <PR9_WORKTREE>\e2e\accessibility.spec.ts:68:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--b33cb-no-axe-WCAG-A-AA-violations-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\accessibility-WCAG-2-2-AA--b33cb-no-axe-WCAG-A-AA-violations-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\accessibility-WCAG-2-2-AA--b33cb-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\accessibility-WCAG-2-2-AA--b33cb-no-axe-WCAG-A-AA-violations-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17 failed
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › overview has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › atmosphere has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › atlas has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › compare has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › gap has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › assistant has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › notebook has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › methodology has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › exports has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › coverage has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › graph has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › verification has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › evaluation has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › analysis has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › integrity has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › reports has no axe WCAG A/AA violations
+    [chromium] › e2e\accessibility.spec.ts:46:5 › WCAG 2.2 AA automated checks › health has no axe WCAG A/AA violations
+  53 passed (4.2m)

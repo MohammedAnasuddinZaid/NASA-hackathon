@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { primaryRoutes, routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
 import { CommandPalette } from './CommandPalette';
@@ -50,6 +50,7 @@ function MenuOverlay({
   returnFocus: RefObject<HTMLButtonElement | null>;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -79,9 +80,9 @@ function MenuOverlay({
     };
     document.addEventListener('keydown', onKey);
     document.body.classList.add('menu-open');
-    const firstLink = panelRef.current?.querySelector<HTMLElement>('.menu__link');
-    firstLink?.focus();
+    const focusFrame = window.requestAnimationFrame(() => closeRef.current?.focus());
     return () => {
+      window.cancelAnimationFrame(focusFrame);
       document.removeEventListener('keydown', onKey);
       document.body.classList.remove('menu-open');
       previousFocus?.focus?.();
@@ -89,7 +90,8 @@ function MenuOverlay({
   }, [open, onClose, returnFocus]);
 
   return (
-    <div className={`menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+    <div ref={panelRef} className={`menu ${open ? 'is-open' : ''}`} role="dialog" aria-label="All sections menu" aria-modal={open || undefined} aria-hidden={!open}
+      onTransitionEnd={event => { if (open && event.target === panelRef.current && !panelRef.current?.contains(document.activeElement)) closeRef.current?.focus(); }}>
       <div className="menu__bar">
         <div className="menu__bar-meta">
           <Glyph size={12} />
@@ -101,6 +103,7 @@ function MenuOverlay({
         <button
           type="button"
           className="menu__close"
+          ref={closeRef}
           onClick={() => {
             onClose();
             returnFocus.current?.focus();
@@ -110,7 +113,7 @@ function MenuOverlay({
         </button>
       </div>
 
-      <div className="menu__grid" ref={panelRef}>
+      <div className="menu__grid">
         <nav className="menu__links" aria-label="All sections">
           {routeGroups.map((group) => (
             <div className="menu__group" key={group}>
@@ -157,8 +160,8 @@ function MenuOverlay({
               <dd>0</dd>
             </div>
             <div>
-              <dt>External model calls</dt>
-              <dd>0</dd>
+              <dt>TRACE generation</dt>
+              <dd>Optional · server configured</dd>
             </div>
           </dl>
           <span className="hand">[ evidence, not vibes ]</span>
@@ -174,6 +177,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const active = route.segment;
   const online = useOnline();
   const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement | null>(null);
 
@@ -313,7 +317,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <MenuOverlay
           open={menuOpen}
           active={active}
-          onClose={() => setMenuOpen(false)}
+          onClose={closeMenu}
           returnFocus={menuButton}
         />
       </div>

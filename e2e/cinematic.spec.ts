@@ -86,6 +86,7 @@ test('reduced motion is complete and static, including preference changes while 
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto');
   await page.getByRole('button', { name: 'Read the six-scene story ↓' }).click();
   await expect(page.locator('#cinema-story-title')).toBeFocused();
+  expect(await page.locator('#cinema-story-title').evaluate(node => node.getBoundingClientRect().top >= (document.querySelector('.topbar')?.getBoundingClientRect().bottom ?? 0))).toBe(true);
   await expect(page).toHaveURL(/#\/overview$/);
   for (const name of sceneNames) await expect(page.locator(`[data-scene="${name}"] h3`)).toBeVisible();
   await page.emulateMedia({ reducedMotion: 'no-preference' });

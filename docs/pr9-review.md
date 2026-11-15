@@ -1,7 +1,7 @@
 # PR #9 release and cinematic Overview review
 
-Status: verification in progress; no merge or deployment. Final measured results appear below
-once the recorded runners finish. This report concerns the current 17-route workstation,
+Status: **PASS for the scoped cinematic UI and local release regression checks**. No feature-PR
+merge or deployment. Optional live AI/speech and certification remain outside this verdict. This report concerns the current 17-route workstation,
 not the earlier eight-route QA baseline.
 
 ## Baseline and isolated work
@@ -14,8 +14,17 @@ Baseline frontend: 300 unit tests and production build pass. Backend: 210 tests 
 worktree-local pytest temporary directory; the shared Windows temp initially denied access.
 Pipeline: 19 tests and 24 generated-artifact reproductions pass.
 
-Environment: Windows, PowerShell, Node24.14.1, npm11.9.0, Python3.14.6, own backend virtual
-environment; hosted CI uses Python3.12. No live provider credential or speech-model downloads.
+Main advanced during execution to `8a7304083dc193173029cc9ff891d64b810b23e5`, bringing in the
+QA fixes and expanded suite. That main update is incorporated into this feature branch. Both
+Atlas implementations were reconciled into one adapter; all current workbench features remain.
+The imported QA selectors were updated for the native datalist combobox, labelled drawer close
+button and richer query-plan disclosure; no content/download assertions were removed. The menu
+case now visits all 17 routes, and Atlas exercises all 10 sort options. Fault-injected QA requests
+block service workers for the same reason as the integration suite. Native download pacing is
+retained so the fast runner does not exceed Chromium's download burst limit.
+
+Environment: Windows, PowerShell, Node 24.14.1, npm 11.9.0, Python 3.14.6, own backend virtual
+environment; hosted CI uses Python 3.12. No live provider credential or speech-model downloads.
 No new dependencies, package upgrades, paid services, cloud deployment or original media reuse.
 
 ## Release blockers found and repaired
@@ -29,6 +38,7 @@ No new dependencies, package upgrades, paid services, cloud deployment or origin
 | Integration fixture no longer intercepts corrupt research response | Newly added service worker serves cached JSON before Playwright routing | Block service worker only in fault-injected integration config. Default suite still tests real PWA installation/offline state. |
 | Integration locator stale | Native datalist gives Search a combobox role | Use current accessible role, preserving the same workflow/content assertions. |
 | Existing film may start sound on scroll | Narration defaults enabled | Default muted; actual five audio clips and play/pause/chapter/retry/mute behavior retained and tested after explicit opt-in. |
+| Menu semantics and full focus containment | Incoming workstation menu trap omits its Close button and lacks dialog semantics | Keep all 17 grouped links, add named modal semantics, focus Close safely across its CSS transition, contain the entire overlay and restore focus. |
 
 Atlas additionally bounds the search to the existing 200-character API limit, validates O2
 ranges visibly, handles HTTP500/503 as whole-session fallback, ignores obsolete responses,
@@ -82,7 +92,7 @@ Release fixes in AppShell/Atlas/narration remain independent of those effects.
 - Focused tests exercise real onscreen/offscreen scrolling, pause/resume, reduced motion,
   disabled IntersectionObserver, repeated route cleanup and simulated document-hidden signals.
   The hidden-signal test is event simulation, not a claim of physical background-tab/GPU profiling.
-- Automated axe WCAG2/2.1/2.2 A/AA checks cover all17 existing routes. This is not complete
+- Automated axe WCAG2/2.1/2.2 A/AA checks cover all 17 existing routes. This is not complete
   screen-reader certification. New SVGs are decorative/aria-hidden, with explanatory captions.
 
 ### Performance method and budget
@@ -101,11 +111,55 @@ variance. This measurement uses system fallback fonts; genuine visual captures r
 normal font loading. Four-times CPU throttling approximates limited CPU, not an actual low-end
 phone/GPU test. No prolonged heap leak or hardware performance certification is claimed.
 
-Final measurements: pending.
+| Entry payload | Before gzip | After gzip | Change |
+|---|---:|---:|---:|
+| .js | 265,450 B | 268,634 B | +3,184 B |
+| .css | 28,396 B | 30,068 B | +1,672 B |
+
+Combined increase **4,856 bytes gzip (1.653%)**: budget passes.
+
+| Time to original heading, median of 3 | Before | After |
+|---|---:|---:|
+| Normal CPU | 810 ms | 668 ms |
+| 4× CPU throttling | 3838 ms | 2806 ms |
+
+These paired samples compare current main `8a73040` with this branch. Earlier 4× overhead and run-to-run variance
+remain disclosed; the final lower sample is not presented as a general improvement. Initial c53b915 and earlier live-font
+samples remain in the evidence directory as historical measurements. Raw pairs are under
+`before-latest/` and `after-latest/`; see `performance-comparison.json`.
+
 
 ## Final verification
 
-Final runner summaries: pending. Raw logs are retained under `docs/evidence/pr9/` when complete.
+| Final check | Result |
+|---|---|
+| Frontend units | 316 passed |
+| Backend | 211 passed; one existing Starlette/httpx deprecation warning |
+| Pipeline | 19 passed |
+| Reproduced scientific artifacts | 24 byte-identical; corpus/research identities unchanged |
+| Deterministic benchmark | 36/36 passed |
+| Independent grounding evaluation | 30 questions; zero integrity problems; gold-labelled accuracy metrics remain null |
+| Default browser/workbench/cinematic | 80 passed, including 17-route smoke and 10 new cinematic tests |
+| Real API browser | 6 passed locally, including actual Swagger; Swagger is optional in CI |
+| TRACE browser | 2 passed; provider interpretation uses an explicit mock, not live generation |
+| Integrated research workflow | 5 passed |
+| Expanded QA | Clean full 33-test run passed after current-role/label/canonical-URL adaptations |
+| Cross-browser smoke | Chromium / Firefox / WebKit pass; no uncaught page errors |
+| Actual backend stop/restart | Passed on own port 8022: Atlas, Compare, Gap, deterministic22.2 answer and basket JSON; restored/reconnected |
+| Build / dependencies | TypeScript and production build pass; npm audit 0 vulnerabilities; existing large-chunk advisory |
+
+The primary browser suites total **126 test executions** (80+6+2+5+33), not 126 unique features.
+The new cinematic cases are included in 80. Expanded QA retains all 131 drawers and 262 record
+basket toggles, nine core/research views at six widths and the full17-link menu. Hosted CI
+runs these same suites; actual Swagger is opt-in, so CI may show one documented skip. Check
+this PR's hosted jobs separately before merging. No linter is configured; no lint pass claimed.
+Raw final logs are retained under `docs/evidence/pr9/`.
+
+Intermediate failures were kept diagnostic: Windows shared-temp permissions (resolved with an
+isolated test temp directory), compiler file locking during reinstall (only owned Vite/esbuild
+processes stopped), and imported assertions for the former retrieval-trace label and query-free
+Compare URL (adapted to current semantics). No failing assertion was removed, and the final
+full expanded suite ran clean. Historical QA/integration evidence is preserved unchanged.
 Scientific identity must remain
 `89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9`.
 No NASA experimental records or scientific calculations are changed by this PR. Final Git diff
@@ -163,7 +217,9 @@ restore that generated file after verifying it if it is not part of the intended
 
 ## Integration with PR #8
 
-This branch uses current main and does not merge/cherry-pick or modify PR8. Potential shared-file
+This branch uses current main and does not merge/cherry-pick or modify PR8's branch. The team
+incorporated QA changes in main during this task; this branch preserves that default-branch update.
+Potential shared-file
 overlap: AppShell (accessible label versus menu/skip fixes), ExplainerFilm (default mute versus
 missing-clip disclosure), Atlas (current workbench/API adapter versus the older filter fixes),
 integration fixtures and README/status documentation. Preserve the 17-route workbench, new saved

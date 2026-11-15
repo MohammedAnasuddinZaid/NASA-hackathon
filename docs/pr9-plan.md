@@ -5,6 +5,12 @@ Baseline: main `c53b915eac48530803ac01ae55f568edfa974734`; branch
 Main already includes the new 17-route workstation. Its latest CI fails on the visible logo /
 accessible-name mismatch on all 17 routes. Address that shared label first.
 
+During execution main advanced to `8a7304083dc193173029cc9ff891d64b810b23e5`, incorporating
+QA fixes and the expanded suite. That default-branch update is merged into this feature branch,
+with current workbench features, incoming fixes and new visuals reconciled. Final tests and
+performance comparisons use that newer base. Initial c53b915 captures remain historical before
+evidence. No feature pull request was merged or deployed by this work.
+
 ## Milestones and acceptance
 
 1. Reproduce main's unit/build/browser results and repair the observed CI blocker. Retain axe's

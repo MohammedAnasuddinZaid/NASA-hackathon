@@ -4,10 +4,12 @@
     "2",
     "131"
   ],
+  "focus": "cinema-story-title",
+  "headerBottom": 72,
+  "headingTop": 103.9000015258789,
   "heroState": "paused",
+  "pausePressed": "true",
   "sceneCount": 6,
-  "scrollY": 2761.60009765625,
-  "storyTitle": "From orbit to evidence.",
   "url": "http://127.0.0.1:5212/#/overview",
   "viewportWidth": 714,
   "afterCTA": {
