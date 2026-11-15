@@ -884,6 +884,17 @@ export function ask(question: string): AssistantAnswer {
     return safetyRefusal(q);
   }
 
+  if (/\bFLEX\b|\bsummary report\b|\bresearch report\b/i.test(q)) {
+    return baseAnswer(q, {
+      grade: 'absent',
+      headline: 'Report evidence is outside this assistant’s indexed record layer.',
+      paragraphs: ['Use the Research Library for verified report findings and page citations. This assistant cannot retrieve those report passages. Report observations are not measurements for individual tests. FLEX droplet research must not be substituted for solid-fuel experiment evidence.'],
+      bullets: [], citations: [], trace: ['Stopped at the report/record evidence boundary.'],
+      followUps: ['What oxygen did BASS2-B1 report?'],
+      page: { href: '#/atlas?view=research', label: 'Open Research Library →' },
+    });
+  }
+
   if (/\bcompare\b|\bcomparison\b|\bversus\b|\bvs\b/i.test(q)) {
     return compareAnswer(q);
   }

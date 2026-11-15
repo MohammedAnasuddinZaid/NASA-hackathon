@@ -1857,6 +1857,7 @@
 
 .source-card__foot {
   display: flex;
+  flex-wrap: wrap;
   gap: 14px;
   margin-top: 10px;
 }
@@ -1870,12 +1871,15 @@
 
 .context-source {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
   padding-top: 12px;
   border-top: 1px solid var(--line);
 }
+
+.context-source > div { min-width: 0; flex: 1 1 200px; overflow-wrap: anywhere; }
 
 .context-source h4 {
   margin: 5px 0;

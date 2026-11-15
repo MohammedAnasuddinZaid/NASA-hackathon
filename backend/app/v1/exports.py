@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import csv
 import io
+import re
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -46,11 +47,18 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def _cell_text(payload: Optional[dict[str, Any]]) -> tuple[str, str, str]:
+def spreadsheet_value(value: Any) -> Any:
+    """Escape untrusted formula-like text without changing numeric zero/negatives."""
+    if isinstance(value, str) and re.match(r"^[\s\x00-\x1f\x7f-\x9f\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]*[=+\-@]", value):
+        return "'" + value
+    return value
+
+
+def _cell_text(payload: Optional[dict[str, Any]]) -> tuple[Any, str, str]:
     if not isinstance(payload, dict):
         return "", "", "not_extracted"
     value = payload.get("value")
-    rendered = "" if value is None else str(value)
+    rendered = "" if value is None else value
     return rendered, str(payload.get("unit") or ""), str(payload.get("status") or "not_extracted")
 
 
@@ -96,7 +104,7 @@ def records_csv(store: EvidenceStore, records: list[dict[str, Any]]) -> tuple[st
             row[f"{field}_value"] = value
             row[f"{field}_unit"] = unit
             row[f"{field}_status"] = status
-        writer.writerow(row)
+        writer.writerow({key: spreadsheet_value(value) for key, value in row.items()})
     return buffer.getvalue(), len(records)
 
 
@@ -115,7 +123,7 @@ def claims_csv(store: EvidenceStore) -> tuple[str, int]:
     writer.writeheader()
     for claim in store.claims:
         writer.writerow(
-            {
+            {key: spreadsheet_value(value) for key, value in {
                 "claim_id": claim.get("claim_id"),
                 "claim_text": claim.get("claim_text"),
                 "claim_type": claim.get("claim_type"),
@@ -123,7 +131,7 @@ def claims_csv(store: EvidenceStore) -> tuple[str, int]:
                 "supporting_locators": "|".join(claim.get("supporting_locators") or []),
                 "limitation": claim.get("limitation"),
                 "validation_status": claim.get("validation_status"),
-            }
+            }.items()}
         )
     return buffer.getvalue(), len(store.claims)
 

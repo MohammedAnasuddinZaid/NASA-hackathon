@@ -3,6 +3,7 @@ import type { ReactNode, RefObject } from 'react';
 import { primaryRoutes, routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
 import { CommandPalette } from './CommandPalette';
 import { corpus } from '../lib/corpus';
+import { BasketIndicator } from '../lib/basketContext';
 
 export function Glyph({ size = 14 }: { size?: number }) {
   return (
@@ -244,6 +245,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="topbar__right">
+          <BasketIndicator />
           <span
             className={`topbar__status ${online ? '' : 'is-offline'}`}
             title={online ? 'Network available. Bundled retrieval still runs locally.' : 'Offline: bundled retrieval is fully local.'}

@@ -1,0 +1,1323 @@
+{
+  "schema_version": "firetrace.research-brief/1",
+  "dataset_version": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "generated_at": "2026-11-14T20:03:33.991Z",
+  "identity": "FIRETRACE derived research brief",
+  "user_metadata": {
+    "title": "BASS-II and Saffire-I selected evidence",
+    "research_question": "Which conditions are reported, and what prevents a direct comparison?",
+    "verification": "User-supplied purpose, not verified scientific findings."
+  },
+  "options": {
+    "title": "BASS-II and Saffire-I selected evidence",
+    "question": "Which conditions are reported, and what prevents a direct comparison?",
+    "detailed": false,
+    "includeMissing": true,
+    "includeSourceNotes": true
+  },
+  "selected_ids": [
+    "BASS2-B1",
+    "SAFFIRE1-S1"
+  ],
+  "record_count": 2,
+  "records": [
+    {
+      "experiment_id": "BASS2-B1",
+      "source_id": "PSI-25",
+      "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+      "investigation": "Burning and Suppression of Solids - II",
+      "investigation_acronym": "BASS-II",
+      "family": "BASS-II",
+      "pi": "Bhattacharjee",
+      "test_number": "B1",
+      "sample_number": "147",
+      "date_reported": "2/19/2014",
+      "gmt_day": "50",
+      "material_raw": "100 micron PMMA film   2 cm wide",
+      "material_family": "PMMA film",
+      "material_species": "PMMA",
+      "geometry": "Flat sheet/film",
+      "thickness_mm": {
+        "value": 0.1,
+        "status": "derived",
+        "unit": "mm",
+        "raw": "100 micron",
+        "note": "Parsed from free-text material description.",
+        "basis": "parsed_from_text",
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "width_cm": {
+        "value": 2,
+        "status": "derived",
+        "unit": "cm",
+        "raw": "2 cm",
+        "note": "Parsed from free-text material description.",
+        "basis": "parsed_from_text",
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "length_cm": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "cm",
+        "raw": null,
+        "note": "No length is reported for this sample in the experimental table.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "diameter_mm": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "mm",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "oxygen_initial_pct": {
+        "value": 22.2,
+        "status": "corrected",
+        "unit": "% by vol",
+        "raw": "22.2",
+        "note": "Calibrated oxygen reading; sensor was out of calibration and corrected with the MCA ISS reading via a constant offset (PSI-25 ReadMe).",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "oxygen_final_pct": {
+        "value": 22.2,
+        "status": "corrected",
+        "unit": "% by vol",
+        "raw": "22.2",
+        "note": "Calibrated oxygen reading; sensor was out of calibration and corrected with the MCA ISS reading via a constant offset (PSI-25 ReadMe).",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "oxygen_partial_pressure_psi": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "psi",
+        "raw": null,
+        "note": "Total pressure is not reported for this record, so oxygen partial pressure cannot be calculated.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "total_pressure_psia": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "psia",
+        "raw": null,
+        "note": "The PSI experimental table has no total-pressure column. ISS cabin pressure is not substituted.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "flow_initial_cm_s": {
+        "value": 5,
+        "status": "measured",
+        "unit": "cm/s",
+        "raw": "5",
+        "note": "First parsed duct air-speed display token; not a verified time-resolved series. Parenthetical numeric annotations are retained in raw text but not used as flow readings. Response time is slow (~1 min); steady only at a fixed setting (PSI-25 ReadMe).",
+        "basis": "instrument_display",
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "flow_derived_cm_s": {
+        "value": 5.033,
+        "status": "derived",
+        "unit": "cm/s",
+        "raw": "5",
+        "note": "U = 1.0066 x Air display. Single workbook factor based on SPICE calibration at one location; not a per-test calibration.",
+        "basis": "derived_from_instrument_display",
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "flow_range_cm_s": [
+        5,
+        5
+      ],
+      "flow_varies": false,
+      "flow_direction": {
+        "value": null,
+        "status": "not_reported",
+        "unit": null,
+        "raw": null,
+        "note": "No per-test flow direction is recorded in the experimental table.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "fan_display_raw": "62",
+      "air_display_raw": "5",
+      "flow_restrictor": "2",
+      "gravity_regime": {
+        "value": "microgravity",
+        "status": "investigation_level",
+        "unit": null,
+        "raw": "BASS-II metadata: ISS microgravity investigation.",
+        "note": "Not a per-test measurement. Assigned from investigation-level metadata, not from a recorded g-level.",
+        "basis": "investigation_level",
+        "source_locator": "PSI-25 investigation metadata / ReadMe; context only",
+        "source_file": "PSI-25_metadata.json"
+      },
+      "ignition_method": {
+        "value": null,
+        "status": "not_reported",
+        "unit": null,
+        "raw": null,
+        "note": "No ignition method is recorded in the experimental table.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "ignition_power_w": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "W",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "ignition_time_s": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "s",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "burn_time_s": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "s",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "hardware": {
+        "value": "Microgravity Science Glovebox (MSG) flow duct",
+        "status": "investigation_level",
+        "unit": null,
+        "raw": "Microgravity Science Glovebox (MSG)",
+        "note": "Investigation-level hardware; not verified per test.",
+        "basis": "investigation_level",
+        "source_locator": "PSI-25 investigation metadata / ReadMe; context only",
+        "source_file": "PSI-25_metadata.json"
+      },
+      "measurement_method": "Gas sensors (O2/CO2/CO), duct air-speed display, radiometer gain setting, still-frame count",
+      "outcome": {
+        "value": null,
+        "status": "not_reported",
+        "unit": null,
+        "raw": "5 | 62",
+        "note": "Free-text note exists, but it does not state a standardized outcome.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "outcome_definition": "No standardized outcome column exists. Qualitative tokens are extracted only from free-text flow notes.",
+      "source_note": "5 | 62",
+      "co2_initial_pct": {
+        "value": 0.44,
+        "status": "measured",
+        "unit": "% by vol",
+        "raw": "0.44",
+        "note": "CDM CO2 sensor reading as reported in the PSI experimental table.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "co2_final_pct": {
+        "value": 0.44,
+        "status": "measured",
+        "unit": "% by vol",
+        "raw": "0.44",
+        "note": "CDM CO2 sensor reading as reported in the PSI experimental table.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "co_initial_ppm": {
+        "value": 0,
+        "status": "measured",
+        "unit": "ppm",
+        "raw": "0",
+        "note": "CSA-CP CO sensor reading as reported in the PSI experimental table.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "co_final_ppm": {
+        "value": 6,
+        "status": "measured",
+        "unit": "ppm",
+        "raw": "6",
+        "note": "CSA-CP CO sensor reading as reported in the PSI experimental table.",
+        "basis": null,
+        "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+        "source_file": "PSI-25_experimental.csv"
+      },
+      "radiometer_gain": "50",
+      "total_frames": "57",
+      "quality_flags": [
+        "free_text_note_without_standardized_outcome"
+      ],
+      "missing_fields": [
+        "total_pressure_psia",
+        "gravity_regime_per_record",
+        "ignition_method",
+        "standardized_outcome",
+        "flow_direction_per_record",
+        "measurement_uncertainty_per_value"
+      ],
+      "provenance_notes": [
+        "Original PSI CSV row preserved in record.raw; no raw file was overwritten.",
+        "Material family/geometry/dimensions are parsed from the free-text Material field and marked derived.",
+        "Pressure remains not reported; no cabin pressure was substituted."
+      ],
+      "validation_status": "validated",
+      "raw": {
+        "PI": "Bhattacharjee",
+        "Test #": "B1",
+        "Date": "2/19/2014",
+        "GMT": "50",
+        "Sample #": "147",
+        "Fuel Sample Material": "100 micron PMMA film   2 cm wide",
+        "Flow restrictor": "2",
+        "Fan display": "62",
+        "Air display": "5",
+        "Radiometer gain   (1000   250   50   10)": "50",
+        "Total Frames Shot": "57",
+        "Calibrated  initial O2 % by vol ": "22.2",
+        "Calibrated final O2 % by vol": "22.2",
+        "Initial CO2 % by vol": "0.44",
+        "Final CO2 % by vol": "0.44",
+        "Initial CO (ppm)": "0",
+        "Final CO (ppm)": "6"
+      },
+      "measurements": [
+        {
+          "measurement_id": "BASS2-B1-O2I",
+          "quantity": "oxygen_initial",
+          "original_value": "22.2",
+          "original_unit": "% by vol",
+          "normalized_value": 22.2,
+          "normalized_unit": "% by vol",
+          "status": "corrected",
+          "uncertainty": null,
+          "note": "Calibrated oxygen reading; sensor was out of calibration and corrected with the MCA ISS reading via a constant offset (PSI-25 ReadMe).",
+          "measurement_phase": "initial",
+          "measurement_method": "Calibrated gas sensor (MCA-corrected)",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-O2F",
+          "quantity": "oxygen_final",
+          "original_value": "22.2",
+          "original_unit": "% by vol",
+          "normalized_value": 22.2,
+          "normalized_unit": "% by vol",
+          "status": "corrected",
+          "uncertainty": null,
+          "note": "Calibrated oxygen reading; sensor was out of calibration and corrected with the MCA ISS reading via a constant offset (PSI-25 ReadMe).",
+          "measurement_phase": "final",
+          "measurement_method": "Calibrated gas sensor (MCA-corrected)",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-CO2I",
+          "quantity": "co2_initial",
+          "original_value": "0.44",
+          "original_unit": "% by vol",
+          "normalized_value": 0.44,
+          "normalized_unit": "% by vol",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "CDM CO2 sensor reading as reported in the PSI experimental table.",
+          "measurement_phase": "initial",
+          "measurement_method": "CDM sensor",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-CO2F",
+          "quantity": "co2_final",
+          "original_value": "0.44",
+          "original_unit": "% by vol",
+          "normalized_value": 0.44,
+          "normalized_unit": "% by vol",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "CDM CO2 sensor reading as reported in the PSI experimental table.",
+          "measurement_phase": "final",
+          "measurement_method": "CDM sensor",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-COI",
+          "quantity": "co_initial",
+          "original_value": "0",
+          "original_unit": "ppm",
+          "normalized_value": 0,
+          "normalized_unit": "ppm",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "CSA-CP CO sensor reading as reported in the PSI experimental table.",
+          "measurement_phase": "initial",
+          "measurement_method": "CSA-CP sensor",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-COF",
+          "quantity": "co_final",
+          "original_value": "6",
+          "original_unit": "ppm",
+          "normalized_value": 6,
+          "normalized_unit": "ppm",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "CSA-CP CO sensor reading as reported in the PSI experimental table.",
+          "measurement_phase": "final",
+          "measurement_method": "CSA-CP sensor",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-FLOW",
+          "quantity": "air_display_initial",
+          "original_value": "5",
+          "original_unit": "cm/s",
+          "normalized_value": 5,
+          "normalized_unit": "cm/s",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "First parsed duct air-speed display token; not a verified time-resolved series. Parenthetical numeric annotations are retained in raw text but not used as flow readings. Response time is slow (~1 min); steady only at a fixed setting (PSI-25 ReadMe).",
+          "measurement_phase": "test",
+          "measurement_method": "Duct air-speed display",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-FLOWD",
+          "quantity": "air_display_derived_velocity",
+          "original_value": "5",
+          "original_unit": "cm/s",
+          "normalized_value": 5.033,
+          "normalized_unit": "cm/s",
+          "status": "derived",
+          "uncertainty": null,
+          "note": "U = 1.0066 x Air display. Single workbook factor based on SPICE calibration at one location; not a per-test calibration.",
+          "measurement_phase": "test",
+          "measurement_method": "Derived: U = 1.0066 x Air display",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-THK",
+          "quantity": "sample_thickness",
+          "original_value": "100 micron",
+          "original_unit": "micron",
+          "normalized_value": 0.1,
+          "normalized_unit": "mm",
+          "status": "derived",
+          "uncertainty": null,
+          "note": "Parsed from free-text material description; formatting/rounding in source.",
+          "measurement_phase": "sample",
+          "measurement_method": "Text extraction",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        },
+        {
+          "measurement_id": "BASS2-B1-WID",
+          "quantity": "sample_width",
+          "original_value": "2 cm",
+          "original_unit": "cm",
+          "normalized_value": 2,
+          "normalized_unit": "cm",
+          "status": "derived",
+          "uncertainty": null,
+          "note": "Parsed from free-text material description; formatting/rounding in source.",
+          "measurement_phase": "sample",
+          "measurement_method": "Text extraction",
+          "source_locator": "PSI-25 experimental table, CSV row 2, test B1",
+          "source_file": "PSI-25_experimental.csv"
+        }
+      ]
+    },
+    {
+      "experiment_id": "SAFFIRE1-S1",
+      "source_id": "PSI-98",
+      "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+      "investigation": "Spacecraft Fire Safety Experiment-I",
+      "investigation_acronym": "Saffire-I",
+      "family": "Saffire-I",
+      "pi": null,
+      "test_number": "S1",
+      "sample_number": "S1",
+      "date_reported": null,
+      "gmt_day": null,
+      "material_raw": "SIBAL Fabric",
+      "material_family": "SIBAL fabric",
+      "material_species": "SIBAL",
+      "geometry": "Fabric sheet",
+      "thickness_mm": {
+        "value": 3.7,
+        "status": "measured",
+        "unit": "mm",
+        "raw": "0.37",
+        "note": "Source field in cm; converted to mm.",
+        "basis": "unit_conversion",
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "width_cm": {
+        "value": 94,
+        "status": "measured",
+        "unit": "cm",
+        "raw": "94.0",
+        "note": "As reported.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "length_cm": {
+        "value": 40.6,
+        "status": "measured",
+        "unit": "cm",
+        "raw": "40.6",
+        "note": "As reported.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "diameter_mm": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "mm",
+        "raw": null,
+        "note": "Sheet sample; diameter not applicable.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "oxygen_initial_pct": {
+        "value": 21.6,
+        "status": "reported_qualitative",
+        "unit": "% by vol",
+        "raw": "21.5 - 21.7",
+        "note": "Source reports a range (21.5 - 21.7); midpoint retained as an approximate value, raw range preserved.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "oxygen_final_pct": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "% by vol",
+        "raw": null,
+        "note": "Not reported as a final value for this sample in the table.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "oxygen_partial_pressure_psi": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "psi",
+        "raw": null,
+        "note": "Total pressure is not reported for this record, so oxygen partial pressure cannot be calculated.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "total_pressure_psia": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "psia",
+        "raw": null,
+        "note": "The PSI-98 experimental table has no total-pressure column. Cygnus cabin pressure is not substituted.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "flow_initial_cm_s": {
+        "value": 20,
+        "status": "measured",
+        "unit": "cm/s",
+        "raw": "20.0",
+        "note": "As reported.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "flow_derived_cm_s": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "cm/s",
+        "raw": null,
+        "note": "No conversion was applied; the source reports air flow in cm/s.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "flow_range_cm_s": [
+        20,
+        20
+      ],
+      "flow_varies": false,
+      "flow_direction": {
+        "value": "Concurrent",
+        "status": "measured",
+        "unit": null,
+        "raw": "Concurrent",
+        "note": "Flow direction as recorded in the Saffire-I experimental table.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "fan_display_raw": null,
+      "air_display_raw": "20.0",
+      "flow_restrictor": null,
+      "gravity_regime": {
+        "value": "microgravity",
+        "status": "investigation_level",
+        "unit": null,
+        "raw": "Saffire-I metadata: Cygnus spacecraft microgravity experiment.",
+        "note": "Not a per-test measurement. Assigned from investigation-level metadata.",
+        "basis": "investigation_level",
+        "source_locator": "PSI-98 investigation metadata / ReadMe; context only",
+        "source_file": "PSI-98_metadata.json"
+      },
+      "ignition_method": {
+        "value": null,
+        "status": "not_reported",
+        "unit": null,
+        "raw": null,
+        "note": "Ignition power and time are reported; ignition method is not stated in the table.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "ignition_power_w": {
+        "value": 182,
+        "status": "measured",
+        "unit": "W",
+        "raw": "182.0",
+        "note": "As reported.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "ignition_time_s": {
+        "value": 8,
+        "status": "measured",
+        "unit": "s",
+        "raw": "8.0",
+        "note": "As reported.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "burn_time_s": {
+        "value": 420,
+        "status": "measured",
+        "unit": "s",
+        "raw": "420.0",
+        "note": "Reported burn time; not a standardized extinction outcome.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "hardware": {
+        "value": "Saffire I enclosure in Cygnus",
+        "status": "investigation_level",
+        "unit": null,
+        "raw": "Saffire 1 enclosure in Cygnus",
+        "note": "Investigation-level hardware.",
+        "basis": "investigation_level",
+        "source_locator": "PSI-98 investigation metadata / ReadMe; context only",
+        "source_file": "PSI-98_metadata.json"
+      },
+      "measurement_method": "Chamber O2 sensor, air-flow setting, ignition power/time, burn duration",
+      "outcome": {
+        "value": null,
+        "status": "not_reported",
+        "unit": null,
+        "raw": null,
+        "note": "Burn time is reported, but no extinction or sustained-burning classification is stated.",
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "outcome_definition": "Burn time is a reported duration, not a standardized flammability outcome.",
+      "source_note": null,
+      "co2_initial_pct": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "% by vol",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "co2_final_pct": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "% by vol",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "co_initial_ppm": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "ppm",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "co_final_ppm": {
+        "value": null,
+        "status": "not_reported",
+        "unit": "ppm",
+        "raw": null,
+        "note": null,
+        "basis": null,
+        "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+        "source_file": "PSI-98_experimental.csv"
+      },
+      "radiometer_gain": null,
+      "total_frames": null,
+      "quality_flags": [
+        "o2_reported_as_range_or_approximation"
+      ],
+      "missing_fields": [
+        "total_pressure_psia",
+        "gravity_regime_per_record",
+        "ignition_method",
+        "standardized_outcome",
+        "measurement_uncertainty_per_value",
+        "oxygen_final_pct"
+      ],
+      "provenance_notes": [
+        "Original PSI-98 CSV row preserved in record.raw.",
+        "Two Saffire samples only; pre/post-flow image descriptors were excluded from experiment records.",
+        "Pressure remains not reported; no cabin pressure was substituted."
+      ],
+      "validation_status": "partial",
+      "raw": {
+        "Sample Number ": "S1",
+        "Material": "SIBAL Fabric",
+        "Sample Thickness (cm)": "0.37",
+        "Sample Length (cm)": "40.6",
+        "Sample Width (cm)": "94",
+        "Air Flow (cm/s)": "20",
+        "Percent O2": "21.5 - 21.7",
+        "Ignition Power (W)": "182",
+        "Ignition Time (s)": "8",
+        "Burn Time (s)": "420",
+        "Flow Direction ": "Concurrent",
+        "Camera 1": "S1C1",
+        "Camera 2": "S1C2"
+      },
+      "measurements": [
+        {
+          "measurement_id": "SAFFIRE1-S1-O2",
+          "quantity": "oxygen_initial",
+          "original_value": "21.5 - 21.7",
+          "original_unit": "% by vol",
+          "normalized_value": 21.6,
+          "normalized_unit": "% by vol",
+          "status": "reported_qualitative",
+          "uncertainty": null,
+          "note": "Source reports a range (21.5 - 21.7); midpoint retained as an approximate value, raw range preserved.",
+          "measurement_phase": "initial",
+          "measurement_method": "Chamber oxygen concentration sensor",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        },
+        {
+          "measurement_id": "SAFFIRE1-S1-THK",
+          "quantity": "sample_thickness",
+          "original_value": "0.37",
+          "original_unit": "cm",
+          "normalized_value": 3.7,
+          "normalized_unit": "mm",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "Source field in cm; converted to mm.",
+          "measurement_phase": "sample",
+          "measurement_method": "Reported sample dimension",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        },
+        {
+          "measurement_id": "SAFFIRE1-S1-LEN",
+          "quantity": "sample_length",
+          "original_value": "40.6",
+          "original_unit": "cm",
+          "normalized_value": 40.6,
+          "normalized_unit": "cm",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "As reported.",
+          "measurement_phase": "sample",
+          "measurement_method": "Reported sample dimension",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        },
+        {
+          "measurement_id": "SAFFIRE1-S1-WID",
+          "quantity": "sample_width",
+          "original_value": "94.0",
+          "original_unit": "cm",
+          "normalized_value": 94,
+          "normalized_unit": "cm",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "As reported.",
+          "measurement_phase": "sample",
+          "measurement_method": "Reported sample dimension",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        },
+        {
+          "measurement_id": "SAFFIRE1-S1-FLOW",
+          "quantity": "air_flow",
+          "original_value": "20.0",
+          "original_unit": "cm/s",
+          "normalized_value": 20,
+          "normalized_unit": "cm/s",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "As reported in the experimental table.",
+          "measurement_phase": "test",
+          "measurement_method": "Reported air flow",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        },
+        {
+          "measurement_id": "SAFFIRE1-S1-IGNP",
+          "quantity": "ignition_power",
+          "original_value": "182.0",
+          "original_unit": "W",
+          "normalized_value": 182,
+          "normalized_unit": "W",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "As reported.",
+          "measurement_phase": "test",
+          "measurement_method": "Reported ignition setting",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        },
+        {
+          "measurement_id": "SAFFIRE1-S1-IGNT",
+          "quantity": "ignition_time",
+          "original_value": "8.0",
+          "original_unit": "s",
+          "normalized_value": 8,
+          "normalized_unit": "s",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "As reported.",
+          "measurement_phase": "test",
+          "measurement_method": "Reported ignition setting",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        },
+        {
+          "measurement_id": "SAFFIRE1-S1-BURN",
+          "quantity": "burn_time",
+          "original_value": "420.0",
+          "original_unit": "s",
+          "normalized_value": 420,
+          "normalized_unit": "s",
+          "status": "measured",
+          "uncertainty": null,
+          "note": "Reported burn time; not by itself an extinction or sustained-burning classification.",
+          "measurement_phase": "test",
+          "measurement_method": "Reported burn duration",
+          "source_locator": "PSI-98 experimental table, CSV row 2, sample S1",
+          "source_file": "PSI-98_experimental.csv"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "investigations": [
+      {
+        "family": "BASS-II",
+        "count": 1,
+        "record_ids": [
+          "BASS2-B1"
+        ]
+      },
+      {
+        "family": "Saffire-I",
+        "count": 1,
+        "record_ids": [
+          "SAFFIRE1-S1"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "field": "oxygen_initial_pct",
+        "label": "Initial oxygen",
+        "total": 2,
+        "available": 2,
+        "reported_ids": [
+          "BASS2-B1",
+          "SAFFIRE1-S1"
+        ],
+        "missing_ids": [],
+        "measured_or_corrected": 1,
+        "derived": 0,
+        "approximate_or_qualitative": 1,
+        "context_only": 0,
+        "statuses": {
+          "corrected": 1,
+          "reported_qualitative": 1
+        }
+      },
+      {
+        "field": "flow_initial_cm_s",
+        "label": "Reported flow",
+        "total": 2,
+        "available": 2,
+        "reported_ids": [
+          "BASS2-B1",
+          "SAFFIRE1-S1"
+        ],
+        "missing_ids": [],
+        "measured_or_corrected": 2,
+        "derived": 0,
+        "approximate_or_qualitative": 0,
+        "context_only": 0,
+        "statuses": {
+          "measured": 2
+        }
+      },
+      {
+        "field": "total_pressure_psia",
+        "label": "Total pressure",
+        "total": 2,
+        "available": 0,
+        "reported_ids": [],
+        "missing_ids": [
+          "BASS2-B1",
+          "SAFFIRE1-S1"
+        ],
+        "measured_or_corrected": 0,
+        "derived": 0,
+        "approximate_or_qualitative": 0,
+        "context_only": 0,
+        "statuses": {
+          "not_reported": 2
+        }
+      },
+      {
+        "field": "gravity_regime",
+        "label": "Gravity regime",
+        "total": 2,
+        "available": 2,
+        "reported_ids": [
+          "BASS2-B1",
+          "SAFFIRE1-S1"
+        ],
+        "missing_ids": [],
+        "measured_or_corrected": 0,
+        "derived": 0,
+        "approximate_or_qualitative": 0,
+        "context_only": 2,
+        "statuses": {
+          "investigation_level": 2
+        }
+      },
+      {
+        "field": "thickness_mm",
+        "label": "Thickness",
+        "total": 2,
+        "available": 2,
+        "reported_ids": [
+          "BASS2-B1",
+          "SAFFIRE1-S1"
+        ],
+        "missing_ids": [],
+        "measured_or_corrected": 1,
+        "derived": 1,
+        "approximate_or_qualitative": 0,
+        "context_only": 0,
+        "statuses": {
+          "derived": 1,
+          "measured": 1
+        }
+      },
+      {
+        "field": "outcome",
+        "label": "Outcome annotations",
+        "total": 2,
+        "available": 0,
+        "reported_ids": [],
+        "missing_ids": [
+          "BASS2-B1",
+          "SAFFIRE1-S1"
+        ],
+        "measured_or_corrected": 0,
+        "derived": 0,
+        "approximate_or_qualitative": 0,
+        "context_only": 0,
+        "statuses": {
+          "not_reported": 2
+        }
+      }
+    ],
+    "standardized_outcome_count": 0,
+    "corrected_record_ids": [
+      "BASS2-B1"
+    ],
+    "approximate_record_ids": [
+      "SAFFIRE1-S1"
+    ]
+  },
+  "comparisons": [
+    {
+      "id": "thickness_mm",
+      "label": "Thickness (mm)",
+      "state": "blocked",
+      "detail": "Reported sample dimensions differ. Inspect the values and units below before interpreting any outcome difference."
+    },
+    {
+      "id": "width_cm",
+      "label": "Width (cm)",
+      "state": "blocked",
+      "detail": "Reported sample dimensions differ. Inspect the values and units below before interpreting any outcome difference."
+    },
+    {
+      "id": "length_cm",
+      "label": "Length (cm)",
+      "state": "partial",
+      "detail": "1 of 2 selected records report this dimension. Missing values do not establish a match; relevance depends on sample geometry."
+    },
+    {
+      "id": "diameter_mm",
+      "label": "Diameter (mm)",
+      "state": "partial",
+      "detail": "0 of 2 selected records report this dimension. Missing values do not establish a match; relevance depends on sample geometry."
+    },
+    {
+      "id": "flow_direction",
+      "label": "Flow direction",
+      "state": "partial",
+      "detail": "1 of 2 records report flow direction. Missing directions cannot be assumed equal."
+    },
+    {
+      "id": "investigation",
+      "label": "Investigation context",
+      "state": "blocked",
+      "detail": "2 investigations selected: hardware, environment and reporting conventions differ."
+    },
+    {
+      "id": "material",
+      "label": "Material and geometry",
+      "state": "partial",
+      "detail": "2 material families and 2 geometries selected. Parsed from free text; not a controlled material specification."
+    },
+    {
+      "id": "pressure",
+      "label": "Total pressure",
+      "state": "unknown",
+      "detail": "No selected record reports total pressure. Oxygen partial pressure cannot be computed, and atmospheric equivalence cannot be established."
+    },
+    {
+      "id": "gravity",
+      "label": "Gravity at test level",
+      "state": "unknown",
+      "detail": "Gravity is investigation-level context only. No selected record has a measured g-level, so gravity cannot be treated as a controlled comparison variable."
+    },
+    {
+      "id": "oxygen",
+      "label": "Oxygen measurement basis",
+      "state": "shared",
+      "detail": "2 of 2 selected records report an initial O2 value. BASS-II uses a constant-offset sensor correction. Saffire-I retains a reported range midpoint or approximate single value."
+    },
+    {
+      "id": "flow",
+      "label": "Flow measurement basis",
+      "state": "blocked",
+      "detail": "Flow bases differ: BASS-II uses a slow-response duct display; Saffire-I reports a flow setting. The two are not the same instrument quantity."
+    },
+    {
+      "id": "ignition",
+      "label": "Ignition reporting",
+      "state": "partial",
+      "detail": "1 of 2 selected records report ignition power. Ignition method is not stated in either table."
+    },
+    {
+      "id": "outcome",
+      "label": "Standardized outcome",
+      "state": "unknown",
+      "detail": "Neither table contains a standardized extinction or sustained-burning classification. Burn duration is not equivalent to a flammability outcome."
+    }
+  ],
+  "citations": [
+    {
+      "experiment_id": "BASS2-B1",
+      "source_id": "PSI-25",
+      "title": "BASS-II experimental table (PSI-25)",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "doi": "10.60555/4qc4-de67",
+      "locator": "PSI-25 experimental table, CSV row 2, test B1",
+      "artifacts": [
+        {
+          "source_id": "PSI-25",
+          "investigation_id": "PSI-25",
+          "source_title": "BASS-II experimental table (PSI-25)",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+          "doi": "10.60555/4qc4-de67",
+          "version": "table v1 (investigation metadata v4)",
+          "original_filename": "PSI-25_experimental.csv",
+          "file_size_bytes": 16590,
+          "sha256": "71e792bf6b5fb5ea620c5dd70fbbac05515992e12aefcf5dff47312caa48c042",
+          "download_timestamp": "2026-11-13T16:08:00.287340+00:00",
+          "local_original_url": "./data/original/PSI-25_experimental.csv",
+          "timestamp_note": "Original acquisition manifest timestamp.",
+          "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Experimental+table_BASS-II.csv&version=1&redirect=true",
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "text/csv",
+          "processing_status": "parsed_with_warnings",
+          "role": "experiment_table",
+          "source_locator": "Experimental table tab; CSV rows 2-130",
+          "limitations": [
+            "No total-pressure column in this table; pressure is discussed for subsets in NTRS 20210011385 (not mapped to these rows).",
+            "No per-test gravity column.",
+            "No standardized outcome column.",
+            "Flow is an instrument display with a slow (~1 min) response, not a calibrated per-test velocity.",
+            "Oxygen sensor was out of calibration and corrected by a constant offset."
+          ]
+        },
+        {
+          "source_id": "PSI-25",
+          "investigation_id": "PSI-25",
+          "source_title": "BASS-II ReadMe and test-matrix explanation",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+          "doi": "10.60555/4qc4-de67",
+          "version": "document v2",
+          "original_filename": "PSI-25_ReadMe.docx",
+          "file_size_bytes": 21538,
+          "sha256": "69f32647792f54ab2a561e3cdafc6c87d854564fe487aed2b09265286bd84e1d",
+          "download_timestamp": "2026-11-13T16:08:03.035713+00:00",
+          "local_original_url": "./data/original/PSI-25_ReadMe.docx",
+          "timestamp_note": "Original acquisition manifest timestamp.",
+          "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_ReadMe.docx&version=2&redirect=true",
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "processing_status": "parsed",
+          "role": "readme",
+          "source_locator": "Read Me tab; 'Test Matrix explanation'",
+          "limitations": [
+            "Describes columns and known sensor limitations; does not supply per-test pressure or gravity."
+          ]
+        },
+        {
+          "source_id": "PSI-25",
+          "investigation_id": "PSI-25",
+          "source_title": "BASS-II test matrices by principal investigator",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+          "doi": "10.60555/4qc4-de67",
+          "version": "document v2",
+          "original_filename": "PSI-25_Test_Matrices.xlsx",
+          "file_size_bytes": 28956,
+          "sha256": "1a3b283dd0adec861793bbc4a454aab64d398cd32d6f37d7a1ad0f642879e686",
+          "download_timestamp": "2026-11-13T16:08:06.207690+00:00",
+          "local_original_url": "./data/original/PSI-25_Test_Matrices.xlsx",
+          "timestamp_note": "Original acquisition manifest timestamp.",
+          "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_Test.Matrices.xlsx&version=2&redirect=true",
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "processing_status": "parsed",
+          "role": "test_matrix_workbook",
+          "source_locator": "Spreadsheets folder; six PI sheets",
+          "limitations": [
+            "Test IDs and initial O2 were checked. Text differences were counted; other numeric fields were not exhaustively cross-checked."
+          ]
+        },
+        {
+          "source_id": "PSI-25",
+          "investigation_id": "PSI-25",
+          "source_title": "BASS-II fan calibration data",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+          "doi": "10.60555/4qc4-de67",
+          "version": "document v2",
+          "original_filename": "PSI-25_Fan_Calibration.xlsx",
+          "file_size_bytes": 23973,
+          "sha256": "bc0dca3efdef44a7774d8dd37aebc0cedae8d67d7bae8c9cbde9590014a3c983",
+          "download_timestamp": "2026-11-13T16:08:08.679758+00:00",
+          "local_original_url": "./data/original/PSI-25_Fan_Calibration.xlsx",
+          "timestamp_note": "Original acquisition manifest timestamp.",
+          "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Reference+Data_Fan+calibration+data.xlsx&version=2&redirect=true",
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "processing_status": "parsed",
+          "role": "calibration_workbook",
+          "source_locator": "Fan Calibration data sheet; note 'U = 1.0066(AIR)'",
+          "limitations": [
+            "Calibration is day- and restrictor-specific; a single factor is only an approximation.",
+            "Workbook note: fan turns off at a finite voltage above 3.8 V; do not use the 3.8 V zero-flow value."
+          ]
+        },
+        {
+          "source_id": "PSI-25",
+          "investigation_id": "PSI-25",
+          "source_title": "PSI-25 investigation metadata",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+          "doi": "10.60555/4qc4-de67",
+          "version": "preserved metadata snapshot",
+          "original_filename": "PSI-25_metadata.json",
+          "file_size_bytes": 680349,
+          "sha256": "8ea9e8672c2e363288a662cb5ca09829a3bb25884a3c065bfd18999ca48969e3",
+          "download_timestamp": null,
+          "local_original_url": "./data/original/PSI-25_metadata.json",
+          "timestamp_note": "Acquisition timestamp not preserved; local file mtime is not used.",
+          "original_download_url": null,
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "application/json",
+          "processing_status": "parsed",
+          "role": "investigation_metadata",
+          "source_locator": "Investigation description and hardware",
+          "limitations": [
+            "Investigation-level context; not a per-test measurement."
+          ]
+        }
+      ],
+      "limitation": null
+    },
+    {
+      "experiment_id": "SAFFIRE1-S1",
+      "source_id": "PSI-98",
+      "title": "Saffire-I experimental table (PSI-98)",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+      "doi": "10.60555/0t15-1z43",
+      "locator": "PSI-98 experimental table, CSV row 2, sample S1",
+      "artifacts": [
+        {
+          "source_id": "PSI-98",
+          "investigation_id": "PSI-98",
+          "source_title": "Saffire-I experimental table (PSI-98)",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+          "doi": "10.60555/0t15-1z43",
+          "version": "table v1 (investigation metadata v4)",
+          "original_filename": "PSI-98_experimental.csv",
+          "file_size_bytes": 469,
+          "sha256": "c01f29c62455f0a3b512290ab85e5687ecded326733189f002f580368402308d",
+          "download_timestamp": "2026-11-13T16:08:10.847327+00:00",
+          "local_original_url": "./data/original/PSI-98_experimental.csv",
+          "timestamp_note": "Original acquisition manifest timestamp.",
+          "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Experimental+table_SAFFIRE-1.csv&version=1&redirect=true",
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "text/csv",
+          "processing_status": "parsed_with_warnings",
+          "role": "experiment_table",
+          "source_locator": "Experimental table tab; CSV rows 2-5",
+          "limitations": [
+            "Only two instrumented samples; remaining rows are pre/post-flow image-set descriptors, not experiments.",
+            "No total-pressure column.",
+            "No per-test gravity column.",
+            "No standardized extinction outcome column."
+          ]
+        },
+        {
+          "source_id": "PSI-98",
+          "investigation_id": "PSI-98",
+          "source_title": "Saffire-I ReadMe",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+          "doi": "10.60555/0t15-1z43",
+          "version": "document v1",
+          "original_filename": "PSI-98_ReadMe.docx",
+          "file_size_bytes": 65426,
+          "sha256": "49c939337fa00a0473f7efa10367288f510afcbf69dd7f5405054a2617d3a66d",
+          "download_timestamp": "2026-11-13T16:08:14.167011+00:00",
+          "local_original_url": "./data/original/PSI-98_ReadMe.docx",
+          "timestamp_note": "Original acquisition manifest timestamp.",
+          "original_download_url": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Science+Documents_SAFFIRE-I+and+SAFFIRE-III+Readme.docx&version=1&redirect=true",
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "processing_status": "parsed",
+          "role": "readme",
+          "source_locator": "Read Me tab",
+          "limitations": [
+            "Describes objectives, material and image-set organization; does not supply per-test pressure or gravity."
+          ]
+        },
+        {
+          "source_id": "PSI-98",
+          "investigation_id": "PSI-98",
+          "source_title": "PSI-98 investigation metadata",
+          "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+          "doi": "10.60555/0t15-1z43",
+          "version": "preserved metadata snapshot",
+          "original_filename": "PSI-98_metadata.json",
+          "file_size_bytes": 134231,
+          "sha256": "33cf15ead6c39d3b578258a3f9b9016c853b814cef6ba96fe13a5b78d0f89c52",
+          "download_timestamp": null,
+          "local_original_url": "./data/original/PSI-98_metadata.json",
+          "timestamp_note": "Acquisition timestamp not preserved; local file mtime is not used.",
+          "original_download_url": null,
+          "license": "Creative Commons Zero v1.0 Universal",
+          "license_url": "https://spdx.org/licenses/CC0-1.0.html",
+          "content_type": "application/json",
+          "processing_status": "parsed",
+          "role": "investigation_metadata",
+          "source_locator": "Investigation description and hardware",
+          "limitations": [
+            "Investigation-level context; not a per-test measurement."
+          ]
+        }
+      ],
+      "limitation": null
+    }
+  ],
+  "limitations": [
+    "The current corpus contains BASS-II (129 records) and Saffire-I (2 records). It is not the whole of NASA combustion research.",
+    "Total pressure is absent from both PSI experimental tables; no cabin pressure was substituted.",
+    "Gravity is investigation-level only (ISS/Cygnus microgravity), not a per-test measured g-level.",
+    "Neither table contains a standardized extinction/sustained-burning outcome.",
+    "BASS-II flow values are slow-response displays; Saffire-I reports a setting. The BASS-II derived velocity uses one factor, not a per-test calibration.",
+    "O2 readings were corrected by a constant offset because the sensor was out of calibration; per-sample uncertainty is not supplied.",
+    "Material family, geometry and dimensions are parsed from free-text fields and marked derived.",
+    "Two BASS-II final-O2 values exceed their initial values by more than 2 percentage points and are flagged suspect, not corrected.",
+    "No partial-gravity experiment records are included. The official challenge states PSI currently has none; LUCI is included only as context.",
+    "No AI-generated scientific claims are presented. The evidence assistant is a deterministic retrieval and citation engine.",
+    "Collection membership does not establish experimental equivalence. Descriptive coverage counts do not average unlike quantities.",
+    "Missing fields refer to the normalized record layer; reports elsewhere may contain context not linked to individual rows. Review original notes and unreported per-value uncertainty."
+  ],
+  "disclaimer": "FIRETRACE-generated research product from selected corpus records, not an untouched NASA original. Not a comprehensive review of NASA combustion research. Does not predict fire behavior, certify material safety, establish spacecraft fire-safety compliance, or imply NASA endorsement."
+}

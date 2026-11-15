@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { corpusVersion, records, recordById } from '../lib/corpus';
 import type { ExperimentRecord } from '../lib/types';
 import { filterRecords, uniqueFamilies, uniqueMaterials } from '../lib/records';
@@ -7,6 +7,8 @@ import { formatCompact, formatNumber } from '../lib/format';
 import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, EmptyState, PageHeader, Panel } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
+import { BasketButton } from '../lib/basketContext';
+const ResearchLibrary = lazy(() => import('../components/ResearchLibrary'));
 import {
   ATLAS_COLUMNS,
   PAGE_SIZES,
@@ -188,6 +190,12 @@ function cellContent(
 
 export function Atlas() {
   const [view, setView] = useState<AtlasViewState>(initialView);
+  const [research, setResearch] = useState(() => new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
+  useEffect(() => {
+    const readView = () => setResearch(new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
+    window.addEventListener('hashchange', readView);
+    return () => window.removeEventListener('hashchange', readView);
+  }, []);
   const [page, setPage] = useState(0);
   const [selectedId, setSelectedId] = useState<string | null>(() => hashParams().get('id'));
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
@@ -352,6 +360,14 @@ export function Atlas() {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
+  if (research) {
+    return (
+      <Suspense fallback={<div className="page" role="status">Loading research library…</div>}>
+        <ResearchLibrary onBack={() => { setResearch(false); window.history.replaceState(null, '', '#/atlas'); }} />
+      </Suspense>
+    );
+  }
+
   return (
     <div className="page page--atlas">
       <PageHeader
@@ -365,6 +381,9 @@ export function Atlas() {
         lede="Search the normalized experiment records and open any row for its measurements, quality flags, raw source fields and provenance. Missing values stay missing."
         actions={
           <>
+            <button className="button button--ghost button--small" onClick={() => { setResearch(true); window.history.replaceState(null, '', '#/atlas?view=research'); }}>
+              Research findings & coverage
+            </button>
             <button className="button button--ghost button--small" onClick={() => exportRows(filtered, 'records')}>
               Export filtered CSV
             </button>
@@ -726,6 +745,7 @@ export function Atlas() {
                       </th>
                     );
                   })}
+                  <th>Evidence basket</th>
                 </tr>
               </thead>
               <tbody>
@@ -757,6 +777,7 @@ export function Atlas() {
                         {cellContent(record, column, view.query)}
                       </td>
                     ))}
+                    <td><BasketButton id={record.experiment_id} /></td>
                   </tr>
                 ))}
               </tbody>

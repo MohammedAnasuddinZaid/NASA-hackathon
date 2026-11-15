@@ -188,9 +188,11 @@ export function downloadText(filename: string, content: string, mime = 'text/pla
   anchor.href = url;
   anchor.download = filename;
   document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
+  try { anchor.click(); }
+  finally {
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
 }
 
 export function downloadJson(filename: string, data: unknown): void {

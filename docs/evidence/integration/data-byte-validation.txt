@@ -1,0 +1,6 @@
+{
+  "generated_files_verified": 24,
+  "corpus_sha256": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "findings": 16,
+  "research_version": "8901d73c117984bd28f8195d41ace0d4021b44346b2c575d1eca7477ca24d5f8"
+}

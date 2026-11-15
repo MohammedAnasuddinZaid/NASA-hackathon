@@ -1,0 +1,18 @@
+[
+  {
+    "format": "CSV",
+    "saved": "selected-evidence.csv"
+  },
+  {
+    "format": "JSON",
+    "saved": "selected-evidence.json"
+  },
+  {
+    "format": "Markdown",
+    "saved": "selected-evidence.md"
+  },
+  {
+    "format": "printable HTML",
+    "saved": "selected-evidence.html"
+  }
+]

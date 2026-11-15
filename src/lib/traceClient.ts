@@ -1,4 +1,5 @@
-import { API_BASE } from './api';
+import { API_BASE } from './apiClient';
+import { bundledCorpusVersion } from './datasetIdentity';
 import type { ApiAnswer } from './apiClient';
 
 export interface TraceHistory { role: 'user' | 'assistant'; content: string }
@@ -29,15 +30,17 @@ export async function askTrace(question: string, history: TraceHistory[], determ
   const timeout = window.setTimeout(() => controller.abort(), 65000);
   try {
     const response = await fetch(`${API_BASE}/api/v1/assistant/query`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Corpus-Version': bundledCorpusVersion },
       body: JSON.stringify({ question, conversation_history: history.slice(-8), mode: deterministic ? 'deterministic' : 'auto' }),
       signal: controller.signal,
     });
     if (!response.ok) {
-      if (response.status >= 500 || response.status === 404) throw new TraceUnavailable('TRACE unavailable.');
+      if (response.status >= 500 || response.status === 404 || response.status === 409) throw new TraceUnavailable('TRACE unavailable or dataset incompatible.');
       throw new Error(`TRACE request rejected (${response.status}). Retry later or revise the question.`);
     }
     const result = await response.json() as TraceResult;
+    if (response.headers.get('X-Corpus-Version') !== bundledCorpusVersion || result.answer?.corpus_version !== bundledCorpusVersion)
+      throw new TraceUnavailable('TRACE dataset differs from the bundled evidence.');
     if (!result.answer || !Array.isArray(result.evidence) || !result.notice) throw new Error('Invalid TRACE response.');
     return result;
   } catch (error) {

@@ -132,21 +132,24 @@ test.describe('research workbench', () => {
     await expect(page.locator('.topbar__status')).toContainText('offline');
   });
 
-  test('manifest and offline shell are installed in the production build', async ({ page, request }) => {
+  test('manifest and offline shell are installed in the production build', async ({ page }) => {
     await page.goto('/#/overview');
     const manifest = page.locator('link[rel="manifest"]');
     await expect(manifest).toHaveAttribute('href', './manifest.webmanifest');
-    const response = await request.get('http://localhost:4173/manifest.webmanifest');
-    expect(response.status()).toBe(200);
-    const json = await response.json();
-    expect(json.short_name).toBe('FIRETRACE');
-    expect(json.background_color).toBe('#0B0B0C');
-
     const controlled = await page.evaluate(async () => {
       if (!('serviceWorker' in navigator)) return false;
       await navigator.serviceWorker.ready;
       return Boolean(await navigator.serviceWorker.getRegistration());
     });
     expect(controlled).toBe(true);
+
+    const manifestJson = await page.evaluate(async () => {
+      const response = await fetch('./manifest.webmanifest');
+      if (!response.ok) return null;
+      return response.json();
+    });
+    expect(manifestJson).not.toBeNull();
+    expect(manifestJson.short_name).toBe('FIRETRACE');
+    expect(manifestJson.background_color).toBe('#0B0B0C');
   });
 });

@@ -1,0 +1,53 @@
+{
+  "pipeline_version": "research-1.0",
+  "dataset_version": "8901d73c117984bd28f8195d41ace0d4021b44346b2c575d1eca7477ca24d5f8",
+  "base_corpus_sha256": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "counts": {
+    "investigations": 3,
+    "structured_records": 131,
+    "new_structured_records": 0,
+    "report_findings": 16,
+    "linked_sources": 8,
+    "research_reports": 2,
+    "findings_with_locators": 16
+  },
+  "source_documents_processed": [
+    "PSI-25-TABLE",
+    "PSI-98-TABLE",
+    "NTRS-20210011385",
+    "NTRS-20150023456",
+    "PSI-69-METADATA",
+    "PSI-69-TABLE",
+    "PSI-25-METADATA",
+    "PSI-98-METADATA"
+  ],
+  "unresolved": [
+    {
+      "source_id": "PSI-69-TABLE",
+      "source_rows": 274,
+      "imported_records": 0,
+      "reason": "Burning-rate unit and source-version discrepancies unresolved; see documentation."
+    }
+  ],
+  "missing": {
+    "per_record_pressure": 131,
+    "per_test_measured_gravity": 131,
+    "report_to_test_links": "not_verified"
+  },
+  "checks": [
+    "unique IDs",
+    "source hashes",
+    "NASA source identifiers",
+    "report associations",
+    "locators",
+    "unit/status vocabulary",
+    "no test-level promotion"
+  ],
+  "warnings": [
+    "Report findings are not experiment rows. No FLEX measurements have been normalized.",
+    "Solid-fuel spread and droplet burning or extinction do not support interchangeable numerical comparison.",
+    "Original 131 records and their missing pressure/gravity/outcome fields remain unchanged.",
+    "FLEX CSV/report test1 diameter disagreement and ambiguous burning-rate units require reconciliation before import.",
+    "Cool-flame evidence was not curated from these selected passages; absence here is not absence from FLEX research."
+  ]
+}

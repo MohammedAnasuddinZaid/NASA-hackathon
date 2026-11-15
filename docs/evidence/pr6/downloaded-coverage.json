@@ -1,0 +1,171 @@
+{
+  "schema_version": "firetrace.research/1",
+  "dataset_version": "8901d73c117984bd28f8195d41ace0d4021b44346b2c575d1eca7477ca24d5f8",
+  "base_corpus_sha256": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "verified_at": "2026-11-14T21:16:44.391584Z",
+  "investigations": [
+    {
+      "id": "PSI-25",
+      "acronym": "BASS-II",
+      "title": "Burning and Suppression of Solids-II",
+      "combustion_type": "solid_fuel",
+      "fuel_category": "solid",
+      "doi": "10.60555/4qc4-de67",
+      "gravity_context": "orbital microgravity; not per-test measured gravity",
+      "objective": "Study ignition, growth, spread and extinction of solid fuels in low-velocity forced flows in microgravity.",
+      "platform": "Microgravity Science Glovebox (MSG) aboard ISS",
+      "metadata_source_id": "PSI-25-METADATA",
+      "metadata_locator": "PSI metadata: title, objective, approach and experimentHardware fields; objective is intent, not a result.",
+      "structured_records": 129,
+      "report_findings": 8,
+      "linked_sources": 3,
+      "fields": {
+        "oxygen_initial_pct": {
+          "available": 129,
+          "total": 129,
+          "statuses": {
+            "corrected": 129
+          }
+        },
+        "flow_initial_cm_s": {
+          "available": 121,
+          "total": 129,
+          "statuses": {
+            "measured": 121
+          }
+        },
+        "total_pressure_psia": {
+          "available": 0,
+          "total": 129,
+          "statuses": {}
+        },
+        "gravity_regime": {
+          "available": 129,
+          "total": 129,
+          "statuses": {
+            "investigation_level": 129
+          }
+        },
+        "outcome": {
+          "available": 24,
+          "total": 129,
+          "statuses": {
+            "reported_qualitative": 24
+          }
+        }
+      },
+      "droplet_measurements": "not_applicable"
+    },
+    {
+      "id": "PSI-98",
+      "acronym": "Saffire-I",
+      "title": "Spacecraft Fire Safety Experiment-I",
+      "combustion_type": "solid_fuel",
+      "fuel_category": "solid",
+      "doi": "10.60555/0t15-1z43",
+      "gravity_context": "orbital microgravity; not per-test measured gravity",
+      "objective": "Investigate large-scale low-gravity fire growth and compare flammability limits with normal-gravity screening.",
+      "platform": "Saffire1 enclosure in Cygnus after departure from ISS",
+      "metadata_source_id": "PSI-98-METADATA",
+      "metadata_locator": "PSI metadata: title, objective, approach and experimentHardware fields; objective is intent, not a result.",
+      "structured_records": 2,
+      "report_findings": 0,
+      "linked_sources": 2,
+      "fields": {
+        "oxygen_initial_pct": {
+          "available": 2,
+          "total": 2,
+          "statuses": {
+            "reported_qualitative": 2
+          }
+        },
+        "flow_initial_cm_s": {
+          "available": 2,
+          "total": 2,
+          "statuses": {
+            "measured": 2
+          }
+        },
+        "total_pressure_psia": {
+          "available": 0,
+          "total": 2,
+          "statuses": {}
+        },
+        "gravity_regime": {
+          "available": 2,
+          "total": 2,
+          "statuses": {
+            "investigation_level": 2
+          }
+        },
+        "outcome": {
+          "available": 0,
+          "total": 2,
+          "statuses": {}
+        }
+      },
+      "droplet_measurements": "not_applicable"
+    },
+    {
+      "id": "PSI-69",
+      "acronym": "FLEX",
+      "title": "Flame Extinguishment Experiment",
+      "combustion_type": "liquid_droplet",
+      "fuel_category": "liquid",
+      "doi": "10.60555/mbq8-0451",
+      "gravity_context": "orbital microgravity; not per-test measured gravity",
+      "objective": "Investigate liquid-droplet combustion and limiting oxygen conditions, including effects of ambient pressure and dilution.",
+      "platform": "Multi-User Droplet Combustion Apparatus (MDCA) in the Combustion Integrated Rack (CIR), ISS",
+      "metadata_source_id": "PSI-69-METADATA",
+      "metadata_locator": "PSI metadata: title, objective, approach and experimentHardware fields; objective is intent, not a result.",
+      "structured_records": 0,
+      "report_findings": 8,
+      "linked_sources": 3,
+      "fields": {
+        "oxygen_initial_pct": {
+          "available": 0,
+          "total": 0,
+          "statuses": {}
+        },
+        "flow_initial_cm_s": {
+          "available": 0,
+          "total": 0,
+          "statuses": {}
+        },
+        "total_pressure_psia": {
+          "available": 0,
+          "total": 0,
+          "statuses": {}
+        },
+        "gravity_regime": {
+          "available": 0,
+          "total": 0,
+          "statuses": {}
+        },
+        "outcome": {
+          "available": 0,
+          "total": 0,
+          "statuses": {}
+        }
+      },
+      "droplet_measurements": "not_normalized"
+    }
+  ],
+  "counts": {
+    "investigations": 3,
+    "structured_records": 131,
+    "new_structured_records": 0,
+    "report_findings": 16,
+    "linked_sources": 8,
+    "research_reports": 2,
+    "findings_with_locators": 16
+  },
+  "deferred_source_rows": 274,
+  "limitations": [
+    "Report findings are not experiment rows. No FLEX measurements have been normalized.",
+    "Solid-fuel spread and droplet burning or extinction do not support interchangeable numerical comparison.",
+    "Original 131 records and their missing pressure/gravity/outcome fields remain unchanged.",
+    "FLEX CSV/report test1 diameter disagreement and ambiguous burning-rate units require reconciliation before import.",
+    "Cool-flame evidence was not curated from these selected passages; absence here is not absence from FLEX research."
+  ]
+}

@@ -1,0 +1,48 @@
+
+> firertrace@0.1.0 e2e:research-library
+> playwright test --config playwright.research-library.config.ts
+
+[WebServer] (node:18928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:17944) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\research-library.spec.ts:3:1 › report findings retain source/page/measurement distinctions and filters (3ms)
+(node:35476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 e2e\research-library.spec.ts:18:1 › original record navigation, discovery and actual JSON export (1ms)
+
+
+  1) e2e\research-library.spec.ts:3:1 › report findings retain source/page/measurement distinctions and filters
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\novaz\AppData\Local\ms-playwright\chromium_headless_shell-1254\chrome-headless-shell-win64\chrome-headless-shell.exe
+    ╔════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright was just installed or updated.       ║
+    ║ Please run the following command to download new browsers: ║
+    ║                                                            ║
+    ║     npx playwright install                                 ║
+    ║                                                            ║
+    ║ <3 Playwright Team                                         ║
+    ╚════════════════════════════════════════════════════════════╝
+
+    Error Context: test-results\research-library-report-fi-6025c-nt-distinctions-and-filters\error-context.md
+
+  2) e2e\research-library.spec.ts:18:1 › original record navigation, discovery and actual JSON export
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\novaz\AppData\Local\ms-playwright\chromium_headless_shell-1254\chrome-headless-shell-win64\chrome-headless-shell.exe
+    ╔════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright was just installed or updated.       ║
+    ║ Please run the following command to download new browsers: ║
+    ║                                                            ║
+    ║     npx playwright install                                 ║
+    ║                                                            ║
+    ║ <3 Playwright Team                                         ║
+    ╚════════════════════════════════════════════════════════════╝
+
+    Error Context: test-results\research-library-original--16809-very-and-actual-JSON-export\error-context.md
+
+  2 failed
+    e2e\research-library.spec.ts:3:1 › report findings retain source/page/measurement distinctions and filters
+    e2e\research-library.spec.ts:18:1 › original record navigation, discovery and actual JSON export

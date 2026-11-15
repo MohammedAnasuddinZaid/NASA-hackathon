@@ -14,7 +14,13 @@
     "test:watch": "vitest",
     "benchmark": "tsx scripts/run-benchmark.ts",
     "ingest": "python pipeline/ingest.py",
+    "ingest:research": "python pipeline/research.py",
+    "validate:research": "python -m unittest discover -s pipeline -p test_research.py -v",
+    "e2e:research-library": "playwright test --config playwright.research-library.config.ts",
+    "e2e:trace": "playwright test --config playwright.trace.config.ts",
+    "e2e:integration": "playwright test --config playwright.integration.config.ts",
     "e2e": "playwright test",
+    "e2e:research": "playwright test --config playwright.research.config.ts",
     "shots": "tsx scripts/capture.ts",
     "validate:data": "python -m unittest discover -s pipeline -p test_*.py -v"
   },

@@ -11,7 +11,7 @@
  * 3. Every successful call exposes `corpusVersion`, so the UI can print the
  *    exact dataset hash an answer was produced from.
  */
-const API_BASE = (import.meta as { env?: Record<string, string> }).env?.VITE_EVIDENCE_API_BASE ?? '';
+const API_BASE = import.meta.env.VITE_EVIDENCE_API_BASE ?? import.meta.env.VITE_FIRETRACE_API_BASE ?? '';
 declare const __BUNDLED_CORPUS_VERSION__: string;
 
 export type AnswerGrade = 'direct' | 'partial' | 'context' | 'absent' | 'out-of-scope';
@@ -271,12 +271,14 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
     () => controller.abort(),
     options.timeoutMs ?? DEFAULT_TIMEOUT_MS,
   );
+  const abort = () => controller.abort();
   if (options.signal) {
     if (options.signal.aborted) controller.abort();
-    else options.signal.addEventListener('abort', () => controller.abort(), { once: true });
+    else options.signal.addEventListener('abort', abort, { once: true });
   }
 
   let response: Response;
+  let payload: unknown = null;
   try {
     response = await fetch(`${API_BASE}${path}`, {
       method: options.method ?? 'GET',
@@ -284,7 +286,14 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
       body: options.body === undefined ? undefined : JSON.stringify(options.body),
       signal: controller.signal,
     });
+    try {
+      payload = await response.json();
+    } catch (error) {
+      if (isTimeout(error)) throw error;
+      if (response.ok) throw new ServiceUnavailable('The evidence API returned invalid JSON.');
+    }
   } catch (error) {
+    if (error instanceof ServiceUnavailable) throw error;
     throw new ServiceUnavailable(
       isTimeout(error)
         ? 'The evidence API did not respond in time.'
@@ -292,16 +301,10 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
     );
   } finally {
     window.clearTimeout(timeout);
+    options.signal?.removeEventListener('abort', abort);
   }
 
   const corpusVersion = response.headers.get('X-Corpus-Version') ?? '';
-  let payload: unknown = null;
-  try {
-    payload = await response.json();
-  } catch {
-    payload = null;
-  }
-
   if (!response.ok) {
     if (response.status === 409) throw new ServiceUnavailable('The API corpus differs from the bundled dataset.', 'corpus_mismatch', 409);
     if (response.status === 502 || response.status === 503 || response.status === 504) {
@@ -321,6 +324,9 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
   }
 
   if (corpusVersion !== __BUNDLED_CORPUS_VERSION__) throw new ServiceUnavailable('Unverified API corpus; using the complete bundled dataset.', 'corpus_mismatch');
+  const bodyVersion = asRecord(payload)?.corpus_version;
+  if (bodyVersion !== undefined && bodyVersion !== corpusVersion)
+    throw new ServiceUnavailable('The API response body has an incompatible corpus version.', 'corpus_mismatch');
   return { data: payload as T, corpusVersion };
 }
 

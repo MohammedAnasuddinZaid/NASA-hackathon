@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ExperimentRecord, DataValue } from '../lib/types';
-import { artifactsFor, records } from '../lib/corpus';
-import { formatCompact, humanizeToken, shortDate, statusLabel } from '../lib/format';
+import { artifactsFor, recordById, records } from '../lib/corpus';
+import { formatCompact, humanizeToken, shortDate, statusLabel, statusTone } from '../lib/format';
 import { Badge, SourceLink, StatusBadge } from './ui';
 import { downloadJson } from '../lib/export';
 import { evidenceApi } from '../lib/apiClient';
@@ -61,7 +61,7 @@ function relatedRecords(record: ExperimentRecord): ExperimentRecord[] {
 }
 
 export function RecordDrawer({
-  record,
+  record: requestedRecord,
   onClose,
   onNavigate,
   onAddToNotebook,
@@ -76,6 +76,18 @@ export function RecordDrawer({
   const [copied, setCopied] = useState(false);
   const [notebookMessage, setNotebookMessage] = useState<string | null>(null);
   const session = useEvidenceSession();
+  const [remote, setRemote] = useState<ExperimentRecord | null>(null);
+  useEffect(() => {
+    setRemote(null);
+    if (!requestedRecord || session.mode !== 'api') return;
+    let active = true;
+    evidenceApi.experiment(requestedRecord.experiment_id).then(detail => {
+      if (active) setRemote({ ...requestedRecord, ...detail, ...detail.fields } as ExperimentRecord);
+    }).catch(error => { if (active) session.fallback(error.message); });
+    return () => { active = false; };
+  }, [requestedRecord?.experiment_id, session.mode]);
+  const record = session.mode === 'api' && remote?.experiment_id === requestedRecord?.experiment_id
+    ? remote : requestedRecord ? recordById.get(requestedRecord.experiment_id) ?? requestedRecord : null;
   const [originals, setOriginals] = useState<
     Array<{ artifact_id: string; original_filename: string; download_available: boolean }>
   >([]);
@@ -132,7 +144,7 @@ export function RecordDrawer({
       document.body.classList.remove('has-drawer');
       previousFocus?.focus?.();
     };
-  }, [record, onClose]);
+  }, [record?.experiment_id, onClose]);
 
   const related = useMemo(() => (record ? relatedRecords(record) : []), [record]);
 

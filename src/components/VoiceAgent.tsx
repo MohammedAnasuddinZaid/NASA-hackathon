@@ -41,6 +41,7 @@ export function VoiceAgent() {
       </p>
       <div className="row" style={{ gap: 8, marginBottom: 8 }}>
         <input
+          aria-label="Voice assistant question"
           type="text"
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
