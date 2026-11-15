@@ -221,7 +221,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </a>
 
       <header className="topbar topbar--primary" aria-label="Primary">
-        <a className="brand brand--wordmark" href="#/overview" aria-label="FIRETRACE — home">
+        <a className="brand brand--wordmark" href="#/overview" aria-label="fıretrace® — FIRETRACE home">
           <span className="brand__tile">
             <Glyph size={14} />
           </span>
