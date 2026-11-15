@@ -14,6 +14,6 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: false,
   },
-  server: { host: '127.0.0.1', port: 5173, strictPort: true, proxy: { '/api/v1': target, '/health': target } },
-  preview: { host: '127.0.0.1', port: 4173, strictPort: true, proxy: { '/api/v1': target, '/health': target } },
+  server: { host: '127.0.0.1', port: 5173, strictPort: true, proxy: { '/api': target, '/health': target } },
+  preview: { host: '127.0.0.1', port: 4173, strictPort: true, proxy: { '/api': target, '/health': target } },
 });

@@ -1,0 +1,28 @@
+[
+  {
+    "endpoint": "/api/ask/stream",
+    "status": 200,
+    "deterministic_sse": true
+  },
+  {
+    "endpoint": "/api/ask",
+    "invalid_json": 422
+  },
+  {
+    "endpoint": "/api/ask/stream",
+    "invalid_json": 422
+  },
+  {
+    "endpoint": "/api/voice/turn",
+    "invalid_json": 422
+  },
+  {
+    "endpoint": "/ws/voice",
+    "message": {
+      "type": "error",
+      "code": "voice_unavailable",
+      "message": "VoiceUnavailable: ModuleNotFoundError: No module named 'numpy'",
+      "fatal": true
+    }
+  }
+]

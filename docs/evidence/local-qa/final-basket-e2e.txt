@@ -1,0 +1,22 @@
+
+> firertrace@0.1.0 e2e:research
+> playwright test --config playwright.research.config.ts
+
+[WebServer] (node:6540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:46064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:49452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\research.spec.ts:3:1 › basket survives navigation/reload, compares selections, generates and downloads all formats (13.5s)
+  ok 2 [chromium] › e2e\research.spec.ts:45:1 › clearing requires confirmation and cancellation retains the basket (2.4s)
+
+  2 passed (1.2m)

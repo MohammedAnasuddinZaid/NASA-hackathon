@@ -31,7 +31,7 @@ and require an initial network fetch; there is no service worker or guaranteed o
 
 ## What it does
 
-- **Overview** — a 45-second voiced explainer, corpus ledger, coverage counts and the central
+- **Overview** — a 45-second captioned explainer with optional audio and an explicit missing-audio notice, corpus ledger, coverage counts and the central
   evidence gap.
 - **Atmosphere Explorer** — Dalton-law oxygen partial-pressure calculator, reference atmospheres,
   the reported oxygen distribution, and an explicit “unknown pressure” placement for every record.
@@ -123,7 +123,8 @@ uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
 If the voice wheels or models are absent, `/api/v1` keeps working and the voice routes return a
-structured `503 voice_unavailable`.
+structured `503 voice_unavailable` for audio/TTS requests. Text-only voice turns can
+return a deterministic text response with null audio; that does not verify speech.
 
 ## Production build
 
@@ -168,11 +169,13 @@ cd ..
 python eval/run_eval.py                     # 30-question grounding check
 ```
 
-Verified in this workspace: 89 Vitest tests, `npm run build`, 30/30 benchmark questions,
-155 backend pytest tests, and `eval/run_eval.py` with 0 integrity problems. The Playwright
-suite in `e2e/` is present but could not run in this environment because the OS
-application-control policy blocks the Playwright Chromium binary; no pass result is claimed
-for it here.
+Local QA on 2026-11-15: **232 frontend unit tests, 211 backend tests, 19 pipeline tests**,
+30/30 deterministic benchmark questions and a production build passed. Browser suites passed:
+30 default, 5 evidence/API, 2 TRACE mock, 5 integration, and 33 additional QA tests.
+The dedicated basket/library suites also passed (2 each; these overlap the default suite).
+See [the detailed local QA report](docs/local-qa-report.md) for real backend-stop testing,
+scientific byte checks, accessibility evidence and the limits of these results.
+Run `npm run e2e:qa` for the expanded regression checks.
 
 `eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` with `0/30`
 labelled items, because the shipped question set has no gold answers. It does not estimate
@@ -223,8 +226,9 @@ scripts/           capture and benchmark scripts
 
 ## Deployment
 
-The web application is a static Vite build and works offline after the first load because all
-evidence is bundled. The evidence API is a separate local service; it is not required for the
+The web application is a static Vite build. Already-loaded experiment routes support bundled
+fallback without the backend. Research JSON/chunks and original NASA PDFs need an initial fetch;
+there is no service worker or guaranteed cold offline reload. The evidence API is a separate local service; it is not required for the
 static build and is not deployed by it. See `docs/deployment.md`.
 
 ## License and provenance

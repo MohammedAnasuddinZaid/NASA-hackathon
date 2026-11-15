@@ -231,7 +231,7 @@ export function RecordDrawer({
 
           <details className="raw-row">
             <summary>Measurement ledger: original values, units and transformations</summary>
-            <div className="table-wrap"><table className="data-table"><thead><tr><th>Quantity</th><th>Original</th><th>Normalized</th><th>Basis / source</th></tr></thead>
+            <div className="table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table"><table className="data-table"><thead><tr><th>Quantity</th><th>Original</th><th>Normalized</th><th>Basis / source</th></tr></thead>
               <tbody>{record.measurements.map((measurement) => <tr key={measurement.measurement_id}>
                 <th>{humanizeToken(measurement.quantity)}</th>
                 <td>{measurement.original_value ?? 'Not reported'} {measurement.original_unit}</td>

@@ -442,7 +442,7 @@ export function GapPlanner() {
                     <p className="mono">{citation.locator}</p>
                     <details>
                       <summary>Condition explanations for {r.experiment_id}</summary>
-                      <div className="compare-table-wrap">
+                      <div className="compare-table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table">
                         <table className="compare-table">
                           <caption>
                             Requested target versus reported record; no missing-value match credit

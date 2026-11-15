@@ -1,7 +1,7 @@
 # TRACE: evidence-grounded explanations
 
-TRACE extends the existing FastAPI evidence service. It is independent of unmerged
-PR #2 and does not introduce another database or ingestion pipeline.
+TRACE extends the integrated FastAPI evidence service. PRs #1–#7 are merged on the
+QA baseline; TRACE uses its existing EvidenceStore without another ingestion pipeline.
 
 ## Architecture
 
@@ -11,7 +11,7 @@ bounded source-linked evidence → optional OpenAI Responses structured output �
 schema, evidence-ID and conservative prose checks → UI interpretation + exact claims.
 
 `app/v1/trace.py:retrieve` is the retrieval boundary. It uses the current EvidenceStore;
-it can later be adapted to PR #2's store without changing the assistant contract.
+it uses the integrated store without changing the assistant contract.
 Question history is never scientific evidence. Only recognized identifiers from the
 latest relevant user subject are carried forward; prior assistant prose is ignored.
 This is lightweight subject continuity, not unrestricted conversational reasoning.
@@ -35,13 +35,13 @@ Copy-Item .env.example .env
 # Edit .env locally: AI_ENABLED=true and your own OPENAI_API_KEY.
 backend/.venv/Scripts/python.exe -m uvicorn api:app --app-dir backend --host 127.0.0.1 --port 8013
 # In a second terminal:
-$env:VITE_FIRETRACE_API_BASE='http://127.0.0.1:8013'
+$env:VITE_EVIDENCE_API_BASE='http://127.0.0.1:8013'
 npm.cmd run dev -- --host 127.0.0.1 --port 5183
 ```
 
 Open http://127.0.0.1:5183/#/assistant. Standard ports 8000/5173 also work;
 the isolated ports above avoid disturbing other worktrees. On Unix use
-backend/.venv/bin/python, `export VITE_FIRETRACE_API_BASE=...`, and npm normally.
+backend/.venv/bin/python, `export VITE_EVIDENCE_API_BASE=...`, and npm normally.
 Only the public API base goes in Vite environment variables; API keys never do.
 
 | Server variable | Default | Behavior |
@@ -134,7 +134,7 @@ For mock-only UI review run:
 ```powershell
 backend/.venv/Scripts/python.exe -m uvicorn tests.trace_demo_server:app --app-dir backend --host 127.0.0.1 --port 8014
 # Separate terminal:
-$env:VITE_FIRETRACE_API_BASE='http://127.0.0.1:8014'
+$env:VITE_EVIDENCE_API_BASE='http://127.0.0.1:8014'
 npm.cmd run dev -- --host 127.0.0.1 --port 5184
 ```
 This test module explicitly displays mock-provider-not-live. It is not a production

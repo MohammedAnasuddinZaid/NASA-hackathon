@@ -8,7 +8,7 @@ import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, EmptyState, PageHeader, Panel } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
 import { BasketButton } from '../lib/basketContext';
-import { evidenceApi, ServiceUnavailable, type ExperimentPage } from '../lib/apiClient';
+import { evidenceApi, ServiceUnavailable, ApiError, type ExperimentPage } from '../lib/apiClient';
 import { useEvidenceSession } from '../lib/evidenceSession';
 
 const PAGE_SIZE = 24;
@@ -31,11 +31,18 @@ export function Atlas() {
     family: initialFamily(),
   });
   const [page, setPage] = useState(0);
+  const [apiError, setApiError] = useState('');
+  const filterError = (filters.o2Min !== null && (filters.o2Min < 0 || filters.o2Min > 100)) ||
+    (filters.o2Max !== null && (filters.o2Max < 0 || filters.o2Max > 100))
+    ? 'Oxygen filter values must be between 0 and 100%.'
+    : filters.o2Min !== null && filters.o2Max !== null && filters.o2Min > filters.o2Max
+      ? 'Minimum oxygen must not exceed maximum oxygen.' : '';
   const session = useEvidenceSession();
   const [remote, setRemote] = useState<{ key: string; data: ExperimentPage } | null>(null);
   const queryKey = JSON.stringify([filters, page]);
   useEffect(() => {
-    if (research || session.mode !== 'api') return;
+    setApiError('');
+    if (research || filterError || session.mode !== 'api') return;
     let active = true;
     evidenceApi.experiments({
       q: filters.query, family: filters.family === 'all' ? undefined : filters.family,
@@ -46,7 +53,7 @@ export function Atlas() {
     }).then(data => {
       if (data.items.some(item => !recordById.has(item.experiment_id))) throw new ServiceUnavailable('API returned an unknown experiment; using bundled data.');
       if (active) setRemote({ key: queryKey, data });
-    }).catch(error => { if (active) session.fallback(error.message); });
+    }).catch(error => { if (active) { if (error instanceof ApiError && !(error instanceof ServiceUnavailable)) setApiError(error.message); else session.fallback(error.message); } });
     return () => { active = false; };
   }, [queryKey, session.mode, research]);
   const params = new URLSearchParams(window.location.hash.split('?')[1] ?? '');
@@ -116,6 +123,7 @@ export function Atlas() {
         <p role="alert">Requested record ID was not found. No substitute record was opened.</p>
       )}
 
+      {(filterError || apiError) && <p role="alert">{filterError || apiError}</p>}
       <div className="atlas-summary">
         <div className="atlas-summary__count">
           <strong>{count}</strong>
@@ -134,6 +142,7 @@ export function Atlas() {
             <span>Search</span>
             <input
               type="search"
+              maxLength={200}
               placeholder="ID, material, PI, sample…"
               value={filters.query}
               onChange={(event) => update({ query: event.target.value })}
@@ -184,7 +193,7 @@ export function Atlas() {
             <input
               type="number"
               min={0}
-              max={25}
+              max={100}
               step={0.1}
               value={filters.o2Min ?? ''}
               placeholder="13.6"
@@ -198,7 +207,7 @@ export function Atlas() {
             <input
               type="number"
               min={0}
-              max={25}
+              max={100}
               step={0.1}
               value={filters.o2Max ?? ''}
               placeholder="22.2"
@@ -253,7 +262,7 @@ export function Atlas() {
             range.
           </EmptyState>
         ) : (
-          <div className="table-wrap">
+          <div className="table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table">
             <table className="data-table">
               <thead>
                 <tr>

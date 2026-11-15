@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { routes, useRoute } from '../lib/router';
 import { corpus } from '../lib/corpus';
@@ -45,9 +45,18 @@ function MenuOverlay({
   onClose: () => void;
   returnFocus: RefObject<HTMLButtonElement | null>;
 }) {
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!open) return;
+    const focusFrame = window.requestAnimationFrame(() => closeRef.current?.focus());
     const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Tab') {
+        const nodes = Array.from(overlayRef.current?.querySelectorAll<HTMLElement>('button, a[href]') ?? []);
+        const first = nodes[0], last = nodes.at(-1);
+        if (first && last && event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (first && last && !event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
       if (event.key === 'Escape') {
         onClose();
         returnFocus.current?.focus();
@@ -56,13 +65,14 @@ function MenuOverlay({
     document.addEventListener('keydown', onKey);
     document.body.classList.add('menu-open');
     return () => {
+      window.cancelAnimationFrame(focusFrame);
       document.removeEventListener('keydown', onKey);
       document.body.classList.remove('menu-open');
     };
   }, [open, onClose, returnFocus]);
 
   return (
-    <div className={`menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+    <div ref={overlayRef} className={`menu ${open ? 'is-open' : ''}`} onTransitionEnd={event => { if (open && event.target === overlayRef.current && !overlayRef.current?.contains(document.activeElement)) closeRef.current?.focus(); }} role="dialog" aria-label="All sections menu" aria-modal={open || undefined} aria-hidden={!open}>
       <div className="menu__bar">
         <div className="menu__bar-meta">
           <Glyph size={12} />
@@ -71,6 +81,7 @@ function MenuOverlay({
         <span className="menu__bar-count">08 sections &middot; {corpus.records.length} records</span>
         <button
           type="button"
+          ref={closeRef}
           className="menu__close"
           onClick={() => {
             onClose();
@@ -123,8 +134,8 @@ function MenuOverlay({
               <dd>0</dd>
             </div>
             <div>
-              <dt>External model calls</dt>
-              <dd>0</dd>
+              <dt>TRACE generation</dt>
+              <dd>Optional · server configured</dd>
             </div>
           </dl>
           <span className="hand">[ evidence, not vibes ]</span>
@@ -139,6 +150,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const route = useRoute();
   const active = route.segment;
   const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
   const menuButton = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
@@ -169,7 +181,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="shell">
-      <a className="skip-link" href="#main">
+      <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus(); }}>
         Skip to content
       </a>
 
@@ -216,7 +228,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main id="main" className="main">
+      <main id="main" className="main" tabIndex={-1}>
         {children}
       </main>
 
@@ -267,7 +279,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <MenuOverlay
           open={menuOpen}
           active={active}
-          onClose={() => setMenuOpen(false)}
+          onClose={closeMenu}
           returnFocus={menuButton}
         />
       </div>

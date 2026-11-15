@@ -6,7 +6,7 @@ import { ApiError } from '../lib/apiClient';
 import type { ApiAnswer } from '../lib/apiClient';
 import { Badge, PageHeader, Panel, SourceLink } from '../components/ui';
 import { VoiceAgent } from '../components/VoiceAgent';
-import { askTrace, resolveLocalQuestion, TraceUnavailable } from '../lib/traceClient';
+import { askTrace, resolveLocalQuestion, TraceUnavailable, TraceRejected } from '../lib/traceClient';
 import type { TraceResult } from '../lib/traceClient';
 import { useEvidenceSession } from '../lib/evidenceSession';
 
@@ -89,6 +89,7 @@ export function Assistant() {
   const [pending, setPending] = useState(false);
   const [deterministic, setDeterministic] = useState(false);
   const [lastQuestion, setLastQuestion] = useState('');
+  const [copyStatus, setCopyStatus] = useState('');
   const counter = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -140,7 +141,7 @@ export function Assistant() {
         });
       } else {
         const message =
-          error instanceof ApiError
+          error instanceof ApiError || error instanceof TraceRejected
             ? error.message
             : 'The request could not be completed.';
         const fieldPath = error instanceof ApiError ? error.fieldPath : null;
@@ -153,6 +154,16 @@ export function Assistant() {
         50,
       );
     }
+  }
+
+  async function copyAnswer(message: Extract<Message, { role: 'assistant' }>) {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(answerToText(message.answer, message.trace ? {
+        notice: message.trace.notice, interpretation: message.trace.interpretation, model: message.trace.model_used,
+      } : undefined));
+      setCopyStatus('Answer copied.');
+    } catch { setCopyStatus('Clipboard unavailable. Select and copy the answer text manually.'); }
   }
 
   function onSubmit(event: FormEvent) {
@@ -314,7 +325,7 @@ export function Assistant() {
                         )}
                         <button
                           className="text-link"
-                          onClick={() => navigator.clipboard?.writeText(answerToText(message.answer))}
+                          onClick={() => void copyAnswer(message)}
                         >
                           Copy answer
                         </button>
@@ -336,6 +347,7 @@ export function Assistant() {
             <div ref={endRef} />
           </div>
 
+          {copyStatus && <p role="status">{copyStatus}</p>}
           <form className="ask-form" onSubmit={onSubmit}>
             <label htmlFor="assistant-input" className="sr-only">Ask the evidence assistant</label>
             <input

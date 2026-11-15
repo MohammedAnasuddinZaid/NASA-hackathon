@@ -4,6 +4,7 @@ import type { ApiAnswer } from './apiClient';
 
 export interface TraceHistory { role: 'user' | 'assistant'; content: string }
 export class TraceUnavailable extends Error {}
+export class TraceRejected extends Error {}
 export function resolveLocalQuestion(question: string, history: TraceHistory[]): string {
   if (/BASS|SAFFIRE|PSI-|LUCI/i.test(question) || !/\b(it|its|they|their|them|those|these|one|ones|which|that)\b/i.test(question)) return question;
   for (const message of [...history].reverse()) {
@@ -36,14 +37,15 @@ export async function askTrace(question: string, history: TraceHistory[], determ
     });
     if (!response.ok) {
       if (response.status >= 500 || response.status === 404 || response.status === 409) throw new TraceUnavailable('TRACE unavailable or dataset incompatible.');
-      throw new Error(`TRACE request rejected (${response.status}). Retry later or revise the question.`);
+      throw new TraceRejected(`TRACE request rejected (${response.status}). Retry later or revise the question.`);
     }
     const result = await response.json() as TraceResult;
     if (response.headers.get('X-Corpus-Version') !== bundledCorpusVersion || result.answer?.corpus_version !== bundledCorpusVersion)
       throw new TraceUnavailable('TRACE dataset differs from the bundled evidence.');
-    if (!result.answer || !Array.isArray(result.evidence) || !result.notice) throw new Error('Invalid TRACE response.');
+    if (!result.answer || !Array.isArray(result.evidence) || !result.notice) throw new TraceRejected('Invalid TRACE response. Retry the request.');
     return result;
   } catch (error) {
+    if (error instanceof SyntaxError) throw new TraceRejected('TRACE returned an unreadable response. Retry the request.');
     if (error instanceof TypeError || (error instanceof DOMException && error.name === 'AbortError')) throw new TraceUnavailable('TRACE unreachable.');
     throw error;
   } finally { window.clearTimeout(timeout); }

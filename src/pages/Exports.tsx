@@ -120,7 +120,7 @@ export function Exports() {
           actions={<span className="mono muted">first 5 lines</span>}
           className="export-preview"
         >
-          <div className="preview-scroll">
+          <div className="preview-scroll" tabIndex={0} role="region" aria-label="CSV preview">
             <pre>{preview.join('\n')}</pre>
           </div>
           <div className="preview-notes">

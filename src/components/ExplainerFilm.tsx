@@ -381,6 +381,7 @@ export function ExplainerFilm() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [voiceOn, setVoiceOn] = useState(true);
   const [audioBlocked, setAudioBlocked] = useState(false);
+  const [audioFailures, setAudioFailures] = useState<number[]>([]);
   const [sync, setSync] = useState(0);
   const rootRef = useRef<HTMLElement | null>(null);
   const audioRefs = useRef<Array<HTMLAudioElement | null>>([]);
@@ -522,6 +523,7 @@ export function ExplainerFilm() {
             }}
             src={`${import.meta.env.BASE_URL}audio/act-${index + 1}.mp3`}
             preload="auto"
+            onError={() => setAudioFailures(failed => failed.includes(index) ? failed : [...failed, index])}
           />
         ))}
       </div>
@@ -568,6 +570,7 @@ export function ExplainerFilm() {
         )}
       </div>
 
+      {audioFailures.includes(sceneIndex) && <p role="status">Narration audio is unavailable for this act. The visual explainer and captions remain available.</p>}
       <div className="film__controls">
         <div className="film__controls-left">
           <button

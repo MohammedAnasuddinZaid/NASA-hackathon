@@ -1,0 +1,1527 @@
+{
+  "openapi": [
+    {
+      "path": "/api/v1",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/experiments",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/experiments/{experiment_id}",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/sources/{source_id}",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/sources",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/sources/{source_id}/download",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/coverage",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/compare",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/ask",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/scenarios/evaluate",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/exports",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/assistant/query",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/assistant/calculate",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/health/live",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/health/ready",
+      "methods": [
+        "get"
+      ]
+    }
+  ],
+  "http_cases": [
+    {
+      "method": "GET",
+      "path": "/health/live",
+      "status": 200,
+      "ms": 5.69
+    },
+    {
+      "method": "GET",
+      "path": "/health/ready",
+      "status": 200,
+      "ms": 14.33
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1",
+      "status": 200,
+      "ms": 6.33
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments",
+      "status": 200,
+      "ms": 11.93
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources",
+      "status": 200,
+      "ms": 60.33
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/coverage",
+      "status": 200,
+      "ms": 88.93
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B1",
+      "status": 200,
+      "ms": 8.46
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25",
+      "status": 200,
+      "ms": 30.12
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?limit=200",
+      "status": 200,
+      "ms": 23.7
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B1",
+      "status": 200,
+      "ms": 6.58
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B2",
+      "status": 200,
+      "ms": 7.57
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B3",
+      "status": 200,
+      "ms": 7.37
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B4",
+      "status": 200,
+      "ms": 7.58
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B5",
+      "status": 200,
+      "ms": 5.74
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B6",
+      "status": 200,
+      "ms": 6.29
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B7",
+      "status": 200,
+      "ms": 5.88
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B8",
+      "status": 200,
+      "ms": 5.95
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B9",
+      "status": 200,
+      "ms": 5.8
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B10",
+      "status": 200,
+      "ms": 5.94
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B11",
+      "status": 200,
+      "ms": 7.89
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B12",
+      "status": 200,
+      "ms": 6.22
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B13",
+      "status": 200,
+      "ms": 8.64
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B14",
+      "status": 200,
+      "ms": 8.96
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B15",
+      "status": 200,
+      "ms": 6.52
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B16",
+      "status": 200,
+      "ms": 6.78
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B17",
+      "status": 200,
+      "ms": 6.77
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B18",
+      "status": 200,
+      "ms": 5.7
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B19",
+      "status": 200,
+      "ms": 8.11
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B20",
+      "status": 200,
+      "ms": 9.0
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B21",
+      "status": 200,
+      "ms": 6.33
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-B22",
+      "status": 200,
+      "ms": 6.23
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-F1",
+      "status": 200,
+      "ms": 8.68
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-F2",
+      "status": 200,
+      "ms": 7.17
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-F3",
+      "status": 200,
+      "ms": 6.59
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-F4",
+      "status": 200,
+      "ms": 6.47
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M1",
+      "status": 200,
+      "ms": 6.71
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M2",
+      "status": 200,
+      "ms": 7.29
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M3",
+      "status": 200,
+      "ms": 6.84
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M4",
+      "status": 200,
+      "ms": 5.73
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M5",
+      "status": 200,
+      "ms": 7.48
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M6",
+      "status": 200,
+      "ms": 6.42
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M7",
+      "status": 200,
+      "ms": 6.64
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M8",
+      "status": 200,
+      "ms": 7.2
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M9",
+      "status": 200,
+      "ms": 6.17
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M10",
+      "status": 200,
+      "ms": 5.27
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M11",
+      "status": 200,
+      "ms": 6.76
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M12",
+      "status": 200,
+      "ms": 5.51
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M13",
+      "status": 200,
+      "ms": 5.92
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M14",
+      "status": 200,
+      "ms": 6.29
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M15",
+      "status": 200,
+      "ms": 6.02
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M16",
+      "status": 200,
+      "ms": 7.25
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M17",
+      "status": 200,
+      "ms": 5.66
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M18",
+      "status": 200,
+      "ms": 5.61
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M19",
+      "status": 200,
+      "ms": 6.13
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-M20",
+      "status": 200,
+      "ms": 6.57
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O1",
+      "status": 200,
+      "ms": 7.33
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O2",
+      "status": 200,
+      "ms": 7.41
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O3a",
+      "status": 200,
+      "ms": 6.21
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O3b",
+      "status": 200,
+      "ms": 9.41
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O4",
+      "status": 200,
+      "ms": 6.47
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O5a",
+      "status": 200,
+      "ms": 8.57
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O5b",
+      "status": 200,
+      "ms": 6.27
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O6",
+      "status": 200,
+      "ms": 7.92
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O7",
+      "status": 200,
+      "ms": 6.62
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O8a",
+      "status": 200,
+      "ms": 7.77
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O8b",
+      "status": 200,
+      "ms": 6.38
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O9",
+      "status": 200,
+      "ms": 6.99
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O10",
+      "status": 200,
+      "ms": 8.11
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O11",
+      "status": 200,
+      "ms": 7.18
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O12",
+      "status": 200,
+      "ms": 9.25
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O13a",
+      "status": 200,
+      "ms": 6.38
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O13b",
+      "status": 200,
+      "ms": 6.78
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O14",
+      "status": 200,
+      "ms": 6.7
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O15a",
+      "status": 200,
+      "ms": 6.96
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O15b",
+      "status": 200,
+      "ms": 6.15
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O16",
+      "status": 200,
+      "ms": 6.48
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O17",
+      "status": 200,
+      "ms": 5.82
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O18",
+      "status": 200,
+      "ms": 6.23
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O19",
+      "status": 200,
+      "ms": 6.34
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O20",
+      "status": 200,
+      "ms": 6.44
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O21",
+      "status": 200,
+      "ms": 5.75
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-O22",
+      "status": 200,
+      "ms": 7.15
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P1",
+      "status": 200,
+      "ms": 6.64
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P2",
+      "status": 200,
+      "ms": 6.53
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P3a",
+      "status": 200,
+      "ms": 5.62
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P3b",
+      "status": 200,
+      "ms": 6.21
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P4",
+      "status": 200,
+      "ms": 6.22
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P5",
+      "status": 200,
+      "ms": 5.92
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P6",
+      "status": 200,
+      "ms": 6.81
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P8",
+      "status": 200,
+      "ms": 6.32
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P9",
+      "status": 200,
+      "ms": 9.57
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P10",
+      "status": 200,
+      "ms": 6.12
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P12",
+      "status": 200,
+      "ms": 7.41
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P13a",
+      "status": 200,
+      "ms": 6.51
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P13b",
+      "status": 200,
+      "ms": 7.36
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P14",
+      "status": 200,
+      "ms": 13.02
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P15",
+      "status": 200,
+      "ms": 6.8
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P16",
+      "status": 200,
+      "ms": 8.13
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P17",
+      "status": 200,
+      "ms": 9.86
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P18",
+      "status": 200,
+      "ms": 7.29
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P19",
+      "status": 200,
+      "ms": 8.05
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P20",
+      "status": 200,
+      "ms": 5.79
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P21a",
+      "status": 200,
+      "ms": 5.45
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P21b",
+      "status": 200,
+      "ms": 5.24
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P22a",
+      "status": 200,
+      "ms": 5.99
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P22b",
+      "status": 200,
+      "ms": 6.43
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P23",
+      "status": 200,
+      "ms": 5.59
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P24",
+      "status": 200,
+      "ms": 5.83
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-P25",
+      "status": 200,
+      "ms": 5.68
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T1",
+      "status": 200,
+      "ms": 5.79
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T2",
+      "status": 200,
+      "ms": 6.28
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T3",
+      "status": 200,
+      "ms": 5.35
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T4",
+      "status": 200,
+      "ms": 5.67
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T5",
+      "status": 200,
+      "ms": 6.31
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T6",
+      "status": 200,
+      "ms": 6.98
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T7",
+      "status": 200,
+      "ms": 4.99
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T9",
+      "status": 200,
+      "ms": 5.16
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T10",
+      "status": 200,
+      "ms": 5.96
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T11",
+      "status": 200,
+      "ms": 6.15
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T12",
+      "status": 200,
+      "ms": 6.44
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T13",
+      "status": 200,
+      "ms": 6.17
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T14",
+      "status": 200,
+      "ms": 7.08
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T15",
+      "status": 200,
+      "ms": 6.76
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T16",
+      "status": 200,
+      "ms": 7.93
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T17",
+      "status": 200,
+      "ms": 7.89
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T18",
+      "status": 200,
+      "ms": 7.53
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T19",
+      "status": 200,
+      "ms": 5.61
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T20",
+      "status": 200,
+      "ms": 5.44
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T21",
+      "status": 200,
+      "ms": 6.38
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T22",
+      "status": 200,
+      "ms": 6.36
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T23",
+      "status": 200,
+      "ms": 6.04
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T24",
+      "status": 200,
+      "ms": 5.47
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T25",
+      "status": 200,
+      "ms": 5.67
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T26",
+      "status": 200,
+      "ms": 5.3
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T27",
+      "status": 200,
+      "ms": 7.48
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T28a",
+      "status": 200,
+      "ms": 5.78
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T28b",
+      "status": 200,
+      "ms": 5.29
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/BASS2-T29",
+      "status": 200,
+      "ms": 6.01
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/SAFFIRE1-S1",
+      "status": 200,
+      "ms": 5.18
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/SAFFIRE1-S2",
+      "status": 200,
+      "ms": 5.77
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments/NOT-A-RECORD",
+      "status": 404,
+      "ms": 5.96
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/NOT-A-SOURCE",
+      "status": 404,
+      "ms": 4.38
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?limit=0",
+      "status": 422,
+      "ms": 4.3
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?limit=201",
+      "status": 422,
+      "ms": 4.71
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?offset=-1",
+      "status": 422,
+      "ms": 4.97
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?offset=100001",
+      "status": 422,
+      "ms": 4.01
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?min_o2=101",
+      "status": 422,
+      "ms": 5.96
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?min_o2=24&max_o2=20",
+      "status": 422,
+      "ms": 6.26
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?q=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "status": 422,
+      "ms": 7.58
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?sort=unknown",
+      "status": 422,
+      "ms": 6.66
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/experiments?unknown=true",
+      "status": 422,
+      "ms": 5.48
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25",
+      "status": 200,
+      "ms": 26.15
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25/download",
+      "status": 200,
+      "ms": 12.73
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25/download",
+      "status": 200,
+      "ms": 14.16
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25/download",
+      "status": 200,
+      "ms": 10.43
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25/download",
+      "status": 200,
+      "ms": 10.37
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25/download",
+      "status": 200,
+      "ms": 22.03
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sources/PSI-25/download",
+      "status": 404,
+      "ms": 5.81
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/compare",
+      "status": 200,
+      "ms": 6.49
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/compare",
+      "status": 422,
+      "ms": 4.2
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/compare",
+      "status": 422,
+      "ms": 4.07
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/ask",
+      "status": 422,
+      "ms": 5.4
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/ask",
+      "status": 422,
+      "ms": 4.99
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/scenarios/evaluate",
+      "status": 422,
+      "ms": 4.96
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/scenarios/evaluate",
+      "status": 422,
+      "ms": 5.92
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/exports",
+      "status": 422,
+      "ms": 6.05
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/exports",
+      "status": 422,
+      "ms": 3.48
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 422,
+      "ms": 5.8
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 422,
+      "ms": 4.66
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/calculate",
+      "status": 422,
+      "ms": 4.3
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/calculate",
+      "status": 422,
+      "ms": 3.22
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/scenarios/evaluate",
+      "status": 200,
+      "ms": 18.0
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/exports",
+      "status": 200,
+      "ms": 7.23
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/exports",
+      "status": 200,
+      "ms": 6.21
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/exports",
+      "status": 200,
+      "ms": 5.86
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 8.23
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 65.8
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 186.25
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 21.07
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 8.09
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 182.93
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 8.47
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 9.84
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 334.87
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/query",
+      "status": 200,
+      "ms": 9.58
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/ask",
+      "status": 200,
+      "ms": 8.11
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/calculate",
+      "status": 200,
+      "ms": 6.06
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/calculate",
+      "status": 200,
+      "ms": 6.0
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/calculate",
+      "status": 200,
+      "ms": 6.25
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/assistant/calculate",
+      "status": 422,
+      "ms": 4.48
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/ask",
+      "status": 413,
+      "ms": 6.24
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/coverage",
+      "status": 409,
+      "ms": 5.25
+    }
+  ],
+  "answers": [
+    {
+      "question": "What oxygen did BASS2-B1 report?",
+      "grade": "direct",
+      "headline": "BASS2-B1 \u2014 oxygen fraction (initial).",
+      "mode": "disabled"
+    },
+    {
+      "question": "What pressure was BASS-II run at?",
+      "grade": "absent",
+      "headline": "No curated record reports total pressure.",
+      "mode": "not_applicable"
+    },
+    {
+      "question": "Does the corpus include partial-gravity data?",
+      "grade": "context",
+      "headline": "Gravity is investigation-level in this corpus.",
+      "mode": "disabled"
+    },
+    {
+      "question": "Compare BASS-II and Saffire-I.",
+      "grade": "context",
+      "headline": "No applicable record: BASS2-B1 and SAFFIRE1-S1.",
+      "mode": "disabled"
+    },
+    {
+      "question": "What did LUCI find?",
+      "grade": "context",
+      "headline": "Context source, not a structured record set.",
+      "mode": "disabled"
+    },
+    {
+      "question": "Which records are flagged suspect?",
+      "grade": "direct",
+      "headline": "Provenance and validation status of the curated corpus.",
+      "mode": "disabled"
+    },
+    {
+      "question": "Is PMMA safe in a lunar cabin?",
+      "grade": "out-of-scope",
+      "headline": "This question is outside the scope of an evidence reader.",
+      "mode": "not_applicable"
+    },
+    {
+      "question": "What does FLEX investigate?",
+      "grade": "absent",
+      "headline": "Report evidence is outside this assistant's indexed record layer.",
+      "mode": "not_applicable"
+    },
+    {
+      "question": "What is missing from the corpus?",
+      "grade": "direct",
+      "headline": "What the corpus does not report.",
+      "mode": "disabled"
+    },
+    {
+      "question": "Show evidence supporting that answer.",
+      "grade": "absent",
+      "headline": "The corpus has no record for this question.",
+      "mode": "not_applicable"
+    }
+  ],
+  "combined_openapi": [
+    {
+      "path": "/api/v1",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/experiments",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/experiments/{experiment_id}",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/sources/{source_id}",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/sources",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/sources/{source_id}/download",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/coverage",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/v1/compare",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/ask",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/scenarios/evaluate",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/exports",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/assistant/query",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/v1/assistant/calculate",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/health/live",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/health/ready",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/health",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/status",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/corpus/summary",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/corpus/records",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/corpus/record/{experiment_id}",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/ask",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/ask/stream",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/tts",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/voice/turn",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "path": "/api/history/sessions",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "path": "/api/history/session/{session_id}",
+      "methods": [
+        "get"
+      ]
+    }
+  ],
+  "combined_cases": [
+    {
+      "method": "GET",
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/corpus/summary",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/corpus/records",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/corpus/record/BASS2-B1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/sessions",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/session/nonexistent",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ask",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/tts",
+      "status": 503
+    },
+    {
+      "method": "POST",
+      "path": "/api/voice/turn",
+      "status": 200
+    }
+  ],
+  "voice_available": false,
+  "corpus_version": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9"
+}
