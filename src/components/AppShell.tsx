@@ -1,18 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
-import { routes, useRoute } from '../lib/router';
+import { primaryRoutes, routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
+import { CommandPalette } from './CommandPalette';
 import { corpus } from '../lib/corpus';
-
-const subtitles: Record<string, string> = {
-  overview: 'The thesis, on one screen',
-  atmosphere: 'Two numbers, one missing',
-  atlas: `${corpus.records.length} records, raw and flagged`,
-  compare: 'Blockers before numbers',
-  gap: 'Design the missing test',
-  assistant: 'Retrieval with abstention',
-  methodology: 'Every value, traceable',
-  exports: 'Take the record layer',
-};
 
 export function Glyph({ size = 14 }: { size?: number }) {
   return (
@@ -33,6 +23,20 @@ export function Glyph({ size = 14 }: { size?: number }) {
   );
 }
 
+function useOnline(): boolean {
+  const [online, setOnline] = useState(() => (typeof navigator === 'undefined' ? true : navigator.onLine));
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    window.addEventListener('online', update);
+    window.addEventListener('offline', update);
+    return () => {
+      window.removeEventListener('online', update);
+      window.removeEventListener('offline', update);
+    };
+  }, []);
+  return online;
+}
+
 function MenuOverlay({
   open,
   active,
@@ -44,19 +48,42 @@ function MenuOverlay({
   onClose: () => void;
   returnFocus: RefObject<HTMLButtonElement | null>;
 }) {
+  const panelRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!open) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
         returnFocus.current?.focus();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const focusable = [...panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter(
+        (element) => element.offsetParent !== null,
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
     document.addEventListener('keydown', onKey);
     document.body.classList.add('menu-open');
+    const firstLink = panelRef.current?.querySelector<HTMLElement>('.menu__link');
+    firstLink?.focus();
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.classList.remove('menu-open');
+      previousFocus?.focus?.();
     };
   }, [open, onClose, returnFocus]);
 
@@ -67,7 +94,9 @@ function MenuOverlay({
           <Glyph size={12} />
           <span>Index / FIRETRACE</span>
         </div>
-        <span className="menu__bar-count">08 sections &middot; {corpus.records.length} records</span>
+        <span className="menu__bar-count">
+          {routes.length} sections &middot; {corpus.records.length} records
+        </span>
         <button
           type="button"
           className="menu__close"
@@ -80,23 +109,28 @@ function MenuOverlay({
         </button>
       </div>
 
-      <div className="menu__grid">
+      <div className="menu__grid" ref={panelRef}>
         <nav className="menu__links" aria-label="All sections">
-          {routes.map((item) => (
-            <a
-              key={item.path}
-              href={`#/${item.path}`}
-              className={`menu__link ${active === item.path ? 'is-active' : ''}`}
-              aria-current={active === item.path ? 'page' : undefined}
-              onClick={onClose}
-            >
-              <span className="menu__index">{item.index}</span>
-              <span className="menu__label">{item.label}</span>
-              <span className="menu__meta">{subtitles[item.path]}</span>
-              <span className="menu__arrow" aria-hidden="true">
-                &#8599;
-              </span>
-            </a>
+          {routeGroups.map((group) => (
+            <div className="menu__group" key={group}>
+              <div className="menu__group-title kicker">{group}</div>
+              {routesInGroup(group).map((item) => (
+                <a
+                  key={item.path}
+                  href={`#/${item.path}`}
+                  className={`menu__link ${active === item.path ? 'is-active' : ''}`}
+                  aria-current={active === item.path ? 'page' : undefined}
+                  onClick={onClose}
+                >
+                  <span className="menu__index">{item.index}</span>
+                  <span className="menu__label">{item.label}</span>
+                  <span className="menu__meta">{item.description}</span>
+                  <span className="menu__arrow" aria-hidden="true">
+                    &#8599;
+                  </span>
+                </a>
+              ))}
+            </div>
           ))}
         </nav>
 
@@ -137,8 +171,21 @@ function MenuOverlay({
 export function AppShell({ children }: { children: ReactNode }) {
   const route = useRoute();
   const active = route.segment;
+  const online = useOnline();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setPaletteOpen((value) => !value);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -182,8 +229,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           </span>
         </a>
 
-        <nav className="nav nav--horizontal" aria-label="Sections">
-          {routes.map((item) => (
+        <nav className="nav nav--horizontal" aria-label="Primary sections">
+          {primaryRoutes.map((item) => (
             <a
               key={item.path}
               href={`#/${item.path}`}
@@ -197,9 +244,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="topbar__right">
-          <span className="topbar__status">
+          <span
+            className={`topbar__status ${online ? '' : 'is-offline'}`}
+            title={online ? 'Network available. Bundled retrieval still runs locally.' : 'Offline: bundled retrieval is fully local.'}
+          >
             <span className="status-dot" aria-hidden="true" />
-            {corpus.meta.record_count} records &middot; live demo
+            {corpus.records.length} records &middot; {online ? 'bundled + local' : 'offline'}
           </span>
           <button
             ref={menuButton}
@@ -223,23 +273,17 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="footer__mark">
             fıretrace<sup>&reg;</sup>
           </div>
-          <div className="footer__cols">
-            <div>
-              <div className="kicker">Workspace</div>
-              {routes.slice(0, 4).map((item) => (
-                <a key={item.path} href={`#/${item.path}`}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
-            <div>
-              <div className="kicker">Evidence</div>
-              {routes.slice(4).map((item) => (
-                <a key={item.path} href={`#/${item.path}`}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
+          <div className="footer__cols footer__cols--workbench">
+            {routeGroups.map((group) => (
+              <div key={group}>
+                <div className="kicker">{group}</div>
+                {routesInGroup(group).map((item) => (
+                  <a key={item.path} href={`#/${item.path}`}>
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            ))}
             <div>
               <div className="kicker">Sources</div>
               <a href="https://psi.nasa.gov/physci/repo/" target="_blank" rel="noreferrer">
@@ -257,7 +301,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             FIRETRACE is an independent project for NASA Space Apps 2026. Not affiliated with,
             endorsed by, or certified by NASA. Not a fire-risk model.
           </span>
-          <span className="footer__stamp">{corpus.records.length} records / {corpus.meta.coverage.pressure_reported} record pressure values / static explorer</span>
+          <span className="footer__stamp">
+            {corpus.records.length} records / {corpus.meta.coverage.pressure_reported} record pressure values / static explorer
+          </span>
         </div>
       </footer>
 
@@ -269,6 +315,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           returnFocus={menuButton}
         />
       </div>
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
     </div>
   );
 }

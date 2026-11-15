@@ -18,9 +18,12 @@
   max-width: 100%;
 }
 .page--gap input[type='checkbox'] {
-  width: auto;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
   margin-right: 0.5rem;
   accent-color: #c6f432;
+  vertical-align: middle;
 }
 .page--gap .gap-results {
   min-width: 0;

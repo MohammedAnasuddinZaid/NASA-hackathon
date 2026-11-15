@@ -39,6 +39,15 @@ downloads, tests and the user-approved adaptation to current main after PR #1 wa
 - **Evidence Assistant** — deterministic retrieval and citation engine with abstention.
 - **Methodology & Sources** — pipeline rules, validation gates, anomalies, sources and licenses.
 - **Exports** — CSV/JSON exports of records, claims and the source manifest.
+- **Coverage & Validation** — field coverage, quality distribution, validation findings, and four zero-coverage constraints computed from the corpus.
+- **Research Notebook** — versioned local investigations with typed items, workflow states, per-item verification, calculation runner, and Markdown/ZIP export.
+- **Evidence Graph** — typed, inspectable graph of records, sources, measurements, claims, validation findings, and notebook items.
+- **Claim Verification** — deterministic verification of assistant answers, claims, and notebook items (citation resolution, numeric support, pressure conflicts).
+- **Evaluation Harness** — 36-case deterministic/adversarial benchmark with category metrics and regression gates.
+- **Analysis Runs** — six reproducible corpus analyses with per-record fingerprints, corpus diff, and versioned persistence.
+- **Corpus Integrity** — 19-check integrity report (manifest hashes, validation gates, null discipline, duplicates).
+- **Research Reports** — Markdown + JSON + hashed ZIP manifest of evidence summaries.
+- **System Health** — real capability probes (bundled corpus, API, storage, offline shell) with honest status.
 
 ## Corpus
 
@@ -142,19 +151,20 @@ shows a **Sound on** prompt and starts narration on the first click.
 ```bash
 npm test                                    # Vitest unit tests
 npm run build                               # type-check + production build
-npm run benchmark                           # 30-question local assistant benchmark
+npm run benchmark                           # 36-case local assistant benchmark
 
 cd backend
 python -m pytest -q                         # evidence API contract and policy suite
 cd ..
-python eval/run_eval.py                     # 30-question grounding check
+python eval/run_eval.py                     # 30-question grounding check (hit@5/abstention null; no gold answers)
+npm run e2e                                 # Playwright end-to-end + accessibility suite
 ```
 
-Verified in this workspace: 89 Vitest tests, `npm run build`, 30/30 benchmark questions,
-155 backend pytest tests, and `eval/run_eval.py` with 0 integrity problems. The Playwright
-suite in `e2e/` is present but could not run in this environment because the OS
-application-control policy blocks the Playwright Chromium binary; no pass result is claimed
-for it here.
+Verified in this workspace: **213 Vitest tests**, **192 pytest tests** (3 skipped when the voice stack is
+absent), **9 pipeline unittests**, **68 Playwright tests**, **36/36 benchmark cases**, and `npm run build`.
+The Playwright suite covers 17 route-smoke tests, 20 accessibility (axe-core) tests, 11 workbench
+workflow tests, 2 scenario tests, 2 TRACE tests, and 16 feature tests. The bundle is a single large
+JavaScript chunk (~2.38 MB) because the corpus JSON is imported directly for offline use.
 
 `eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` with `0/30`
 labelled items, because the shipped question set has no gold answers. It does not estimate
@@ -175,8 +185,10 @@ This uses `python pipeline/ingest.py` and rewrites `src/data/corpus.json`, mirro
 src/
   components/      shell, charts, drawer, UI primitives
   data/            bundled corpus and source manifest
-  lib/             types, corpus, atmosphere, records, compare, gap, assistant, apiClient, export, router
-  pages/           eight routed pages
+  lib/             types, corpus, atmosphere, records, compare, gap, assistant, apiClient, export, router,
+                   atlasView, notebook, calculation, verification, evidenceGraph, benchmark, analysisRun,
+                   integrity, report, capabilities, hash, storage, zip
+  pages/           seventeen routed pages
   styles.css       design system
 backend/
   api.py           standalone evidence API (no AI runtime)
@@ -186,11 +198,12 @@ backend/
   tests/           pytest contract, grounding and policy suite
 pipeline/          Python ingestion and validation
 eval/              question set and honest evaluation runner
-tests/             Vitest unit tests
-e2e/               Playwright end-to-end tests (blocked by this machine's application policy)
-docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment
+tests/             Vitest unit tests (213)
+e2e/               Playwright end-to-end + accessibility tests (68)
+docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment, phase checklists
 presentation/      screenshots and pitch deck
 scripts/           capture and benchmark scripts
+public/            manifest.webmanifest, sw.js (PWA offline shell)
 ```
 
 ## Scientific policy

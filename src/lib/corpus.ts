@@ -10,9 +10,19 @@ import type {
   ValidationReport,
 } from './types';
 
+declare const __BUNDLED_CORPUS_VERSION__: string;
+
 export const corpus = corpusJson as unknown as Corpus;
 export const sourceManifest = manifestJson as unknown as SourceManifest;
 export const validation = validationJson as unknown as ValidationReport;
+
+/** SHA-256 of the bundled corpus file, injected at build time. */
+const injectedVersion =
+  typeof __BUNDLED_CORPUS_VERSION__ === 'string' ? __BUNDLED_CORPUS_VERSION__ : null;
+const globalVersion = (globalThis as { __BUNDLED_CORPUS_VERSION__?: unknown })
+  .__BUNDLED_CORPUS_VERSION__;
+export const corpusVersion =
+  injectedVersion ?? (typeof globalVersion === 'string' ? globalVersion : 'unversioned-dev-build');
 
 export const records: ExperimentRecord[] = corpus.records;
 export const claims: Claim[] = corpus.claims;

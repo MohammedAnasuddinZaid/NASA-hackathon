@@ -3,6 +3,7 @@ import { claims, corpus, records, sourceManifest, validation } from '../lib/corp
 import {
   claimsToCsv,
   coreExportColumns,
+  downloadBlob,
   downloadJson,
   downloadText,
   exportColumns,
@@ -10,6 +11,8 @@ import {
   previewCsv,
   recordsToCsv,
 } from '../lib/export';
+import { buildResearchReport } from '../lib/report';
+import { createZip, zipToBlob } from '../lib/zip';
 import { Badge, PageHeader, Panel, SectionRule } from '../components/ui';
 
 type Scope = 'all' | 'BASS-II' | 'Saffire-I';
@@ -24,6 +27,9 @@ const scopes: Array<{ id: Scope; label: string; count: number }> = [
 export function Exports() {
   const [scope, setScope] = useState<Scope>('all');
   const [preset, setPreset] = useState<Preset>('core');
+  const [bundleBusy, setBundleBusy] = useState(false);
+  const [bundleNotice, setBundleNotice] = useState<string | null>(null);
+  const [bundleError, setBundleError] = useState<string | null>(null);
 
   const selected = useMemo(
     () => (scope === 'all' ? records : records.filter((record) => record.family === scope)),
@@ -34,6 +40,28 @@ export function Exports() {
   const preview = useMemo(() => previewCsv(csv, 5), [csv]);
   const stamp = formatExportStamp();
   const pressure = selected.filter((record) => record.total_pressure_psia.value !== null).length;
+
+  async function downloadResearchBundle() {
+    setBundleBusy(true);
+    setBundleError(null);
+    setBundleNotice(null);
+    try {
+      const bundle = await buildResearchReport({
+        title: 'FIRETRACE research bundle',
+        includeClaims: true,
+        appVersion: '0.1.0',
+      });
+      const bytes = createZip(bundle.files.map((file) => ({ path: file.path, content: file.content })));
+      downloadBlob(`firertrace-research-${bundle.generated_at.slice(0, 10)}.zip`, zipToBlob(bytes));
+      setBundleNotice(
+        `Generated ${bundle.files.length} hashed files with an integrity report, claim verification, graph summary, and SHA-256 manifest.`,
+      );
+    } catch (error) {
+      setBundleError(error instanceof Error ? error.message : 'The research bundle could not be generated.');
+    } finally {
+      setBundleBusy(false);
+    }
+  }
 
   return (
     <div className="page page--exports">
@@ -117,7 +145,7 @@ export function Exports() {
           actions={<span className="mono muted">first 5 lines</span>}
           className="export-preview"
         >
-          <div className="preview-scroll">
+          <div className="preview-scroll" tabIndex={0} role="region" aria-label="CSV export preview">
             <pre>{preview.join('\n')}</pre>
           </div>
           <div className="preview-notes">
@@ -192,6 +220,63 @@ export function Exports() {
           <span className="artifact-card__action">Download JSON ↓</span>
         </button>
       </div>
+
+      <Panel
+        kicker="Research bundle"
+        title="A reproducible report, not just a table"
+        actions={<Badge tone="mint">SHA-256 manifest</Badge>}
+      >
+        <div className="wb-two-col">
+          <div>
+            <p>
+              Build a deterministic ZIP containing the Markdown report, JSON report, integrity checks, claim
+              verification, evidence-graph summary, and a content manifest. The bundle copies evidence references and
+              computed counts; it does not add new scientific claims.
+            </p>
+            <ul className="wb-check-list" style={{ marginTop: 14 }}>
+              <li>
+                <Badge tone="mint">included</Badge>
+                <span>Corpus version, coverage, source artifacts, and limitations.</span>
+              </li>
+              <li>
+                <Badge tone="mint">included</Badge>
+                <span>SHA-256 hashes over every generated file.</span>
+              </li>
+              <li>
+                <Badge tone="amber">excluded</Badge>
+                <span>Secrets, environment values, model output, and fabricated conclusions.</span>
+              </li>
+            </ul>
+            {bundleNotice && (
+              <p role="status" className="wb-notice" style={{ marginTop: 14 }}>
+                {bundleNotice}
+              </p>
+            )}
+            {bundleError && (
+              <p role="alert" className="wb-alert" style={{ marginTop: 14 }}>
+                {bundleError}
+              </p>
+            )}
+          </div>
+          <div>
+            <button
+              type="button"
+              className="button button--ember button--full"
+              onClick={() => void downloadResearchBundle()}
+              disabled={bundleBusy}
+            >
+              {bundleBusy ? 'Assembling bundle…' : 'Download research bundle (ZIP) ↓'}
+            </button>
+            <p className="panel-caption">
+              For a configurable report with optional notebook and benchmark sections, open{' '}
+              <a className="text-link" href="#/reports">
+                Reports
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+      </Panel>
 
       <div className="citation-block">
         <div>

@@ -10,6 +10,15 @@ const routes = [
   ['Evidence Assistant', '/#/assistant', 'Ask the corpus'],
   ['Methodology', '/#/methodology', 'Built to be checked'],
   ['Exports', '/#/exports', 'Take the evidence'],
+  ['Coverage', '/#/coverage', 'What the corpus'],
+  ['Research Notebook', '/#/notebook', 'Keep the question'],
+  ['Evidence Graph', '/#/graph', 'Every claim has a'],
+  ['Verification Center', '/#/verification', 'Check the statement'],
+  ['Evaluation Harness', '/#/evaluation', 'Test the retrieval'],
+  ['Analysis Runs', '/#/analysis', 'Reproducible counts'],
+  ['Corpus Integrity', '/#/integrity', 'Internal consistency'],
+  ['Reports', '/#/reports', 'A report that'],
+  ['System Health', '/#/health', 'Prove the capability'],
 ] as const;
 
 test.describe('route smoke', () => {
@@ -242,7 +251,7 @@ test('specific burn-time question is direct evidence', async ({ page }) => {
 
 test('record provenance exposes corrected values, original files and missing-value scope', async ({ page }) => {
   await page.goto('/#/atlas');
-  await page.getByRole('searchbox').fill('BASS2-B1');
+  await page.locator('input[type="search"]').fill('BASS2-B1');
   await page.getByRole('row', { name: 'Open BASS2-B1', exact: true }).click();
   const drawer = page.locator('.drawer');
   await expect(drawer).toContainText('Reported · corrected');
