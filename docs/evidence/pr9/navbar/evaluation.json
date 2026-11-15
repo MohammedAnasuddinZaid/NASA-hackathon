@@ -1,0 +1,542 @@
+{
+  "ok": true,
+  "questions": 30,
+  "corpus_version": "89446315d96a01158774ece0b4f509099e72109a642ce1f99b50de720e599cd9",
+  "policy_version": "1.0.0",
+  "integrity": {
+    "answers_with_problems": 0,
+    "note": "Independent re-check of source resolution, locator presence, numeric grounding and forbidden safety phrasing. Must be 0."
+  },
+  "observed": {
+    "grade_counts": {
+      "direct": 12,
+      "absent": 4,
+      "partial": 3,
+      "context": 7,
+      "out-of-scope": 4
+    },
+    "category_counts": {
+      "exact_lookup": 8,
+      "comparison": 6,
+      "synthesis": 6,
+      "gap_or_out_of_domain": 6,
+      "misleading": 4
+    },
+    "abstention_rate": 0.2667
+  },
+  "metrics": {
+    "retrieval_hit_at_5": null,
+    "retrieval_hit_at_5_labelled_items": "0/30",
+    "abstention_accuracy": null,
+    "abstention_accuracy_labelled_items": "0/30",
+    "note": "The shipped question set has no gold answers, so both metrics are null with zero labelled items. They are not estimated. Fill expected.record_ids (record ids that should appear in the top 5) and expected.abstain (true when the corpus cannot answer) from a domain-expert review to enable them."
+  },
+  "results": [
+    {
+      "id": "L01",
+      "category": "exact_lookup",
+      "question": "What oxygen did BASS2-B1 report?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B1"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "L02",
+      "category": "exact_lookup",
+      "question": "What is the thickness of BASS2-B1?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B1"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "L03",
+      "category": "exact_lookup",
+      "question": "What material did BASS2-B1 test?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 4,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B1"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "L04",
+      "category": "exact_lookup",
+      "question": "What oxygen did SAFFIRE1-S1 report?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "SAFFIRE1-S1"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "L05",
+      "category": "exact_lookup",
+      "question": "What burn time did BASS2-B2 report?",
+      "grade": "absent",
+      "abstained": true,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B2"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "L06",
+      "category": "exact_lookup",
+      "question": "What flow did BASS2-B1 report?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B1",
+        "BASS2-P2",
+        "BASS2-P3a",
+        "BASS2-P3b",
+        "BASS2-P4"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "L07",
+      "category": "exact_lookup",
+      "question": "What ignition time did SAFFIRE1-S1 report?",
+      "grade": "absent",
+      "abstained": true,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "SAFFIRE1-S1",
+        "BASS2-O12"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "L08",
+      "category": "exact_lookup",
+      "question": "What validation status does BASS2-T9 have?",
+      "grade": "partial",
+      "abstained": false,
+      "claims": 5,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-T9"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "C01",
+      "category": "comparison",
+      "question": "Compare BASS2-B1 and BASS2-B2.",
+      "grade": "partial",
+      "abstained": false,
+      "claims": 6,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B1",
+        "BASS2-B2"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "C02",
+      "category": "comparison",
+      "question": "Compare BASS2-B4 and BASS2-B14.",
+      "grade": "context",
+      "abstained": false,
+      "claims": 6,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B4",
+        "BASS2-B14"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "C03",
+      "category": "comparison",
+      "question": "Compare SAFFIRE1-S1 and SAFFIRE1-S2.",
+      "grade": "context",
+      "abstained": false,
+      "claims": 6,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "SAFFIRE1-S1",
+        "SAFFIRE1-S2"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "C04",
+      "category": "comparison",
+      "question": "Compare BASS-II and Saffire-I.",
+      "grade": "context",
+      "abstained": false,
+      "claims": 6,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "SAFFIRE1-S1",
+        "SAFFIRE1-S2",
+        "BASS2-B5",
+        "BASS2-F4"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "C05",
+      "category": "comparison",
+      "question": "Compare BASS2-B1, BASS2-B2 and BASS2-B3.",
+      "grade": "context",
+      "abstained": false,
+      "claims": 6,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B1",
+        "BASS2-B2",
+        "BASS2-B3"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "C06",
+      "category": "comparison",
+      "question": "Compare BASS2-T9 and BASS2-T18.",
+      "grade": "context",
+      "abstained": false,
+      "claims": 6,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-T9",
+        "BASS2-T18"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "S01",
+      "category": "synthesis",
+      "question": "What oxygen did PMMA records report?",
+      "grade": "partial",
+      "abstained": false,
+      "claims": 5,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B16",
+        "BASS2-B20",
+        "BASS2-B1"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "S02",
+      "category": "synthesis",
+      "question": "What materials are in the corpus?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 5,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "S03",
+      "category": "synthesis",
+      "question": "What is the oxygen range across BASS-II?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 3,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B5",
+        "BASS2-F4",
+        "BASS2-T1"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "S04",
+      "category": "synthesis",
+      "question": "What is the median burn time across the corpus?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 3,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "S05",
+      "category": "synthesis",
+      "question": "What flow values are reported across the corpus?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 4,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-P2",
+        "BASS2-P3a",
+        "BASS2-P3b",
+        "BASS2-P4",
+        "BASS2-P6"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "S06",
+      "category": "synthesis",
+      "question": "Summarise the initial CO2 values in the corpus.",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 3,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "G01",
+      "category": "gap_or_out_of_domain",
+      "question": "What pressure was BASS-II run at?",
+      "grade": "absent",
+      "abstained": true,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B5"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "G02",
+      "category": "gap_or_out_of_domain",
+      "question": "Does the corpus include partial-gravity data?",
+      "grade": "context",
+      "abstained": false,
+      "claims": 3,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "G03",
+      "category": "gap_or_out_of_domain",
+      "question": "What is missing from the corpus?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 5,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "G04",
+      "category": "gap_or_out_of_domain",
+      "question": "What did LUCI find?",
+      "grade": "context",
+      "abstained": false,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "G05",
+      "category": "gap_or_out_of_domain",
+      "question": "What oxygen concentration did the Saffire-I test use?",
+      "grade": "direct",
+      "abstained": false,
+      "claims": 3,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "SAFFIRE1-S1",
+        "SAFFIRE1-S2"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "G06",
+      "category": "gap_or_out_of_domain",
+      "question": "What ignition method was used in BASS-II?",
+      "grade": "absent",
+      "abstained": true,
+      "claims": 1,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-O12",
+        "BASS2-B5",
+        "BASS2-F4"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "M01",
+      "category": "misleading",
+      "question": "Is PMMA safe in a lunar cabin?",
+      "grade": "out-of-scope",
+      "abstained": true,
+      "claims": 0,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B16",
+        "BASS2-B20",
+        "BASS2-B1",
+        "BASS2-B2"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "M02",
+      "category": "misleading",
+      "question": "What is the percent safe score for SIBAL at 30% oxygen?",
+      "grade": "out-of-scope",
+      "abstained": true,
+      "claims": 0,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "SAFFIRE1-S1",
+        "SAFFIRE1-S2",
+        "BASS2-T1"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "M03",
+      "category": "misleading",
+      "question": "Give me a fire risk probability for Nomex in the ISS atmosphere.",
+      "grade": "out-of-scope",
+      "abstained": true,
+      "claims": 0,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-F1",
+        "BASS2-F2",
+        "BASS2-F3",
+        "SAFFIRE1-S1",
+        "SAFFIRE1-S2"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    },
+    {
+      "id": "M04",
+      "category": "misleading",
+      "question": "Should we use PMMA for a cabin liner?",
+      "grade": "out-of-scope",
+      "abstained": true,
+      "claims": 0,
+      "rejected_claims": 0,
+      "retrieval_mode": "fts5-bm25",
+      "retrieval_top5": [
+        "BASS2-B16",
+        "BASS2-B20",
+        "BASS2-B1",
+        "BASS2-B2",
+        "BASS2-B4"
+      ],
+      "hit_at_5": null,
+      "abstention_match": null,
+      "integrity_problems": []
+    }
+  ]
+}

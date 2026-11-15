@@ -11,8 +11,8 @@
   --radius: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
-  --muted: rgba(255, 255, 255, 0.72);
-  --dim: rgba(255, 255, 255, 0.5);
+  --muted: rgba(255, 255, 255, 0.82);
+  --dim: rgba(255, 255, 255, 0.7);
   --faint: rgba(255, 255, 255, 0.64);
   --line: rgba(255, 255, 255, 0.12);
   --line-strong: rgba(255, 255, 255, 0.24);
@@ -558,6 +558,15 @@ body .film em {
 }
 
 /* ---------- hero ---------- */
+
+.command-palette { position: fixed; inset: 0; z-index: 1000; }
+.command-palette__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.command-palette__panel { position: relative; margin: 10vh auto 0; max-width: 560px; background: #111; border: 1px solid #333; border-radius: 12px; padding: 12px; }
+.command-palette__panel input { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #333; background: #0b0b0c; color: #fff; }
+.command-palette__list { list-style: none; margin: 10px 0 0; padding: 0; max-height: 320px; overflow: auto; }
+.command-palette__list li a { display: flex; justify-content: space-between; padding: 8px 10px; border-radius: 8px; color: #fff; text-decoration: none; }
+.command-palette__list li a:hover { background: rgba(198,244,50,0.12); }
+.command-palette__list li { color: var(--muted); }
 
 .hero {
   min-height: 0;
@@ -1404,7 +1413,7 @@ body .film em {
 
 .closing-cta h2 em {
   display: block;
-  color: rgba(11, 11, 12, 0.55);
+  color: rgba(11, 11, 12, 0.65);
 }
 
 .closing-cta p {
@@ -3922,13 +3931,7 @@ body .film em {
 .source-card__foot a { min-width: 0; overflow-wrap: anywhere; }
 .voice-controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .voice-controls input { flex: 1 1 200px; min-width: 0; }
-.table-wrap, .compare-table-wrap, .research-table-wrap {
-  position: relative;
-  max-width: 100%;
-  min-width: 0;
-}
-
+.table-wrap, .compare-table-wrap, .research-table-wrap { position: relative; max-width: 100%; min-width: 0; }
 .check-grid { overflow-wrap: anywhere; min-width: 0; }
 .check-grid > * { min-width: 0; }
-
 .gap-results { overflow-wrap: anywhere; }

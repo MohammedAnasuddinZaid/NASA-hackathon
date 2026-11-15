@@ -1,0 +1,149 @@
+[
+  {
+    "browser": "chromium",
+    "width": 320,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "chromium",
+    "width": 390,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "chromium",
+    "width": 714,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "chromium",
+    "width": 768,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "chromium",
+    "width": 1024,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "chromium",
+    "width": 1440,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "chromium",
+    "width": 1920,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "firefox",
+    "width": 320,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "firefox",
+    "width": 390,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "firefox",
+    "width": 714,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "firefox",
+    "width": 768,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "firefox",
+    "width": 1024,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "firefox",
+    "width": 1440,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "firefox",
+    "width": 1920,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "webkit",
+    "width": 320,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "webkit",
+    "width": 390,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "webkit",
+    "width": 714,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "webkit",
+    "width": 768,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "webkit",
+    "width": 1024,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "webkit",
+    "width": 1440,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  },
+  {
+    "browser": "webkit",
+    "width": 1920,
+    "tabs": 17,
+    "active": "graph",
+    "status": "PASS"
+  }
+]

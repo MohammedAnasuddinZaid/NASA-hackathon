@@ -1,0 +1,57 @@
+
+> firertrace@0.1.0 e2e:qa
+> playwright test --config playwright.qa.config.ts
+
+[WebServer] INFO:     Started server process [6968]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8030 (Press CTRL+C to quit)
+[WebServer] (node:42712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:51176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 33 tests using 1 worker
+
+(node:48368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 e2e\local-qa.spec.ts:12:1 › QA01 atmosphere presets, decimal arithmetic, sliders and invalid input never silently clamp (3.3s)
+  ok  2 e2e\local-qa.spec.ts:23:1 › QA02 skip link preserves route; menu contains keyboard focus and every menu link navigates (10.9s)
+  ok  3 e2e\local-qa.spec.ts:30:1 › QA03 Atlas all filters, all sorts, pagination, reset and bounded search (5.7s)
+  ok  4 e2e\local-qa.spec.ts:43:1 › QA04 every actual experiment opens with its own source locator; no substitute detail (2.0m)
+  ok  5 e2e\local-qa.spec.ts:48:1 › QA05 drawer clipboard, JSON, raw/ledger disclosure, keyboard close and focus return (3.5s)
+  ok  6 e2e\local-qa.spec.ts:54:1 › QA06 Research Library all filter categories, both comparisons, show more, retry and both exports (7.3s)
+  ok  7 e2e\local-qa.spec.ts:62:1 › QA07 Compare selection boundaries, remove/reset, provenance and actual export (3.8s)
+  ok  8 e2e\local-qa.spec.ts:69:1 › QA08 assistant scientific questions, deterministic toggle, follow-up, copy, retry and clear (8.8s)
+  ok  9 e2e\local-qa.spec.ts:76:1 › QA09 standalone optional voice is clear and does not break typed TRACE (2.3s)
+  ok 10 e2e\local-qa.spec.ts:81:1 › QA10 dataset scopes, audit presets, every download and actual JSON/null content (12.1s)
+  ok 11 e2e\local-qa.spec.ts:89:1 › QA11 source files and every local download retain their real SHA256 (1.8s)
+  ok 12 e2e\local-qa.spec.ts:94:49 › QA12 all views fit 320px and keep controls accessible (3.2s)
+  ok 13 e2e\local-qa.spec.ts:94:49 › QA12 all views fit 390px and keep controls accessible (3.0s)
+  ok 14 e2e\local-qa.spec.ts:94:49 › QA12 all views fit 768px and keep controls accessible (3.3s)
+  ok 15 e2e\local-qa.spec.ts:94:49 › QA12 all views fit 1024px and keep controls accessible (3.4s)
+  ok 16 e2e\local-qa.spec.ts:94:49 › QA12 all views fit 1440px and keep controls accessible (3.6s)
+  ok 17 e2e\local-qa.spec.ts:94:49 › QA12 all views fit 1920px and keep controls accessible (3.8s)
+  ok 18 e2e\local-qa.spec.ts:98:25 › QA13 accessibility overview (4.8s)
+  ok 19 e2e\local-qa.spec.ts:98:25 › QA13 accessibility atmosphere (2.7s)
+  ok 20 e2e\local-qa.spec.ts:98:25 › QA13 accessibility atlas (3.8s)
+  ok 21 e2e\local-qa.spec.ts:98:25 › QA13 accessibility compare (3.0s)
+  ok 22 e2e\local-qa.spec.ts:98:25 › QA13 accessibility gap (2.9s)
+  ok 23 e2e\local-qa.spec.ts:98:25 › QA13 accessibility assistant (2.1s)
+  ok 24 e2e\local-qa.spec.ts:98:25 › QA13 accessibility methodology (3.2s)
+  ok 25 e2e\local-qa.spec.ts:98:25 › QA13 accessibility exports (2.3s)
+  ok 26 e2e\local-qa.spec.ts:98:25 › QA13 accessibility atlas?view=research (3.5s)
+  ok 27 e2e\local-qa.spec.ts:101:1 › QA14 explainer missing audio is explicit while visual captions stay usable (2.5s)
+  ok 28 e2e\local-qa.spec.ts:105:1 › QA15 scenario controls, all categorical choices, rank controls, source detail, basket and gap download (9.1s)
+  ok 29 e2e\local-qa.spec.ts:118:1 › QA16 basket settings, stale preview, MIME types, escaped HTML, print layout and removal continuity (9.5s)
+  ok 30 e2e\local-qa.spec.ts:133:1 › QA17 core routes and Research have no uncaught errors or failed local assets (3.5s)
+  ok 31 e2e\local-qa.spec.ts:138:1 › QA18 overview CTAs, live model controls and actual fullscreen/clip navigation (15.8s)
+  ok 32 e2e\local-qa.spec.ts:146:1 › QA19 denied clipboard access is handled without an unhandled rejection (2.3s)
+  ok 33 e2e\local-qa.spec.ts:151:1 › QA20 expanded menu and measurement drawer pass the same accessibility checks (7.9s)
+
+  33 passed (5.3m)

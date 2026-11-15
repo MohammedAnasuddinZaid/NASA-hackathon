@@ -1,0 +1,30 @@
+
+> firertrace@0.1.0 e2e:evidence
+> playwright test --config playwright.evidence.config.ts
+
+[WebServer] INFO:     Started server process [26312]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8012 (Press CTRL+C to quit)
+[WebServer] (node:25492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:49108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:1632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\evidence.spec.ts:4:1 › API Atlas search, detail, sources, coverage and untouched original (3.7s)
+  ok 2 e2e\evidence.spec.ts:29:1 › API comparison uses existing backend matching policy (1.1s)
+  ok 3 e2e\evidence.spec.ts:35:1 › unavailable or mismatched API preserves all eight routes with explicit fallback (2.0s)
+  ok 4 e2e\evidence.spec.ts:48:34 › mid-session HTTP 500 switches the entire evidence session to bundled mode (1.2s)
+  ok 5 e2e\evidence.spec.ts:48:34 › mid-session HTTP 503 switches the entire evidence session to bundled mode (1.1s)
+  ok 6 e2e\evidence.spec.ts:56:1 › actual Swagger and scientific API response capture (2.6s)
+
+  6 passed (39.5s)

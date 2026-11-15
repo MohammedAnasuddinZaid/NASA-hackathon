@@ -1,19 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
-import { routes, useRoute } from '../lib/router';
+import { routeGroups, routes, routesInGroup, useRoute } from '../lib/router';
+import { CommandPalette } from './CommandPalette';
 import { corpus } from '../lib/corpus';
 import { BasketIndicator } from '../lib/basketContext';
-
-const subtitles: Record<string, string> = {
-  overview: 'The thesis, on one screen',
-  atmosphere: 'Two numbers, one missing',
-  atlas: `${corpus.records.length} records, raw and flagged`,
-  compare: 'Blockers before numbers',
-  gap: 'Design the missing test',
-  assistant: 'Retrieval with abstention',
-  methodology: 'Every value, traceable',
-  exports: 'Take the record layer',
-};
 
 export function Glyph({ size = 14 }: { size?: number }) {
   return (
@@ -34,6 +24,20 @@ export function Glyph({ size = 14 }: { size?: number }) {
   );
 }
 
+function useOnline(): boolean {
+  const [online, setOnline] = useState(() => (typeof navigator === 'undefined' ? true : navigator.onLine));
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    window.addEventListener('online', update);
+    window.addEventListener('offline', update);
+    return () => {
+      window.removeEventListener('online', update);
+      window.removeEventListener('offline', update);
+    };
+  }, []);
+  return online;
+}
+
 function MenuOverlay({
   open,
   active,
@@ -45,44 +49,61 @@ function MenuOverlay({
   onClose: () => void;
   returnFocus: RefObject<HTMLButtonElement | null>;
 }) {
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!open) return;
-    const focusFrame = window.requestAnimationFrame(() => closeRef.current?.focus());
+    const previousFocus = document.activeElement as HTMLElement | null;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Tab') {
-        const nodes = Array.from(overlayRef.current?.querySelectorAll<HTMLElement>('button, a[href]') ?? []);
-        const first = nodes[0], last = nodes.at(-1);
-        if (first && last && event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-        else if (first && last && !event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-      }
       if (event.key === 'Escape') {
         onClose();
         returnFocus.current?.focus();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const focusable = [...panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter(
+        (element) => element.offsetParent !== null,
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
     document.addEventListener('keydown', onKey);
     document.body.classList.add('menu-open');
+    const focusFrame = window.requestAnimationFrame(() => closeRef.current?.focus());
     return () => {
       window.cancelAnimationFrame(focusFrame);
       document.removeEventListener('keydown', onKey);
       document.body.classList.remove('menu-open');
+      previousFocus?.focus?.();
     };
   }, [open, onClose, returnFocus]);
 
   return (
-    <div ref={overlayRef} className={`menu ${open ? 'is-open' : ''}`} onTransitionEnd={event => { if (open && event.target === overlayRef.current && !overlayRef.current?.contains(document.activeElement)) closeRef.current?.focus(); }} role="dialog" aria-label="All sections menu" aria-modal={open || undefined} aria-hidden={!open}>
+    <div ref={panelRef} className={`menu ${open ? 'is-open' : ''}`} role="dialog" aria-label="All sections menu" aria-modal={open || undefined} aria-hidden={!open}
+      onTransitionEnd={event => { if (open && event.target === panelRef.current && !panelRef.current?.contains(document.activeElement)) closeRef.current?.focus(); }}>
       <div className="menu__bar">
         <div className="menu__bar-meta">
           <Glyph size={12} />
           <span>Index / FIRETRACE</span>
         </div>
-        <span className="menu__bar-count">08 sections &middot; {corpus.records.length} records</span>
+        <span className="menu__bar-count">
+          {routes.length} sections &middot; {corpus.records.length} records
+        </span>
         <button
           type="button"
-          ref={closeRef}
           className="menu__close"
+          ref={closeRef}
           onClick={() => {
             onClose();
             returnFocus.current?.focus();
@@ -94,21 +115,26 @@ function MenuOverlay({
 
       <div className="menu__grid">
         <nav className="menu__links" aria-label="All sections">
-          {routes.map((item) => (
-            <a
-              key={item.path}
-              href={`#/${item.path}`}
-              className={`menu__link ${active === item.path ? 'is-active' : ''}`}
-              aria-current={active === item.path ? 'page' : undefined}
-              onClick={onClose}
-            >
-              <span className="menu__index">{item.index}</span>
-              <span className="menu__label">{item.label}</span>
-              <span className="menu__meta">{subtitles[item.path]}</span>
-              <span className="menu__arrow" aria-hidden="true">
-                &#8599;
-              </span>
-            </a>
+          {routeGroups.map((group) => (
+            <div className="menu__group" key={group}>
+              <div className="menu__group-title kicker">{group}</div>
+              {routesInGroup(group).map((item) => (
+                <a
+                  key={item.path}
+                  href={`#/${item.path}`}
+                  className={`menu__link ${active === item.path ? 'is-active' : ''}`}
+                  aria-current={active === item.path ? 'page' : undefined}
+                  onClick={onClose}
+                >
+                  <span className="menu__index">{item.index}</span>
+                  <span className="menu__label">{item.label}</span>
+                  <span className="menu__meta">{item.description}</span>
+                  <span className="menu__arrow" aria-hidden="true">
+                    &#8599;
+                  </span>
+                </a>
+              ))}
+            </div>
           ))}
         </nav>
 
@@ -149,9 +175,60 @@ function MenuOverlay({
 export function AppShell({ children }: { children: ReactNode }) {
   const route = useRoute();
   const active = route.segment;
+  const online = useOnline();
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const navigationRef = useRef<HTMLElement>(null);
+  const revealCurrentTab = useCallback(() => {
+    const nav = navigationRef.current;
+    const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!nav || !current || nav.scrollWidth <= nav.clientWidth) return;
+    const item = current.getBoundingClientRect(), bounds = nav.getBoundingClientRect();
+    if (item.left < bounds.left) nav.scrollLeft -= bounds.left - item.left;
+    else if (item.right > bounds.right) nav.scrollLeft += item.right - bounds.right;
+  }, []);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const root = document.documentElement;
+    const previous = root.style.getPropertyValue('--nav-h');
+    const measure = () => {
+      root.style.setProperty('--nav-h', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+      revealCurrentTab();
+    };
+    measure();
+    let disposed = false;
+    void document.fonts?.ready.then(() => { if (!disposed) measure(); });
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
+    observer?.observe(header);
+    window.addEventListener('resize', measure);
+    return () => {
+      disposed = true;
+      observer?.disconnect();
+      window.removeEventListener('resize', measure);
+      if (previous) root.style.setProperty('--nav-h', previous);
+      else root.style.removeProperty('--nav-h');
+    };
+  }, [revealCurrentTab]);
+
+  useEffect(() => {
+    revealCurrentTab();
+  }, [active, revealCurrentTab]);
+
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setPaletteOpen((value) => !value);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -185,8 +262,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
 
-      <header className="topbar topbar--primary" aria-label="Primary">
-        <a className="brand brand--wordmark" href="#/overview" aria-label="FIRETRACE — home">
+      <header ref={headerRef} className="topbar topbar--primary" aria-label="Primary">
+        <a className="brand brand--wordmark" href="#/overview" aria-label="fıretrace® — FIRETRACE home">
           <span className="brand__tile">
             <Glyph size={14} />
           </span>
@@ -195,7 +272,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </span>
         </a>
 
-        <nav className="nav nav--horizontal" aria-label="Sections">
+        <nav ref={navigationRef} className="nav nav--horizontal" aria-label="Primary sections">
           {routes.map((item) => (
             <a
               key={item.path}
@@ -211,9 +288,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <div className="topbar__right">
           <BasketIndicator />
-          <span className="topbar__status">
+          <span
+            className={`topbar__status ${online ? '' : 'is-offline'}`}
+            title={online ? 'Network available. Bundled retrieval still runs locally.' : 'Offline: bundled retrieval is fully local.'}
+          >
             <span className="status-dot" aria-hidden="true" />
-            {corpus.meta.record_count} records &middot; live demo
+            {corpus.records.length} records &middot; {online ? 'bundled + local' : 'offline'}
           </span>
           <button
             ref={menuButton}
@@ -237,23 +317,17 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="footer__mark">
             fıretrace<sup>&reg;</sup>
           </div>
-          <div className="footer__cols">
-            <div>
-              <div className="kicker">Workspace</div>
-              {routes.slice(0, 4).map((item) => (
-                <a key={item.path} href={`#/${item.path}`}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
-            <div>
-              <div className="kicker">Evidence</div>
-              {routes.slice(4).map((item) => (
-                <a key={item.path} href={`#/${item.path}`}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
+          <div className="footer__cols footer__cols--workbench">
+            {routeGroups.map((group) => (
+              <div key={group}>
+                <div className="kicker">{group}</div>
+                {routesInGroup(group).map((item) => (
+                  <a key={item.path} href={`#/${item.path}`}>
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            ))}
             <div>
               <div className="kicker">Sources</div>
               <a href="https://psi.nasa.gov/physci/repo/" target="_blank" rel="noreferrer">
@@ -271,7 +345,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             FIRETRACE is an independent project for NASA Space Apps 2026. Not affiliated with,
             endorsed by, or certified by NASA. Not a fire-risk model.
           </span>
-          <span className="footer__stamp">{corpus.records.length} records / {corpus.meta.coverage.pressure_reported} record pressure values / static explorer</span>
+          <span className="footer__stamp">
+            {corpus.records.length} records / {corpus.meta.coverage.pressure_reported} record pressure values / static explorer
+          </span>
         </div>
       </footer>
 
@@ -283,6 +359,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           returnFocus={menuButton}
         />
       </div>
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
     </div>
   );
 }

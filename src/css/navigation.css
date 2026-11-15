@@ -1,0 +1,44 @@
+/* All research pages remain directly reachable, including in narrow browser panes. */
+.topbar.topbar--primary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  height: auto;
+  min-height: 64px;
+  padding-block: 12px 8px;
+  gap: 10px 16px;
+}
+.topbar--primary .topbar__right { grid-column: 2; grid-row: 1; margin-left: 0; }
+.topbar--primary .nav--horizontal {
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  flex-wrap: wrap;
+  width: 100%;
+  min-width: 0;
+  gap: 4px;
+  overflow: visible;
+}
+.topbar--primary .nav--horizontal .nav__item {
+  display: inline-flex;
+  flex: none;
+  white-space: nowrap;
+  padding: 8px 10px;
+  font-size: 12px;
+  letter-spacing: normal;
+}
+.topbar--primary .nav__index { display: none; }
+@media (max-width: 767px) {
+  .topbar.topbar--primary { gap: 8px; padding-inline: 16px; }
+  .topbar--primary .nav--horizontal {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--lime) transparent;
+    padding-bottom: 6px;
+  }
+  .topbar--primary .nav--horizontal::-webkit-scrollbar { display: block; height: 4px; }
+  .topbar--primary .nav--horizontal::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 4px; }
+  .topbar--primary .topbar__right { gap: 8px; }
+  .topbar--primary .brand__tile { width: 26px; height: 26px; }
+  .topbar--primary .brand__word { font-size: 18px; }
+}

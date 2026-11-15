@@ -45,10 +45,10 @@ test('unavailable or mismatched API preserves all eight routes with explicit fal
     await expect(page.getByTestId('evidence-connection')).toContainText('Bundled data');
   }
 });
-test('mid-session failure switches the entire evidence session to bundled mode', async ({ page }) => {
+for (const status of [500, 503]) test(`mid-session HTTP ${status} switches the entire evidence session to bundled mode`, async ({ page }) => {
   await page.goto('/#/atlas');
   await expect(page.getByTestId('evidence-connection')).toContainText('API connected');
-  await page.route('**/api/v1/experiments?**', route => route.fulfill({ status: 503, contentType: 'application/json', body: '{}' }));
+  await page.route('**/api/v1/experiments?**', route => route.fulfill({ status, contentType: 'application/json', body: '{}' }));
   await page.locator('input[type=search]').fill('SAFFIRE1-S1');
   await expect(page.getByTestId('evidence-connection')).toContainText('Bundled data');
   await expect(page.locator('.data-table tbody tr')).toHaveCount(1);

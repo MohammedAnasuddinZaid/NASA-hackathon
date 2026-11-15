@@ -1,22 +1,22 @@
 # FIRETRACE integrated build status
 
-Updated 2026-11-15. Local research-support QA candidate; no certification or public deployment.
+Updated 2026-11-15. Current main incorporated: `8a7304083dc193173029cc9ff891d64b810b23e5`.
+PR9 branch: `codex/cinematic-overview`. Review candidate only; no feature PR merged or deployed.
 
-- Baseline main: `19d33b5be23e8aced5141e97c2ef9cc7fe1a74f1`; PRs #1–#7 merged.
-- QA branch: `qa/complete-local-regression`; grouped fixes are for review, not automatic merging.
-- 131 records: 129 BASS-II / 2 Saffire-I; 71 validated / 56 partial / 4 suspect.
-- Zero reported per-record pressure, measured test gravity or standardized outcomes.
-- Research: 3 investigations, 16 findings, 2 reports; zero normalized FLEX records.
-- Original NASA files unchanged; 24 generated artifacts reproduce byte-for-byte.
-- 232 frontend, 211 backend, 19 pipeline tests pass; 30/30 deterministic benchmark.
-- Browser: 30 default, 5 evidence, 2 TRACE mock, 5 integration, 33 expanded QA tests pass.
-- Dedicated basket/library 2+2 tests pass (overlap the default suite).
-- All 131 drawers and their basket add/remove controls exercised; real backend-stop/reconnect verified.
-- Six widths, 9 views and expanded menu/drawer accessibility checks completed.
-- No live provider credential or speech models: live AI and speech quality remain unverified.
-- No service worker/cold offline guarantee. Research assets/PDFs need an initial network fetch.
-- No predictive risk score, partial-gravity experiment inference or NASA endorsement.
+- Current 17-route workstation, Research Library, Notebook, Graph, reports and PWA preserved.
+- Additive Overview: six scenes, original SVG stars/rocket, reduced motion and explicit pause.
+- Release fixes: visible/accessible logo, complete menu focus, Atlas API/advanced-filter parity,
+  atomic Research Library record deep links and opt-in film narration.
+- 131 records: 129 BASS-II/2 Saffire-I; 71 validated / 56 partial / 4 suspect.
+- Zero reported test pressure, measured per-test gravity or standardized outcomes; nulls preserved.
+- Research: 3 investigations / 16 findings / 2 reports; zero normalized FLEX records.
+- 316 frontend units, 211 backend, 19 pipeline tests pass; 24 artifacts byte-identical.
+- Browser: 88 default, 6 real-API (Swagger enabled), 2 TRACE, 5 integration, 33 expanded QA pass.
+- Chromium/Firefox/WebKit smoke passes; genuine before/after, mobile, static and WebM evidence.
+- Actual owned backend stopped/restored: bundled core workflows and reconnect pass.
+- No new runtime dependency or scientific data/calculation changes.
+- Optional live AI/speech remain unconfigured; mock contracts are not live verification.
 
-See [local QA report](docs/local-qa-report.md), [deployment](docs/deployment.md), and
-[screenshots/evidence](docs/evidence/local-qa/). Historical integration reports describe their
-own earlier baseline; this file and the local QA report supersede their current-status claims.
+See [PR9 review](docs/pr9-review.md) for final performance, exact test scopes and limitations,
+[QA evidence](docs/evidence/pr9/) and [startup commands](docs/pr9-review.md#running-and-reproducing).
+Hosted PR checks remain a separate review gate. No NASA endorsement or certification claimed.

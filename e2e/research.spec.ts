@@ -4,13 +4,13 @@ test('basket survives navigation/reload, compares selections, generates and down
   page,
 }) => {
   await page.goto('/#/atlas');
-  await page.getByRole('searchbox', { name: 'Search', exact: true }).fill('BASS2-B1');
+  await page.locator('input[type="search"]').fill('BASS2-B1');
   await page.getByRole('button', { name: 'Add BASS2-B1 to basket', exact: true }).press('Enter');
-  await expect(page.getByRole('searchbox', { name: 'Search', exact: true })).toHaveValue(
+  await expect(page.locator('input[type="search"]')).toHaveValue(
     'BASS2-B1',
   );
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await page.getByRole('searchbox', { name: 'Search', exact: true }).fill('SAFFIRE1-S1');
+  await page.locator('input[type="search"]').fill('SAFFIRE1-S1');
   await page.getByRole('button', { name: 'Add SAFFIRE1-S1 to basket', exact: true }).click();
   await page.goto('/#/methodology');
   await page.getByRole('link', { name: 'Evidence basket: 2 records', exact: true }).click();
@@ -44,7 +44,7 @@ test('basket survives navigation/reload, compares selections, generates and down
 
 test('clearing requires confirmation and cancellation retains the basket', async ({ page }) => {
   await page.goto('/#/atlas');
-  await page.getByRole('searchbox', { name: 'Search', exact: true }).fill('BASS2-B1');
+  await page.locator('input[type="search"]').fill('BASS2-B1');
   await page.getByRole('button', { name: 'Add BASS2-B1 to basket', exact: true }).click();
   await page.goto('/#/exports');
   await page.getByRole('button', { name: 'Clear basket', exact: true }).click();

@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { claims, records } from '../src/lib/corpus';
 import {
+  analysisRowsToCsv,
+  buildExportManifest,
   claimsToCsv,
   coreExportColumns,
   csvFieldCount,
@@ -8,8 +10,12 @@ import {
   formatExportStamp,
   previewCsv,
   recordsToCsv,
+  rowsToCsv,
   summaryLine,
+  verificationToCsv,
 } from '../src/lib/export';
+import { runAnalysis } from '../src/lib/analysisRun';
+import { verifyAllClaims } from '../src/lib/verification';
 
 function parseCsvLine(line: string): string[] {
   const cells: string[] = [];
@@ -122,5 +128,48 @@ describe('export helpers', () => {
   it('formats a deterministic date stamp', () => {
     expect(formatExportStamp(new Date(2026, 0, 5))).toBe('2026-01-05');
     expect(formatExportStamp(new Date(2026, 10, 13))).toBe('2026-11-13');
+  });
+
+  it('neutralizes spreadsheet formula injection in text cells', () => {
+    const record = { ...records[0], material_raw: '=SUM(1,1)' };
+    const csv = recordsToCsv([record], ['material_raw']);
+    const [, row] = csv.split('\r\n');
+    expect(parseCsvLine(row)[0]).toBe("'=SUM(1,1)");
+    const plus = rowsToCsv(['value'], [{ value: '+1+1' }]);
+    expect(plus.split('\r\n')[1]).toBe("'+1+1");
+    const at = rowsToCsv(['value'], [{ value: '@cmd' }]);
+    expect(at.split('\r\n')[1]).toBe("'@cmd");
+  });
+
+  it('does not prefix ordinary negative numbers', () => {
+    const csv = rowsToCsv(['value'], [{ value: -1.5 }]);
+    expect(csv.split('\r\n')[1]).toBe('-1.5');
+  });
+
+  it('writes verification results and analysis rows', () => {
+    const verification = verificationToCsv(verifyAllClaims());
+    const verificationLines = verification.split('\r\n');
+    expect(verificationLines).toHaveLength(claims.length + 1);
+    expect(verificationLines[0]).toContain('verdict');
+    const run = runAnalysis('coverage');
+    const analysis = analysisRowsToCsv(run);
+    expect(analysis.split('\r\n')).toHaveLength(run.result.rows.length + 1);
+    expect(analysis).toContain(run.id);
+  });
+
+  it('builds a SHA-256 manifest for exported files', async () => {
+    const { manifest, hashed } = await buildExportManifest(
+      [
+        { path: 'records.csv', content: recordsToCsv(records.slice(0, 2)) },
+        { path: 'notes.md', content: '# Notes\n' },
+      ],
+      { generatedAt: '2026-01-01T00:00:00.000Z' },
+    );
+    expect(hashed).toHaveLength(2);
+    expect(manifest.schema_version).toBe(1);
+    expect(manifest.file_count).toBe(2);
+    expect(manifest.corpus_version.length).toBeGreaterThan(0);
+    for (const file of manifest.files) expect(file.sha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(manifest.notes.join(' ')).toContain('not scientific validity');
   });
 });

@@ -259,12 +259,6 @@ if they are occupied, rather than silently reusing another server. CI now runs t
 No linter is configured; no lint pass is claimed. Hosted CI is separate from these local results;
 review the PR checks before merging.
 
-The first hosted run passed frontend/science/backend and 32/33 expanded browser checks, but
-the rapid bulk-export sequence timed out waiting for a download on the faster Linux runner.
-Nine scope downloads now finish before a deliberate 1.1-second pause and the next four artifact
-downloads, respecting Chromium's ten-downloads-per-second burst limit. Content assertions and
-all four artifact downloads remain mandatory; named test steps identify any subsequent failure.
-
 ## I. Responsive, accessibility and performance checks
 
 - **54 view/width visits:** 9 views × 320, 390, 768, 1024, 1440, 1920 pixels. No document-level
@@ -354,3 +348,22 @@ pressure/risk question, and confirm abstention. At 320px use Menu/Tab/Escape and
 Stop only your own evidence backend, search again, confirm Bundled data, then restart/reload.
 Keep AI disabled unless separately configuring a server credential; do not mistake mock-provider
 tests or text-only voice responses for functioning live generation or speech.
+
+## Integration resolution — 2026-11-15
+
+PR #9 merged as `c471b8d` before reconciling PR #8. Main already contains the QA fixes,
+including the updated API adapter, expanded 17-route workbench, accessible modal behavior,
+scientific display/failure handling, download pacing and the latest navbar regression tests.
+
+Resolved PR #8's conflicts by preserving the verified main versions of the shell, Atlas,
+record drawer, CSS, export preview labels, test selectors/configuration, workflow and current
+status documentation. This keeps the restored direct page tabs, saved views, columns,
+Notebook and cinematic Overview. No unique runtime change remains: the reconciled tree's
+only additions over main are this integration note and the original historical
+`final-export-e2e.txt` log. Historical screenshots are retained from main.
+
+The exact runtime tree was validated in PR #9: 316 frontend units, 211 backend tests,
+19 pipeline tests, 24 scientific artifacts, 88 default browser, six actual-API, two TRACE,
+five integration and 33 expanded QA executions; all three hosted jobs passed on `44a4a80`.
+Live AI/speech quality remains unconfigured. The user's later explicit merge request
+supersedes this report's earlier review-only/no-merge instructions. No public deployment.

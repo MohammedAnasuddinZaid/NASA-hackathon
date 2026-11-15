@@ -1,0 +1,44 @@
+
+> firertrace@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 <PR9_WORKTREE>
+
+ ✓ tests/corpus.test.ts (12 tests) 141ms
+ ✓ tests/atmosphere.test.ts (11 tests) 29ms
+ ✓ tests/records.test.ts (16 tests) 187ms
+ ✓ tests/assistant.test.ts (20 tests) 435ms
+     ✓ never invents a numeric pressure for the corpus or a record  334ms
+ ✓ tests/gap.test.ts (11 tests) 29ms
+ ✓ tests/verification.test.ts (11 tests) 203ms
+ ✓ tests/atlasView.test.ts (6 tests) 25ms
+ ✓ tests/compare.test.ts (10 tests) 19ms
+ ✓ tests/calculation.test.ts (7 tests) 26ms
+ ✓ tests/export.test.ts (14 tests) 375ms
+ ✓ tests/scenario.test.ts (36 tests) 200ms
+ ✓ tests/notebook.test.ts (12 tests) 120ms
+ ✓ tests/analysisRun.test.ts (7 tests) 669ms
+     ✓ runs every definition against the real corpus  498ms
+ ✓ tests/research.test.ts (44 tests) 1369ms
+     ✓ handles a basket containing the complete real corpus without truncating scope  1015ms
+ ✓ tests/storage.test.ts (7 tests) 13ms
+ ✓ tests/evidenceGraph.test.ts (6 tests) 198ms
+ ✓ tests/research-library.test.tsx (33 tests) 232ms
+ ✓ tests/atlasEvidence.test.ts (8 tests) 30ms
+ ✓ tests/traceClient.test.ts (7 tests) 115ms
+ ✓ tests/apiClient.test.ts (5 tests) 265ms
+ ✓ tests/capabilities.test.ts (3 tests) 418ms
+ ✓ tests/research-ui.test.tsx (5 tests) 555ms
+   ✓ Atlas selection controls reflect persisted IDs and have keyboard-accessible buttons  364ms
+ ✓ tests/voice.test.ts (7 tests) 159ms
+ ✓ tests/report.test.ts (4 tests) 769ms
+     ✓ builds deterministic files with a SHA-256 manifest  302ms
+ ✓ tests/scenario-ui.test.tsx (5 tests) 912ms
+ ✓ tests/zip.test.ts (5 tests) 20ms
+ ✓ tests/integrity.test.ts (4 tests) 30ms
+
+ Test Files  27 passed (27)
+      Tests  316 passed (316)
+   Start at  14:32:33
+   Duration  12.45s (transform 39.93s, setup 0ms, import 50.49s, tests 7.54s, environment 41ms)

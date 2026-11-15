@@ -783,6 +783,68 @@ function safetyRefusal(question: string): AssistantAnswer {
   });
 }
 
+function unknownRecordAnswer(question: string, recordId: string): AssistantAnswer {
+  return baseAnswer(question, {
+    grade: 'absent',
+    headline: `${recordId} is not in the bundled corpus.`,
+    paragraphs: [
+      'No record with that identifier exists in the normalized experiment layer. FIRETRACE will not substitute a nearby record, infer the missing row, or answer as if the identifier resolved.',
+      'Check the identifier in the Evidence Atlas, or ask about a record that appears in the source table.',
+    ],
+    bullets: [
+      'Record IDs follow the source table; an invented ID has no evidence behind it.',
+      'Absence of a record is an evidence result, not an invitation to estimate.',
+    ],
+    citations: dedupeCitations([
+      citationFor('PSI-25', 'PSI-25 experimental table, test identifiers'),
+      citationFor('PSI-98', 'PSI-98 experimental table, test identifiers'),
+    ]),
+    trace: [
+      `Matched a record-shaped identifier: ${recordId}.`,
+      'Looked it up in the normalized record index.',
+      'No record matched; abstained instead of substituting another row.',
+    ],
+    followUps: ['What records are in the Evidence Atlas?', 'What oxygen did BASS2-B1 report?'],
+    page: { href: '#/atlas', label: 'Open Evidence Atlas' },
+  });
+}
+
+function findUnknownRecordId(question: string): string | null {
+  const matches = question.match(/\b(?:BASS2-[A-Z]\d+[a-z]?|SAFFIRE1-S\d+)\b/gi) ?? [];
+  for (const match of matches) {
+    const upper = match.toUpperCase();
+    if (!recordById.has(upper) && !alias.has(upper)) return upper;
+  }
+  return null;
+}
+
+function validationPolicyAnswer(question: string): AssistantAnswer {
+  return baseAnswer(question, {
+    grade: 'out-of-scope',
+    headline: 'Validation status is a recorded pipeline result and cannot be rewritten by instruction.',
+    paragraphs: [
+      'FIRETRACE displays the validation status and quality flags produced from the source rows. It does not accept a request to mark records validated, erase suspect flags, or reclassify a row without evidence.',
+      'If a source row is wrong, the correction belongs in the ingestion pipeline with a documented, reviewable change — not in a chat instruction or a browser session.',
+    ],
+    bullets: [
+      'Validated, partial, and suspect statuses are retained as recorded.',
+      'Quality flags are shown, not silently cleared.',
+      'No record is repaired or zero-filled in the interface.',
+    ],
+    citations: dedupeCitations([
+      citationFor('PSI-25', 'PSI-25 experimental table and validation report'),
+      citationFor('PSI-98', 'PSI-98 experimental table and validation report'),
+    ]),
+    trace: [
+      'Detected an instruction to change validation status.',
+      'Checked the project evidence policy.',
+      'Refused the mutation; reported the recorded status instead.',
+    ],
+    followUps: ['Which records are flagged suspect?', 'How was validation performed?', 'What is missing from the corpus?'],
+    page: { href: '#/coverage', label: 'Open Coverage Center' },
+  });
+}
+
 function helpAnswer(question: string): AssistantAnswer {
   return baseAnswer(question, {
     grade: 'direct',
@@ -835,6 +897,16 @@ export function ask(question: string): AssistantAnswer {
 
   if (/\bcompare\b|\bcomparison\b|\bversus\b|\bvs\b/i.test(q)) {
     return compareAnswer(q);
+  }
+
+  const unknownRecordId = findUnknownRecordId(q);
+  if (unknownRecordId) return unknownRecordAnswer(q, unknownRecordId);
+
+  if (
+    /\b(mark|treat|consider|set|change|override|rewrite|relabel|reclassify)\b/i.test(q) &&
+    /\b(validated|suspect|partial|validation)\b/i.test(q)
+  ) {
+    return validationPolicyAnswer(q);
   }
 
   const record = findRecord(q);

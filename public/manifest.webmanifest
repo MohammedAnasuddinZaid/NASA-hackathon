@@ -1,0 +1,21 @@
+{
+  "name": "FIRETRACE — NASA microgravity combustion evidence workspace",
+  "short_name": "FIRETRACE",
+  "description": "Deterministic evidence workspace for public NASA microgravity combustion experiments. Retrieve what the tests measured, and see what they did not.",
+  "id": "./",
+  "start_url": "./#/overview",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0B0B0C",
+  "theme_color": "#0B0B0C",
+  "orientation": "any",
+  "categories": ["education", "research", "science"],
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

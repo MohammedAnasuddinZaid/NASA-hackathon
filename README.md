@@ -31,8 +31,9 @@ and require an initial network fetch; there is no service worker or guaranteed o
 
 ## What it does
 
-- **Overview** — a 45-second captioned explainer with optional audio and an explicit missing-audio notice, corpus ledger, coverage counts and the central
-  evidence gap.
+- **Overview** — a45-second captioned explainer with opt-in narration, corpus ledger, coverage
+  counts, and a six-scene cinematic story. Decorative motion can be paused; mobile and
+  reduced-motion views stay static. The original research tools remain unchanged.
 - **Atmosphere Explorer** — Dalton-law oxygen partial-pressure calculator, reference atmospheres,
   the reported oxygen distribution, and an explicit “unknown pressure” placement for every record.
 - **Evidence Atlas** — searchable, filterable table of all 131 records, with a provenance drawer.
@@ -44,6 +45,15 @@ and require an initial network fetch; there is no service worker or guaranteed o
 - **Evidence Assistant** — deterministic retrieval and citation engine with abstention.
 - **Methodology & Sources** — pipeline rules, validation gates, anomalies, sources and licenses.
 - **Exports** — CSV/JSON exports of records, claims and the source manifest.
+- **Coverage & Validation** — field coverage, quality distribution, validation findings, and zero-coverage constraints computed from the corpus.
+- **Research Notebook** — versioned local investigations with typed items, workflow states, per-item verification, calculation runner, and Markdown/ZIP export.
+- **Evidence Graph** — typed, inspectable graph of records, sources, measurements, claims, validation findings, and notebook items.
+- **Claim Verification** — deterministic verification of assistant answers, claims, and notebook items (citation resolution, numeric support, pressure conflicts).
+- **Evaluation Harness** — 36-case deterministic/adversarial benchmark with category metrics and regression gates.
+- **Analysis Runs** — six reproducible corpus analyses with per-record fingerprints, corpus diff, and versioned persistence.
+- **Corpus Integrity** — 19-check integrity report (manifest hashes, validation gates, null discipline, duplicates).
+- **Research Reports** — Markdown + JSON + hashed ZIP manifest of evidence summaries.
+- **System Health** — real capability probes (bundled corpus, API, storage, offline shell) with honest status.
 - **Evidence basket & research briefs** — persistent, version-aware selection across pages,
   deterministic evidence summaries and selected CSV/JSON/Markdown/printable HTML downloads.
   See [basket and export schema/setup](docs/research-exports.md). No external AI or backend required.
@@ -123,8 +133,7 @@ uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
 If the voice wheels or models are absent, `/api/v1` keeps working and the voice routes return a
-structured `503 voice_unavailable` for audio/TTS requests. Text-only voice turns can
-return a deterministic text response with null audio; that does not verify speech.
+structured `503 voice_unavailable`.
 
 ## Production build
 
@@ -161,21 +170,23 @@ shows a **Sound on** prompt and starts narration on the first click.
 ```bash
 npm test                                    # Vitest unit tests
 npm run build                               # type-check + production build
-npm run benchmark                           # 30-question local assistant benchmark
+npm run benchmark                           # 36-case local assistant benchmark
 
 cd backend
 python -m pytest -q                         # evidence API contract and policy suite
 cd ..
-python eval/run_eval.py                     # 30-question grounding check
+python eval/run_eval.py                     # 30-question grounding check (hit@5/abstention null; no gold answers)
+npm run e2e                                 # Playwright end-to-end + accessibility suite
 ```
 
-Local QA on 2026-11-15: **232 frontend unit tests, 211 backend tests, 19 pipeline tests**,
-30/30 deterministic benchmark questions and a production build passed. Browser suites passed:
-30 default, 5 evidence/API, 2 TRACE mock, 5 integration, and 33 additional QA tests.
-The dedicated basket/library suites also passed (2 each; these overlap the default suite).
-See [the detailed local QA report](docs/local-qa-report.md) for real backend-stop testing,
-scientific byte checks, accessibility evidence and the limits of these results.
-Run `npm run e2e:qa` for the expanded regression checks.
+PR #9 local verification: **316 frontend unit tests**, **211 backend tests**,
+**19 pipeline tests**, **24 byte-identical scientific artifacts**, **36/36 benchmark cases**,
+and a production build passed. Browser runs: **88 default**, **6 real-API** (Swagger enabled),
+**2 TRACE**, **5 integration**, **33 expanded QA**. These are suite executions, not unique
+feature counts; the 10 cinematic and 8 navbar cases are included in 88. CI's optional Swagger capture may skip.
+See [the cinematic/release review](docs/pr9-review.md) for source versions, genuine screenshots,
+recording, performance measurements, actual backend-stop/reconnect and remaining limitations.
+The large corpus bundle remains intentional; no new animation runtime dependency was added.
 
 `eval/run_eval.py` reports retrieval hit@5 and abstention accuracy as `null` with `0/30`
 labelled items, because the shipped question set has no gold answers. It does not estimate
@@ -196,8 +207,10 @@ This uses `python pipeline/ingest.py` and rewrites `src/data/corpus.json`, mirro
 src/
   components/      shell, charts, drawer, UI primitives
   data/            bundled corpus and source manifest
-  lib/             types, corpus, atmosphere, records, compare, gap, assistant, apiClient, export, router
-  pages/           eight routed pages
+  lib/             types, corpus, atmosphere, records, compare, gap, assistant, apiClient, export, router,
+                   atlasView, notebook, calculation, verification, evidenceGraph, benchmark, analysisRun,
+                   integrity, report, capabilities, hash, storage, zip
+  pages/           seventeen routed pages
   styles.css       design system
 backend/
   api.py           standalone evidence API (no AI runtime)
@@ -207,11 +220,12 @@ backend/
   tests/           pytest contract, grounding and policy suite
 pipeline/          Python ingestion and validation
 eval/              question set and honest evaluation runner
-tests/             Vitest unit tests
-e2e/               Playwright end-to-end tests (blocked by this machine's application policy)
-docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment
+tests/             Vitest unit tests (300)
+e2e/               Workstation, accessibility, cinematic, API and regression suites
+docs/              methodology, data dictionary, sources, limitations, demo, Q&A, deployment, phase checklists
 presentation/      screenshots and pitch deck
 scripts/           capture and benchmark scripts
+public/            manifest.webmanifest, sw.js (PWA offline shell)
 ```
 
 ## Scientific policy
@@ -226,9 +240,9 @@ scripts/           capture and benchmark scripts
 
 ## Deployment
 
-The web application is a static Vite build. Already-loaded experiment routes support bundled
-fallback without the backend. Research JSON/chunks and original NASA PDFs need an initial fetch;
-there is no service worker or guaranteed cold offline reload. The evidence API is a separate local service; it is not required for the
+The frontend has a cached offline shell and bundled experiment evidence. Already-loaded or
+cached core routes work without the backend; first access to lazy research assets and original
+NASA PDFs can still need network access. This is not a universal cold-cache offline guarantee. The evidence API is a separate local service; it is not required for the
 static build and is not deployed by it. See `docs/deployment.md`.
 
 ## License and provenance

@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './e2e', testMatch: 'local-qa.spec.ts', timeout: 60000, workers: 1,
   expect: { timeout: 10000 }, reporter: [['list']],
-  use: { baseURL: 'http://127.0.0.1:4200', ...devices['Desktop Chrome'], viewport: {width:1440,height:1000},
+  use: { baseURL: 'http://127.0.0.1:4200', ...devices['Desktop Chrome'], serviceWorkers: 'block', viewport: {width:1440,height:1000},
     trace: 'retain-on-failure', screenshot: 'only-on-failure' },
   webServer: [
     { command: 'node scripts/evidence-test-server.mjs', url: 'http://127.0.0.1:8030/health/ready',

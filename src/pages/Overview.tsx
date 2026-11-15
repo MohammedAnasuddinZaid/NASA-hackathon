@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { corpus, coverage } from '../lib/corpus';
 import { corpusOxygenProfile } from '../lib/atmosphere';
 import { Badge, Panel, SectionRule, SourceLink, Stat } from '../components/ui';
 import { OxygenDistribution } from '../components/charts';
 import { ExplainerFilm } from '../components/ExplainerFilm';
 import { LiveModel } from '../components/LiveModel';
+import { ScrollStory } from '../components/cinematic/ScrollStory';
+import { RocketTrajectory, SpaceScene } from '../components/cinematic/SpaceScene';
+import '../css/cinematic.css';
 
 const features = [
   {
@@ -45,15 +49,23 @@ const features = [
 ];
 
 function scrollToFilm() {
-  document.getElementById('explainer-film')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('explainer-film')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+}
+
+function scrollToStory() {
+  const heading = document.getElementById('cinema-story-title');
+  heading?.focus({ preventScroll: true });
+  heading?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 
 export function Overview() {
   const profile = corpusOxygenProfile();
+  const [motionPaused, setMotionPaused] = useState(false);
 
   return (
     <div className="page page--overview">
-      <section className="hero">
+      <section className="hero hero--cinematic">
+        <SpaceScene paused={motionPaused} className="cinema-space--hero"><RocketTrajectory /></SpaceScene>
         <div className="hero__torch" aria-hidden="true">
           <span className="hero__torch-beam" />
           <span className="hero__torch-glow" />
@@ -64,6 +76,12 @@ export function Overview() {
             <span className="hero__badge-dot" aria-hidden="true" /> NASA Space Apps 2026
           </span>
           <span className="hero__meta-line">Flame in Freefall &middot; open evidence workspace</span>
+        </div>
+
+        <div className="cinema-controls">
+          <button type="button" aria-pressed={motionPaused} onClick={() => setMotionPaused(value => !value)}>{motionPaused ? 'Resume decorative motion' : 'Pause decorative motion'}</button>
+          <button type="button" className="cinema-story-link" onClick={scrollToStory}>Read the six-scene story ↓</button>
+          <p>Original space illustration · not NASA footage. Reduced motion respected; mobile stays static.</p>
         </div>
 
         <div className="hero__grid">
@@ -141,6 +159,8 @@ export function Overview() {
       <div id="explainer-film">
         <ExplainerFilm />
       </div>
+
+      <ScrollStory paused={motionPaused} />
 
       <LiveModel />
 

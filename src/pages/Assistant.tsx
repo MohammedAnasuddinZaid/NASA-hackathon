@@ -8,6 +8,7 @@ import { Badge, PageHeader, Panel, SourceLink } from '../components/ui';
 import { VoiceAgent } from '../components/VoiceAgent';
 import { askTrace, resolveLocalQuestion, TraceUnavailable, TraceRejected } from '../lib/traceClient';
 import type { TraceResult } from '../lib/traceClient';
+import { verifyAnswer, verdictLabels, verdictTones } from '../lib/verification';
 import { useEvidenceSession } from '../lib/evidenceSession';
 
 type Provenance =
@@ -80,6 +81,53 @@ function provenanceLabel(provenance: Provenance): string {
   if (provenance.source === 'local') return 'local engine · offline';
   const hash = provenance.corpusVersion ? provenance.corpusVersion.slice(0, 12) : 'unknown';
   return `evidence API · corpus ${hash} · ${provenance.validated}/${provenance.checked} claims validated`;
+}
+
+function AnswerVerification({ answer }: { answer: AssistantAnswer }) {
+  const result = verifyAnswer(answer);
+  const passed = result.checks.filter((check) => check.status === 'pass').length;
+  const warned = result.checks.filter((check) => check.status === 'warn').length;
+  const failed = result.checks.filter((check) => check.status === 'fail').length;
+  return (
+    <details className="answer__trace">
+      <summary>
+        Deterministic verification · <strong>{verdictLabels[result.verdict]}</strong>
+      </summary>
+      <div className="wb-verification__head" style={{ marginTop: 10 }}>
+        <Badge tone={verdictTones[result.verdict]}>{verdictLabels[result.verdict]}</Badge>
+        <span className="mono muted">
+          {passed} pass · {warned} warn · {failed} fail
+        </span>
+      </div>
+      <p>{result.summary}</p>
+      <ul className="wb-check-list wb-check-list--compact">
+        {result.checks.map((check) => (
+          <li key={check.id}>
+            <Badge
+              tone={
+                check.status === 'pass'
+                  ? 'mint'
+                  : check.status === 'warn'
+                    ? 'amber'
+                    : check.status === 'fail'
+                      ? 'red'
+                      : 'muted'
+              }
+            >
+              {check.status}
+            </Badge>
+            <span>
+              <strong>{check.label}</strong> — {check.detail}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p className="mono">
+        This checks citation resolution, numeric support, and explicit conflicts against the bundled corpus. It is not
+        an independent scientific validation.
+      </p>
+    </details>
+  );
 }
 
 export function Assistant() {
@@ -308,7 +356,7 @@ export function Assistant() {
                       </div>
 
                       <details className="answer__trace">
-                        <summary>Retrieval trace</summary>
+                        <summary>Query plan &amp; retrieval trace</summary>
                         <ol>
                           {message.answer.trace.map((step) => (
                             <li key={step}>{step}</li>
@@ -318,6 +366,8 @@ export function Assistant() {
                         {message.trace && <p className="mono">Resolved query: {message.trace.resolved_question}</p>}
                         {message.trace?.answer.limitations.map((limitation) => <p key={limitation}>{limitation}</p>)}
                       </details>
+
+                      <AnswerVerification answer={message.answer} />
 
                       <div className="answer__foot">
                         {message.answer.page && (

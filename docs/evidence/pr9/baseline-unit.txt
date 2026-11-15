@@ -1,0 +1,41 @@
+
+> firertrace@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 <PR9_WORKTREE>
+
+ ✓ tests/atmosphere.test.ts (11 tests) 25ms
+ ✓ tests/gap.test.ts (11 tests) 28ms
+ ✓ tests/assistant.test.ts (20 tests) 200ms
+ ✓ tests/corpus.test.ts (12 tests) 88ms
+ ✓ tests/records.test.ts (16 tests) 177ms
+ ✓ tests/notebook.test.ts (12 tests) 293ms
+ ✓ tests/scenario.test.ts (36 tests) 451ms
+ ✓ tests/verification.test.ts (11 tests) 349ms
+ ✓ tests/compare.test.ts (10 tests) 27ms
+ ✓ tests/export.test.ts (14 tests) 511ms
+     ✓ writes verification results and analysis rows  367ms
+ ✓ tests/atlasView.test.ts (6 tests) 25ms
+ ✓ tests/research.test.ts (44 tests) 1352ms
+     ✓ handles a basket containing the complete real corpus without truncating scope  964ms
+ ✓ tests/calculation.test.ts (7 tests) 24ms
+ ✓ tests/research-library.test.tsx (33 tests) 857ms
+ ✓ tests/analysisRun.test.ts (7 tests) 570ms
+     ✓ runs every definition against the real corpus  385ms
+ ✓ tests/storage.test.ts (7 tests) 14ms
+ ✓ tests/evidenceGraph.test.ts (6 tests) 136ms
+ ✓ tests/zip.test.ts (5 tests) 21ms
+ ✓ tests/traceClient.test.ts (7 tests) 170ms
+ ✓ tests/research-ui.test.tsx (5 tests) 572ms
+   ✓ Atlas selection controls reflect persisted IDs and have keyboard-accessible buttons  328ms
+ ✓ tests/capabilities.test.ts (3 tests) 308ms
+ ✓ tests/integrity.test.ts (4 tests) 31ms
+ ✓ tests/apiClient.test.ts (4 tests) 103ms
+ ✓ tests/scenario-ui.test.tsx (5 tests) 674ms
+ ✓ tests/report.test.ts (4 tests) 401ms
+
+ Test Files  25 passed (25)
+      Tests  300 passed (300)
+   Start at  13:41:07
+   Duration  8.62s (transform 16.31s, setup 0ms, import 26.25s, tests 7.41s, environment 11ms)

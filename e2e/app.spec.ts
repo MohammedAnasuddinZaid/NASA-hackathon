@@ -10,6 +10,15 @@ const routes = [
   ['Evidence Assistant', '/#/assistant', 'Ask the corpus'],
   ['Methodology', '/#/methodology', 'Built to be checked'],
   ['Exports', '/#/exports', 'Take the evidence'],
+  ['Coverage', '/#/coverage', 'What the corpus'],
+  ['Research Notebook', '/#/notebook', 'Keep the question'],
+  ['Evidence Graph', '/#/graph', 'Every claim has a'],
+  ['Verification Center', '/#/verification', 'Check the statement'],
+  ['Evaluation Harness', '/#/evaluation', 'Test the retrieval'],
+  ['Analysis Runs', '/#/analysis', 'Reproducible counts'],
+  ['Corpus Integrity', '/#/integrity', 'Internal consistency'],
+  ['Reports', '/#/reports', 'A report that'],
+  ['System Health', '/#/health', 'Prove the capability'],
 ] as const;
 
 test.describe('route smoke', () => {
@@ -149,7 +158,11 @@ test('film narration follows play, pause, mute and chapter changes', async ({ pa
     )
     .toBe(true);
 
-  // A blocked-autoplay prompt may appear depending on browser policy.
+  // Merely scrolling into the existing film must never opt the user into sound.
+  await expect(page.locator('.film__sound')).toHaveAttribute('aria-pressed', 'false');
+  expect(await audios.evaluateAll(nodes => nodes.every(node => (node as HTMLAudioElement).paused))).toBe(true);
+  await page.locator('.film__sound').click();
+  // A browser-policy prompt can still appear after the explicit sound request.
   if (await page.locator('.film__unmute').isVisible().catch(() => false)) {
     await page.locator('.film__unmute').click();
   }
@@ -188,12 +201,12 @@ test('film narration follows play, pause, mute and chapter changes', async ({ pa
     .toBe(true);
 });
 
-test('film offers a sound prompt when autoplay is blocked', async ({ page }) => {
+test('film offers a retry prompt when explicitly requested sound is blocked', async ({ page }) => {
   await page.addInitScript(() => {
     const state = window as unknown as { __allowPlay?: boolean };
     state.__allowPlay = false;
-    document.addEventListener('click', () => {
-      state.__allowPlay = true;
+    document.addEventListener('click', event => {
+      if ((event.target as Element | null)?.closest('.film__unmute')) state.__allowPlay = true;
     }, true);
     const original = HTMLMediaElement.prototype.play;
     HTMLMediaElement.prototype.play = function play() {
@@ -207,6 +220,8 @@ test('film offers a sound prompt when autoplay is blocked', async ({ page }) => 
   await page.goto('/#/overview');
   await page.locator('.film').scrollIntoViewIfNeeded();
 
+  await expect(page.locator('.film__unmute')).toBeHidden();
+  await page.locator('.film__sound').click();
   await expect(page.locator('.film__unmute')).toBeVisible();
   await expect(page.locator('.film__head-meta')).toContainText('Tap for sound');
   await expect(page.locator('.film audio').first()).toBeAttached();
@@ -242,7 +257,7 @@ test('specific burn-time question is direct evidence', async ({ page }) => {
 
 test('record provenance exposes corrected values, original files and missing-value scope', async ({ page }) => {
   await page.goto('/#/atlas');
-  await page.getByRole('searchbox').fill('BASS2-B1');
+  await page.locator('input[type="search"]').fill('BASS2-B1');
   await page.getByRole('row', { name: 'Open BASS2-B1', exact: true }).click();
   const drawer = page.locator('.drawer');
   await expect(drawer).toContainText('Reported · corrected');
