@@ -39,6 +39,9 @@ downloads, tests and the user-approved adaptation to current main after PR #1 wa
 - **Evidence Assistant** — deterministic retrieval and citation engine with abstention.
 - **Methodology & Sources** — pipeline rules, validation gates, anomalies, sources and licenses.
 - **Exports** — CSV/JSON exports of records, claims and the source manifest.
+- **Evidence basket & research briefs** — persistent, version-aware selection across pages,
+  deterministic evidence summaries and selected CSV/JSON/Markdown/printable HTML downloads.
+  See [basket and export schema/setup](docs/research-exports.md). No external AI or backend required.
 
 ## Corpus
 

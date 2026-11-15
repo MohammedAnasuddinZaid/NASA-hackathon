@@ -17,6 +17,7 @@ import {
 import type { Scenario } from '../lib/scenario';
 import { loadPlannerState, savePlannerState } from '../lib/scenarioState';
 import { RecordDrawer } from '../components/RecordDrawer';
+import { BasketButton } from '../lib/basketContext';
 import { Badge, EmptyState, PageHeader, Panel, SourceLink } from '../components/ui';
 
 const records = scenarioAccess.all();
@@ -413,6 +414,7 @@ export function GapPlanner() {
                       confidence.
                     </p>
                     <p>{candidate.explanation}</p>
+                    <BasketButton id={r.experiment_id} />
                     {!!r.quality_flags.length && (
                       <p>Retained flags: {r.quality_flags.join('; ')}</p>
                     )}

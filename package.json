@@ -18,6 +18,7 @@
     "validate:research": "python -m unittest discover -s pipeline -p test_research.py -v",
     "e2e:research-library": "playwright test --config playwright.research-library.config.ts",
     "e2e": "playwright test",
+    "e2e:research": "playwright test --config playwright.research.config.ts",
     "shots": "tsx scripts/capture.ts",
     "validate:data": "python -m unittest discover -s pipeline -p test_*.py -v"
   },
