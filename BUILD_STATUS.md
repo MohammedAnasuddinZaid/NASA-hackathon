@@ -17,7 +17,7 @@ Updated 2026-11-15. Release candidate for human review; no scientific certificat
   combined integration 5 pass. Focus containment/return and mobile source-link overflow corrected.
 - No live OpenAI verification: no server credential. SDK wire-contract and provider failure tests pass.
 - GitHub Actions added: frontend, science/backend and browser jobs without model credentials.
-- CI hosted results and publication details are recorded in the final review after the branch is pushed.
+- Integration PR7 is open against main. Hosted checks and publication details are linked in the final review.
 - Remaining: report retrieval is separate from TRACE; FLEX units/version reconciliation; per-test
   report mapping; optional voice not validated; no guaranteed cold/offline reload; no public hosting.
 

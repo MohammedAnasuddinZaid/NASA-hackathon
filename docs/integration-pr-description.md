@@ -92,8 +92,8 @@ Actual downloaded bytes checked by tests. [Logs and audit](docs/evidence/integra
 
 ## 14. CI changes
 
-New least-privilege GitHub Actions frontend, science/backend and Chromium jobs on PR/push/manual.
-Pinned dependencies, Node24/Python3.12, caching, browser installation and useful artifacts; no AI key.
+New least-privilege GitHub Actions frontend, science/backend and Chromium jobs on PR/main-push/manual.
+Pinned dependencies/current official action releases, Node24/Python3.12, caching, browser installation and useful artifacts; no AI key.
 Optional Swagger screenshot is CDN-dependent and skipped by default in hosted CI, executed locally.
 
 ## 15. Deployment readiness

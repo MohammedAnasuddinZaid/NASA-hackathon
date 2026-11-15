@@ -220,4 +220,22 @@ Then close PR2 as superseded and reconcile PR5/6 closure only with human authori
 
 ## Publication / hosted CI
 
-Pending branch publication and hosted checks; updated after the review PR is created.
+[Integration PR7](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/pull/7) was created in the
+signed-in ChatGPT browser, title “integration: Consolidate FIRETRACE features, resolve conflicts and
+validate release”, head integration/firetrace-final-review, base main. It remains open/unmerged.
+Code validation commit: f45e279180285e99f01676ab8a698bf771ccf379. The subsequent publication commit
+adds this record, manual page evidence and CI action-runtime updates, not scientific value changes.
+
+Initial [hosted run](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/actions/runs/43664947191)
+started successfully on Linux; frontend/science jobs completed and browser30 passed while the
+remaining API/TRACE/integration steps continued. Initial runner warnings identified deprecated
+Node20 action runtimes; official current releases were verified in the ChatGPT browser and pinned
+to checkout7.0.1, setup-node7.1.0, setup-python7.1.0 and upload-artifact7.0.2. Workflow runs on PRs,
+main pushes and manual dispatch; duplicate integration-branch push runs were removed.
+See the [PR checks](https://github.com/MohammedAnasuddinZaid/NASA-hackathon/pull/7/checks)
+for the latest hosted result; no live model call is required. Hosted checks are separate from the
+fully executed local matrix above. The final handoff reports their observed completion status.
+
+[Manual ChatGPT-browser navigation](evidence/integration/manual-navigation.json) records all eight
+real page headings. Local review servers remain at http://127.0.0.1:5198 and API port8018;
+these are local only, with AI disabled.
