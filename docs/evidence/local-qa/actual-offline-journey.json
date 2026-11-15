@@ -1,0 +1,9 @@
+[
+  "API connected before stop",
+  "Atlas falls back after actual backend stop",
+  "compare usable",
+  "gap usable",
+  "Offline deterministic answer22.2, no model",
+  "Offline basket JSON downloaded",
+  "Actual backend restored and reload reconnects"
+]

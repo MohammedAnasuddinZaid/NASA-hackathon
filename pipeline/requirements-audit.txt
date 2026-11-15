@@ -1,0 +1,3 @@
+# Optional exact PDF-page verification; snapshots were produced with this extractor.
+-r requirements.txt
+pypdf==6.14.2

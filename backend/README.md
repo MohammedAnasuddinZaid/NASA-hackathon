@@ -15,8 +15,9 @@ It has two layers:
 | Legacy local voice surface | `/api`, `/ws/voice` | Yes (optional) |
 
 The evidence layer boots with FastAPI, Pydantic and the standard library only. If the optional
-voice stack is not installed, booting still succeeds and the voice routes return a structured
-`503 voice_unavailable`. The evidence API is unaffected.
+voice stack is not installed, booting still succeeds. TTS/audio-only requests return structured
+`503 voice_unavailable`; text-only voice turns can return HTTP 200 with deterministic text and
+null audio. History storage initializes independently of speech models. The evidence API is unaffected.
 
 ## What the evidence API does
 

@@ -1,0 +1,2054 @@
+{
+  "note": "Initial rendered control instances, including repeated links/buttons; not a unique-feature or click count. Final exercised behavior is in local-qa.spec.ts and the report.",
+  "views": [
+    {
+      "route": "overview",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Watch the 45s demo \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Explore the evidence",
+          "href": "#/atlas"
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "See it work \u2192",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "\u275a\u275aPause",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "\u21bb Replay",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Sound on",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "01The problem",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "02The missing axis",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "03The honest answer",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "04The plan",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "05Evidence has an address",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Full screen \u26f6",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Try the live model \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Earth sea level14.7 psia / 20.95%",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Spacesuit (100% O2)4.3 psia / 100%",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Lunar cabin planning point10.2 psia / 30%",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "range",
+          "name": "Total pressure",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "range",
+          "name": "Oxygen fraction",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Attempt placement \u2192",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open full explorer",
+          "href": "#/atmosphere"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Ask the evidence assistant why \u2192",
+          "href": "#/assistant"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "PSI-25 experimental table \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "PSI-98 experimental table \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "PSI-25 ReadMe and test matrices \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "01Atmosphere ExplorerCompute gas composition, compare reference atmospheres, and see why the corpus cannot be placed on a pressure plane.\u2197",
+          "href": "#/atmosphere"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "02Evidence AtlasSearch all 131 records, inspect raw source rows, flags and provenance, and export the exact evidence behind a claim.\u2197",
+          "href": "#/atlas"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "03ComparePut records side by side and read the comparability blockers instead of a misleading similarity score.\u2197",
+          "href": "#/compare"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "04Gap PlannerTurn a target atmosphere into the measurements and reporting controls the current evidence cannot replace.\u2197",
+          "href": "#/gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "05Evidence AssistantAsk the bundled corpus a question. It retrieves, cites, and abstains when the field is not in the table.\u2197",
+          "href": "#/assistant"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "06Methodology & SourcesEvery normalized value keeps its status, raw token, source locator and limitation. Nothing is silently filled.\u2197",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open records \u2192",
+          "href": "#/atlas?family=BASS-II"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "DOI \u2197",
+          "href": "https://doi.org/10.60555/4qc4-de67"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open records \u2192",
+          "href": "#/atlas?family=Saffire-I"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "DOI \u2197",
+          "href": "https://doi.org/10.60555/0t15-1z43"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Read the full validation report \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Evidence policy \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open Evidence Assistant \u2192",
+          "href": "#/assistant"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Plan the missing test",
+          "href": "#/gap"
+        }
+      ]
+    },
+    {
+      "route": "atmosphere",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Earth sea level14.7 psia \u00b7 20.95%",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Spacesuit (100% O2)4.3 psia \u00b7 100%",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Lunar cabin planning point10.2 psia \u00b7 30%",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "Total pressure in psia",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "range",
+          "name": "Total pressure",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "Oxygen fraction percent by volume",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "range",
+          "name": "Oxygen fraction",
+          "href": null,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "atlas",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Research findings & coverage",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Export filtered CSV",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "search",
+          "name": "SEARCH",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "INVESTIGATION\nAll investigations\nBASS-II\nSaffire-I",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "MATERIAL FAMILY\nAll materials\nJapan wax candle\nNomex fabric\nPMMA film\nPMMA rod\nPMMA sheet/slab\nPMMA spherical section\nSIBAL fabric\nUnknown\nUnnamed polymer film",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "QUALITY\nAll statuses\nValidated\nPartial\nSuspect",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "O2 MIN",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "O2 MAX",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "SORT\nRecord ID\nO2 ascending\nO2 descending\nMaterial\nDate reported",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": "ONLY RECORDS WITH REPORTED FLOW",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Reset filters",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B1 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B2 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B3 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B4 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B5 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B6 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B7 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B8 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B9 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B10 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B11 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B12 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B13 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B14 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B15 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B16 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B17 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B18 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B19 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B20 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B21 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B22 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-F1 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-F2 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "\u2190 Previous",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Next \u2192",
+          "href": null,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "compare",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Export comparison CSV",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Remove BASS2-B1",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Remove SAFFIRE1-S1",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "ADD A RECORD\nChoose a record\u2026\nBASS2-B1 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B2 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B3 \u00b7 Unnamed polymer film \u00b7 BASS-II\nBASS2-B4 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B5 \u00b7 Unknown \u00b7 BASS-II\nBASS2-B6 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B7 \u00b7 Unnamed polymer film \u00b7 BASS-II\nBASS2-B8 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B9 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B10 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B11 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B12 \u00b7 Unnamed polymer film \u00b7 BASS-II\nBASS2-B13 \u00b7 Unnamed polymer film \u00b7 BASS-II\nBASS2-B14 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B15 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B16 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B17 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B18 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B19 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B20 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B21 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-B22 \u00b7 PMMA film \u00b7 BASS-II\nBASS2-F1 \u00b7 Nomex fabric \u00b7 BASS-II\nBASS2-F2 \u00b7 Nomex fabric \u00b7 BASS-II\nBASS2-F3 \u00b7 Nomex fabric \u00b7 BASS-II\nBASS2-F4 \u00b7 Japan wax candle \u00b7 BASS-II\nBASS2-M1 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M2 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M3 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M4 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M5 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M6 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M7 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M8 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M9 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M10 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M11 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M12 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M13 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M14 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M15 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M16 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M17 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M18 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M19 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-M20 \u00b7 PMMA sheet/slab \u00b7 BASS-II\nBASS2-O1 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O2 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O3a \u00b7 Unknown \u00b7 BASS-II\nBASS2-O3b \u00b7 Unknown \u00b7 BASS-II\nBASS2-O4 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O5a \u00b7 PMMA rod \u00b7 BASS-II\nBASS2-O5b \u00b7 PMMA rod \u00b7 BASS-II\nBASS2-O6 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O7 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O8a \u00b7 Unknown \u00b7 BASS-II\nBASS2-O8b \u00b7 Unknown \u00b7 BASS-II\nBASS2-O9 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O10 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O11 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O12 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O13a \u00b7 PMMA rod \u00b7 BASS-II\nBASS2-O13b \u00b7 PMMA rod \u00b7 BASS-II\nBASS2-O14 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O15a \u00b7 Unknown \u00b7 BASS-II\nBASS2-O15b \u00b7 Unknown \u00b7 BASS-II\nBASS2-O16 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O17 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O18 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O19 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O20 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O21 \u00b7 Unknown \u00b7 BASS-II\nBASS2-O22 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P1 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P2 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P3a \u00b7 Unknown \u00b7 BASS-II\nBASS2-P3b \u00b7 Unknown \u00b7 BASS-II\nBASS2-P4 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P5 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P6 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P8 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P9 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P10 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P12 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P13a \u00b7 Unknown \u00b7 BASS-II\nBASS2-P13b \u00b7 Unknown \u00b7 BASS-II\nBASS2-P14 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P15 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P16 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P17 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P18 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P19 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P20 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P21a \u00b7 Unknown \u00b7 BASS-II\nBASS2-P21b \u00b7 Unknown \u00b7 BASS-II\nBASS2-P22a \u00b7 Unknown \u00b7 BASS-II\nBASS2-P22b \u00b7 Unknown \u00b7 BASS-II\nBASS2-P23 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P24 \u00b7 Unknown \u00b7 BASS-II\nBASS2-P25 \u00b7 Unknown \u00b7 BASS-II\nBASS2-T1 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T2 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T3 \u00b7 PMMA spherical section \u00b7 BASS-II\nBASS2-T4 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T5 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T6 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T7 \u00b7 PMMA spherical section \u00b7 BASS-II\nBASS2-T9 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T10 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T11 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T12 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T13 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T14 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T15 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T16 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T17 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T18 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T19 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T20 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T21 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T22 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T23 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T24 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T25 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T26 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T27 \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T28a \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T28b \u00b7 SIBAL fabric \u00b7 BASS-II\nBASS2-T29 \u00b7 SIBAL fabric \u00b7 BASS-II\nSAFFIRE1-S1 \u00b7 SIBAL fabric \u00b7 Saffire-I\nSAFFIRE1-S2 \u00b7 SIBAL fabric \u00b7 Saffire-I",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Reset demo pair",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Inspect basis and provenance",
+          "href": null
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open Atmosphere Explorer \u2192",
+          "href": "#/atmosphere"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B1 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect BASS2-B1 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add SAFFIRE1-S1 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect SAFFIRE1-S1 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        }
+      ]
+    },
+    {
+      "route": "gap",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "INPUT",
+          "type": null,
+          "name": "MATERIAL FAMILY (HYPOTHETICAL TARGET)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "GEOMETRY\nNot specified\nCandle\nFabric sheet\nFlat sheet/film\nRod/cylinder\nSpherical section",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "TARGET INVESTIGATION\nNot specified\nBASS-II\nSaffire-I",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "MEASUREMENT METHOD\nNot specified\nChamber O2 sensor, air-flow setting, ignition power/time, burn duration\nGas sensors (O2/CO2/CO), duct air-speed display, radiometer gain setting, still-frame count",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "GRAVITY TARGET\nNot specified\nOrbital microgravity\nLunar partial gravity (hypothetical)\nMars partial gravity (hypothetical)\nNormal gravity (hypothetical)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "OXYGEN (% BY VOL)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "TOTAL PRESSURE (PSIA)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "FLOW VELOCITY (CM/S)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "number",
+          "name": "THICKNESS (MM)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "FLOW DIRECTION\nNot specified\nConcurrent\nConcurrent / stagnation geometry (investigation-level description)\nOpposed\nOpposed-flow geometry (investigation-level description)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Download evidence requirements (.md)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Reset target and selection",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "ORDER CANDIDATES\nRetrieval relevance\nComparable field coverage",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "RESULT INVESTIGATION FILTER\nAll investigations\nBASS-II\nSaffire-I",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "RESULT MATERIAL FILTER\nAll materials\nJapan wax candle\nNomex fabric\nPMMA film\nPMMA rod\nPMMA sheet/slab\nPMMA spherical section\nSIBAL fabric\nUnnamed polymer film",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Exclude known material differences (unknowns remain unknown)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Include records with no retrieval credit",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "How ranking works \u00b7 weights and tolerances",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add SAFFIRE1-S1 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select SAFFIRE1-S1 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect SAFFIRE1-S1 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=SAFFIRE1-S1&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for SAFFIRE1-S1",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add SAFFIRE1-S2 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select SAFFIRE1-S2 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect SAFFIRE1-S2 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=SAFFIRE1-S2&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for SAFFIRE1-S2",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B1 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select BASS2-B1 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect BASS2-B1 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=BASS2-B1&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for BASS2-B1",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B12 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select BASS2-B12 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect BASS2-B12 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=BASS2-B12&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for BASS2-B12",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B15 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select BASS2-B15 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect BASS2-B15 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=BASS2-B15&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for BASS2-B15",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B18 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select BASS2-B18 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect BASS2-B18 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=BASS2-B18&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for BASS2-B18",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B19 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select BASS2-B19 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect BASS2-B19 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=BASS2-B19&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for BASS2-B19",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Add BASS2-B2 to basket",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": " Select BASS2-B2 for comparison",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Inspect BASS2-B2 provenance",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open in Atlas",
+          "href": "#/atlas?id=BASS2-B2&from=gap"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "SUMMARY",
+          "type": null,
+          "name": "Condition explanations for BASS2-B2",
+          "href": null
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Show 8 more records",
+          "href": null,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "assistant",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": "USE DETERMINISTIC EVIDENCE ONLY",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "What pressure was BASS-II run at?\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "What oxygen did BASS2-B1 report?\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Does the corpus include partial-gravity data?\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Compare BASS-II and Saffire-I.\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "What did LUCI find?\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "What is missing from the corpus?\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Is PMMA safe in a lunar cabin?\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Which records are flagged suspect?\u2197",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "type": null,
+          "name": "Ask the evidence assistant",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "submit",
+          "name": "Retrieve \u2192",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "INPUT",
+          "type": "text",
+          "name": "Voice assistant question",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Ask & speak",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Health",
+          "href": null,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "methodology",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open searchable research library \u2192",
+          "href": "#/atlas?view=research"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "BASS-II Summary Report \u00b7 NTRS20210011385 \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "FLEX Detailed Results \u00b7 NTRS20150023456 \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "FLEX \u00b7 PSI-69 \u00b7 DOI10.60555/mbq8-0451 \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review findings, source documents and missing measurements \u2192",
+          "href": "#/atlas?view=research"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (csv) \u2193",
+          "href": "./data/original/PSI-25_experimental.csv"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA original download \u2197",
+          "href": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Experimental+table_BASS-II.csv&version=1&redirect=true"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (vnd.openxmlformats-officedocument.wordprocessingml.document) \u2193",
+          "href": "./data/original/PSI-25_ReadMe.docx"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA original download \u2197",
+          "href": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_ReadMe.docx&version=2&redirect=true"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (vnd.openxmlformats-officedocument.spreadsheetml.sheet) \u2193",
+          "href": "./data/original/PSI-25_Test_Matrices.xlsx"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA original download \u2197",
+          "href": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Science+Documents_BASS-II_Test.Matrices.xlsx&version=2&redirect=true"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (vnd.openxmlformats-officedocument.spreadsheetml.sheet) \u2193",
+          "href": "./data/original/PSI-25_Fan_Calibration.xlsx"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA original download \u2197",
+          "href": "https://psi.nasa.gov/geode-py/ws/studies/PSI-25/download?file=PSI-25_Reference+Data_Fan+calibration+data.xlsx&version=2&redirect=true"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (csv) \u2193",
+          "href": "./data/original/PSI-98_experimental.csv"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA original download \u2197",
+          "href": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Experimental+table_SAFFIRE-1.csv&version=1&redirect=true"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (vnd.openxmlformats-officedocument.wordprocessingml.document) \u2193",
+          "href": "./data/original/PSI-98_ReadMe.docx"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA original download \u2197",
+          "href": "https://psi.nasa.gov/geode-py/ws/studies/PSI-98/download?file=PSI-98_Science+Documents_SAFFIRE-I+and+SAFFIRE-III+Readme.docx&version=1&redirect=true"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20250010653"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20250010653"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA original download \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20250010653/downloads/ASGSR%202025-LUCI-Ferkul-Presentation-v2-20250010653.pdf"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (json) \u2193",
+          "href": "./data/original/PSI-25_metadata.json"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Landing page \u2197",
+          "href": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Preserved NASA original (json) \u2193",
+          "href": "./data/original/PSI-98_metadata.json"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "License \u2197",
+          "href": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open \u2197",
+          "href": "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20250010653"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original report PDF (NASA) \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Validation reportMachine-readable checks and provenance\u2193",
+          "href": "./data/validation_report.json"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Source manifestArtifacts, hashes, licenses and limitations\u2193",
+          "href": "./data/source_manifest.json"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Corpus JSONNormalized records, claims, presets and limitations\u2193",
+          "href": "./data/corpus.json"
+        }
+      ]
+    },
+    {
+      "route": "exports",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open Evidence Atlas \u2192",
+          "href": "#/atlas"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "All records131",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "BASS-II129",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Saffire-I2",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Analysis fields23 columns",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Full audit39 columns",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Download CSV \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Download JSON \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Claims12Verified claim registerClaim text, type, supporting source IDs and locators, limitation, and validation status.Download CSV \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Provenance10Source manifestSHA-256 hashes, file sizes, retrieval timestamps, versions, DOIs, licenses and limitations.Download JSON \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Validation8Validation reportCross-check counts, missing-data gates, quality flags, excluded rows and retained anomalies.Download JSON \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Full corpusv0.2.0Normalized corpusAll records, raw fields, measurements, claims, presets and limitations in one JSON file.Download JSON \u2193",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "10.60555/4qc4-de67 \u2197",
+          "href": "https://doi.org/10.60555/4qc4-de67"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "10.60555/0t15-1z43 \u2197",
+          "href": "https://doi.org/10.60555/0t15-1z43"
+        }
+      ]
+    },
+    {
+      "route": "atlas?view=research",
+      "controls": [
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Review sources and scope \u2192",
+          "href": "#/methodology"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Return to experiment records",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Open searchable research library \u2192",
+          "href": "#/atlas?view=research"
+        },
+        {
+          "tag": "INPUT",
+          "type": "search",
+          "name": "Research search",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "Investigation\nAll investigations\nBASS-II\nSaffire-I\nFLEX",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "Combustion type\nAll combustion types\nSolid-fuel combustion\nLiquid-fuel droplet combustion",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "Evidence type\nAll evidence types\nResearch findings\nExperimental records\nSource documents\nInvestigation overviews",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "Scientific topic\nAll topics\ncarbon dioxide\ncarbon monoxide\ncoverage\nderived values\ndiagnostics\ndroplet combustion\ndroplet diameter\nextinction\nflow\nflow direction\nfuel\nfuel contamination\ngeometry\nhardware\nheat release\nignition\nlimitations\nmissing data\nmodel assumptions\nnitrogen\nopposed flow\noxygen\noxygen consumption\npressure\nradiation\nsensor correction\nsolid fuels\nsoot\nsupport geometry\nsuppressants\ntemperature\nuncertainty",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "Source document\nAll sources\nBASS-II experimental table (PSI-25)\nSaffire-I experimental table (PSI-98)\nBurning and Suppression of Solids-II (BASS-II) Summary Report\nDetailed Results From the Flame Extinguishment Experiment (FLEX) March 2009 to December 2011\nFlame Extinguishment Experiment - PSI investigation metadata\nFLEX experimental table, version 1\nPSI-25 investigation metadata\nPSI-98 investigation metadata",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Reset research filters",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=13"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=14"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=14"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=10"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=19"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=46"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=19"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20210011385"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf#page=10"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=7"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=8"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=10"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=8"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=14"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=10"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=22"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "NASA source \u2197",
+          "href": "https://ntrs.nasa.gov/citations/20150023456"
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Original PDF at cited page \u2197",
+          "href": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf#page=23"
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "First investigation\nBASS-II\nSaffire-I\nFLEX",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "type": null,
+          "name": "Second investigation\nBASS-II\nSaffire-I\nFLEX",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "type": null,
+          "name": "Compare original solid-fuel records with the existing audit \u2192",
+          "href": "#/compare"
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Download research findings and source manifest (JSON)",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": null,
+          "name": "Download research coverage (JSON)",
+          "href": null,
+          "disabled": false
+        }
+      ]
+    }
+  ]
+}

@@ -371,7 +371,7 @@ export function RecordDrawer({
 
           <details className="raw-row">
             <summary>Measurement ledger: original values, units and transformations</summary>
-            <div className="table-wrap">
+            <div className="table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table">
               <table className="data-table">
                 <thead>
                   <tr>

@@ -6,7 +6,8 @@ test.beforeEach(async ({ page }) => {
   await page.route('**/api/v1/coverage', route => route.fulfill({ headers: { 'X-Corpus-Version': version }, json: { corpus_version: version, record_count: 131 } }));
 });
 
-test('TRACE loading, interpretation citations, failure and history rendering', async ({ page }) => {
+test('TRACE loading, interpretation citations, failure and history rendering', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.route('**/api/v1/assistant/query', async (route) => {
     const body = route.request().postDataJSON();
     // UI fixture only: scientific claims come from real backend tests, not this mock.
@@ -25,6 +26,10 @@ test('TRACE loading, interpretation citations, failure and history rendering', a
   await page.getByRole('button', { name:'Retrieve', exact:true }).click();
   await expect(page.getByText('TRACE is retrieving and verifying evidence…')).toBeVisible();
   await expect(page.getByRole('region', { name:'AI interpretation' })).toContainText('mock-provider-not-live');
+  await page.getByRole('button', { name: 'Copy answer', exact: true }).click();
+  const copied = await page.evaluate(() => navigator.clipboard.readText());
+  expect(copied).toContain('Test interpretation.');
+  expect(copied).not.toContain('No external model was called.');
   await page.getByRole('button', { name:'PSI-25 · CSV row 2', exact:true }).click();
   await expect(page).toHaveURL(/#\/assistant$/);
   await expect(page.getByRole('link', { name:'Source', exact:true }).first()).toHaveAttribute('href', /psi.nasa.gov/);

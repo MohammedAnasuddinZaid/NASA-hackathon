@@ -983,7 +983,7 @@ export function ask(question: string): AssistantAnswer {
   });
 }
 
-export function answerToText(answer: AssistantAnswer): string {
+export function answerToText(answer: AssistantAnswer, context?: { notice: string; interpretation: string | null; model: string | null }): string {
   const lines = [answer.headline, '', ...answer.paragraphs];
   if (answer.bullets.length) lines.push('', ...answer.bullets.map((bullet) => `• ${bullet}`));
   if (answer.claims?.length) {
@@ -998,6 +998,9 @@ export function answerToText(answer: AssistantAnswer): string {
       lines.push(`- ${citation.sourceId} · ${citation.locator} · ${citation.url}`);
     }
   }
-  lines.push('', 'No external model was called. This answer is deterministic retrieval from the bundled corpus.');
+  if (context) {
+    if (context.interpretation) lines.push('', `AI interpretation (${context.model ?? 'configured model'}):`, context.interpretation);
+    lines.push('', context.notice);
+  } else lines.push('', 'No external model was called. This answer is deterministic retrieval from the bundled corpus.');
   return lines.join('\n');
 }

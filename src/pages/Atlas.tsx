@@ -8,6 +8,8 @@ import { downloadText, formatExportStamp, recordsToCsv } from '../lib/export';
 import { Badge, EmptyState, PageHeader, Panel } from '../components/ui';
 import { RecordDrawer } from '../components/RecordDrawer';
 import { BasketButton } from '../lib/basketContext';
+import { evidenceApi, ServiceUnavailable, ApiError, type ExperimentPage } from '../lib/apiClient';
+import { useEvidenceSession } from '../lib/evidenceSession';
 const ResearchLibrary = lazy(() => import('../components/ResearchLibrary'));
 import {
   ATLAS_COLUMNS,
@@ -207,12 +209,46 @@ export function Atlas() {
   const [editingViewId, setEditingViewId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
   const [columnsOpen, setColumnsOpen] = useState(false);
+  const session = useEvidenceSession();
+  const filterError =
+    (view.o2Min !== null && (view.o2Min < 0 || view.o2Min > 100)) ||
+    (view.o2Max !== null && (view.o2Max < 0 || view.o2Max > 100))
+      ? 'Oxygen filter values must be between 0 and 100%.'
+      : view.o2Min !== null && view.o2Max !== null && view.o2Min > view.o2Max
+        ? 'Minimum oxygen must not exceed maximum oxygen.'
+        : '';
+  const queryKey = JSON.stringify([view, page]);
+  const [remote, setRemote] = useState<{ key: string; data: ExperimentPage } | null>(null);
+  useEffect(() => {
+    if (research || filterError || session.mode !== 'api') return;
+    let active = true;
+    evidenceApi.experiments({
+      q: view.query || undefined,
+      family: view.family === 'all' ? undefined : view.family,
+      material: view.material === 'all' ? undefined : view.material,
+      material_exact: true,
+      atlas_search: true,
+      validation_status: view.quality === 'all' ? undefined : view.quality,
+      min_o2: view.o2Min ?? undefined,
+      max_o2: view.o2Max ?? undefined,
+      flow_only: view.flowOnly,
+      sort: view.sort,
+      limit: view.pageSize,
+      offset: page * view.pageSize,
+    }).then(data => {
+      if (data.items.some(item => !recordById.has(item.experiment_id))) throw new ServiceUnavailable('API returned an unknown experiment; using bundled data.');
+      if (active) setRemote({ key: queryKey, data });
+    }).catch(error => { if (active) session.fallback(error instanceof Error ? error.message : 'API unavailable; using bundled data.'); });
+    return () => { active = false; };
+  }, [queryKey, session.mode, research, filterError]);
 
   const filters = useMemo(() => viewToFilters(view), [view]);
+  const apiData = session.mode === 'api' && remote?.key === queryKey ? remote.data : null;
   const filtered = useMemo(() => filterRecords(records, filters), [filters]);
-  const pageCount = Math.max(1, Math.ceil(filtered.length / view.pageSize));
+  const count = apiData?.total ?? filtered.length;
+  const pageCount = Math.max(1, Math.ceil(count / view.pageSize));
   const safePage = Math.min(page, pageCount - 1);
-  const visible = filtered.slice(safePage * view.pageSize, safePage * view.pageSize + view.pageSize);
+  const visible = apiData ? apiData.items.map(item => recordById.get(item.experiment_id)!) : filtered.slice(safePage * view.pageSize, safePage * view.pageSize + view.pageSize);
   const families = useMemo(() => uniqueFamilies(), []);
   const materials = useMemo(() => uniqueMaterials(), []);
   const flagged = filtered.filter((record) => record.validation_status !== 'validated').length;
@@ -424,9 +460,11 @@ export function Atlas() {
         </p>
       )}
 
+      {filterError && <p role="alert" className="wb-alert">{filterError}</p>}
+
       <div className="atlas-summary">
         <div className="atlas-summary__count">
-          <strong>{filtered.length}</strong>
+          <strong>{count}</strong>
           <span>records in view</span>
         </div>
         <div className="atlas-summary__meta">
@@ -444,6 +482,7 @@ export function Atlas() {
             <input
               type="search"
               list="atlas-suggestions"
+              maxLength={200}
               placeholder="ID, material, PI, sample…"
               value={view.query}
               onChange={(event) => update({ query: event.target.value })}

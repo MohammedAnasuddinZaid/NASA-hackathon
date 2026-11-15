@@ -1,0 +1,28 @@
+
+> firertrace@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 C:/Users/novaz/OneDrive/Documents/ChatGPT/NASA/FIRETRACE-local-qa
+
+ ✓ tests/apiClient.test.ts (5 tests) 292ms
+ ✓ tests/traceClient.test.ts (7 tests) 243ms
+ ✓ tests/corpus.test.ts (12 tests) 180ms
+ ✓ tests/records.test.ts (16 tests) 149ms
+ ✓ tests/assistant.test.ts (20 tests) 295ms
+ ✓ tests/voice.test.ts (7 tests) 301ms
+ ✓ tests/scenario.test.ts (36 tests) 291ms
+ ✓ tests/gap.test.ts (11 tests) 32ms
+ ✓ tests/export.test.ts (10 tests) 32ms
+ ✓ tests/atmosphere.test.ts (11 tests) 23ms
+ ✓ tests/compare.test.ts (10 tests) 15ms
+ ✓ tests/research.test.ts (44 tests) 1020ms
+     ✓ handles a basket containing the complete real corpus without truncating scope  706ms
+ ✓ tests/research-library.test.tsx (33 tests) 227ms
+ ✓ tests/research-ui.test.tsx (5 tests) 362ms
+ ✓ tests/scenario-ui.test.tsx (5 tests) 559ms
+
+ Test Files  15 passed (15)
+      Tests  232 passed (232)
+   Start at  11:52:33
+   Duration  6.50s (transform 17.21s, setup 0ms, import 25.50s, tests 4.02s, environment 4ms)

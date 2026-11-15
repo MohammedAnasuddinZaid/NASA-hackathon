@@ -260,7 +260,7 @@ export function Compare() {
               contain unknown, ambiguous or context-only evidence. These findings do not establish
               relative material safety.
             </p>
-            <div className="compare-table-wrap">
+            <div className="compare-table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table">
               <table className="compare-table">
                 <caption>
                   Same matching policy as the scenario planner; exact, close, approximate, different
@@ -306,7 +306,7 @@ export function Compare() {
             </div>
           </Panel>
 
-          <div className="compare-table-wrap">
+          <div className="compare-table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table">
             <table className="compare-table">
               <thead>
                 <tr>

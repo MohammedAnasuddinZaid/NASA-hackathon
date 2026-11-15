@@ -20,7 +20,7 @@ export function ResearchResults({ data, results }: { data: ResearchLibraryData; 
           <p>{finding.finding_type.replaceAll('_', ' ')} · {finding.quantitative ? 'Quantitative report content' : 'Qualitative report content'}</p>
           <p>{finding.content_origin}</p><p>{findingLocator(finding)}</p>
           <p>Topics: {finding.topics.join(' · ')}</p>
-          {finding.quantities.length > 0 && <div className="research-table-wrap"><table><caption>Report-level quantities — not per-test measurements</caption><thead><tr><th>Quantity</th><th>Original wording/value</th><th>Numeric reference</th><th>Unit / status</th><th>Qualification</th></tr></thead><tbody>
+          {finding.quantities.length > 0 && <div className="research-table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table"><table><caption>Report-level quantities — not per-test measurements</caption><thead><tr><th>Quantity</th><th>Original wording/value</th><th>Numeric reference</th><th>Unit / status</th><th>Qualification</th></tr></thead><tbody>
             {finding.quantities.map(q => <tr key={q.quantity}><th>{q.quantity}</th><td>{q.raw}</td><td>{q.value ?? 'Not established'}</td><td>{q.unit} · {q.status}</td><td>{q.qualifier}{q.uncertainty && ` Uncertainty: ${q.uncertainty}`}</td></tr>)}
           </tbody></table></div>}
           <ul>{finding.limitations.map(l => <li key={l}>{l}</li>)}</ul>

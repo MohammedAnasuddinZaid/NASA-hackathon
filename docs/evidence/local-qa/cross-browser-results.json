@@ -1,0 +1,143 @@
+[
+  {
+    "browser": "chromium",
+    "status": "PASS",
+    "routes": 9,
+    "calculation": "3.06 psia",
+    "record": "BASS2-B1 / 22.2%",
+    "download": "firetrace-evidence-brief-2026-11-15.json",
+    "errors": [],
+    "timings": [
+      {
+        "route": "overview",
+        "ms": 582
+      },
+      {
+        "route": "atmosphere",
+        "ms": 74
+      },
+      {
+        "route": "atlas",
+        "ms": 50
+      },
+      {
+        "route": "compare",
+        "ms": 88
+      },
+      {
+        "route": "gap",
+        "ms": 38
+      },
+      {
+        "route": "assistant",
+        "ms": 20
+      },
+      {
+        "route": "methodology",
+        "ms": 54
+      },
+      {
+        "route": "exports",
+        "ms": 41
+      },
+      {
+        "route": "atlas?view=research",
+        "ms": 377
+      }
+    ]
+  },
+  {
+    "browser": "firefox",
+    "status": "PASS",
+    "routes": 9,
+    "calculation": "3.06 psia",
+    "record": "BASS2-B1 / 22.2%",
+    "download": "firetrace-evidence-brief-2026-11-15.json",
+    "errors": [],
+    "timings": [
+      {
+        "route": "overview",
+        "ms": 1310
+      },
+      {
+        "route": "atmosphere",
+        "ms": 101
+      },
+      {
+        "route": "atlas",
+        "ms": 47
+      },
+      {
+        "route": "compare",
+        "ms": 63
+      },
+      {
+        "route": "gap",
+        "ms": 66
+      },
+      {
+        "route": "assistant",
+        "ms": 53
+      },
+      {
+        "route": "methodology",
+        "ms": 62
+      },
+      {
+        "route": "exports",
+        "ms": 52
+      },
+      {
+        "route": "atlas?view=research",
+        "ms": 627
+      }
+    ]
+  },
+  {
+    "browser": "webkit",
+    "status": "PASS",
+    "routes": 9,
+    "calculation": "3.06 psia",
+    "record": "BASS2-B1 / 22.2%",
+    "download": "firetrace-evidence-brief-2026-11-15.json",
+    "errors": [],
+    "timings": [
+      {
+        "route": "overview",
+        "ms": 1907
+      },
+      {
+        "route": "atmosphere",
+        "ms": 67
+      },
+      {
+        "route": "atlas",
+        "ms": 67
+      },
+      {
+        "route": "compare",
+        "ms": 75
+      },
+      {
+        "route": "gap",
+        "ms": 12
+      },
+      {
+        "route": "assistant",
+        "ms": 28
+      },
+      {
+        "route": "methodology",
+        "ms": 94
+      },
+      {
+        "route": "exports",
+        "ms": 45
+      },
+      {
+        "route": "atlas?view=research",
+        "ms": 458
+      }
+    ]
+  }
+]

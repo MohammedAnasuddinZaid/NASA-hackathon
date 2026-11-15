@@ -1,0 +1,29 @@
+
+> firertrace@0.1.0 e2e:integration
+> playwright test --config playwright.integration.config.ts
+
+[WebServer] INFO:     Started server process [34964]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8017 (Press CTRL+C to quit)
+[WebServer] (node:31752) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:22620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:39060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\integration.spec.ts:4:1 › real API to basket, comparison, verified brief downloads, research citation and original record (17.3s)
+  ok 2 [chromium] › e2e\integration.spec.ts:57:1 › stale basket, invalid research, empty search and unavailable AI fail explicitly (1.6s)
+  ok 3 [chromium] › e2e\integration.spec.ts:75:3 › all eight routes and research are usable at 1440px (2.2s)
+  ok 4 [chromium] › e2e\integration.spec.ts:75:3 › all eight routes and research are usable at 768px (2.3s)
+  ok 5 [chromium] › e2e\integration.spec.ts:75:3 › all eight routes and research are usable at 390px (2.2s)
+
+  5 passed (1.4m)

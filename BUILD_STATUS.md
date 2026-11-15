@@ -1,25 +1,22 @@
 # FIRETRACE integrated build status
 
-Updated 2026-11-15. Release candidate for human review; no scientific certification or public deployment.
+Updated 2026-11-15. Local research-support QA candidate; no certification or public deployment.
 
-- Main baseline: d7c53f42b009b06aea2380064610d2362e6009d8.
-- Local integration branch: integration/firetrace-final-review. PR6 then PR5 histories preserved.
-- PR1/3/4 already merged; PR2/5/6 left open and untouched.
-- 131 structured records: 129 BASS-II, 2 Saffire-I; 71 validated / 56 partial / 4 suspect.
-- 0 per-record pressure, 0 measured test-level gravity, 0 standardized outcomes; no filled-in values.
-- 3 research investigations, 16 findings (8 BASS-II / 8 FLEX), 2 reports, 0 normalized FLEX records.
-- Original verified bytes preserved across Git/platforms; generated snapshots reproduced byte-for-byte.
-- API Atlas/detail/compare behaviors restored without reverting TRACE or scenario planner.
-- TRACE, evidence API and research snapshots checked against actual bundled corpus identity.
-- Basket, selected briefs and all four formats integrated with the Research Library.
-- Frontend: 224 unit tests pass; backend: 210 tests pass; ingestion/research: 19 tests pass.
-- Browser environment repaired. Default 30, evidence API 5 including actual Swagger, TRACE mock 2,
-  combined integration 5 pass. Focus containment/return and mobile source-link overflow corrected.
-- No live OpenAI verification: no server credential. SDK wire-contract and provider failure tests pass.
-- GitHub Actions added: frontend, science/backend and browser jobs without model credentials.
-- Integration PR7 is open against main. Hosted checks and publication details are linked in the final review.
-- Remaining: report retrieval is separate from TRACE; FLEX units/version reconciliation; per-test
-  report mapping; optional voice not validated; no guaranteed cold/offline reload; no public hosting.
+- Baseline main: `19d33b5be23e8aced5141e97c2ef9cc7fe1a74f1`; PRs #1–#7 merged.
+- QA branch: `qa/complete-local-regression`; grouped fixes are for review, not automatic merging.
+- 131 records: 129 BASS-II / 2 Saffire-I; 71 validated / 56 partial / 4 suspect.
+- Zero reported per-record pressure, measured test gravity or standardized outcomes.
+- Research: 3 investigations, 16 findings, 2 reports; zero normalized FLEX records.
+- Original NASA files unchanged; 24 generated artifacts reproduce byte-for-byte.
+- 232 frontend, 211 backend, 19 pipeline tests pass; 30/30 deterministic benchmark.
+- Browser: 30 default, 5 evidence, 2 TRACE mock, 5 integration, 33 expanded QA tests pass.
+- Dedicated basket/library 2+2 tests pass (overlap the default suite).
+- All 131 drawers and their basket add/remove controls exercised; real backend-stop/reconnect verified.
+- Six widths, 9 views and expanded menu/drawer accessibility checks completed.
+- No live provider credential or speech models: live AI and speech quality remain unverified.
+- No service worker/cold offline guarantee. Research assets/PDFs need an initial network fetch.
+- No predictive risk score, partial-gravity experiment inference or NASA endorsement.
 
-See [Final integration review](docs/final-integration-review.md), [Deployment](docs/deployment.md),
-and [genuine test/screenshot evidence](docs/evidence/integration/).
+See [local QA report](docs/local-qa-report.md), [deployment](docs/deployment.md), and
+[screenshots/evidence](docs/evidence/local-qa/). Historical integration reports describe their
+own earlier baseline; this file and the local QA report supersede their current-status claims.

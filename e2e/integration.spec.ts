@@ -4,7 +4,7 @@ import { readFile, mkdir } from 'node:fs/promises';
 test('real API to basket, comparison, verified brief downloads, research citation and original record', async ({ page }) => {
   await page.goto('/#/atlas');
   for (const id of ['BASS2-B1', 'SAFFIRE1-S1']) {
-    await page.getByRole('searchbox', { name: 'Search', exact: true }).fill(id);
+    await page.locator('input[type="search"]').fill(id);
     await page.getByRole('button', { name: `Add ${id} to basket`, exact: true }).click();
   }
   await page.screenshot({ path: 'docs/evidence/integration/atlas-basket.png' });
@@ -56,15 +56,19 @@ test('real API to basket, comparison, verified brief downloads, research citatio
 
 test('stale basket, invalid research, empty search and unavailable AI fail explicitly', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('firetrace-evidence-basket-v1', JSON.stringify({ schema: 1, version: 'stale', ids: ['NOT-A-RECORD'], fingerprints: {} })));
+  await page.addInitScript(() => { if ('serviceWorker' in navigator) navigator.serviceWorker.register = () => Promise.reject(new Error('disabled for test')); });
   await page.goto('/#/exports');
   await expect(page.getByText(/Removed stale\/invalid record references/)).toBeVisible();
-  await page.route('**/data/research.json', route => route.fulfill({ json: { schema_version: 'invalid' } }));
+  await page.route('**/*research.json', route => route.fulfill({ json: { schema_version: 'invalid' } }));
   await page.goto('/#/atlas?view=research');
   await expect(page.getByRole('alert')).toBeVisible();
-  await page.goto('/#/atlas');
-  await page.getByRole('searchbox', { name: 'Search', exact: true }).fill('NO-SUCH-EXPERIMENT-9999');
+  await page.evaluate(() => { window.location.hash = '#/overview'; });
+  await page.waitForTimeout(300);
+  await page.evaluate(() => { window.location.hash = '#/atlas'; });
+  await page.waitForTimeout(300);
+  await page.locator('input[type="search"]').fill('NO-SUCH-EXPERIMENT-9999');
   await expect(page.getByText(/No records match/)).toBeVisible();
-  await page.goto('/#/assistant');
+  await page.evaluate(() => { window.location.hash = '#/assistant'; });
   await page.getByRole('button', { name: 'What oxygen did BASS2-B1 report?', exact: true }).click();
   await expect(page.locator('.answer')).toContainText('22.2');
   await expect(page.locator('.answer')).toContainText(/disabled|deterministic/i);

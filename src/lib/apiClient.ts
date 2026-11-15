@@ -307,7 +307,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<{
   const corpusVersion = response.headers.get('X-Corpus-Version') ?? '';
   if (!response.ok) {
     if (response.status === 409) throw new ServiceUnavailable('The API corpus differs from the bundled dataset.', 'corpus_mismatch', 409);
-    if (response.status === 502 || response.status === 503 || response.status === 504) {
+    if (response.status >= 500) {
       throw new ServiceUnavailable(
         extractMessage(payload) ?? 'The evidence API is temporarily unavailable.',
         'service_unavailable',
