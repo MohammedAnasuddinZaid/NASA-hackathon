@@ -259,6 +259,12 @@ if they are occupied, rather than silently reusing another server. CI now runs t
 No linter is configured; no lint pass is claimed. Hosted CI is separate from these local results;
 review the PR checks before merging.
 
+The first hosted run passed frontend/science/backend and 32/33 expanded browser checks, but
+the rapid bulk-export sequence timed out waiting for a download on the faster Linux runner.
+Nine scope downloads now finish before a deliberate 1.1-second pause and the next four artifact
+downloads, respecting Chromium's ten-downloads-per-second burst limit. Content assertions and
+all four artifact downloads remain mandatory; named test steps identify any subsequent failure.
+
 ## I. Responsive, accessibility and performance checks
 
 - **54 view/width visits:** 9 views × 320, 390, 768, 1024, 1440, 1920 pixels. No document-level

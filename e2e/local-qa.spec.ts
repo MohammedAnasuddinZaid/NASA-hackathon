@@ -81,7 +81,11 @@ test('QA09 standalone optional voice is clear and does not break typed TRACE',as
 test('QA10 dataset scopes, audit presets, every download and actual JSON/null content',async({page})=>{
  await open(page,'exports');for(const [scope,count] of [['All records',131],['BASS-II',129],['Saffire-I',2]] as const){await page.getByRole('tab',{name:new RegExp('^'+scope)}).click();for(const preset of ['Analysis fields','Full audit']){await page.getByRole('button',{name:new RegExp('^'+preset)}).click();const file=await download(page,'Download CSV');expect(file.text.split('\n').length).toBeGreaterThan(count);}
  const file=await download(page,'Download JSON');const json=JSON.parse(file.text);expect(json.records).toHaveLength(count);expect(json.records.every((r:any)=>r.total_pressure_psia.value===null)).toBe(true);}
- for(const title of ['Verified claim register','Source manifest','Validation report','Normalized corpus']){const pending=page.waitForEvent('download');await page.getByRole('button').filter({has:page.getByRole('heading',{name:title,exact:true})}).click();const d=await pending;expect(await d.failure()).toBeNull();expect((await readFile((await d.path())!,'utf8')).length).toBeGreaterThan(50);}
+ // The preceding scope matrix produces nine real downloads. Chromium throttles bursts
+ // above ten downloads per second; start a fresh interval before the four artifact files.
+ // This is download pacing, not an application-readiness wait or a skipped assertion.
+ await page.waitForTimeout(1100);
+ for(const title of ['Verified claim register','Source manifest','Validation report','Normalized corpus'])await test.step(`Download ${title}`,async()=>{const pending=page.waitForEvent('download');await page.getByRole('button').filter({has:page.getByRole('heading',{name:title,exact:true})}).click();const d=await pending;expect(await d.failure()).toBeNull();expect((await readFile((await d.path())!,'utf8')).length).toBeGreaterThan(50);});
  await page.screenshot({path:'docs/evidence/local-qa/exports.png'});
 });
 test('QA11 source files and every local download retain their real SHA256',async({page,request})=>{
