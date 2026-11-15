@@ -1,0 +1,47 @@
+{
+  "method": "Three fresh Chromium contexts per CPU rate, 1440×1000, production preview, service workers blocked, time to original h1 assertion; local samples only.",
+  "bundle": [
+    {
+      "file": "index-C3IdUpL7.js",
+      "bytes": 2422977,
+      "gzip": 263815
+    },
+    {
+      "file": "index-CvIQghK7.css",
+      "bytes": 169963,
+      "gzip": 28309
+    }
+  ],
+  "samples": [
+    {
+      "cpuRate": 1,
+      "sample": 0,
+      "headingMs": 809
+    },
+    {
+      "cpuRate": 1,
+      "sample": 1,
+      "headingMs": 1000
+    },
+    {
+      "cpuRate": 1,
+      "sample": 2,
+      "headingMs": 758
+    },
+    {
+      "cpuRate": 4,
+      "sample": 0,
+      "headingMs": 2669
+    },
+    {
+      "cpuRate": 4,
+      "sample": 1,
+      "headingMs": 2457
+    },
+    {
+      "cpuRate": 4,
+      "sample": 2,
+      "headingMs": 2412
+    }
+  ]
+}

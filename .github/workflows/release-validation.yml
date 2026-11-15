@@ -68,4 +68,5 @@ jobs:
           path: |
             test-results/
             docs/evidence/integration/*.png
+            docs/evidence/pr9/
           retention-days: 7

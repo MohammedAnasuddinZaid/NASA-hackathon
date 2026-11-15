@@ -30,6 +30,7 @@ import {
   saveNotebook,
 } from '../lib/notebook';
 import type { NotebookDocument } from '../lib/notebook';
+import { useAtlasEvidence } from '../lib/atlasEvidence';
 
 function hashParams(): URLSearchParams {
   return new URLSearchParams(window.location.hash.split('?')[1] ?? '');
@@ -191,11 +192,6 @@ function cellContent(
 export function Atlas() {
   const [view, setView] = useState<AtlasViewState>(initialView);
   const [research, setResearch] = useState(() => new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
-  useEffect(() => {
-    const readView = () => setResearch(new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('view') === 'research');
-    window.addEventListener('hashchange', readView);
-    return () => window.removeEventListener('hashchange', readView);
-  }, []);
   const [page, setPage] = useState(0);
   const [selectedId, setSelectedId] = useState<string | null>(() => hashParams().get('id'));
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
@@ -209,7 +205,8 @@ export function Atlas() {
   const [columnsOpen, setColumnsOpen] = useState(false);
 
   const filters = useMemo(() => viewToFilters(view), [view]);
-  const filtered = useMemo(() => filterRecords(records, filters), [filters]);
+  const evidence = useAtlasEvidence(filters, research);
+  const filtered = useMemo(() => filterRecords(evidence.source, filters), [evidence.source, filters]);
   const pageCount = Math.max(1, Math.ceil(filtered.length / view.pageSize));
   const safePage = Math.min(page, pageCount - 1);
   const visible = filtered.slice(safePage * view.pageSize, safePage * view.pageSize + view.pageSize);
@@ -341,17 +338,20 @@ export function Atlas() {
   }
 
   useEffect(() => {
+    if (research) return; // Do not replace the Research Library route with an Atlas saved-view URL.
     const params = new URLSearchParams(encodeAtlasView(view));
     if (selectedId) params.set('id', selectedId);
     if (hashParams().get('from') === 'gap') params.set('from', 'gap');
     const next = `#/atlas${params.toString() ? `?${params.toString()}` : ''}`;
     if (window.location.hash !== next) window.history.replaceState(null, '', next);
-  }, [view, selectedId]);
+  }, [view, selectedId, research]);
 
   useEffect(() => {
     const onHash = () => {
       if (!window.location.hash.startsWith('#/atlas')) return;
       const params = hashParams();
+      // Read the view and record in one handler before saved-view URL synchronization runs.
+      setResearch(params.get('view') === 'research');
       setView(decodeAtlasView(params.toString()));
       setSelectedId(params.get('id'));
       setPage(0);
@@ -423,6 +423,8 @@ export function Atlas() {
           Saved views were not loaded: {savedWarning}
         </p>
       )}
+      {evidence.error && <p role="alert" className="wb-alert">{evidence.error}</p>}
+      {evidence.loading && <p role="status" className="muted">Updating evidence results…</p>}
 
       <div className="atlas-summary">
         <div className="atlas-summary__count">
@@ -443,6 +445,7 @@ export function Atlas() {
             <span>Search</span>
             <input
               type="search"
+              maxLength={200}
               list="atlas-suggestions"
               placeholder="ID, material, PI, sample…"
               value={view.query}

@@ -1,0 +1,18 @@
+{
+  "counts": [
+    "129",
+    "2",
+    "131"
+  ],
+  "heroState": "paused",
+  "sceneCount": 6,
+  "scrollY": 2761.60009765625,
+  "storyTitle": "From orbit to evidence.",
+  "url": "http://127.0.0.1:5212/#/overview",
+  "viewportWidth": 714,
+  "afterCTA": {
+    "heading": "Every record, every gap.",
+    "status": "API connected · Local evidence API · corpus verified · 131 records · Coverage refers to imported records, not all NASA research.",
+    "url": "http://127.0.0.1:5212/#/atlas"
+  }
+}
