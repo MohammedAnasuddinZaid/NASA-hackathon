@@ -10,7 +10,7 @@ From the repository root:
 
 ```powershell
 npm.cmd ci
-py -3.12 -m venv backend/.venv
+python -m venv backend/.venv  # Python 3.12 in CI; local QA used installed 3.14.6
 & backend/.venv/Scripts/python.exe -m pip install -r backend/requirements.txt
 npm.cmd run dev:full
 ```
@@ -19,8 +19,9 @@ Open http://127.0.0.1:5173/#/overview and http://127.0.0.1:8000/api/docs.
 Using `.cmd` avoids the PowerShell npm.ps1 execution-policy problem without changing policy.
 The launcher requires the virtual environment, validates/builds the index, then starts both
 servers; Ctrl+C stops its children. Set `FIRETRACE_FRONTEND_PORT` if 5173 is occupied.
-For this isolated review worktree, the existing tested interpreter can be used without modifying
-other worktrees: `$env:FIRETRACE_PYTHON=(Resolve-Path ../FIRETRACE-ai-assistant/backend/.venv/Scripts/python.exe).Path`.
+Use this worktree's own environment. The launcher binds backend port 8000; if it is occupied,
+leave the existing service alone and use the isolated startup commands below. The Python launcher
+`py` is not required. No PowerShell execution-policy change is required.
 
 ## Linux/macOS
 
@@ -112,3 +113,35 @@ This tradeoff preserves deterministic evidence access without adding infrastruct
 
 FIRETRACE supports research interpretation, not fire prediction, certification, operating
 procedures, or NASA endorsement. Review the manual checklist before any public release.
+
+## Isolated local QA ports
+
+In terminal 1, from the repository root:
+
+```powershell
+$env:AI_ENABLED='false'
+backend/.venv/Scripts/python.exe -m uvicorn api:app --app-dir backend --host 127.0.0.1 --port 8020
+```
+
+In terminal 2:
+
+```powershell
+$env:FIRETRACE_API_TARGET='http://127.0.0.1:8020'
+$env:VITE_EVIDENCE_API='auto'
+npm.cmd run dev -- --host 127.0.0.1 --port 5199
+```
+
+Open http://127.0.0.1:5199/#/overview and http://127.0.0.1:8020/api/docs.
+For a production preview use the same target, `npm.cmd run build`, then
+`npm.cmd run preview -- --port 4174`. Public Vite settings are build-time settings.
+Use `VITE_EVIDENCE_API_BASE` for a direct cross-origin API; a blank primary setting intentionally
+selects same-origin and takes precedence over the legacy alias.
+
+Install `backend/requirements-ai.txt` only for optional TRACE generation. Install
+`pipeline/requirements-audit.txt` for cached-PDF page-fingerprint verification: pypdf **6.14.2**
+is pinned because extractor versions change normalized page text. Never update source hashes to
+make a different extractor pass. NASA originals and experiment snapshots are unchanged.
+
+Optional voice uses combined `main:app` on a separate port and `VITE_VOICE_API_BASE` in the frontend.
+No speech models are required for evidence browsing. See the local QA report for verified
+degraded behavior; successful text responses do not establish functioning speech.

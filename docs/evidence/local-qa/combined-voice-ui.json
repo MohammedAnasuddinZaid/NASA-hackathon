@@ -1,0 +1,4 @@
+{
+  "url": "http://127.0.0.1:5200/#/assistant",
+  "voice": "Voice agent (optional combined backend)\n\nThe default evidence API supports typed TRACE. Speech additionally requires the combined backend and local models. Check Health before asking for speech.\n\nAsk & speak\nHealth\n\nVoice is not configured. Local speech dependencies or models are missing; typed TRACE remains available."
+}

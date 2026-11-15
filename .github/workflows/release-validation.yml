@@ -61,6 +61,7 @@ jobs:
       - run: npm run e2e:evidence
       - run: npm run e2e:trace
       - run: npm run e2e:integration
+      - run: npm run e2e:qa
       - uses: actions/upload-artifact@v7.0.2
         if: always()
         with:
@@ -68,5 +69,6 @@ jobs:
           path: |
             test-results/
             docs/evidence/integration/*.png
+            docs/evidence/local-qa/*.png
             docs/evidence/pr9/
           retention-days: 7

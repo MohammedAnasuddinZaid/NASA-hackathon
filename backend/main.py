@@ -93,6 +93,9 @@ def voice_status() -> dict[str, Any]:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Session history is lightweight local storage and must not depend on optional
+    # speech imports/models succeeding during startup.
+    database.init_db()
     try:
         engine, _manager = voice_stack()
         await engine.start()

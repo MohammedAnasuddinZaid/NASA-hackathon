@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { corpus } from '../lib/corpus';
 import {
-  clampAtmosphere,
   corpusOxygenProfile,
   nearestReference,
   nitrogenPartialPressure,
@@ -12,9 +11,14 @@ import { Badge, Callout, PageHeader, Panel, SectionRule, Stat } from '../compone
 import { AtmospherePlane, OxygenDistribution } from '../components/charts';
 
 export function Atmosphere() {
-  const [pressure, setPressure] = useState(10.2);
-  const [oxygen, setOxygen] = useState(30);
-  const input = clampAtmosphere({ pressurePsia: pressure, oxygenPct: oxygen });
+  const [pressure, setPressure] = useState('10.2');
+  const [oxygen, setOxygen] = useState('30');
+  const pressureValue = pressure.trim() === '' ? NaN : Number(pressure);
+  const oxygenValue = oxygen.trim() === '' ? NaN : Number(oxygen);
+  const pressureValid = Number.isFinite(pressureValue) && pressureValue >= 2 && pressureValue <= 16;
+  const oxygenValid = Number.isFinite(oxygenValue) && oxygenValue >= 5 && oxygenValue <= 100;
+  const valid = pressureValid && oxygenValid;
+  const input = { pressurePsia: pressureValid ? pressureValue : NaN, oxygenPct: oxygenValid ? oxygenValue : NaN };
   const ppO2 = oxygenPartialPressure(input);
   const pn2 = nitrogenPartialPressure(input);
   const profile = useMemo(() => corpusOxygenProfile(), []);
@@ -25,8 +29,8 @@ export function Atmosphere() {
   );
 
   function applyPreset(presetPressure: number, presetOxygen: number) {
-    setPressure(presetPressure);
-    setOxygen(presetOxygen);
+    setPressure(String(presetPressure));
+    setOxygen(String(presetOxygen));
   }
 
   return (
@@ -67,9 +71,10 @@ export function Atmosphere() {
                   type="number"
                   min={2}
                   max={16}
-                  step={0.1}
+                  step="any"
+                  aria-invalid={!pressureValid}
                   value={pressure}
-                  onChange={(event) => setPressure(Number(event.target.value))}
+                  onChange={(event) => setPressure(event.target.value)}
                   aria-label="Total pressure in psia"
                 />
                 <span>psia</span>
@@ -81,8 +86,8 @@ export function Atmosphere() {
               min={2}
               max={16}
               step={0.1}
-              value={pressure}
-              onChange={(event) => setPressure(Number(event.target.value))}
+              value={pressureValid ? pressure : 10.2}
+              onChange={(event) => setPressure(event.target.value)}
             />
             <div className="control__scale mono"><span>2</span><span>16 psia</span></div>
           </div>
@@ -96,9 +101,10 @@ export function Atmosphere() {
                   type="number"
                   min={5}
                   max={100}
-                  step={0.1}
+                  step="any"
+                  aria-invalid={!oxygenValid}
                   value={oxygen}
-                  onChange={(event) => setOxygen(Number(event.target.value))}
+                  onChange={(event) => setOxygen(event.target.value)}
                   aria-label="Oxygen fraction percent by volume"
                 />
                 <span>% vol</span>
@@ -110,12 +116,13 @@ export function Atmosphere() {
               min={5}
               max={100}
               step={0.1}
-              value={oxygen}
-              onChange={(event) => setOxygen(Number(event.target.value))}
+              value={oxygenValid ? oxygen : 30}
+              onChange={(event) => setOxygen(event.target.value)}
             />
             <div className="control__scale mono"><span>5</span><span>100% by volume</span></div>
           </div>
 
+          {!valid && <p role="alert">Enter a total pressure from 2 to 16 psia and oxygen from 5 to 100% by volume. No composition is calculated from missing or out-of-range inputs.</p>}
           <div className="composition-readout">
             <div className="composition-readout__main">
               <span className="kicker">Oxygen partial pressure</span>
@@ -124,7 +131,7 @@ export function Atmosphere() {
             <div className="composition-readout__side">
               <div><span>ppO2</span><span className="mono">{ppO2 === null ? '—' : `${ppO2.toFixed(2)} psi`}</span></div>
               <div><span>ppN2 + other</span><span className="mono">{pn2 === null ? '—' : `${pn2.toFixed(2)} psi`}</span></div>
-              <div><span>Total</span><span className="mono">{input.pressurePsia.toFixed(1)} psia</span></div>
+              <div><span>Total</span><span className="mono">{pressureValid ? input.pressurePsia.toFixed(1) : '—'} psia</span></div>
             </div>
           </div>
 
@@ -137,12 +144,12 @@ export function Atmosphere() {
         <Panel
           kicker="Pressure–oxygen plane"
           title="Where reference atmospheres sit"
-          actions={<span className="mono muted">selected: {input.pressurePsia} psia / {input.oxygenPct}%</span>}
+          actions={<span className="mono muted">{valid ? `selected: ${input.pressurePsia} psia / ${input.oxygenPct}%` : 'No valid target selected'}</span>}
         >
-          <AtmospherePlane
+          {valid ? <AtmospherePlane
             selected={{ pressure: input.pressurePsia, oxygen: input.oxygenPct }}
             references={refs}
-          />
+          /> : <p role="status">Provide valid inputs to place a hypothetical atmosphere.</p>}
           <div className="plane-note">
             <p>
               <strong>Same ppO2 is not the same atmosphere.</strong> Earth sea level (14.7 psia,
@@ -232,7 +239,7 @@ export function Atmosphere() {
           <p>
             The distribution is descriptive only. It is not a flammability envelope: the same oxygen
             fraction can produce different behaviour at a different pressure, gravity level, flow or
-            sample geometry. Two Saffire-I values are approximate midpoints of reported ranges, and
+            sample geometry. Saffire-I retains one range midpoint and one approximate single oxygen value, and
             BASS-II O2 values carry a constant-offset calibration correction.
           </p>
           <div className="family-bars">

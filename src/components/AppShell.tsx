@@ -216,7 +216,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="shell">
-      <a className="skip-link" href="#main">
+      <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus(); }}>
         Skip to content
       </a>
 
@@ -266,7 +266,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main id="main" className="main">
+      <main id="main" className="main" tabIndex={-1}>
         {children}
       </main>
 

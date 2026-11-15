@@ -100,6 +100,9 @@ def validate(data, root=ROOT):
 
 
 def verify_pdfs(data, directory):
+    from importlib.metadata import version
+    if version('pypdf') != '6.14.2':
+        raise ValueError('Exact page-text fingerprints require pypdf==6.14.2; install pipeline/requirements-audit.txt. Original PDF hash checks and scientific values are unchanged.')
     from pypdf import PdfReader
     for source in data["sources"]:
         if source["kind"] != "research_report":

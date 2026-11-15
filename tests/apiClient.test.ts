@@ -23,3 +23,8 @@ it('rejects a matching header with mismatched body identity', async () => {
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('{"corpus_version":"stale"}', { headers: { 'X-Corpus-Version': version } })));
   await expect(evidenceApi.coverage()).rejects.toMatchObject({ code: 'corpus_mismatch' });
 });
+
+it('switches to bundled data for the HTTP500 emitted by a failed local proxy', async () => {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('', { status: 500 })));
+  await expect(evidenceApi.experiments()).rejects.toBeInstanceOf(ServiceUnavailable);
+});

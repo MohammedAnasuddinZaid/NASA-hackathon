@@ -22,13 +22,15 @@
     "e2e": "playwright test",
     "e2e:research": "playwright test --config playwright.research.config.ts",
     "shots": "tsx scripts/capture.ts",
-    "validate:data": "python -m unittest discover -s pipeline -p test_*.py -v"
+    "validate:data": "python -m unittest discover -s pipeline -p test_*.py -v",
+    "e2e:qa": "playwright test --config playwright.qa.config.ts"
   },
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "@playwright/test": "^1.65.0",
     "@types/node": "^24.19.2",
     "@types/react": "^19.2.0",

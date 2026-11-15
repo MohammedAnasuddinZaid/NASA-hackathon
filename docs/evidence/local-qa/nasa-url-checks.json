@@ -1,0 +1,55 @@
+[
+  {
+    "url": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf",
+    "status": 200,
+    "final_url": "https://ntrs.nasa.gov/api/citations/20150023456/downloads/20150023456.pdf",
+    "content_type": "application/pdf"
+  },
+  {
+    "url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf",
+    "status": 200,
+    "final_url": "https://ntrs.nasa.gov/api/citations/20210011385/downloads/TM-20210011385.pdf",
+    "content_type": "application/pdf"
+  },
+  {
+    "url": "https://ntrs.nasa.gov/citations/20150023456",
+    "status": 200,
+    "final_url": "https://ntrs.nasa.gov/citations/20150023456",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://ntrs.nasa.gov/citations/20210011385",
+    "status": 200,
+    "final_url": "https://ntrs.nasa.gov/citations/20210011385",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://ntrs.nasa.gov/citations/20250010653",
+    "status": 200,
+    "final_url": "https://ntrs.nasa.gov/citations/20250010653",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+    "status": 200,
+    "final_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+    "status": 200,
+    "final_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+    "status": 200,
+    "final_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/",
+    "status": "environment_error",
+    "error": "ConnectError"
+  }
+]

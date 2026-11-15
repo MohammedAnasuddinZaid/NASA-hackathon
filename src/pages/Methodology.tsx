@@ -39,7 +39,7 @@ export function Methodology() {
 
       {session.coverage && <Panel kicker="Evidence API" title="Imported dataset coverage">
         <p>{session.coverage.record_count} records. Non-null context and qualitative notes are not measured per-test conditions or standardized outcomes.</p>
-        <div className="table-wrap"><table className="data-table"><thead><tr><th>Field</th><th>Non-null</th><th>Measured / corrected</th><th>Context only</th><th>Null</th><th>Statuses</th></tr></thead><tbody>
+        <div className="table-wrap" tabIndex={0} role="region" aria-label="Scrollable evidence table"><table className="data-table"><thead><tr><th>Field</th><th>Non-null</th><th>Measured / corrected</th><th>Context only</th><th>Null</th><th>Statuses</th></tr></thead><tbody>
           {Object.entries(session.coverage.field_coverage).map(([key, field]) => <tr key={key}><td>{field.label}</td><td>{field.reported}</td><td>{field.per_test_measured}</td><td>{field.context_only}</td><td>{field.missing}</td><td>{Object.entries(field.statuses).map(([status, count]) => `${status}: ${count}`).join(' · ')}</td></tr>)}
         </tbody></table></div>
       </Panel>}

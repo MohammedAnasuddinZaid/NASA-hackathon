@@ -39,7 +39,10 @@ hidden behind a score.
 
 ## Application limitations
 
-- The assistant is deterministic retrieval only. It does not generate scientific claims.
+- Exact assistant facts use deterministic retrieval. Optional server-enabled TRACE interpretation
+  uses an external model with evidence-ID validation and deterministic fallback. No live provider
+  call was verified in local QA because no credential was configured. Report retrieval remains
+  separate from experiment TRACE retrieval.
 - The Gap Planner retrieves candidate records and explains target correspondence plus research
   reporting requirements. It is not a protocol, prediction or certification. Parsed categories,
   approximate values and investigation-level context retain their limitations.

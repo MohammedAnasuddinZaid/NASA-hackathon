@@ -8,9 +8,11 @@ Planner is a checklist, not a prediction or certification.
 
 ## Why not just use an LLM to answer the questions?
 
-The assistant is deterministic retrieval over bundled records, claims and the source manifest. An LLM
-would generate plausible scientific statements that the sources cannot verify. FIRETRACE is designed
-to abstain, and every answer shows its retrieval trace and citations.
+Exact facts use deterministic retrieval over records, validated claims and source locators.
+An optional server-enabled model can add a separately labelled interpretation after evidence-ID
+and response validation. Provider failures fall back to deterministic evidence. Unsupported questions
+abstain instead of fabricating citations. Local QA verified mocked provider contracts, not a live
+model call; no server credential was configured.
 
 ## Did you fabricate any data?
 
@@ -48,8 +50,10 @@ found 129/129 test IDs and 129/129 initial O2 matches with 0 substantive conflic
 
 ## Does it work offline?
 
-Yes. All evidence is bundled as JSON. After the first build/load, no network call is required for
-navigation, search, comparison, planning, export or assistant answers.
+Already-loaded experiment search, comparison, planning, deterministic answers and basket exports
+were verified after actually stopping the backend, then reconnecting after restart. Research data
+and chunks load lazily and original NASA PDFs are external. Cold offline reload is not guaranteed;
+there is no service worker. Optional external interpretation needs the backend and network.
 
 ## What would make this evidence defensible?
 
